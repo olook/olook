@@ -44,10 +44,10 @@ class ProductProductDocumentAdapter
     end
 
     def populate_keywords_field(product, product_doc)
-      color = product.details.find_by_translation_token("Cor filtro").try(:description)
-      material = product.details.find_by_translation_token('material').try(:description)
+      color = product.details.find{|d| d.translation_token == "Cor filtro" }.try(:description)
+      material = product.details.find{|d| d.translation_token == "material" }.try(:description)
       
-      keywords = [product.category_humanize, product.subcategory, color, material]
+      keywords = [product.category_humanize, product.subcategory, product.brand, color, material]
             
       product_doc.keywords = keywords.compact.join(" ")
     end
@@ -148,7 +148,7 @@ class ProductProductDocumentAdapter
     end
 
     def format_detail_value description
-      description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+      description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize(" ")
     end
 
     def selected_details product
@@ -166,7 +166,6 @@ class ProductProductDocumentAdapter
       populate_ranking_fields(product,product_doc)
       populate_shoe_fields(product, product_doc) if product.shoe?
       populate_details(product, product_doc)
-
       product_doc
     end
 
