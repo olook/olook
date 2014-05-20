@@ -132,8 +132,8 @@ class ProductProductDocumentAdapter
     def populate_details(product, product_doc)
       selected_details(product).each do |detail|
         field_key = get_field_key(detail.translation_token.downcase)
-        product_doc[field_key] = format_detail_value(detail.description)
-        product_doc[field_key] = product_doc[field_key].gsub(" Moda Praia", "") + ' Moda Praia' if is_beachwear?(field_key,product_doc.category)          
+        product_doc.send("#{field_key}=", format_detail_value(detail.description))
+        product_doc.send("#{field_key}=", product_doc.send("#{field_key}").gsub(" Moda Praia", "") + ' Moda Praia') if is_beachwear?(field_key,product_doc.category)
       end
 
       product_doc

@@ -42,12 +42,16 @@ class ProductDocument
     @fields['is_visible'] = is_visible ? 1 : 0
   end
 
-  def brand= brand
-    @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-    set_brand_facet brand
+  def subcategory=(value)
+    @fields['subcategory'] = ActiveSupport::Inflector.transliterate(value).downcase
   end
 
-  def set_brand_facet brand
+  def brand= brand
+    @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    self.brand_facet = brand
+  end
+
+  def brand_facet=(brand)
     @fields['brand_facet'] = ActiveSupport::Inflector.transliterate(brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
   end
 
