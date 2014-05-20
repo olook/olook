@@ -31,7 +31,7 @@ module Search
       def add_field(name, kind=:text, options={})
         name = name.to_s
         @@fields ||= {}
-        @@fields[name] = Field.factory.factory(kind, name, self, options)
+        @@fields[name] = Field.factory_for_type(kind, name, self, options)
         define_field_methods(name, kind, options)
       end
 
