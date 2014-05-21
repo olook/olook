@@ -3,6 +3,10 @@ require 'rubygems'
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start if ENV['CODECLIMATE_REPO_TOKEN']
 
+VCR.configure do |config|
+  # your existing configuration
+  config.ignore_hosts 'codeclimate.com'
+end
 
 module Resque
   def self.enqueue(*args); end
