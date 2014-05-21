@@ -909,8 +909,8 @@ ActiveRecord::Schema.define(:version => 20140517173814) do
   create_table "products_profiles", :id => false, :force => true do |t|
     t.integer  "product_id"
     t.integer  "profile_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "products_profiles", ["product_id", "profile_id"], :name => "index_products_profiles_on_product_id_and_profile_id"
