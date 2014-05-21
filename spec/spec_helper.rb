@@ -4,7 +4,6 @@ require "codeclimate-test-reporter"
 #CODECLIMATE_REPO_TOKEN=f8b9bc0159baef99717bde98ff461e5ecd83f2fb4ce41df305e38709f99aceac
 CodeClimate::TestReporter.start if ENV['CODECLIMATE_REPO_TOKEN']
 
-
 module Resque
   def self.enqueue(*args); end
   def self.enqueue_in(*args); end
@@ -32,6 +31,11 @@ require 'carrierwave/test/matchers'
 require 'capybara/poltergeist'
 require 'webmock/rspec'
 include ActionView::Helpers::NumberHelper
+VCR.configure do |config|
+  # your existing configuration
+  config.ignore_hosts 'codeclimate.com'
+end
+
 
 Capybara.javascript_driver = :poltergeist
 
