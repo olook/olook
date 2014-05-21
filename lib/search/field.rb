@@ -38,7 +38,7 @@ module Search
       when :decimal
         Search::Fields::Decimal.factory.new(name, base_class, options)
       else
-        self.new(name, base_class, options)
+        self.factory.new(name, base_class, options)
       end
     end
   end
