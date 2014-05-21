@@ -38,6 +38,10 @@ class ProductDocument
     @fields = {}
   end
 
+  def color=(val)
+    @fields['color'] = val.parameterize(' ')
+  end
+
   def is_visible= is_visible
     @fields['is_visible'] = is_visible ? 1 : 0
   end
