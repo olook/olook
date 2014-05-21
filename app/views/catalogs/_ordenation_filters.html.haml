@@ -5,8 +5,8 @@
 
     %fieldset
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
+        - opts = {"NOSSA SELEÇÃO" => "0", "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}
         - if params[:por].present?
-          - opts = {"NOSSA SELEÇÃO" => "0", "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}
           %span= opts.invert[params[:por]] || "ORDENAÇÃO"
         - else
           %span ORDENAÇÃO
