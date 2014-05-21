@@ -1,4 +1,5 @@
 .about_item
   %h1.title= header.title
-  %span.summary
-    = header.resume_title.html_safe
+  - unless header.resume_title.blank?
+    %span.summary
+      = header.resume_title.html_safe
