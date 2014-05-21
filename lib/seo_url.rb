@@ -215,22 +215,23 @@ class SeoUrl
 
   FIELDS_WITH_KEYS_IN_URL.each do |field|
     define_method("format_#{field}") do |values, value_separator|
-      if !values.compact.empty?
-        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
-      end
-      v.blank? ? nil : v
+      join_field_values_with_separator(field, values, value_separator)
     end
   end
 
   def format_field(field, values, value_separator)
     if FIELDS_WITH_KEYS_IN_URL.include?(field)
-      if !values.compact.empty?
-        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
-      end
+      v = join_field_values_with_separator(field, values, value_separator)
     else
       v = values.join(value_separator)
     end
     v.blank? ? nil : v
+  end
+
+  def join_field_values_with_separator(field, values, value_separator)
+    if !values.compact.empty?
+      "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
+    end
   end
 
   def build_query_string(parameters)
