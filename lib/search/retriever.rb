@@ -12,31 +12,51 @@ module Search
     end
 
     def fetch_result(url, options = {})
-      cache_key = Digest::SHA1.hexdigest(url.to_s)
-      @logger.error "[cloudsearch] cache_key: #{cache_key}"
-
-      begin
-        if @redis && @redis.exists(cache_key)
-          cached_response = @redis.get(cache_key)
-        else
-          @logger.error "[cloudsearch] cache missed"
-          %r{http://(?<host>[^/]+)(?<resource>/.*)} =~ url
-          tstart = Time.now.to_f * 1000.0
-          http_response = Net::HTTP.get_response(host, resource)
-          @logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.now.to_f*1000.0) - tstart )}): #{url}")
-          @logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-          raise "CloudSearchError" if http_response.code != '200'
-          if @redis
-            @redis.set(cache_key, http_response.body)
-            @redis.expire(cache_key, 30.minutes)
-          end
-          cached_response =  http_response.body
+      response = cache(cache_key(url), 30*60) do
+        %r{http://(?<host>[^/]+)(?<resource>/.*)} =~ url
+        http_response = log_time("GET cloudsearch URL (time=%0.5fms)", url) do
+          Net::HTTP.get_response(host, resource)
         end
-        Search::Result.factory.new(cached_response, options)
-      rescue => e
-        @logger.error("[cloudsearch] Error on retrieving url: #{host}#{resource} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
-        Search::Result.factory.new({:hits => nil, :facets => {} }.to_json, options)
+        @logger.debug("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+        raise "CloudSearchError" if http_response.code != '200'
+        http_response.body
       end
+      Search::Result.factory.new(response, options)
+    rescue => e
+      @logger.error("[cloudsearch] Error on retrieving url: #{url} with cache_key: #{cache_key(url)}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
+      Search::Result.factory.new({:hits => nil, :facets => {} }.to_json, options)
+    end
+
+    private
+
+    def log_time(msg, url=nil)
+      tstart = Time.now.to_f * 1000.0
+      result = yield
+      @logger.debug(sprintf(msg, ( (Time.now.to_f*1000.0) - tstart ).to_f ) + " #{url}")
+      result
+    end
+
+    def cache(_cache_key, expire)
+      cached = nil
+      if @redis && @redis.exists(_cache_key)
+        @logger.debug "[cloudsearch] cache hit"
+        cached = @redis.get(_cache_key) rescue nil
+      end
+      return cached if cached
+      @logger.debug "[cloudsearch] cache missed"
+      cached = yield
+      if @redis
+        @redis.set(_cache_key, cached)
+        @redis.expire(_cache_key, expire)
+      end
+      cached
+    end
+
+    def cache_key(url)
+      return @cache_key if @cache_key
+      @cache_key = Digest::SHA1.hexdigest(url.to_s)
+      @logger.debug "[cloudsearch] cache_key: #{@cache_key}"
+      @cache_key
     end
   end
 end
