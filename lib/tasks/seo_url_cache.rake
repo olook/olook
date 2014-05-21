@@ -2,9 +2,8 @@
 namespace :seo_url do
   desc 'Criar os arquivos de cache para comparação do SeoUrl'
   task :cache_all => :environment do
-    subcategories = Product.includes(:details).all.map(&:subcategory).compact.map do |s|
-      [s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize,
-       ActiveSupport::Inflector.transliterate(s).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize]
+    subcategories = Detail.where(translation_token: 'categoria').group(:description).pluck(:description).map do |s|
+      s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip
     end.flatten.uniq
 
     categories = Product.includes(:details).all.inject({}) do |k,v|
