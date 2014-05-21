@@ -29,6 +29,10 @@ module Search
       end
     end
 
+    def to_url
+      raise NotImplementedError.mew("You should implement to_url in #{self.class}")
+    end
+
     def self.factory_for_type(kind, name, base_class, options={})
       case kind
       when :uint
