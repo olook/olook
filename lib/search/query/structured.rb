@@ -45,6 +45,14 @@ module Search
         start
       end
 
+      def to_url
+        raise NotImplementedError.new("You should implement to_url in #{self.class}")
+      end
+
+      def query_url
+        raise NotImplementedError.new("You should implement query_url in #{self.class}")
+      end
+
       protected
 
       def url
