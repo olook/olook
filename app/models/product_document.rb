@@ -43,7 +43,7 @@ class ProductDocument
   end
 
   def subcategory=(value)
-    @fields['subcategory'] = ActiveSupport::Inflector.transliterate(value).downcase
+    @fields['subcategory'] = value.parameterize(' ')
   end
 
   def brand= brand
@@ -52,7 +52,7 @@ class ProductDocument
   end
 
   def brand_facet=(brand)
-    @fields['brand_facet'] = ActiveSupport::Inflector.transliterate(brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    @fields['brand_facet'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize(" ")
   end
 
   def price= price
@@ -60,7 +60,7 @@ class ProductDocument
   end
 
   def retail_price= retail_price
-    @fields['retail_price'] = (retail_price.to_d * 100).round  
+    @fields['retail_price'] = (retail_price.to_d * 100).round
   end
 
   def in_promotion= in_promotion 
@@ -92,11 +92,11 @@ class ProductDocument
   end
 
   def care= care
-    @fields['care'] = care.titleize
+    @fields['care'] = care.parameterize(' ')
   end
 
   def keywords
-    ['category', 'subcategory', 'color', 'size', 'name', 'brand']
+    ['category', 'subcategory', 'color', 'size', 'name', 'brand', @fields['keywords']].flatten.join(' ')
   end
 
   def keywords= keywords
