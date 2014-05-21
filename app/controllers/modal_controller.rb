@@ -20,7 +20,7 @@ class ModalController < ApplicationController
   def set
     cookies[:sm] = {
        :value => 0,
-       :expires => 1.day.from_now
+       :expires => Time.zone.now.end_of_day + 2.hours
      }
   end
 
