@@ -173,18 +173,16 @@ class SeoUrl
   end
 
   def translate_field(k,v)
-    if k.present? && v.present?
-      vs = [v].flatten.map do |_v|
-        VALUES_TRANSLATION.invert[_v.to_s] ? VALUES_TRANSLATION.invert[_v.to_s] : _v.to_s
-      end.compact
+    return if k.blank? || v.blank?
 
-      if KEYS_TRANSLATION.invert[k.to_s]
-        ks = KEYS_TRANSLATION.invert[k.to_s]
-      else
-        ks = k
-      end
-      return [ ks,vs.join(MULTISELECTION_SEPARATOR) ]
+    vs = [v].flatten.map do |_v|
+      VALUES_TRANSLATION.invert[_v.to_s] || _v.to_s
     end
+    vs.compact!
+    vs = vs.join(MULTISELECTION_SEPARATOR)
+
+    ks = KEYS_TRANSLATION.invert[k.to_s] || k
+    return [ ks, vs ]
   end
 
   private
