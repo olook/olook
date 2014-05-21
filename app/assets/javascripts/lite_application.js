@@ -30,9 +30,7 @@
 //= require modules/facebook/auth
 //= require modules/modal/load
 
-new FacebookEvents().config();
 new FacebookAuth().config();
 $(function(){
   olookApp.publish('modal:request', document.location.pathname);
 });
-

@@ -13,6 +13,7 @@
   margin-bottom: 25px;
   .row {
     height:40px;
+    border-bottom:1px solid #d1d1d1;
   }
 }
 
@@ -435,4 +436,28 @@ h1.title_catalog{
 .cata_filters{
   height: 60px;
   width: 100%;
+}
+
+.js_fixed {
+  height:50px !important;
+  .cata_filters {
+    position: fixed !important;;
+    top: 38px;
+    background: #FFF;
+    width: 793px;
+    z-index: 99;
+    .exhibition-mode {
+      margin-top:9px !important;
+    }
+  }
+  .row_olooklet {
+    position: fixed;
+    top: 33px;
+    background: #FFF;
+    z-index: 99;
+    width: 793px;
+    height: 40px !important;
+    min-height:40px !important;
+    padding-top:10px !important;
+  }
 }
