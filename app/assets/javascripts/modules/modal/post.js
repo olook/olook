@@ -10,8 +10,8 @@ var ModalPost  = (function(){
       element.click();
     })
     .fail(function(data) {
-      data = JSON.parse(data.responseText);
-      error_element.html(data.message);
+      _data = JSON.parse(data.responseText);
+      error_element.html(_data.message);
   });
   };
   return ModalPost;
