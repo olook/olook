@@ -98,15 +98,14 @@ module CatalogsHelper
     filters = search.filters(options)
     facets = filters.grouped_products('subcategory')
     return [] if facets.nil?
-    subs = Set.new(SeoUrl.all_categories[category].map {|s| s.parameterize })
-    facets.select! { |f| subs.include?(f.parameterize) }
-    facets.sort
+    check_existence_of_facets('subcategory', facets, category: category).keys
   end
 
   def filters_by filter, search, options={}
     filters = search.filters(options)
     facets = filters.grouped_products(filter)
     return [] if facets.nil?
+    facets = check_existence_of_facets(filter, facets)
 
     if filter == 'size'
       facets.keys.map{|k| [((k.to_i != 0) ? k.to_i.to_s : k), k]}.sort{|a,b| CLOTH_SIZES_TABLE.index(a[0].to_s).to_i <=> CLOTH_SIZES_TABLE.index(b[0].to_s).to_i}.map{|v| v[1]}
@@ -127,6 +126,27 @@ module CatalogsHelper
     else
       facets.sort
     end
+  end
+
+  def check_existence_of_facets(filter, facets, opt={})
+    _facets = facets.inject({}) { |h, f| h[f[0].parameterize] = f; h }
+    if filter.to_s == 'subcategory' || filter.to_s == 'brand_facet'
+      if filter.to_s == 'subcategory'
+        subs = SeoUrl.all_categories[opt[:category]]
+        subs ||= SeoUrl.all_subcategories
+      else
+        subs = SeoUrl.all_brands
+      end
+      subs.map! do |s|
+        if f = _facets[s.parameterize]
+          [s, f[1]]
+        end
+      end
+      subs.compact!
+    else
+      subs = facets
+    end
+    Hash[subs.sort]
   end
 
   def format_search_query_parameters

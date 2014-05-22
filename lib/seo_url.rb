@@ -143,6 +143,14 @@ class SeoUrl
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
+  def self.all_brands
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+  end
+
+  def self.all_subcategories
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+  end
+
   def build_link_for _parameters={}
     parameters = _parameters.dup
     parse_path_positions if @sections.blank?
@@ -313,7 +321,7 @@ class SeoUrl
   end
 
   def all_brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+    self.class.all_brands
   end
 
   def extract_brand(path_section, section)
@@ -382,7 +390,7 @@ class SeoUrl
   end
 
   def all_subcategories
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+    self.class.all_subcategories
   end
 
   def self.whitelisted_colors
