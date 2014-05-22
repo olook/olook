@@ -9,7 +9,7 @@ var ModalPostResponse  = (function(){
       return $('#modal button.close').click();
     }).on("ajax:error", function(e, xhr, status, error) {
       _data = JSON.parse(xhr.responseText);
-      return $('.modal_error').html(_data.message).css('display:block');
+      return $('.modal_error').html(_data.message).css({'display':'block'});
     });
   };
   return ModalPostResponse;
