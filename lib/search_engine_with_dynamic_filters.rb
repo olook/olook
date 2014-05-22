@@ -4,8 +4,4 @@ class SearchEngineWithDynamicFilters < SearchEngine
   #   super#(attributes, is_smart)
   # end
 
-  def build_filters_url(options={})
-    build_url_for(options)
-  end
-
 end

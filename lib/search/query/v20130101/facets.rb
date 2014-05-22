@@ -2,6 +2,7 @@ module Search
   module Query
     module V20130101
       class Facets
+        DEFAULT_SIZE = 100
         def initialize(fields=[])
           @facets = fields
           @top = {}
@@ -19,7 +20,7 @@ module Search
           return if @facets.size == 0
           @facets.map do |f|
             "facet.#{f}=" +
-            Search::Util.encode("{sort:'bucket'#{",size:#{@top[f]}" if @top[f]}}")
+            Search::Util.encode("{sort:'bucket'#{",size:#{@top[f] || DEFAULT_SIZE}"}}")
           end
         end
       end

@@ -237,7 +237,9 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    Search::Url.new(structured: bq, facets: @facets, term: @term).url
+    Search::Url.new(structured: bq, facets: @facets,
+                    term: @term, size: '0',
+                    'return-fields' => Search::Query::ReturnFields.factory.new('_no_fields')).url
   end
 
 
@@ -274,7 +276,7 @@ class SearchEngine
       @sort.use(*@sort_field.to_s.split(",").reject{|v| v.blank?})
     end
 
-    url = Search::Url.new(structured: bq, facets: @facets, term: @term,
+    url = Search::Url.new(structured: bq, term: @term,
                           "return-fields" => @return_fields, sort: @sort,
                           start: options[:start], size: options[:limit])
     url.url
