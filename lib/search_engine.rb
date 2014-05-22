@@ -42,17 +42,12 @@ class SearchEngine
     @facets = Search::Query::Facets.factory.new
     default_facets
     @is_smart = is_smart
+    @multi_selection = !!attributes.delete(:multi_selection)
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
+    set_attributes(attributes)
 
-    attributes.each do |k, v|
-      next if k.blank?
-      begin
-        self.send("#{k}=", v)
-      rescue NoMethodError
-      end
-    end
     validate_sort_field
     Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
 
@@ -306,7 +301,9 @@ class SearchEngine
     end
 
     expressions.each do |field, values|
-      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
+      next if @multi_selection && options[:use_fields] &&
+        !options[:use_fields].include?(field.to_sym) &&
+        PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
 
       if RANGED_FIELDS[field]
@@ -349,50 +346,60 @@ class SearchEngine
   end
 
   private
-    def append_or_remove_filter(filter_key, filter_value, filter_params)
-      filter_params[filter_key] ||= [filter_value.downcase]
-      if filter_selected?(filter_key, filter_value)
-        filter_params[filter_key] -= [ filter_value.downcase ]
-      else
-        filter_params[filter_key] << filter_value.downcase
-      end
-      filter_params[filter_key].uniq!
-      filter_params
-    end
 
-    def formatted_filters
-      filter_params = HashWithIndifferentAccess.new
-      expressions.clone.each do |k, v|
-        next if IGNORE_ON_URL.include?(k)
-        next if k == 'visibility'
-        filter_params[k] ||= []
-        if RANGED_FIELDS[k]
-          v.each do |_v|
-            /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
-            filter_params[k] << "#{min}-#{max}"
-          end
-        else
-          filter_params[k].concat v.map { |_v| _v.downcase }
+  def append_or_remove_filter(filter_key, filter_value, filter_params)
+    filter_params[filter_key] ||= [filter_value.downcase]
+    if filter_selected?(filter_key, filter_value)
+      filter_params[filter_key] -= [ filter_value.downcase ]
+    else
+      filter_params[filter_key] << filter_value.downcase
+    end
+    filter_params[filter_key].uniq!
+    filter_params
+  end
+
+  def formatted_filters
+    filter_params = HashWithIndifferentAccess.new
+    expressions.clone.each do |k, v|
+      next if IGNORE_ON_URL.include?(k)
+      next if k == 'visibility'
+      filter_params[k] ||= []
+      if RANGED_FIELDS[k]
+        v.each do |_v|
+          /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          filter_params[k] << "#{min}-#{max}"
         end
-      end
-      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
-
-      filter_params
-    end
-
-    def validate_sort_field
-      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = DEFAULT_SORT
+      else
+        filter_params[k].concat v.map { |_v| _v.downcase }
       end
     end
+    filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
-    def price_selected_filters expressions
-      return [] unless expressions[:price]
-      price_filters = expressions[:price].map do |e| 
-        a = e.gsub("retail_price:","").split("..")
-        a.join("-")
-      end
-      price_filters || []
+    filter_params
+  end
+
+  def validate_sort_field
+    if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+      @sort_field = DEFAULT_SORT
     end
+  end
 
+  def price_selected_filters expressions
+    return [] unless expressions[:price]
+    price_filters = expressions[:price].map do |e| 
+      a = e.gsub("retail_price:","").split("..")
+      a.join("-")
+    end
+    price_filters || []
+  end
+
+  def set_attributes(attributes)
+    attributes.each do |k, v|
+      next if k.blank?
+      begin
+        self.send("#{k}=", v)
+      rescue NoMethodError
+      end
+    end
+  end
 end
