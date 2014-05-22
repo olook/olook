@@ -48,6 +48,7 @@ class CampaignEmailsController < ApplicationController
     render json: {status: status, message: message}.to_json
   end
 
+  #Essa action foi feita pois a de cima está bem ligado aos forms de campaign emails. portanto é necessário verificar todas as outras barras de campanhas quando for trocar efetivamente de action
   def new_subscribe
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
