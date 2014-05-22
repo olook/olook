@@ -1,7 +1,7 @@
 var ModalPostResponse  = (function(){
   function ModalPostResponse() {};
   ModalPostResponse.prototype.config = function(){
-    olookApp.subscribe('modal:post', this.facade);
+    olookApp.subscribe('modal:post_response', this.facade);
   };
 
   ModalPostResponse.prototype.facade = function(email, close_element, error_element){
