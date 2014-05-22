@@ -47,6 +47,7 @@ class ListProductsController < ApplicationController
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @category = params[:category] = @search.filter_value(:category).try(:first)
+    @url_builder.set_params(:category, @category)
     @cache_key = configure_cache(@search)
   end
 
