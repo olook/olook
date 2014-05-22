@@ -3,3 +3,4 @@
 
 new ModalShow().config();
 new ModalRequest().config();
+new ModalPost().config;
