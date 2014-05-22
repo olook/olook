@@ -121,7 +121,7 @@ class SeoUrl
       end
     end
     only_filters = blk.call(only_filters) if blk
-    only_filters = build_link_for(only_filters)
+    only_filters = build_link_for(only_filters, ignore_params: true)
     @link_builder.call(only_filters)
   end
 
@@ -151,12 +151,12 @@ class SeoUrl
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
   end
 
-  def build_link_for _parameters={}
+  def build_link_for _parameters={}, opts={}
     parameters = _parameters.dup
     parse_path_positions if @sections.blank?
 
     url = @sections.map do |section|
-      build_path_string(parameters, section)
+      build_path_string(parameters, section, opts)
     end.compact
 
     query = build_query_string(parameters)
@@ -195,13 +195,13 @@ class SeoUrl
 
   private
 
-  def build_path_string(parameters, section)
+  def build_path_string(parameters, section, opts={})
     if section[:fields].blank?
       section[:format]
     else
       fields = section[:fields].map do |field|
         values = parameters.delete(field.to_sym)
-        values = [@params[field.to_sym]].flatten if @params[field.to_sym]
+        values = [@params[field.to_sym]].flatten if !opts[:ignore_params] && @params[field.to_sym]
 
         if values
           v = send("format_#{field}", values, section[:value_separator]) rescue nil
