@@ -38,13 +38,10 @@ class CampaignEmailsController < ApplicationController
   def subscribe
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
-      status = "ok"
-      message = "NewsLetter ja cadastrado"
+      render json: {message: "Email cadastrador"}
     else
-      status = "error"
-      message = "Usuario ja cadastrado"
+      render json: {message: "Email já castrado"}, status: :unprocessable_entity
     end
-    render json: {status: status, message: message}.to_json
   end
 
   def login
