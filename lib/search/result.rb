@@ -3,7 +3,7 @@ require 'json'
 module Search
   class Result
     def self.factory
-      eval("#{Search::Config.api_version_module_name}::Result")
+      eval("Search::#{Search::Config.api_version_module_name}::Result")
     end
 
       attr_reader :products, :facets

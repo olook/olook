@@ -2,7 +2,7 @@ module Search
   module Query
     class Structured
       def self.factory
-        eval("#{Search::Config.api_version_module_name}::Structured")
+        eval("Search::Query::#{Search::Config.api_version_module_name}::Structured")
       end
       attr_reader :nodes
       def initialize(base_class, operator)
