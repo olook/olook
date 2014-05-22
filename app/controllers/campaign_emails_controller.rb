@@ -40,7 +40,7 @@ class CampaignEmailsController < ApplicationController
     if @campaign_email.save
       render json: {message: "Email cadastrado"}
     else
-      render json: {message: "Email já castrado"}, status: :unprocessable_entity
+      render json: {message: "Email já cadastrado"}, status: :unprocessable_entity
     end
   end
 
