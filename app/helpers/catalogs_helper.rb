@@ -98,7 +98,7 @@ module CatalogsHelper
     filters = search.filters(options)
     facets = filters.grouped_products('subcategory')
     return [] if facets.nil?
-    check_existence_of_facets('subcategory', facets, category: category).keys
+    check_existence_of_facets('subcategory', facets).keys
   end
 
   def filters_by filter, search, options={}
@@ -128,25 +128,39 @@ module CatalogsHelper
     end
   end
 
-  def check_existence_of_facets(filter, facets, opt={})
+  def translate_site_filters(filter, values)
+    values = Set.new(values.map { |v| v.parameterize })
+    translate_from_yml(filter, values) do |s|
+      if values.include?(s.parameterize)
+        s
+      end
+    end
+  end
+
+  def check_existence_of_facets(filter, facets)
     _facets = facets.inject({}) { |h, f| h[f[0].parameterize] = f; h }
-    if filter.to_s == 'subcategory' || filter.to_s == 'brand_facet'
+    subs = translate_from_yml(filter, _facets) do |s|
+      if f = _facets[s.parameterize]
+        [s, f[1]]
+      end
+    end
+    Hash[subs.sort]
+  end
+
+  def translate_from_yml(filter, inputs, &block)
+    if filter.to_s == 'subcategory' || filter.to_s == 'brand_facet' || filter.to_s == 'brand'
       if filter.to_s == 'subcategory'
-        subs = SeoUrl.all_categories[opt[:category]]
-        subs ||= SeoUrl.all_subcategories
+        subs = SeoUrl.all_subcategories
       else
         subs = SeoUrl.all_brands
       end
       subs.map! do |s|
-        if f = _facets[s.parameterize]
-          [s, f[1]]
-        end
+        block.call(s)
       end
       subs.compact!
     else
-      subs = facets
+      subs = inputs
     end
-    Hash[subs.sort]
   end
 
   def format_search_query_parameters
