@@ -72,7 +72,7 @@ class ProductDocument
   end
 
   def category= category
-    @fields['category'] = category.downcase
+    @fields['category'] = category.parameterize
   end
 
   def calculate_discount
