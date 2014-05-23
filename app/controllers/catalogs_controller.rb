@@ -20,7 +20,7 @@ class CatalogsController < ApplicationController
                       params: { category: params[:category] })
     @search = add_search_result(@url_builder.parse_params, params)
     @url_builder.set_search(@search)
-    @category = @search.expressions[:category].to_a.first.downcase
+    @category = @search.filter_value(:category).to_a.first.downcase
   end
 
   def add_search_result(search_params, params)
