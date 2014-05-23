@@ -43,7 +43,7 @@ module CatalogsHelper
   end
 
   def filter_link_to(link, text, selected=false, amount=nil,follow=true)
-    text = text.chomp.gsub('Ç', 'ç').downcase.titleize
+    text = text.to_s.gsub('Ç', 'ç')
     span_class = text.downcase.parameterize
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
