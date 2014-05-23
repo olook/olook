@@ -23,7 +23,7 @@ class SeoUrl
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
-    "novidade" => "age,-inventory,-text_relevance",
+    "novidade" => "age",
     "novidades" => "age"
   })
   FIELDS_WITHOUT_KEYS_IN_URL = Set.new(['subcategory', 'category', 'brand'])
