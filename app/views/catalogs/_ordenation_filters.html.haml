@@ -2,9 +2,10 @@
   = form_tag url_builder.current_filters, method: 'get' do
     %fieldset
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
+        - opts = {"NOSSA SELEÇÃO" => "0", "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}
         - if params[:por].present?
-          %span= params[:por] != '0' ? params[:por].gsub("-", " ").titleize : "ORDENAÇÃO"
+          %span= opts.invert[params[:por]] || "ORDENAÇÃO"
         - else
           %span ORDENAÇÃO
 
-        = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+        = select_tag('por', options_for_select(opts, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
