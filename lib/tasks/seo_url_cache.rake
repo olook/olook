@@ -33,6 +33,14 @@ namespace :seo_url do
       downcase_pronouns_this(b.titleize)
     end.flatten.uniq
 
+    colors = Detail.where(translation_token: 'cor filtro').group(:description).pluck(:description).map do |c|
+      downcase_pronouns_this(c.titleize)
+    end
+
+    File.open( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_colors.yml')), 'w') do |f|
+      f.puts YAML.dump(colors)
+    end
+
     File.open( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml')), 'w') do |f|
       f.puts YAML.dump(categories)
     end

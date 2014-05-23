@@ -28,7 +28,7 @@ class ListProductsController < ApplicationController
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
     search_params[:admin] = !!current_admin
-    search = SearchEngine.new(search_params, true)
+    search = SearchEngine.new(search_params, is_smart: true)
     search
   end
 

@@ -14,10 +14,9 @@ class SearchEngine
                 :sort, :term, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
-      @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
+      @expressions[attr] = v.to_s
     end
   end
-
 
   NESTED_FILTERS = {
     category: [ :subcategory ]
@@ -31,7 +30,7 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart = false
+  def initialize attributes = {}, opts={}
     @return_fields = Search::Query::ReturnFields.factory.new(RETURN_FIELDS)
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
@@ -41,8 +40,9 @@ class SearchEngine
     @term = Search::Query::Term.factory.new
     @facets = Search::Query::Facets.factory.new
     default_facets
-    @is_smart = is_smart
-    @multi_selection = !!attributes.delete(:multi_selection)
+    @skip_beachwear_on_clothes = !!opts[:skip_beachwear_on_clothes]
+    @is_smart = !!opts[:is_smart]
+    @multi_selection = !!opts[:multi_selection]
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
@@ -124,7 +124,7 @@ class SearchEngine
     elsif _category == 'plus-size'
       @expressions["category"] = [_category]
     else
-      @expressions["category"] = _category.to_s.split(MULTISELECTION_SEPARATOR)
+      @expressions["category"] = _category.to_s
     end
   end
 
@@ -196,11 +196,12 @@ class SearchEngine
   end
 
   def filter_value(filter)
-    expressions[filter]
+    normalize_values(expressions[filter]) if expressions[filter]
   end
 
   def filter_selected?(filter_key, filter_value)
     if values = expressions[filter_key]
+      values = normalize_values(values)
       if RANGED_FIELDS[filter_key]
         values.any? do |v|
           /#{filter_value.gsub('-', '..')}/ =~ v
@@ -301,6 +302,7 @@ class SearchEngine
     end
 
     expressions.each do |field, values|
+      values = normalize_values(values)
       next if @multi_selection && options[:use_fields] &&
         !options[:use_fields].include?(field.to_sym) &&
         PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
@@ -347,6 +349,15 @@ class SearchEngine
 
   private
 
+  def normalize_values(vals)
+    if @multi_selection
+      values = vals.split(MULTISELECTION_SEPARATOR) if vals.respond_to?(:split)
+    else
+      values = [vals].flatten
+    end
+    values
+  end
+
   def append_or_remove_filter(filter_key, filter_value, filter_params)
     filter_params[filter_key] ||= [filter_value.downcase]
     if filter_selected?(filter_key, filter_value)
@@ -361,6 +372,7 @@ class SearchEngine
   def formatted_filters
     filter_params = HashWithIndifferentAccess.new
     expressions.clone.each do |k, v|
+      v = normalize_values(v)
       next if IGNORE_ON_URL.include?(k)
       next if k == 'visibility'
       filter_params[k] ||= []
