@@ -11,7 +11,7 @@ class CustomUrlController < ApplicationController
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
       @url_builder = SeoUrl.new(path: @custom_url.organic_url, path_positions: path_positions_by_section)
       search_params = @url_builder.parse_params
-      @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
+      @search = SearchEngine.new(search_params, is_smart: true).for_page(params[:page]).with_limit(page_size)
       @url_builder.set_search(@search)
       @category = @search.current_filters['category'].try(:first)
       @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)

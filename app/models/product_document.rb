@@ -39,7 +39,7 @@ class ProductDocument
   end
 
   def color=(val)
-    @fields['color'] = val.parameterize(' ')
+    @fields['color'] = val.parameterize
   end
 
   def is_visible= is_visible
@@ -47,16 +47,16 @@ class ProductDocument
   end
 
   def subcategory=(value)
-    @fields['subcategory'] = value.parameterize(' ')
+    @fields['subcategory'] = value.parameterize
   end
 
   def brand= brand
-    @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize(" ")
+    @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize
     self.brand_facet = brand.titleize
   end
 
   def brand_facet=(brand)
-    @fields['brand_facet'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize(" ")
+    @fields['brand_facet'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize
   end
 
   def price= price
