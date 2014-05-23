@@ -5,7 +5,7 @@ class RecommendationService
   DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
 
   def profile_name
-    @profiles.first.alternative_name || "casual"
+    @profiles.first.try(:alternative_name) || "casual"
   end
 
   def initialize(opts = {})
@@ -39,6 +39,7 @@ class RecommendationService
     end
 
     def filtered_list_for_profile(profile, opts={})
+      return [] unless profile
       _pAt = Product.arel_table
       _vAt = Variant.arel_table
 
