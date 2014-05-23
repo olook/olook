@@ -335,7 +335,7 @@ class SeoUrl
     sorted_brands.each do |b|
       if /#{b.parameterize}/i =~ param_brand
         param_brand.slice!(/#{b.parameterize}/i)
-        brands << b.parameterize(' ')
+        brands << b.parameterize
       end
     end
 
@@ -360,7 +360,7 @@ class SeoUrl
     sorted = all_subcategories.sort{|a,b| b.size <=> a.size}
     sorted.each do |c|
       if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/i =~ param_subcategory
-        _subcategories << c.parameterize(' ')
+        _subcategories << c.parameterize
         param_subcategory.slice!(/#{c.parameterize}/i)
       end
     end
