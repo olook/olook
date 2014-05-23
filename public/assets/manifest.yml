@@ -2591,8 +2591,8 @@ new_structure/partials/_thumb_product.css: new_structure/partials/_thumb_product
 new_structure/partials/_thumb_product/index.css: new_structure/partials/_thumb_product-689461afc2f40c729b813f63b53a6f25.css
 new_structure/partials/_thumb_product_catalog.css: new_structure/partials/_thumb_product_catalog-37ef150c142a979883d04c9b7bc8f406.css
 new_structure/partials/_thumb_product_catalog/index.css: new_structure/partials/_thumb_product_catalog-37ef150c142a979883d04c9b7bc8f406.css
-new_structure/partials/_voce_esta_em.css: new_structure/partials/_voce_esta_em-7d4a941172fe62f6c49a73cf89bce5bd.css
-new_structure/partials/_voce_esta_em/index.css: new_structure/partials/_voce_esta_em-7d4a941172fe62f6c49a73cf89bce5bd.css
+new_structure/partials/_voce_esta_em.css: new_structure/partials/_voce_esta_em-f7710a2618ac2c506053ab7aedc470f3.css
+new_structure/partials/_voce_esta_em/index.css: new_structure/partials/_voce_esta_em-f7710a2618ac2c506053ab7aedc470f3.css
 new_structure/section/address_combo.css: new_structure/section/address_combo-43c2aa72d2ec3f0017dbd8aa382abac8.css
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-43c2aa72d2ec3f0017dbd8aa382abac8.css
 new_structure/section/brands.css: new_structure/section/brands-2e59aaaff6dead100f927297263f769f.css
@@ -2605,8 +2605,8 @@ new_structure/section/custom_url.css: new_structure/section/custom_url-484960b7c
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-484960b7c220db2e58ab2394ca1beb32.css
 new_structure/section/join.css: new_structure/section/join-aca92ccd77890f69f5d4836c6b7787f9.css
 new_structure/section/join/index.css: new_structure/section/join-aca92ccd77890f69f5d4836c6b7787f9.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-706c85c238c67f32cc204f87770660c8.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-706c85c238c67f32cc204f87770660c8.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-eaeecd4e61df48145b0af0d1861ffeaf.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-eaeecd4e61df48145b0af0d1861ffeaf.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-34943c943ba89397cfbd2125473816bb.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-34943c943ba89397cfbd2125473816bb.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-55226374ee84b64b3f97e2a3179d15f5.css
