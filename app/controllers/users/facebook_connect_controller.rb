@@ -9,7 +9,6 @@ class Users::FacebookConnectController < ApplicationController
 
     @facebook_connect = FacebookConnectService.new(params[:authResponse])
     if @facebook_connect.connect!
-      finished("acquisition_popup_test", reset: false)
       @user = @facebook_connect.user
       sign_in(@facebook_connect.user)
       assign_cart_to_user(current_cart)
