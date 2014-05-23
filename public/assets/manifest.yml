@@ -2567,8 +2567,8 @@ new_structure/common/responsive_mobile.css: new_structure/common/responsive_mobi
 new_structure/common/responsive_mobile/index.css: new_structure/common/responsive_mobile-3c248c6de6503286df501d0656e125c7.css
 new_structure/common/side_bar_menu.css: new_structure/common/side_bar_menu-a326d8688f547512dafba0968e7972ec.css
 new_structure/common/side_bar_menu/index.css: new_structure/common/side_bar_menu-a326d8688f547512dafba0968e7972ec.css
-new_structure/lite_application.css: new_structure/lite_application-7221b374047ec0bf43ed4dadf040b03b.css
-new_structure/lite_application/index.css: new_structure/lite_application-7221b374047ec0bf43ed4dadf040b03b.css
+new_structure/lite_application.css: new_structure/lite_application-31f0aa26a20e1b6982bd1c51f5ab3040.css
+new_structure/lite_application/index.css: new_structure/lite_application-31f0aa26a20e1b6982bd1c51f5ab3040.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-05937b5aae79feb158bad9437b44031d.css
