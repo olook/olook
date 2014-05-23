@@ -194,15 +194,13 @@ module CatalogsHelper
   def format_size size
     size = (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
     if size && /nico/i !~ size
-      size = size.upcase!
+      size = size.upcase
     end
     size
   end
 
   def should_size_appear_in_olooklet_menu?(text)
-    (CLOTH_SIZES_TABLE - ["Tamanho único"]).any? do |size|
-      /#{size}/i =~ format_size(text)
-    end
+    (CLOTH_SIZES_TABLE - ["Tamanho único"]).include?(format_size(text))
   end
 
   def size_list(categories, search, category_abbr, fields = [:category])
