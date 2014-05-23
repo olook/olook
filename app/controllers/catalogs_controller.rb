@@ -27,7 +27,7 @@ class CatalogsController < ApplicationController
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
     search_params[:admin] = !!current_admin
-    SearchEngine.new(search_params, 'smart')
+    SearchEngine.new(search_params, is_smart: true)
   end
 
   def index
@@ -45,9 +45,9 @@ class CatalogsController < ApplicationController
     @size = search_params["size"]
     @brand_name = search_params["brand"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].to_a.first.to_s.downcase
-    @subcategory = @search.expressions[:subcategory].to_a.first
-    params[:category] = @search.expressions[:category].to_a.first
+    @category = @search.filter_value(:category).to_a.first.to_s.downcase
+    @subcategory = @search.filter_value(:subcategory).to_a.first
+    params[:category] = @search.filter_value(:category).to_a.first
 
     key = [@search.filter_value(:category).first]
     key.push(@search.filter_value(:subcategory).first) unless @search.filter_value(:subcategory).blank?

@@ -148,13 +148,16 @@ module CatalogsHelper
   end
 
   def translate_from_yml(filter, inputs, opts={}, &block)
-    if filter.to_s == 'subcategory' || filter.to_s == 'brand_facet' || filter.to_s == 'brand'
-      if filter.to_s == 'subcategory'
-        subs = SeoUrl.all_categories[opts[:category]]
-        subs ||= SeoUrl.all_subcategories
-      else
-        subs = SeoUrl.all_brands
-      end
+    subs = []
+    if filter.to_s == 'subcategory'
+      subs = SeoUrl.all_categories[opts[:category]]
+      subs ||= SeoUrl.all_subcategories
+    elsif filter.to_s == 'color'
+      subs = SeoUrl.whitelisted_colors
+    elsif ['brand_facet', 'brand'].include?(filter.to_s)
+      subs = SeoUrl.all_brands
+    end
+    if subs.size > 0
       subs.map! do |s|
         block.call(s)
       end
@@ -162,6 +165,7 @@ module CatalogsHelper
     else
       subs = inputs
     end
+    subs
   end
 
   def format_search_query_parameters
@@ -188,11 +192,17 @@ module CatalogsHelper
   end
 
   def format_size size
-    (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
+    size = (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
+    if size && /nico/i !~ size
+      size = size.upcase!
+    end
+    size
   end
 
   def should_size_appear_in_olooklet_menu?(text)
-    (CLOTH_SIZES_TABLE - ["Tamanho único"]).include?(format_size(text))
+    (CLOTH_SIZES_TABLE - ["Tamanho único"]).any? do |size|
+      /#{size}/i =~ format_size(text)
+    end
   end
 
   def size_list(categories, search, category_abbr, fields = [:category])
