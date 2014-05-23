@@ -218,7 +218,7 @@ class SearchEngine
     if category == "price"
       return price_selected_filters expressions
     else
-      return expressions[category.to_sym] || []
+      return normalize_values(expressions[category.to_sym] || [])
     end
   end
 
@@ -402,7 +402,7 @@ class SearchEngine
       a = e.gsub("retail_price:","").split("..")
       a.join("-")
     end
-    price_filters || []
+    normalize_values(price_filters || [])
   end
 
   def set_attributes(attributes)
