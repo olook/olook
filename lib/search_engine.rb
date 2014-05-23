@@ -14,7 +14,7 @@ class SearchEngine
                 :sort, :term, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
-      @expressions[attr] = v.to_s
+      @expressions[attr] = v
     end
   end
 
