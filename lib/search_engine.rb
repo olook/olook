@@ -303,7 +303,7 @@ class SearchEngine
 
     expressions.each do |field, values|
       values = normalize_values(values)
-      next if @multi_selection && options[:use_fields] &&
+      next if ( options[:multi_selection] || @multi_selection ) && options[:use_fields] &&
         !options[:use_fields].include?(field.to_sym) &&
         PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.select { |v| v.present? }.empty?
