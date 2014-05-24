@@ -259,7 +259,7 @@ module CatalogsHelper
 
   def show_hot_products?(leaderboard, qty)
     rank = @leaderboard.rank(qty * 3)
-    unsorted_hot_products = SearchEngine.new(product_id: rank.join('-'), limit: qty * 3).products.inject({}) do |hash, p|
+    unsorted_hot_products = SearchEngine.new(product_id: rank, limit: qty * 3).products.inject({}) do |hash, p|
       hash[p.id.to_i] = p
       hash
     end
