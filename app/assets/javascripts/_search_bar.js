@@ -31,11 +31,13 @@ $(function() {
   var num = 37;
   $(window).bind('scroll', function () {
     var element = $('.fixed_filter')[0];
-    var top = element.getBoundingClientRect().top;
-    if (top <= num) {
-      $('.fixed_filter').addClass('js_fixed');
-    } else {
-      $('.fixed_filter').removeClass('js_fixed');
+    if(top) {
+      var top = element.getBoundingClientRect().top;
+      if (top <= num) {
+        $('.fixed_filter').addClass('js_fixed');
+      } else {
+        $('.fixed_filter').removeClass('js_fixed');
+      }
     }
   });
 
