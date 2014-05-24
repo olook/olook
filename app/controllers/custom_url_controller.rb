@@ -7,7 +7,7 @@ class CustomUrlController < ApplicationController
     @custom_url = Header.for_url(request.path).first
     if @custom_url
       product_list = @custom_url.product_list.to_s.split(/\D/).select{|w|w.present?}.compact
-      @custom_search = SearchEngine.new(product_id: product_list.join('-'))
+      @custom_search = SearchEngine.new(product_id: product_list)
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
       @url_builder = SeoUrl.new(path: @custom_url.organic_url, path_positions: path_positions_by_section)
       search_params = @url_builder.parse_params
