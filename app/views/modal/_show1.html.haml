@@ -12,13 +12,13 @@
       Cadastre seu e-mail
     = email_field_tag :email, "", id: 'js-emailValue', placeholder:"Digite aqui seu e-mail", class: "email", required: true
     = button_tag "Cadastrar", id: 'js-postEmail'
-    .js-modal_error
+    .js-modalbox.js-error.modal_error
+      Email já cadastrado
   %p.joinfb
     Ou entre com sua conta do Facebook
 :javascript
-
   $('#js-postEmail').click(function(e){
-    olookApp.publish('modal:post_email', $('.js-modal_error'));
+    olookApp.publish('newsletter:subscribe', $('#js-emailValue').val(), 'modal');
   });
   try {
     FB.XFBML.parse(document.getElementById('modal_face'));
