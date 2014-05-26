@@ -18,7 +18,6 @@ class CampaignEmailsController < ApplicationController
       if @campaign_email = CampaignEmail.find_by_email(params[:campaign_email][:email])
         redirect_path =  remembered_campaign_email_path(@campaign_email)
       elsif @campaign_email = CampaignEmail.create!(email: params[:campaign_email][:email])
-      finished("acquisition_popup_test", reset: false)
         @campaign_email.set_utm_info session[:tracking_params]
         redirect_path = campaign_email_path(@campaign_email)
       end
@@ -47,6 +46,16 @@ class CampaignEmailsController < ApplicationController
       message = "Usuario ja cadastrado"
     end
     render json: {status: status, message: message}.to_json
+  end
+
+  #Essa action foi feita pois a de cima está bem ligado aos forms de campaign emails. portanto é necessário verificar todas as outras barras de campanhas quando for trocar efetivamente de action
+  def new_subscribe
+    @campaign_email = CampaignEmail.new(email: params[:email])
+    if @campaign_email.save
+      render json: {message: "Email cadastrado"}
+    else
+      render json: {message: "Email já cadastrado"}, status: :unprocessable_entity
+    end
   end
 
   def login
