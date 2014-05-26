@@ -43,7 +43,7 @@ module CatalogsHelper
   end
 
   def filter_link_to(link, text, selected=false, amount=nil,follow=true)
-    text = text.chomp.gsub('Ç', 'ç').downcase.titleize
+    text = text.to_s.gsub('Ç', 'ç')
     span_class = text.downcase.parameterize
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
@@ -98,15 +98,14 @@ module CatalogsHelper
     filters = search.filters(options)
     facets = filters.grouped_products('subcategory')
     return [] if facets.nil?
-    subs = Set.new(SeoUrl.all_categories[category].map {|s| s.parameterize })
-    facets.select! { |f| subs.include?(f.parameterize) }
-    facets.sort
+    check_existence_of_facets('subcategory', facets, category: category).keys
   end
 
   def filters_by filter, search, options={}
     filters = search.filters(options)
     facets = filters.grouped_products(filter)
     return [] if facets.nil?
+    facets = check_existence_of_facets(filter, facets)
 
     if filter == 'size'
       facets.keys.map{|k| [((k.to_i != 0) ? k.to_i.to_s : k), k]}.sort{|a,b| CLOTH_SIZES_TABLE.index(a[0].to_s).to_i <=> CLOTH_SIZES_TABLE.index(b[0].to_s).to_i}.map{|v| v[1]}
@@ -127,6 +126,46 @@ module CatalogsHelper
     else
       facets.sort
     end
+  end
+
+  def translate_site_filters(filter, values)
+    values = Set.new(values.map { |v| v.parameterize })
+    translate_from_yml(filter, values) do |s|
+      if values.include?(s.parameterize)
+        s
+      end
+    end
+  end
+
+  def check_existence_of_facets(filter, facets, opts={})
+    _facets = facets.inject({}) { |h, f| h[f[0].parameterize] = f; h }
+    subs = translate_from_yml(filter, _facets, opts) do |s|
+      if f = _facets[s.parameterize]
+        [s, f[1]]
+      end
+    end
+    Hash[subs.sort]
+  end
+
+  def translate_from_yml(filter, inputs, opts={}, &block)
+    subs = []
+    if filter.to_s == 'subcategory'
+      subs = SeoUrl.all_categories[opts[:category]]
+      subs ||= SeoUrl.all_subcategories
+    elsif filter.to_s == 'color'
+      subs = SeoUrl.whitelisted_colors
+    elsif ['brand_facet', 'brand'].include?(filter.to_s)
+      subs = SeoUrl.all_brands
+    end
+    if subs.size > 0
+      subs.map! do |s|
+        block.call(s)
+      end
+      subs.compact!
+    else
+      subs = inputs
+    end
+    subs
   end
 
   def format_search_query_parameters
@@ -153,7 +192,11 @@ module CatalogsHelper
   end
 
   def format_size size
-    (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
+    size = (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
+    if size && /nico/i !~ size
+      size = size.upcase
+    end
+    size
   end
 
   def should_size_appear_in_olooklet_menu?(text)
@@ -211,12 +254,12 @@ module CatalogsHelper
   end
 
   def whitelisted_color_filters(search)
-    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
+    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k.titleize) && should_color_appear?(search, k)}
   end
 
   def show_hot_products?(leaderboard, qty)
     rank = @leaderboard.rank(qty * 3)
-    unsorted_hot_products = SearchEngine.new(product_id: rank.join('-'), limit: qty * 3).products.inject({}) do |hash, p|
+    unsorted_hot_products = SearchEngine.new(product_id: rank, limit: qty * 3).products.inject({}) do |hash, p|
       hash[p.id.to_i] = p
       hash
     end
