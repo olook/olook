@@ -13,9 +13,13 @@ class FacebookConnectService
     fb_api('/me', @access_token)
   end
 
+  def get_facebook_likes(facebook_token)
+    # Tem que usar o Koala, pq pela API o nosso facebook_token nao funciona para obter os likes
+    FacebookAdapter.new(facebook_token).adapter.get_connections('me', 'likes').try(:to_a) || []
+  end
+
   def connect!
-    @facebook_data = get_facebook_data
-    
+    @facebook_data = get_facebook_data   
     Rails.logger.info("[FACEBOOK] Retrieved data from facebook:#{@facebook_data}")
     
     if(@facebook_data.respond_to?(:[]) && @facebook_data['error'])
@@ -35,6 +39,9 @@ class FacebookConnectService
       @user = create_user
       @user.add_event(EventType::FACEBOOK_CONNECT)
     end
+
+    facebook_likes = get_facebook_likes(@user.facebook_token)
+    @user.update_attribute(:facebook_likes, facebook_likes)
     return true
   end
 
