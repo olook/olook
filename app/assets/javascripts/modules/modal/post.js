@@ -9,7 +9,7 @@ var ModalPost  = (function(){
     log_event('click','newsletter-popup',{value: 'email'});
     emailToBeSubmited = $('#js-emailValue').val();
 
-    $.post('/new_campaign_email_subscribe', {email: emailToBeSubmited})
+    $.post('/campaign_email_subscribe', {email: emailToBeSubmited})
       .done(function(e) {
         log_event('action','newsletter-popup',{value: 'email'});
         $('#modal button.close').click();
