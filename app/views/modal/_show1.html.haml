@@ -11,7 +11,7 @@
     %p.join
       Cadastre seu e-mail
     = email_field_tag :email, "", id: 'js-emailValue', placeholder:"Digite aqui seu e-mail", class: "email", required: true
-    = button_tag "Cadastrar", id: 'js-postEmail'
+    = button_tag "Cadastrar", id: 'js-postEmail', class: 'modal_button'
     .js-modalbox.js-error.modal_error
       Email já cadastrado
   %p.joinfb
