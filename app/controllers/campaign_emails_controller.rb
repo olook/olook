@@ -38,7 +38,6 @@ class CampaignEmailsController < ApplicationController
   def subscribe
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
-      finished("acquisition_popup_test", reset: false)
       status = "ok"
       message = "NewsLetter ja cadastrado"
     else
