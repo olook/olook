@@ -375,4 +375,104 @@ body {
       }
     }
   }
+  aside.pic_credits {
+    width:49%;
+    float:left;
+    background: image-url('credits/img_credits.jpg') no-repeat center 90px;
+    padding:10px 0 0 0;
+    margin:20px 0 20px 0;
+    height:680px;
+    border-right:1px solid #d1d1d1;
+    p {
+      font-family: 'Trebuchet ms', Tahoma; 
+      width:85%;
+      margin:0 auto;
+      text-align: center;
+      line-height: 22px;
+      font-size: 16px;
+    }
+  }
+  section.share_friends {
+    width:43%;
+    float:left;
+    padding:2%;
+    font-family: "Trebuchet Ms", Tahoma;
+    margin:20px 0 20px 0;
+    padding:0 0 40px 0;
+    text-align: center;
+    margin:auto 0;
+    margin-left:3%;
+    article {
+      border-bottom:1px solid #d1d1d1;
+      display: block;
+      padding:30px 0 40px 0;
+      h2 {
+        font-size: 18px;
+        width:100%;
+        display: block;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom:15px;
+        letter-spacing: 2px;
+      }
+      p {
+        line-height: 22px;
+        width:90%;
+        padding:0 5%;
+        text-align: center;
+        display: block;
+        margin-bottom:30px;
+      }
+      a.win_credits {
+        margin:auto 0;
+        background: #000;
+        padding:10px;
+        color:#FFF;
+        font-family: 'Trebuchet Ms', Tahoma;
+        font-size: 11px;
+        font-weight: normal;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      ul {
+        width:100%;
+        display: block;
+        text-align: left;
+        li {
+          font-size: 13px;
+          margin-bottom:20px;
+          b {
+            width:100%;
+            display: block;
+            font-size: 14px;
+          }
+          #invite_mail_list {
+            width:77%;
+            margin-top:5px;
+            border:1px solid #000;
+          }
+          #invite_email {
+            background: #000;
+            padding:13px 10px;
+            color:#FFF;
+            border:0px;
+            font-family: 'Trebuchet Ms', Tahoma;
+            font-size: 11px;
+            margin:5px 0 0 0;
+          }
+          #facebook_invite_friends {
+            img {
+              width:70%;
+              margin-top:10px;
+            }
+          }
+        }
+      }
+
+    }
+    .invite_your_friends {
+        border:0px;
+      }
+  }
 }
