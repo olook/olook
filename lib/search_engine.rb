@@ -1,22 +1,20 @@
 require 'active_support/inflector'
 class SearchEngine
   include Search::Paginable
-  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
-  BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
-  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:inventory]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term, :excluded_brand, :visibility]
+                :sort, :term, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
-      @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
+      @expressions[attr] = v
     end
   end
 
@@ -24,7 +22,7 @@ class SearchEngine
     category: [ :subcategory ]
   }
 
-  DEFAULT_SORT = "age,-inventory,-text_relevance"
+  DEFAULT_SORT = "age,-inventory"
 
   attr_accessor :skip_beachwear_on_clothes
   attr_accessor :df
@@ -32,26 +30,24 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart = false
+  def initialize attributes = {}, opts={}
+    @return_fields = Search::Query::ReturnFields.factory.new(RETURN_FIELDS)
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
-    @facets = []
-    @is_smart = is_smart
+    @term = Search::Query::Term.factory.new
+    @facets = Search::Query::Facets.factory.new
     default_facets
+    @skip_beachwear_on_clothes = !!opts[:skip_beachwear_on_clothes]
+    @is_smart = !!opts[:is_smart]
+    @multi_selection = !!opts[:multi_selection]
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
+    set_attributes(attributes)
 
-    attributes.each do |k, v|
-      next if k.blank?
-      begin
-        self.send("#{k}=", v)
-      rescue NoMethodError
-      end
-    end
     validate_sort_field
     Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
 
@@ -59,11 +55,11 @@ class SearchEngine
   end
 
   def term= term
-    @query = URI.encode(term) if term
+    @term.value = term
   end
 
   def term
-    @query
+    @term.value
   end
 
   # TODO: Mudar a forma que o recebe o collection_theme pois
@@ -92,7 +88,7 @@ class SearchEngine
       pvals = price.split('-')
       while pvals.present?
         val_arr = pvals.shift(2)
-        @expressions["price"] << "retail_price:#{format_price_range(val_arr.first,val_arr.last)}"
+        @expressions["price"] << "retail_price:#{val_arr.first}..#{val_arr.last}"
       end
     end
     self
@@ -104,6 +100,7 @@ class SearchEngine
       @is_smart = false
       @sort_field = "#{ sort_field }"
     end
+
     self
   end
 
@@ -127,7 +124,7 @@ class SearchEngine
     elsif _category == 'plus-size'
       @expressions["category"] = [_category]
     else
-      @expressions["category"] = _category.to_s.split(MULTISELECTION_SEPARATOR)
+      @expressions["category"] = _category.to_s
     end
   end
 
@@ -180,7 +177,7 @@ class SearchEngine
     @filters_result ||= {}
     url = build_filters_url(options)
     @filters_result[url] ||= -> {
-      f = fetch_result(url, parse_facets: true)
+      f = fetch_result(url, parser: SearchedProduct, parse_facets: true)
       f.set_groups('subcategory', subcategory_without_care_products(f))
       f
     }.call
@@ -188,27 +185,23 @@ class SearchEngine
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_item} : {})
-    @result ||= fetch_result(url, {parse_products: true})
+    @result ||= fetch_result(url, parser: SearchedProduct, parse_products: true)
     @result.products
   end
 
   def range_values_for(filter)
     if /(?<min>\d+)\.\.(?<max>\d+)/ =~ expressions[filter].to_s
-      { min: (min.to_d/100.0).round.to_s, max: (max.to_d/100.0).round.to_s }
+      { min: min.to_d.round.to_s, max: max.to_d.round.to_s }
     end
   end
 
   def filter_value(filter)
-    expressions[filter]
+    normalize_values(expressions[filter]) if expressions[filter]
   end
 
   def filter_selected?(filter_key, filter_value)
-    if filter_key == :price
-      arr = filter_value.split("-")
-      filter_value = format_price_range(arr[0], arr[1])
-    end
-
     if values = expressions[filter_key]
+      values = normalize_values(values)
       if RANGED_FIELDS[filter_key]
         values.any? do |v|
           /#{filter_value.gsub('-', '..')}/ =~ v
@@ -225,7 +218,7 @@ class SearchEngine
     if category == "price"
       return price_selected_filters expressions
     else
-      return expressions[category.to_sym] || []
+      return normalize_values(expressions[category.to_sym] || [])
     end
   end
 
@@ -240,9 +233,9 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    bq += "facet=#{@facets.join(',')}&facet-brand_facet-top-n=100" if @facets.any?
-    q = @query ? "q=#{@query}&" : ""
-    "http://#{BASE_URL}?#{q}#{bq}"
+    Search::Url.new(structured: bq, facets: @facets,
+                    term: @term, size: '0',
+                    'return-fields' => Search::Query::ReturnFields.factory.new('_no_fields')).url
   end
 
 
@@ -262,6 +255,7 @@ class SearchEngine
     @facets << "size"
     @facets << "category"
     @facets << 'collection_theme'
+    @facets.set_top_for('brand_facet', 100)
     self
   end
 
@@ -269,76 +263,74 @@ class SearchEngine
     options[:start] ||= 0
     options[:limit] ||= 50
     bq = build_boolean_expression
-    bq += "facet=#{@facets.join(',')}&" if @facets.any?
-    q = @query ? "?q=#{@query}&" : "?"
-    if @is_smart
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=#{smart_ranking_params}&size=#{ options[:limit] }"
-    else
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
-    end
-  end
 
-  def ranking
-    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
+    @sort = Search::Query::Sort.factory.new
+    if @is_smart
+      @sort.add_ranking("exp", "r_inventory+r_brand_regulator+r_age")
+      @sort.use("-exp", *@sort_field.to_s.split(",").reject{|v| v.blank?})
+    else
+      @sort.use(*@sort_field.to_s.split(",").reject{|v| v.blank?})
+    end
+
+    url = Search::Url.new(structured: bq, term: @term,
+                          "return-fields" => @return_fields, sort: @sort,
+                          start: options[:start], size: options[:limit])
+    url.url
   end
 
   def fetch_result(url, options = {})
-    cache_key = Digest::SHA1.hexdigest(url.to_s)
-    Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
-
-    begin
-      cached_response = if @redis.exists(cache_key)
-        @redis.get(cache_key)
-      else
-        Rails.logger.error "[cloudsearch] cache missed"
-        url = URI.parse(url)
-        tstart = Time.zone.now.to_f * 1000.0
-        http_response = Net::HTTP.get_response(url)
-        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-        raise "CloudSearchConnectError" if http_response.code != '200'
-        @redis.set(cache_key, http_response.body)
-        @redis.expire(cache_key, 30.minutes)
-        http_response.body
-      end
-      SearchResult.new(cached_response, options)
-    rescue => e
-      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
-      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
-    end
-
+    Search::Retriever.new(redis: @redis, logger: Rails.logger).fetch_result(url, options)
   end
 
   def build_boolean_expression(options={})
-    bq = []
     expressions = @expressions.clone
-    cares = expressions.delete('care')
+    structured = SearchedProduct.structured(:and)
+    cares = normalize_values(expressions.delete('care'))
     if cares.present?
-      subcategories = expressions.delete('subcategory')
-      vals = cares.map { |v| "(field care '#{v}')" }
-      vals.concat(subcategories.map { |v| "(field subcategory '#{v}')" }) if subcategories.present?
-      bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
-    end
-
-    remove_excluded_brands(bq, expressions)
-    expressions.each do |field, values|
-      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
-      next if values.empty?
-      if RANGED_FIELDS[field]
-        bq << "(or #{values.join(' ')})"
-      elsif values.is_a?(Array) && values.any?
-        vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
-        bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+      subcategories = normalize_values(expressions.delete('subcategory'))
+      vals = cares.map { |v| ["care", v] }
+      vals.concat(subcategories.map { |v| ["subcategory", v] }) if subcategories.present?
+      if vals.size > 1
+        structured.or do |s|
+          vals.each do |k, v|
+            s.field(k, v)
+          end
+        end
+      else
+        structured.or(*vals.first)
       end
     end
 
-    if bq.size == 1
-      "bq=#{ERB::Util.url_encode bq.first}&"
-    elsif bq.size > 1
-      "bq=#{ERB::Util.url_encode "(and #{bq.join(' ')})"}&"
-    else
-      ""
+    expressions.each do |field, values|
+      values = normalize_values(values)
+      next if ( options[:multi_selection] || @multi_selection ) && options[:use_fields] &&
+        !options[:use_fields].include?(field.to_sym) &&
+        PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
+      next if values.select { |v| v.present? }.empty?
+
+      if RANGED_FIELDS[field]
+        structured.or do |s|
+          values.each do |value|
+            k, r = value.split(':')
+            min,max = r.split('..')
+            s.field(k, [min,max])
+          end
+        end
+        next
+      end
+
+      if values.size > 1
+        structured.or do |s|
+          values.each do |v|
+            s.field field, v
+          end
+        end
+      else
+        structured.field field, values.first
+      end
     end
+
+    structured
   end
 
   def subcategory_without_care_products(filters)
@@ -356,71 +348,70 @@ class SearchEngine
   end
 
   private
-    def append_or_remove_filter(filter_key, filter_value, filter_params)
-      filter_params[filter_key] ||= [filter_value.downcase]
-      if filter_selected?(filter_key, filter_value)
-        filter_params[filter_key] -= [ filter_value.downcase ]
-      else
-        filter_params[filter_key] << filter_value.downcase
-      end
-      filter_params[filter_key].uniq!
-      filter_params
-    end
 
-    def formatted_filters
-      filter_params = HashWithIndifferentAccess.new
-      expressions.clone.each do |k, v|
-        next if IGNORE_ON_URL.include?(k)
-        next if k == 'visibility'
-        filter_params[k] ||= []
-        if RANGED_FIELDS[k]
-          v.each do |_v|
-            /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
-            if k.to_s == 'price'
-              min = (min.to_d / 100.0).round
-              max = (max.to_d / 100.0).round
-            end
-            filter_params[k] << "#{min}-#{max}"
-          end
-        else
-          filter_params[k].concat v.map { |_v| _v.downcase }
+  def normalize_values(vals)
+    if @multi_selection
+      values = vals.split(MULTISELECTION_SEPARATOR) if vals.respond_to?(:split)
+    else
+      values = [vals].flatten.compact
+    end
+    values
+  end
+
+  def append_or_remove_filter(filter_key, filter_value, filter_params)
+    filter_params[filter_key] ||= [filter_value.downcase]
+    if filter_selected?(filter_key, filter_value)
+      filter_params[filter_key] -= [ filter_value.downcase ]
+    else
+      filter_params[filter_key] << filter_value.downcase
+    end
+    filter_params[filter_key].uniq!
+    filter_params
+  end
+
+  def formatted_filters
+    filter_params = HashWithIndifferentAccess.new
+    expressions.clone.each do |k, v|
+      v = normalize_values(v)
+      next if IGNORE_ON_URL.include?(k)
+      next if k == 'visibility'
+      filter_params[k] ||= []
+      if RANGED_FIELDS[k]
+        v.each do |_v|
+          /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          filter_params[k] << "#{min}-#{max}"
         end
-      end
-      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
-
-      filter_params
-    end
-
-    def remove_excluded_brands(bq, expressions)
-      return unless expressions["excluded_brand"].present?
-      excluded_brands = expressions["excluded_brand"]
-      expressions.delete("excluded_brand")
-      vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
-      bq << ( "(not (or #{vals.join(' ')}))" )
-    end
-
-    def validate_sort_field
-      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = DEFAULT_SORT
+      else
+        filter_params[k].concat v.map { |_v| _v.downcase }
       end
     end
+    filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
-    def format_price_range(min,max)
-      "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
+    filter_params
+  end
+
+  def validate_sort_field
+    if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+      @sort_field = DEFAULT_SORT
     end
+  end
 
-    def price_selected_filters expressions
-      return [] unless expressions[:price]
-      price_filters = expressions[:price].map do |e| 
-        a = e.gsub("retail_price:","").split("..")
-        a[0] = (a[0].to_i/100).to_s
-        a[1] = ((a[1].to_i+1)/100).to_s
-        a.join("-")
+  def price_selected_filters expressions
+    return [] unless expressions[:price]
+    price_filters = expressions[:price].map do |e| 
+      a = e.gsub("retail_price:","").split("..")
+      a.join("-")
+    end
+    normalize_values(price_filters || [])
+  end
+
+  def set_attributes(attributes)
+    attributes.each do |k, v|
+      next if k.blank?
+      begin
+        self.send("#{k}=", v)
+      rescue NoMethodError
       end
-      price_filters || []
     end
-
-    def smart_ranking_params
-      "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
-    end
+  end
 end

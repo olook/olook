@@ -28,12 +28,12 @@ class HighlightCampaign < ActiveRecord::Base
   end
 
   private
-    def self.dummy_campaign
-      OpenStruct.new({products: [], cache_key: nil, product_ids: ""})
-    end
+  def self.dummy_campaign
+    OpenStruct.new({products: [], cache_key: nil, product_ids: ""})
+  end
 
-    def get_search_engine
-      @search ||= SearchEngine.new(product_id: product_ids).with_limit(1000)
-      @search
-    end
+  def get_search_engine
+    @search ||= SearchEngine.new(product_id: product_ids.split(/\D/)).with_limit(1000)
+    @search
+  end
 end
