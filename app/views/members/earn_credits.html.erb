@@ -6,99 +6,57 @@
   <%= javascript_include_tag "members" %>
 <% end %>
 
-<section id="user-info">
-  <ul>
-    <li><a class="convide" href="javascript:void(0);"></a></li>
-    <li><a class="fidelidade_desativado" href="javascript:void(0);"></a></li>
-  </ul>
-</section>
+<aside class="pic_credits">
+  <p>
+    Queremos ver você sempre linda e satisfeita, no dia-a-dia e nas compras! Por isso oferecemos várias maneiras de você ganhar créditos. Quer ver?
+  </p>
+</aside>
 
-<section id="share-mail">
-  <hgroup>
-    <h1>Compartilhe seu link pessoal</h1>
-    <h2>Envie seu link pessoal <br /> pelo Facebook, Twitter, MSN e <br /> por onde mais você quiser.</h2>
-  </hgroup>
-
-  <form>
-    <fieldset>
-      <ol>
-        <li>
-          <%= text_field_tag "link", accept_invitation_url(:invite_token => @user.invite_token), :readonly => "readonly" %>
-          <%= link_to "Copiar link", "#", :class =>"copy_link" %>
-          <ul class="share">
-            <li class="share_msg"> ou compartilhe
-              <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a>
-              <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-              <script type="text/javascript" charset="utf-8">
-                window.twttr = (function (d,s,id) {
-                  var t, js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-                  js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-                  return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-                }(document, "script", "twitter-wjs"));
-              </script>
-              <script type="text/javascript" charset="utf-8">
-                twttr.ready(function (twttr) {
-                  twttr.events.bind('click', function(event){
-                    <%# = track_event('MemberInvite', 'TwitterPost') %>
-                  });
-                });
-              </script>
-            </li>
-            <li>
-              <%= content_tag :div, '', class: "fb-share-button", data: {href: accept_invitation_url(:invite_token => @user.invite_token), type: "button"} %>
-            </li>
-          </ul>
-        </li>
-      </ol>
-    </fieldset>
-  </form>
-  <div class="box_copy" style="display: none">
-    <p>Link copiado com sucesso!</p>
-    <p><span>Aperte CTRL + V para colar.</span></p>
-  </div>
-</section>
-
-<section id="invite-mail">
-  <hgroup>
-    <h1>Convide suas amigas por email</h1>
-    <h2>Digite o email de suas amigas <br /> no campo ao lado separados por vírgula.</h2>
-  </hgroup>
-
-  <%= form_tag (member_invite_by_email_path) do %>
-    <fieldset>
-      <ol>
-        <li>
+<section class="share_friends">
+  <article class="fidelity">
+    <h2>Fidelidade Olook</h2>
+    <p>Sempre que comprar na Olook, você ganha 15% do valor total em créditos para gastar nos próximos dois meses em compras acima de R$100,00.</p>
+    <%= link_to ">> Garanta seus créditos!", "#", :class =>"win_credits" %>
+  </article>
+  <article class="invite_your_friends">
+    <h2>Convide suas amigas</h2>
+    <p>
+      Convide suas amigas pelo FACEBOOK ou E-MAIL.<br>
+      Se elas fizerem alguma compra, você ganha R$ 30,00 para gastar em compras acima de R$ 150,00. Escolha a forma de compartilhar!
+    </p>
+    <ul>
+      <li>
+        <b>1. Por E-mail</b>
+        Digite o e-mail das suas amigas no campo abaixo, separado por virgula.
+        <%= form_tag (member_invite_by_email_path) do %>
           <%= text_area_tag :invite_mail_list %>
-        </li>
-      </ol>
-    </fieldset>
-    <fieldset class="buttons invite">
-      <ol>
-        <li>
-          <%= submit_tag("CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
-        </li>
-      </ol>
-    </fieldset>
-  <% end %>
+          <%= submit_tag(">> CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
+        <% end %>
+      </li>
+      <li>
+        <b>2. Pelo Facebook</b>
+        Selecione suas amigas e envie o convite!
+        <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage"), data: { href: accept_invitation_url(:invite_token => @user.invite_token) } %>
+      </li>
+    </ul>
+  </article>
 </section>
 
-<section id="post-to-wall", style="background:none;">
-  <hgroup>
-    <h1>Convide amigas do Facebook</h1>
-    <h2>Para convidar, selecione suas amigas<br />na caixa ao lado.
-    </h2>
-  </hgroup>
-  <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage"), data: { href: accept_invitation_url(:invite_token => @user.invite_token) } %>
-</section>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<script type="text/javascript" charset="utf-8">
+  window.twttr = (function (d,s,id) {
+    var t, js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+    js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+    return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+  }(document, "script", "twitter-wjs"));
+</script>
+<script type="text/javascript" charset="utf-8">
+  twttr.ready(function (twttr) {
+    twttr.events.bind('click', function(event){
+      <%# = track_event('MemberInvite', 'TwitterPost') %>
+    });
+  });
+</script>
 
-<section id="credits">
-  <h2>AGORA VOCÊ FICARÁ NA MODA TODOS OS MESES GASTANDO MENOS</h2>
-  <ul>
-    <li class="first"><p>Toda a vez que você </br>comprar na Olook</p></li>
-    <li class="earn"><p>Você ganhará 15% </br>do valor do seu </br>pedido em créditos</p></li>
-    <li class="last"><p>Para usar em compras </br>nos próximos 2 meses </br>(em compras acima de R$ 100).</p></li>
-  </ul>
-
-</section>
 <%#= render 'invite_by_email.html.erb' %>
