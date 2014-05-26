@@ -28,7 +28,7 @@
     - if search.filter_value('category').to_a.include?('curves')
       = render 'list_products/selected_filter', search: search, url_builder: @url_builder, category_name: "Curves"
     - else
-      %li= link_to "Olook Curves", @url_builder.only_filters(:category => "curves"), class: 'title_section close'
+      %li= link_to "Plus Size", @url_builder.only_filters(:category => "curves"), class: 'title_section close'
 
 - if search.filter_value('category').to_a.include?('sapato')
   .filter
