@@ -353,7 +353,7 @@ class SearchEngine
     if @multi_selection
       values = vals.split(MULTISELECTION_SEPARATOR) if vals.respond_to?(:split)
     else
-      values = [vals].flatten
+      values = [vals].flatten.compact
     end
     values
   end
