@@ -1,24 +1,33 @@
 class ModalController < ApplicationController
+  before_filter :manager_cookies
   layout false
   def show
     if ModalExhibitionPolicy.apply?(path: params["path"], cookie: cookies[:sm], user: current_user, mobile: mobile?)
-      set_modal_cookie if cookies[:sm].blank?
-      variation = ab_test('acquisition_popup_test', 'facebook', 'email')
-      if variation == 'facebook'
-        render json: {html: render_to_string(partial: 'show1.html.erb'), name: variation, width: "493",height: "764", color: "#fff" }
-      else
-        render json: {html: render_to_string(partial: 'show2.html.erb'), name: variation, width: "493",height: "764", color: "#fff" }
-      end
+      partial_name = cookies[:sm] == 0 ? 'show1.html.erb' : 'show2.html.erb'
+      render json: {html: render_to_string(partial: partial_name), width: "493",height: "764", color: "#fff" }
     else
       render text: "",status: 401
     end
   end
 
   private
-  def set_modal_cookie
+
+  def manager_cookies
+    increment if cookies[:sm]
+    set if cookies[:sm].blank?
+  end
+
+  def set
     cookies[:sm] = {
-       :value => "1",
-       :expires => 1.day.from_now
+       :value => 0,
+       :expires => Time.zone.now.end_of_day + 2.hours
+     }
+  end
+
+  def increment
+    number = cookies[:sm].to_i
+    cookies[:sm] = {
+       :value => number += 1
      }
   end
 end

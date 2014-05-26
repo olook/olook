@@ -13,7 +13,6 @@
   margin-bottom: 25px;
   .row {
     height:40px;
-    border-bottom:1px solid #d1d1d1;
   }
 }
 
@@ -440,12 +439,14 @@ h1.title_catalog{
 
 .js_fixed {
   height:50px !important;
+
   .cata_filters {
     position: fixed !important;;
     top: 38px;
     background: #FFF;
     width: 793px;
     z-index: 99;
+    border-bottom:1px solid #d1d1d1;
     .exhibition-mode {
       margin-top:9px !important;
     }
@@ -459,5 +460,6 @@ h1.title_catalog{
     height: 40px !important;
     min-height:40px !important;
     padding-top:10px !important;
+    border-bottom:1px solid #d1d1d1;
   }
 }
