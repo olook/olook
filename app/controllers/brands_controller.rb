@@ -29,7 +29,7 @@ class BrandsController < ApplicationController
   private
 
   def set_search
-    @search = SearchEngine.new(@search_params).for_page(params[:page]).with_limit(48)
+    @search = SearchEngine.new(@search_params, skip_beachwear_on_clothes: true).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
     @url_builder.set_search @search
   end

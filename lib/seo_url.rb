@@ -23,11 +23,11 @@ class SeoUrl
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
-    "novidade" => "age,-inventory,-text_relevance",
+    "novidade" => "age",
     "novidades" => "age"
   })
   FIELDS_WITHOUT_KEYS_IN_URL = Set.new(['subcategory', 'category', 'brand'])
-  FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
+  FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care', 'price'])
   CARE_PRODUCTS = [
     'Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar',
     'amaciante', 'apoio plantar', 'impermeabilizante', 'palmilha', 'proteção para calcanhar',
@@ -121,7 +121,7 @@ class SeoUrl
       end
     end
     only_filters = blk.call(only_filters) if blk
-    only_filters = build_link_for(only_filters)
+    only_filters = build_link_for(only_filters, ignore_params: true)
     @link_builder.call(only_filters)
   end
 
@@ -140,19 +140,27 @@ class SeoUrl
   end
 
   def self.all_categories
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
-  def build_link_for _parameters={}
+  def self.all_brands
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+  end
+
+  def self.all_subcategories
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+  end
+
+  def build_link_for _parameters={}, opts={}
     parameters = _parameters.dup
     parse_path_positions if @sections.blank?
 
     url = @sections.map do |section|
-      build_path_string(parameters, section)
+      build_path_string(parameters, section, opts)
     end.compact
 
     query = build_query_string(parameters)
-    if @search.term
+    if @search.term && @search.term.to_s != ''
       query.push("q=#{@search.term}")
     end
 
@@ -161,15 +169,39 @@ class SeoUrl
     full_path
   end
 
+  def filters_outside_path
+    parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
+    @sections.each do |section|
+      next if section[:fields].blank?
+      section[:fields].each do |field|
+        parameters.delete(field)
+      end
+    end
+    HashWithIndifferentAccess[parameters.map { |k, v| translate_field(k,v)}.compact ]
+  end
+
+  def translate_field(k,v)
+    return if k.blank? || v.blank?
+
+    vs = [v].flatten.map do |_v|
+      VALUES_TRANSLATION.invert[_v.to_s] || _v.to_s
+    end
+    vs.compact!
+    vs = vs.join(MULTISELECTION_SEPARATOR)
+
+    ks = KEYS_TRANSLATION.invert[k.to_s] || k
+    return [ ks, vs ]
+  end
+
   private
 
-  def build_path_string(parameters, section)
+  def build_path_string(parameters, section, opts={})
     if section[:fields].blank?
       section[:format]
     else
       fields = section[:fields].map do |field|
         values = parameters.delete(field.to_sym)
-        values = [@params[field.to_sym]].flatten if @params[field.to_sym]
+        values = [@params[field.to_sym]].flatten if !opts[:ignore_params] && @params[field.to_sym]
 
         if values
           v = send("format_#{field}", values, section[:value_separator]) rescue nil
@@ -189,41 +221,35 @@ class SeoUrl
 
   FIELDS_WITH_KEYS_IN_URL.each do |field|
     define_method("format_#{field}") do |values, value_separator|
-      if !values.compact.empty?
-        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
-      end
-      v.blank? ? nil : v
+      join_field_values_with_separator(field, values, value_separator)
     end
   end
 
   def format_field(field, values, value_separator)
     if FIELDS_WITH_KEYS_IN_URL.include?(field)
-      if !values.compact.empty?
-        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
-      end
+      v = join_field_values_with_separator(field, values, value_separator)
     else
       v = values.join(value_separator)
     end
     v.blank? ? nil : v
   end
 
+  def join_field_values_with_separator(field, values, value_separator)
+    if !values.compact.empty?
+      "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
+    end
+  end
+
   def build_query_string(parameters)
     parameters.map do |k, v|
-      if k.present? && v.present?
-        vs = [v].flatten.map do |_v|
-          VALUES_TRANSLATION.invert[_v.to_s] ? VALUES_TRANSLATION.invert[_v.to_s] : _v.to_s
-        end.compact
-
-        if KEYS_TRANSLATION.invert[k.to_s]
-          "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
-        else
-          "#{k}=#{vs.join(MULTISELECTION_SEPARATOR)}"
-        end
+      ks,vs = translate_field(k, v)
+      if ks.present? && vs.present?
+        "#{ks}=#{vs}"
       end
     end.compact
   end
 
-  ['color', 'size', 'heel', 'care'].each do |f|
+  FIELDS_WITH_KEYS_IN_URL.each do |f|
     define_method "extract_#{f}" do |path_section, section|
       parse_filters(path_section, section)[f]
     end
@@ -295,7 +321,7 @@ class SeoUrl
   end
 
   def all_brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_brands.yml' ) ) ) )
+    self.class.all_brands
   end
 
   def extract_brand(path_section, section)
@@ -309,7 +335,7 @@ class SeoUrl
     sorted_brands.each do |b|
       if /#{b.parameterize}/i =~ param_brand
         param_brand.slice!(/#{b.parameterize}/i)
-        brands << b.parameterize(' ')
+        brands << b.parameterize
       end
     end
 
@@ -334,7 +360,7 @@ class SeoUrl
     sorted = all_subcategories.sort{|a,b| b.size <=> a.size}
     sorted.each do |c|
       if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/i =~ param_subcategory
-        _subcategories << c.parameterize(' ')
+        _subcategories << c.parameterize
         param_subcategory.slice!(/#{c.parameterize}/i)
       end
     end
@@ -343,7 +369,7 @@ class SeoUrl
   end
 
   def all_categories
-    cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
+    cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
     cat = cat.keys
     cat.concat( cat.map { |s| s.downcase } )
     cat.concat( cat.map { |s| ActiveSupport::Inflector.transliterate(s) } )
@@ -364,10 +390,10 @@ class SeoUrl
   end
 
   def all_subcategories
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
+    self.class.all_subcategories
   end
 
   def self.whitelisted_colors
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/whitelisted_colors.yml' ) ) ) )
-  end  
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/whitelisted_colors.yml' ) ) ) )
+  end
 end

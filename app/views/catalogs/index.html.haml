@@ -67,8 +67,8 @@
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda { |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
 
       - if hot_products = show_hot_products?(@leaderboard, 4)
-        / :javascript
-        /   log_event('view', 'hot_products');
+        :javascript
+          log_event('view', 'hot_products');
         %section.hot_products
           %h3 Os mais clicados
           %ul
