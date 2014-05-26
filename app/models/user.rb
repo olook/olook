@@ -2,6 +2,7 @@
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
   serialize :facebook_data, Hash
+  serialize :facebook_likes, Array
 
   attr_accessor :require_cpf, :validate_gender_birthday
   attr_accessible :first_name, :last_name, :email, :password,
