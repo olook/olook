@@ -4,13 +4,15 @@
   .modal_newsletter
     %p.join
       Cadastre seu e-mail
-    = form_tag new_subscribe_campaign_email_path, id: "campaign_email_form", onsubmit: "olookApp.publish('modal:post_response',$('.modal_error'))", remote: true do
-      = email_field_tag :email, "",placeholder:"Digite aqui seu e-mail", class: "email", required: true
-      = submit_tag "Cadastrar", onclick: track_event('Modal', 'CampaignEmailRegistered', 'Second', no_interactive: true)
-    .modal_error
+    = email_field_tag :email, "", id: 'js-emailValue', placeholder:"Digite aqui seu e-mail", class: "email", required: true
+    = submit_tag "Cadastrar", id: 'js-postEmail'
+    .js-modal_error
   %p.joinfb
     Ou entre com sua conta do Facebook
 :javascript
+  $('#js-postEmail').click(function(e){
+    olookApp.publish('modal:post_email', $('.js-modal_error'));
+  });
   try {
     FB.XFBML.parse(document.getElementById('modal_face'));
   } catch(ex){}
