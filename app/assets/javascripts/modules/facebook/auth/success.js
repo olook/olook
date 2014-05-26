@@ -8,10 +8,8 @@ var FacebookAuthSuccess = (function(){
   FacebookAuthSuccess.prototype.facade = function (result) {
     if(result.redirectTo){
       if(result.newUser){
+        olookApp.publish('stats:log', {value: 'email'});
         log_event('action','new-facebook-user',{value: 'email'});
-        console.log("new user");
-      } else {
-        console.log("existent user");
       }
       window.location = result.redirectTo;
     }
