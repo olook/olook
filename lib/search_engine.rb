@@ -285,9 +285,9 @@ class SearchEngine
   def build_boolean_expression(options={})
     expressions = @expressions.clone
     structured = SearchedProduct.structured(:and)
-    cares = expressions.delete('care')
+    cares = normalize_values(expressions.delete('care'))
     if cares.present?
-      subcategories = expressions.delete('subcategory')
+      subcategories = normalize_values(expressions.delete('subcategory'))
       vals = cares.map { |v| ["care", v] }
       vals.concat(subcategories.map { |v| ["subcategory", v] }) if subcategories.present?
       if vals.size > 1
