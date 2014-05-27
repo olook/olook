@@ -23,6 +23,6 @@ class Users::FacebookConnectController < ApplicationController
 
   def new_user?
     user = User.find_by_email(@facebook_connect.email)
-    !!user  
+    !user
   end
 end
