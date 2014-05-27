@@ -24,21 +24,34 @@
       Convide suas amigas pelo FACEBOOK ou E-MAIL.<br>
       Se elas fizerem alguma compra, você ganha R$ 30,00 para gastar em compras acima de R$ 150,00. Escolha a forma de compartilhar!
     </p>
-    <ul>
-      <li>
-        <b>1. Por E-mail</b>
-        Digite o e-mail das suas amigas no campo abaixo, separado por virgula.
-        <%= form_tag (member_invite_by_email_path) do %>
-          <%= text_area_tag :invite_mail_list %>
-          <%= submit_tag(">> CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
-        <% end %>
-      </li>
-      <li>
-        <b>2. Pelo Facebook</b>
-        Selecione suas amigas e envie o convite!
-        <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage"), data: { href: accept_invitation_url(:invite_token => @user.invite_token) } %>
-      </li>
-    </ul>
+    <% if @current_user %>
+      <ul>
+        <li>
+          <b>1. Por E-mail</b>
+          Digite o e-mail das suas amigas no campo abaixo, separado por virgula.
+          <%= form_tag (member_invite_by_email_path) do %>
+            <%= text_area_tag :invite_mail_list %>
+            <%= submit_tag(">> CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
+          <% end %>
+        </li>
+        <li>
+          <b>2. Pelo Facebook</b>
+          Selecione suas amigas e envie o convite!
+          <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage"), data: { href: accept_invitation_url(:invite_token => @user.invite_token) } %>
+        </li>
+      </ul>
+    <% else %>
+    Para convidar, você precisa se logar antes:
+
+    <p>
+      <div class="fb-login-button" "data-max-rows" = "1" "data-size" = "large" "data-show-faces" = "false" "data-auto-logout-link" = "false" "data-scope" = <%= FACEBOOK_CONFIG['login_scope'] %> "data-onlogin" = "loginFacebook">
+      Entrar pelo Facebook
+      </div>
+    </p>
+
+      <%= render partial: "users/sessions/form", locals: {resource: User.new, resource_name: :user} %>
+
+    <% end %>
   </article>
 </section>
 
