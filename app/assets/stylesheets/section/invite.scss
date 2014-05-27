@@ -421,7 +421,7 @@ body {
         padding:0 5%;
         text-align: center;
         display: block;
-        margin-bottom:30px;
+        margin-bottom:20px;
       }
       a.win_credits {
         margin:auto 0;
@@ -474,5 +474,109 @@ body {
     .invite_your_friends {
         border:0px;
       }
+      p.email{
+        margin-bottom: 5px !important;
+      }
+    form {
+      margin-left: 37px;
+      fieldset {
+        &.inputs {
+          ol {
+            overflow: hidden;
+
+            li {
+              overflow: hidden;
+              margin-bottom: 10px;
+
+              label {
+                float: left;
+                line-height: 34px;
+                font-size: 12px;
+                font-weight: normal;
+                margin-right: 10px;
+              }
+
+              input {
+                background-color: #fff;
+                padding: 10px;
+                background-position: bottom;
+                float: left;
+                width: 262px;
+                border: 1px solid #000;
+              }
+            }
+          }
+        }
+        &.buttons {
+          ol {
+            li {
+              margin: 10px 13px 10px 6px !important;
+              float: left;
+              &.remember-me {
+                width: 345px;
+                margin: 0;
+                float: left;
+                input[type='checkbox'] {
+                  margin-bottom: 10px;
+                  width:25px;
+                  float:left;
+                }
+                label{width:150px !important;}
+                p {
+                  font-size: 11px !important;
+                  margin-bottom: 5px !important;
+                  text-align: left !important;
+                  &.register{font-size:11px;float:left;margin-left:165px;margin-top: -33px;
+                    a{float:none;}
+                  }
+                   &.forgot_password {
+                    float:left;margin:0 0 10px 10px;clear:both;
+                    a{
+                      color: #6D6E71;
+                      text-decoration: none;
+                      display: block;
+                      &:hover {
+                        text-decoration: underline;
+                      }
+                    }
+                    & + li {
+                        margin-right: 20px;
+                        input[type='submit'] {
+                          width: 106px;
+                          height: 42px;
+                          display: block;
+                          border: none;
+                          cursor: pointer;
+                          font-size: 13px;
+                          font-weight: 600;
+                          @include bt_color($primary_bt_color, $primary_bt_color_hover);
+                        }
+                      }
+                    }
+                  }
+                }
+
+              input[type='submit'] {
+                width: 212px;
+                height: 45px;
+                display: block;
+                border: none;
+                cursor: pointer;
+                margin:0 19px 0 0 !important;
+                float:none;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                margin-left: 65px !important;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
+              }
+            }
+          }
+        }
+      }
+    }
+    form.invite{
+      margin-left: 0 !important;
+    }
   }
 }
