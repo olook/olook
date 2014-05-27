@@ -1,6 +1,4 @@
 //= require common/jquery.zclip.min
-//= require application_core/olook_app
-
 function postToFacebookFeed(element) {
 
   var obj = {
