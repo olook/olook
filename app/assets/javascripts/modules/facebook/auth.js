@@ -38,7 +38,17 @@ var FacebookAuth = (function(){
 })();
 
 //Used on data-onlogin attribute in FB Login Button
-loginFacebook = function(response) {
+loginFacebookModalFirst = function(response) {
   olookApp.publish('stats:log', {handler: 'facebookModalFirst'});
+  olookApp.publish('fb:auth:login', response);
+}
+
+loginFacebookModalSecond = function(response) {
+  olookApp.publish('stats:log', {handler: 'loginFacebookModalSecond'});
+  olookApp.publish('fb:auth:login', response);
+}
+
+loginFacebookQuiz = function(response) {
+  olookApp.publish('stats:log', {handler: 'facebookQuiz'});
   olookApp.publish('fb:auth:login', response);
 }
