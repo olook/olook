@@ -31,7 +31,7 @@ $(function() {
   var num = 37;
   $(window).bind('scroll', function () {
     var element = $('.fixed_filter')[0];
-    if(top) {
+    if (element) {
       var top = element.getBoundingClientRect().top;
       if (top <= num) {
         $('.fixed_filter').addClass('js_fixed');
