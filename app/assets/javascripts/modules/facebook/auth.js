@@ -44,7 +44,7 @@ loginFacebookModalFirst = function(response) {
 }
 
 loginFacebookModalSecond = function(response) {
-  olookApp.publish('stats:log', {handler: 'loginFacebookModalSecond'});
+  olookApp.publish('stats:log', {handler: 'facebookModalSecond'});
   olookApp.publish('fb:auth:login', response);
 }
 
