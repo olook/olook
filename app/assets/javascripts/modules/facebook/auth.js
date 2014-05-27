@@ -54,11 +54,11 @@ loginFacebookQuiz = function(response) {
 }
 
 loginFacebookHeader = function(response) {
-  olookApp.publish('stats:log', {handler: 'facebookQuiz'});
+  olookApp.publish('stats:log', {handler: 'facebookHeader'});
   olookApp.publish('fb:auth:login', response);
 }
 
-loginFacebookpayment = function(response) {
-  olookApp.publish('stats:log', {handler: 'facebookQuiz'});
+loginFacebookPayment = function(response) {
+  olookApp.publish('stats:log', {handler: 'facebookPayment'});
   olookApp.publish('fb:auth:login', response);
 }
