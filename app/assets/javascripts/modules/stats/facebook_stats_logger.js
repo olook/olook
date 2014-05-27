@@ -1,15 +1,15 @@
 var FacebookStatsLogger = (function(){
-  function FacebookStatsLogger(){ };
+  function FacebookStatsLogger(){
+    this.requestHash = {}
+  };
 
-  var requestHash = {};
-
-  var populateHash = function(request_hash){
-    requestHash.handler = requestHash.handler || request_hash.handler;
-    requestHash.valueHash = requestHash.valueHash || request_hash.valueHash;
+  var populateHash = function(it,request_hash){
+    it.requestHash.handler = it.requestHash.handler || request_hash.handler;
+    it.requestHash.valueHash = it.requestHash.valueHash || request_hash.valueHash;
   }
 
-  var requestHashCompleted = function(){
-    return(!StringUtils.isEmpty(requestHash.handler) && !StringUtils.isEmpty(requestHash.valueHash))
+  var requestHashCompleted = function(it){
+    return(!StringUtils.isEmpty(it.requestHash.handler) && !StringUtils.isEmpty(it.requestHash.valueHash))
   }
 
   FacebookStatsLogger.prototype.config = function () {
@@ -17,10 +17,10 @@ var FacebookStatsLogger = (function(){
   };
 
   FacebookStatsLogger.prototype.facade = function (request_hash) {
-    populateHash(request_hash);
-    if(requestHashCompleted()){
-      console.log('action: '+requestHash.handler+', '+requestHash.valueHash);
-      log_event('action',requestHash.handler,requestHash.valueHash);
+    populateHash(this,request_hash);
+    if(requestHashCompleted(this)){
+      console.log('action: '+this.requestHash.handler+', '+this.requestHash.valueHash);
+      log_event('action',this.requestHash.handler,this.requestHash.valueHash);
       requestHash = {};
     }
   };
