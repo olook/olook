@@ -39,5 +39,6 @@ var FacebookAuth = (function(){
 
 //Used on data-onlogin attribute in FB Login Button
 loginFacebook = function(response) {
+  olookApp.publish('stats:log', {handler: 'facebookModalFirst'});
   olookApp.publish('fb:auth:login', response);
 }
