@@ -52,7 +52,7 @@ class ProductDocument
 
   def brand= brand
     @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.parameterize
-    self.brand_facet = brand.titleize
+    self.brand_facet = brand
   end
 
   def brand_facet=(brand)
