@@ -29,7 +29,7 @@
         <li>
           <b>1. Por E-mail</b>
           Digite o e-mail das suas amigas no campo abaixo, separado por virgula.
-          <%= form_tag (member_invite_by_email_path) do %>
+          <%= form_tag(member_invite_by_email_path, class: "invite") do %>
             <%= text_area_tag :invite_mail_list %>
             <%= submit_tag(">> CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
           <% end %>
@@ -48,7 +48,7 @@
       Entrar pelo Facebook
       </div>
     </p>
-
+      <p class="email">Ou entre com seu e-mail</p>
       <%= render partial: "users/sessions/form", locals: {resource: User.new, resource_name: :user} %>
 
     <% end %>
