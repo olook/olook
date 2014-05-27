@@ -143,6 +143,9 @@ a.selecionado:hover {color:$pink !important;}
         letter-spacing: 1px;
       }
     }
+    .fb-login-button{
+      z-index:20;
+    }
     p.joinfb{
       margin-top: 42px;
       position: absolute;
