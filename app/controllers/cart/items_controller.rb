@@ -23,7 +23,7 @@ class Cart::ItemsController < ApplicationController
   end
 
   def destroy
-    @item = @cart.items.first(params[:id])
+    @item = @cart.items.find_by_id(params[:id])
 
     if !@item # Item already destroyed (or new cart added)
       respond_with { |format| format.js { } }
