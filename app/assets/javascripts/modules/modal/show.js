@@ -9,7 +9,6 @@ var ModalShow = (function(){
     olook.newModal(data.html, data.width, data.height, data.color, function(){
       _gaq.push(['_trackEvent', 'Modal', 'Close', data.name, ( new Date() - start )], true);
     });
-    log_event('view', 'newsletter-popup');
   };
   return ModalShow;
 })();
