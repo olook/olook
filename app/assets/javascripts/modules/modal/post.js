@@ -5,8 +5,6 @@ var ModalPost  = (function(){
   };
 
   ModalPost.prototype.facade = function(error_element){
-
-    log_event('click','newsletter-popup',{value: 'email'});
     emailToBeSubmited = $('#js-emailValue').val();
 
     $.post('/campaign_email_subscribe', {email: emailToBeSubmited})
