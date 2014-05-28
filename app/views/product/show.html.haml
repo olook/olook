@@ -49,7 +49,6 @@
 = render "shared/mkt_breadcrumb"
 %section#product
   = product_breadcrumbs_for(@product)
-  - product_presenter = present 'Product', product: @product, member: @user, facebook_app_id: @facebook_app_id, shoe_size: @shoe_size, :logged? => user_signed_in?
   - if (@product.look_products(current_admin).size > 1 && @product.inventory > 0) || current_admin
     = link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: 'bt_domit'
   .box-left
@@ -59,11 +58,12 @@
   .box-right
     #product-details
       = render :partial => 'product/description', :locals => {:show_facebook_button => true}
-      = render :partial => 'product/add_to_cart', :locals => {:product => @product, product_presenter: product_presenter}
+      = render :partial => 'product/add_to_cart', :locals => {:product => @product}
       = render :partial => 'product/details'
     #modal_guide
 %br{style: "clear:both"}
-= product_presenter.render_look_products(current_admin)
+- if (@product.look_products(current_admin).size > 1 && @product.inventory > 0) || current_admin
+  = render :partial => 'product/look_products', :locals => {:look_products => @products.look_products(current_admin), :product_presenter => self, :complete_look_discount => complete_look_discount}
 = image_tag("product/vantagens.jpg", class:"vantagens")
 .chaordic.similaritems
 .chaordic.ultimatebuy

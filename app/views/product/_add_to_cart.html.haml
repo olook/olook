@@ -4,19 +4,19 @@
   = render :partial => 'product/colors', :locals => {:product => @product, :gift => false, :shoe_size => @shoe_size}
   - case @product.category
     - when Category::SHOE
-      = product_presenter.render_multiple_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => @product.variants.sorted_by_description, :shoe_size => @shoe_size, :show_cloth_size_table => false}
     - when Category::BAG
-      = product_presenter.render_accessory_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => @shoe_size, :show_cloth_size_table => false}
     - when Category::ACCESSORY
-      = product_presenter.render_accessory_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => @shoe_size, :show_cloth_size_table => false}
     - when Category::CLOTH
-      = product_presenter.render_cloth_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
     - when Category::LINGERIE
-      = product_presenter.render_cloth_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
     - when Category::BEACHWEAR
-      = product_presenter.render_cloth_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
     - when Category::CURVES
-      = product_presenter.render_cloth_sizes
+      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
   = render :partial => 'product/quantity_product', :locals => {:product => @product}
   - if @product.sold_out?
     = submit_tag "PRODUTO ESGOTADO", id: "add_product", class: "add_product disabled", disabled: "disabled"
@@ -31,6 +31,6 @@
     %li.fb
       .fb-share-button{"data-href" => "http://olook.com.br/produto/#{product_permalink(@product)}", "data-type" => "icon_link"}
     %li.email= link_to "Email", "javascript:void(0);"
-      
+
 :javascript
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
