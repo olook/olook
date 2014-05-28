@@ -21,3 +21,6 @@
         =text_field_tag :email, "", :class => "box_mail js-newsletter js-headerbox", :default_value => "Digite aqui seu e-mail"
       %fieldset.botao
         =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-headerbox"
+  - content_for :footer do
+    :javascript
+      log_event('view', 'newsletter-catalog');

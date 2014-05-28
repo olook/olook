@@ -20,6 +20,7 @@
   $('#js-postEmail').click(function(e){
     olookApp.publish('newsletter:subscribe', $('#js-emailValue').val(), 'modal');
   });
+  log_event('view', 'newsletter-modal1');
   try {
     FB.XFBML.parse(document.getElementById('modal_face'));
   } catch(ex){}
