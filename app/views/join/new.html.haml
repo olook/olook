@@ -23,7 +23,7 @@
       %span=@quiz_count.try(:count)
       pessoas já responderam nosso style quiz
       = image_tag("quiz/users.jpg")
-    .fb-login-button{"data-max-rows" => "1", "data-size" => "large", "data-show-faces" => "false", "data-auto-logout-link" => "false", "data-scope" => FACEBOOK_CONFIG['login_scope'], "data-onlogin" => "loginFacebook"}
+    .fb-login-button.js-join-new{"data-max-rows" => "1", "data-size" => "large", "data-show-faces" => "false", "data-auto-logout-link" => "false", "data-scope" => FACEBOOK_CONFIG['login_scope'], "data-onlogin" => "loginFacebook"}
     %p.fb OU
 
     - if @exist_newsletter
