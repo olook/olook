@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag 'new_structure/section/product_spy' %>
 <div id="close_quick_view">x</div>
 <% present('Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id, :logged? => user_signed_in?, :gift? => @gift, :shoe_size => @shoe_size, :only_view? => @only_view)  do |product_presenter| %>
   <section id="product">

@@ -1,6 +1,4 @@
 /*** PRODUTO DENTRO DO MODAL ESPIAR ***/
-@import 'new_structure/common/jquery.jqzoom';
-@import 'common/product_details';
 
 /****************
 BOX MODAL ESPIAR
@@ -21,7 +19,6 @@ BOX MODAL ESPIAR
   .size_guide{
     display:none;
   }
-  div#gallery { width:498px; margin-left: 20px; }
   #close_quick_view{cursor: pointer;
     font-size: 20px;
     position: absolute;
@@ -34,34 +31,3 @@ BOX MODAL ESPIAR
     z-index: 100;
   }
 }
-/*
-.social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
-  .has_bt_face{height:22px;position:relative;}
-  ul.social-list {float:left; width:417px;margin-top:-7px !important;
-    li {padding:0;margin-right: 10px;display:inline-block;
-      &.like{margin-right: 4px !important;margin-left: 23px;position: relative; top: 8px;}
-      &.twitter{position: relative;top: 17px !important;}
-      &.pinterest{position: relative;top: 10px !important;}
-      &.fb_bt{position: relative;top: 10px !important;}
-      a{display:inline;padding:0;width:100%;margin:0;}
-      }
-    }
-  }
-
-  div.fb-like,.fb_edge_widget_with_comment {
-    width: 90px;
-    margin: 3px 0 0;
-    float: left;
-    height:20px;
-    .fb_edge_comment_widget,.-cx-PRIVATE-pluginPostFlyout__core {
-      display: none;
-    }
-    iframe {
-      overflow:hidden !important;
-    }
-    &.bt_face{position:absolute;top:41px;right:8px;}
-  }
-}
-*/
-
-/* ENTREGA GARANTIDA ~ REMOVER APÓS TERMINO */
