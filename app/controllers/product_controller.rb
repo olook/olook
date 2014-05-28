@@ -67,8 +67,6 @@ class ProductController < ApplicationController
     @chaordic_category = @product.category_humanize
     @variants = @product.variants
 
-    @gift = (params[:gift] == "true")
-    @only_view = (params[:only_view] == "true")
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
   end
 
