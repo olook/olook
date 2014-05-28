@@ -20,7 +20,8 @@ var NewsletterSubscriber = (function(){
   };
 
   var subscribe = function(email,prefix){
-   $.post('/campaign_email_subscribe', {email: email})
+    log_event('click', 'newsletter-'+prefix ,{value: 'email'});
+    $.post('/campaign_email_subscribe', {email: email})
       .done(function(e) {
         log_event('action','newsletter-'+prefix,{value: 'email'});
         if(prefix == 'modal'){
