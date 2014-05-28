@@ -24,7 +24,7 @@ var NewsletterSubscriber = (function(){
     $.post('/campaign_email_subscribe', {email: email})
       .done(function(e) {
         log_event('action','newsletter-'+prefix,{value: 'email'});
-        if(prefix == 'modal'){
+        if(prefix == 'modal1' || prefix == 'modal2'){
           $('#modal button.close').click();
         }else{
           displaySuccessMessage(prefix);
