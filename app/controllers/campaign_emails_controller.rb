@@ -36,6 +36,7 @@ class CampaignEmailsController < ApplicationController
   end
 
   def subscribe
+    finished('newsletter')
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
       render json: {message: "Email cadastrado"}
