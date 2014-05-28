@@ -4,9 +4,6 @@
   if(typeof BOOMR !== "undefined") {
     BOOMR.addVar("h.pg", SOASTA.pg);
   }
-
-
-- product_presenter = present 'Product', product: @product, member: @user, facebook_app_id: @facebook_app_id, shoe_size: @shoe_size, :logged? => user_signed_in?, :gift? => false, :only_view? => @only_view
 - content_for(:head) do
   - @hide_fb_page_id = true
   %meta{content: @facebook_app_id, property: "fb:app_id"}/
@@ -22,27 +19,6 @@
   %meta{content: @chaordic_category, name: "chaordic:category"}/
   %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
   = stylesheet_link_tag "new_structure/section/lite_product"
-= render "shared/mkt_breadcrumb"
-%section#product
-  = product_breadcrumbs_for(@product)
-  = product_presenter.render_complete_look_badge(current_admin, "bt_domit")
-
-  .box-left
-    #gallery
-      = product_presenter.render_pics
-      = product_presenter.render_facebook_comments
-  .box-right
-    #product-details
-      = product_presenter.render_description
-      = product_presenter.render_add_to_cart
-      = product_presenter.render_details
-    #modal_guide
-%br{style: "clear:both"}
-= product_presenter.render_look_products(current_admin)
-= image_tag("product/vantagens.jpg", class:"vantagens")
-.chaordic.similaritems
-.chaordic.ultimatebuy
-.chaordic.mostpopular{"data-skin" => "MP-product-detail"}
 
 - content_for :data_layer do
   = render partial: "shared/data_layer/product"
@@ -68,3 +44,28 @@
         = hidden_field_tag :product_id, @product.id
         = submit_tag 'Enviar', id: :send
   = render "shared/lightbox_credits"
+
+
+= render "shared/mkt_breadcrumb"
+%section#product
+  = product_breadcrumbs_for(@product)
+  - product_presenter = present 'Product', product: @product, member: @user, facebook_app_id: @facebook_app_id, shoe_size: @shoe_size, :logged? => user_signed_in?
+  - if (@product.look_products(current_admin).size > 1 && @product.inventory > 0) || current_admin
+    = link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: 'bt_domit'
+  .box-left
+    #gallery
+      = render :partial => "product_pics"
+      = render :partial => 'product/facebook_comments', :locals => {:product => @product, :facebook_app_id => @facebook_app_id}
+  .box-right
+    #product-details
+      = render :partial => 'product/description', :locals => {:show_facebook_button => true}
+      = render :partial => 'product/add_to_cart', :locals => {:product => @product, product_presenter: product_presenter}
+      = render :partial => 'product/details'
+    #modal_guide
+%br{style: "clear:both"}
+= product_presenter.render_look_products(current_admin)
+= image_tag("product/vantagens.jpg", class:"vantagens")
+.chaordic.similaritems
+.chaordic.ultimatebuy
+.chaordic.mostpopular{"data-skin" => "MP-product-detail"}
+
