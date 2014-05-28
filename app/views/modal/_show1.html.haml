@@ -1,17 +1,15 @@
 .isa_modal
-  %h2
-    Bem vinda à Olook!
-  %p
-    - ab_test('newsletter', 'default', 'helena') do |variation|
-      - if variation == 'default'
-        Fique ligada nas principais tendências da moda
-        %br
-          e conheça novos produtos toda semana.
-      - elsif variation == 'helena'
-        Fique ligada nas principais tendências da moda e nos produtos novos que chegam toda semana. 
+  - ab_test('newsletter', 'default', 'helena') do |variation|
+    %h2{class: "title_#{variation}"}
+      Bem vinda à Olook!
+    - if variation == 'default'
+      %p{class: "p_#{variation}"}
+        Fique ligada nas principais tendências da moda e conheça novos produtos toda semana.
+    - else
+      %p{class: "p_#{variation}"}
+        Fique ligada nas principais tendências da moda.
         %br
         Ah! E não esqueça de conhecer a coleção de sapatos que eu desenvolvi exclusivamente para a Olook. Está linda!
-
   #modal_face.login_with_facebook
     .fb-login-button{:data => {'max-rows' => "1", 'size' => "large", 'show-faces' => "false", 'auto-logout-link' => "false", 'scope' => FACEBOOK_CONFIG['login_scope'], 'onlogin' => "loginFacebook"}}
   .modal_newsletter
