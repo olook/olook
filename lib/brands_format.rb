@@ -9,7 +9,7 @@ class BrandsFormat
   end
 
   def retrieve_brands
-    split_columns
+    split_columns || []
   end
   private
 
@@ -26,11 +26,16 @@ class BrandsFormat
 
   def split_columns
     brands = separate_by_capital_letter 
-    brands.each_slice((brands.keys.size/4.0).ceil).to_a
+    brands.each_slice((brands.keys.size/4.0).ceil).to_a if brands.any?
   end
 
   def get_sort_brands_from_cache
-    ActiveSupport::JSON.decode(redis.get("sitemap"))["brands"].map{|brand| brand.tr(UPPERCASE_CHARS, LOWERCASE_CHARS).titleize}.uniq.sort
+    sitemap = redis.get("sitemap")
+    if sitemap
+      ActiveSupport::JSON.decode(sitemap)["brands"].map{|brand| brand.tr(UPPERCASE_CHARS, LOWERCASE_CHARS).titleize}.uniq.sort
+    else 
+      []
+    end
   end
 
   def redis

@@ -3,6 +3,7 @@ require 'new_relic/agent/method_tracer'
 
 class ProductController < ApplicationController
   include ::NewRelic::Agent::MethodTracer 
+  include ProductsHelper
 
   respond_to :html
   before_filter :load_show_product, :load_product_discount_service, only: [:show, :spy, :product_valentines_day]
@@ -57,7 +58,7 @@ class ProductController < ApplicationController
     end
 
     unless @current_admin
-      Leaderboard.new(key: "#{@product.category_humanize.parameterize}:#{@product.subcategory.parameterize}").score(@product.id)
+      Leaderboard.new(key: "#{@product.category_humanize.to_s.parameterize}:#{@product.subcategory.to_s.parameterize}").score(@product.id)
     end
 
     @google_pixel_information = @product
@@ -83,8 +84,11 @@ class ProductController < ApplicationController
   add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
 
   def ab_test
-    finished("complete_look_button", reset: false)
     render json: {status: :ok}.to_json
+  end
+
+  def meta_description
+    modify_meta_description(@product.try(:description), @product.try(:product_color))
   end
 
   private

@@ -15,12 +15,18 @@
   #catalog
     = render "menu", collection_theme_groups: @collection_theme_groups
     #result
-      .collections_header
-        - if @collection_theme = @collection_theme.first
-          = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
-          = link_to(">> Assista ao vídeo", "#",                                                                                                         |
-            { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
-            merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+      - if @collection_theme = @collection_theme.first
+        .collections_header
+          %ul.cover{style: "background-color:##{@collection_theme.bg_color}"}
+            %li.pic
+              = image_tag(@collection_theme.header_image)
+            %li.info
+              %h1{style: "color:##{@collection_theme.font_color}"}
+                = @collection_theme.name
+              = link_to "Assista ao vídeo", "#", {:class => "video_link", :rel => "#{@collection_theme.video_link}" }.merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {}) unless @collection_theme.video_link.blank?
+
+              %h2{style: "color:##{@collection_theme.font_color}"}
+                = @collection_theme.info
           .video_description
       = render "filters", search: @search, url_builder: @url_builder
 

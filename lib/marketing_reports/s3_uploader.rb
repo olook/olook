@@ -13,7 +13,7 @@ module MarketingReports
     def copy_file(filename)
       return unless Setting.upload_marketing_files_to_s3
       file_content = File.open(TEMP_PATH+DateTime.now.strftime(filename))
-      updload(filename, file_content)
+      upload(filename, file_content)
     end
 
     def upload(filename, file_content, is_public=false)

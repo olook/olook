@@ -82,9 +82,9 @@ class QuizResponder
       return self
     end
     update_profile
-    destroy unless @uuid == WhatsYourStyle::Quiz::DEFAULT_QUIZ_RESPONSE["uuid"]
+    destroy unless @uuid == api.default_quiz_response["uuid"]
 
-    @next_step = ROUTES.profile_path()
+    @next_step = ROUTES.profile_path
     self
   end
 
@@ -99,9 +99,7 @@ class QuizResponder
   end
 
   def api
-    @api = WhatsYourStyle::Quiz.new
-    @api.logger = Rails.logger
-    @api
+    @api ||= WhatsYourStyle::Quiz.new(logger: Rails.logger, config_dir: "#{Rails.root}/config")
   end
 
   def self.redis

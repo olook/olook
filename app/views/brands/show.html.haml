@@ -39,7 +39,14 @@
       - if @brand = @brand.first
         - if @brand.header_image.present?
           %div.collections_header
-            = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
+            %ul.cover{style: "background-color:##{@brand.bg_color}"}
+              %li.pic
+                = image_tag(@brand.header_image)
+              %li.info{style: "color:##{@brand.font_color}"}
+                %h1
+                  =@brand.name
+                %h2
+                  =@brand.info
 
       = render "ordenation_filters", search: @search, url_builder: @url_builder
 

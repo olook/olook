@@ -297,6 +297,9 @@
             not_delivered: "Não entregue"
 
     models:
+      seo_link:
+        one: Link para SEO
+        other: Links para SEO
 
       itinerary:
         one: Itinerário
@@ -444,6 +447,9 @@
       credit_card: Cartão de crédito
 
     attributes:
+      seo_link:
+        name: 'Nome'
+        path: 'Link'
       header:
         url: 'URL'
         url_type: 'Tipo de Url'
@@ -454,8 +460,8 @@
         product_list: 'Produtos para aparecer antes do resultado orgânico'
         organic_url: 'Url do resultado organico (ex: /sapato/bota/cor_vermelho-tamanho_38)'
         type: 'Tipo'
-        page_title: 'Título da página'
-        page_description: 'Descrição da página'
+        page_title: 'Titulo'
+        page_description: 'Descrição'
         small_banner1: 'Destaque menor/superior (260px x 155px)'
         small_banner2: 'Destaque menor/inferior (260px x 155px)'
         medium_banner: 'Destaque maior (526px x 330px)'
@@ -468,9 +474,8 @@
         link_small_banner2: 'Link (url completa, com Http://)'
         link_medium_banner: 'Link (url completa, com Http://)'
         link_big_banner: 'Link (url completa, com Http://)'
-        title: 'Título para o modelo'
-        resume_title: 'Texto resumido'
-        text_complement: 'Complemento do texto'
+        title: 'Título principal (h1)'
+        resume_title: 'Texto descritivo'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
@@ -496,14 +501,19 @@
         zip_code: CEP
       collection_theme:
         active: 'Ativo'
+        name: 'Título'
         collection_theme_group: 'Grupo'
-        header_image: 'Banner (Altura 138 x Largura 813)'
-        header_image_alt: "Alt/title do Banner"
-        position: 'Posição'
+        header_image: 'Imagem (Altura 138 x Largura 813)'
+        header_image_alt: "Alt"
+        position: 'Posição no Grupo'
         video_link: 'Link do Vídeo no Youtube'
         video_title: 'Título do Vídeo'
         text_color: 'Cor do Texto do link do vídeo no banner'
         product_associate_ids: 'Ids dos produtos associados'
+        slug: 'URL Amigável'
+        info: 'Descrição da coleção (Aparece ao lado da imagem)'
+        bg_color: 'Cor do fundo da imagem'
+        font_color: 'Cor da fonte da imagem'
       clipping:
         logo: 'Logo do veículo (imagem em JPG)'
         title: 'Título (chamada da matéria)'
@@ -516,7 +526,10 @@
       brand:
         name: 'Nome'
         header_image_alt: 'ALT da imagem'
-        header_image: 'Imagem'
+        header_image: 'Imagem (269x134)'
+        info: 'Descrição da marca (Aparece ao lado da imagem)'
+        bg_color: 'Cor do fundo da imagem'
+        font_color: 'Cor da fonte da imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

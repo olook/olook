@@ -2,7 +2,7 @@
 class MultiWorkersProcessMaster
   @queue = 'low'
 
-  def self.perform clazz, num_of_process=20
+  def self.perform clazz, num_of_process=5
     master = clazz.constantize.new
 
     if master.already_started?

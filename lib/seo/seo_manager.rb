@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Seo
   class SeoManager
-    DEFAULT_PAGE_TITLE = 'Olook - Roupas e sapatos femininos online'
+    DEFAULT_PAGE_TITLE = 'Roupas e sapatos femininos online'
     DEFAULT_PAGE_DESCRIPTION = 'Na Olook você compra os sapatos, acessórios e roupas femininas mais visados da moda com segurança e facilidade.'
 
     attr_accessor :url, :fallback_title, :fallback_description, :color, :size, :brand
@@ -43,6 +43,8 @@ module Seo
         header = Header.for_url(_url).first
         return header if header
         find_parent_meta_tag(_url.sub(%r{/[^/]*$}, ''))
+      rescue ActiveRecord::StatementInvalid
+        nil
       end
   end
 end

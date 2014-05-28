@@ -16,6 +16,7 @@
 //= require ui/jquery.ui.autocomplete
 //= require ui/jquery.ui.slider
 //= require common/jquery.cookie
+//= require bamboo.0.1
 //= require plugins/jquery.carouFredSel-6.2.1-packed
 //= require plugins/css_browser_selector
 //= require plugins/change_picture_onhover
@@ -27,6 +28,9 @@
 //= require modules/facebook/events
 //= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
+//= require modules/modal/load
 
-new FacebookEvents().config();
 new FacebookAuth().config();
+$(function(){
+  olookApp.publish('modal:request', document.location.pathname);
+});

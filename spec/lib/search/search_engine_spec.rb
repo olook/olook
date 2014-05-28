@@ -49,27 +49,29 @@ describe SearchEngine do
 
   describe "#remove_filter" do
     let(:search) { described_class.new }
-    let(:expressions) { {is_visible: [1],
-                         inventory: ["inventory:1.."],
-                         category: ["Some Category"],
-                         subcategory:["Some Subcategory"],
-                         color: [],
-                         brand: ["Some Brand"],
-                         heel: [],
-                         care: [],
-                         price: [],
-                         size: [],
-                         product_id: []} }
+    let(:expressions) { {'is_visible' => [1],
+                         'inventory' => ["inventory:1.."],
+                         'category' => ["Some Category"],
+                         'subcategory' =>["Some Subcategory"],
+                         'color' => [],
+                         'brand' => ["Some Brand"],
+                         'heel' => [],
+                         'care' => [],
+                         'price' => [],
+                         'size' => [],
+                         'product_id' => []} }
 
-    let(:expected_parameters) { { category: [],
-                         subcategory:[],
-                         color: [],
-                         brand: ["Some Brand"],
-                         heel: [],
-                         care: [],
-                         price: [],
-                         size: [],
-                         product_id: []} }
+    let(:expected_parameters) { { 'category' =>  [],
+                         'subcategory' => [],
+                         'color' => [],
+                         'brand' => ["some brand"],
+                         'heel' => [],
+                         'care' => [],
+                         'price' => [],
+                         'size' => [],
+                         'product_id' => [],
+                         'sort' => nil
+    } }
     before do
       search.stub(:expressions).and_return(expressions)
     end

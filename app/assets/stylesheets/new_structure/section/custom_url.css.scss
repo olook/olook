@@ -1,0 +1,129 @@
+@import "new_structure/common/global_stuffs";
+
+section{
+ margin-right: 0;
+ margin: 0 auto;
+ h2{
+ 	display: block;
+ 	width: 215px;
+ 	height: 40px;
+ 	float: left;
+ 	font-family: $avenir;
+ 	font-size: 22px;
+ 	text-align: left;
+ 	padding-top: 3px;
+ 	letter-spacing: 1px;
+ 	text-transform: uppercase;
+ 	margin-left: 26px;
+ } 
+ .carousel{
+ 	float: left;
+ 	width: 793px !important;
+ 	margin-left: 26px;
+ 	ul{
+ 		li.big{
+ 			margin-bottom: 15px;
+ 		}
+ 		li.thumbnail{
+ 			float: left;
+ 			margin-right: 15px;
+ 		}
+ 		li.last{margin-right: 0 !important;}
+ 	}
+ 	.bx-wrapper{
+ 		margin: 0 auto 15px !important;
+ 	}
+ }
+ #bx-pager, .matelasse{
+ 	width: 800px;
+ 	img{
+ 		width: 151px;
+ 		margin-right: 3px;
+ 		border: 1px solid #dbdbdb;
+ 		&.last{
+ 			margin-right: 0 !important;
+ 		}
+ 	}
+ }
+ p.box{
+ 	width: 793px;
+ 	height: 30px;
+ 	text-transform: uppercase;
+ 	color: #fff;
+ 	font-family: $bt_font;
+ 	letter-spacing: 7px;
+ 	text-align: center;
+ 	padding-top: 15px;
+ 	margin-top: 25px;
+ 	background-color: #e8cad4;
+ 	font-size: 21px;
+ 	margin-bottom: 15px;
+ 	margin-left: 196px;
+ }
+ #bx-pager{
+ 	a{text-decoration: none;}
+	}
+ }
+
+.isabella{
+	img {
+		width: 106px !important;
+	}
+}
+ .matelasse{
+ 	img {
+ 		width: 105px !important;
+ 	}
+ }
+
+ .curves{
+ 	img {
+ 		width: 124px !important;
+ 	}
+ }
+
+ .edit_matelasse{
+ 	margin-left: 5px !important;
+ }
+
+ .htrendy {
+ 	width: 190px !important;
+ }
+
+ .hcurves {
+ 	width: 210px !important;
+ 	margin-left: 5px;
+ }
+
+ section.edit_filter {
+ 	min-height: 830px;
+	float: left;
+	width: 790px;
+	margin-top: 15px;
+	p.box {
+		margin-left:5px !important;
+	}
+ }
+
+ .basico{
+ 	 	img {
+ 		width: 122px !important;
+ 	}
+ }
+ .basic{
+ 	width: 780px !important;
+ 	margin-left: 26px !important;
+ 	width: 793px;
+ 	height: 30px;
+ 	text-transform: uppercase;
+ 	color: #fff;
+ 	font-family: $bt_font;
+ 	letter-spacing: 7px;
+ 	text-align: center;
+ 	padding-top: 15px;
+ 	margin-top: 25px;
+ 	background-color: #e8cad4;
+ 	font-size: 21px;
+ 	margin-bottom: 15px;
+ 	margin-left: 196px;
+ }
