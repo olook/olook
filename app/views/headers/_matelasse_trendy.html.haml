@@ -1,0 +1,52 @@
+= javascript_include_tag "jquery.bxslider.min.js"
+= stylesheet_link_tag  "jquery.bxslider"
+= stylesheet_link_tag "new_structure/section/custom_url"
+
+%section.edit_filter
+  %h2.htrendy
+    MATELASSÊ
+  %p
+    O efeito é um tipo de costura que produz relevo e textura sobre tecidos. Neste editorial, você vai ver looks quentinhos e estilosos para usar e abusar da tendência no Inverno.
+  .carousel.edit_matelasse
+    %ul.bxslider
+      %li.big
+        = image_tag("editoriais/matelasse/editorial_matelasse_capa.jpg")
+      %li.big
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag1.jpg")
+      %libig
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag2.jpg")
+      %libig
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag3.jpg")
+      %libig
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag4.jpg")
+      %libig
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag5.jpg")
+      %libig
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag6.jpg")
+    #bx-pager.matelasse
+      %a{"data-slide-index" => "0", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_capa.jpg")
+      %a{"data-slide-index" => "1", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag1.jpg")
+      %a{"data-slide-index" => "2", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag2.jpg")
+      %a{"data-slide-index" => "3", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag3.jpg")
+      %a{"data-slide-index" => "4", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag4.jpg")
+      %a{"data-slide-index" => "5", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag5.jpg")
+      %a{"data-slide-index" => "6", href: ""}
+        = image_tag("editoriais/matelasse/editorial_matelasse_pag6.jpg", :class => "last")
+  %br{style:'clear:both;'}
+  %p.box
+    VEJA NOSSA COLEÇÃO
+
+:javascript
+  $(document).ready(function(){
+    $('.bxslider').bxSlider({
+      pagerCustom: '#bx-pager'
+    });
+  });
+
+  

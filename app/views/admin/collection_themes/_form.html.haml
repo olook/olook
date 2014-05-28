@@ -1,0 +1,94 @@
+- content_for :head do
+  = javascript_include_tag "section/admin/collection_themes"
+= form_for([:admin,@collection_theme], multipart: true) do |f|
+  - if @collection_theme.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@collection_theme.errors.count, "error")
+        impediram essa coleção de ser salva:
+      %ul
+        - @collection_theme.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    = f.label :collection_theme_group
+    %br/
+    = f.collection_select :collection_theme_group_id, CollectionThemeGroup.all, :id, :name
+  %br
+  = f.fields_for :collection_theme_group_attributes, CollectionThemeGroup.new do |group|
+    %fieldset
+      = group.label :name, 'OU Crie um novo Grupo'
+      %br/
+      = group.text_field :name
+    %br
+  %fieldset
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %br
+  %fieldset
+    = f.label :slug
+    %br/
+    = f.text_field :slug
+    %br/
+    %small
+      %i O valor ficará na url www.olook.com.br/colecoes/&lt;url-amigavel&gt; e por isso deve ser único
+  %br
+  %fieldset
+    = f.label :active
+    %br/
+    = f.check_box :active
+  %br
+  %fieldset
+    %legend CAPA
+    .field
+      = f.label :header_image
+      %br/
+      = f.file_field :header_image
+    %br/
+    .field
+      = f.label :header_image_alt
+      %br/
+      = f.text_field :header_image_alt
+    %br/
+    .field
+      = f.label :text_color
+      %br/
+      = f.text_field :text_color
+    %br/
+    .field
+      = f.label :video_link
+      %br/
+      = f.text_field :video_link
+    %br/
+    .field
+      = f.label :info
+      %br
+      = f.text_area :info
+    %br/
+    .field
+      =f.label :bg_color
+      %br
+      =f.text_field :bg_color
+      #picker
+    %br/
+    .field
+      =f.label :font_color
+      %br
+      =f.text_field :font_color
+    %br/
+    .field
+  %br
+  %fieldset
+    %legend PRODUTOS
+    .field
+      = f.label :product_associate_ids
+      %br/
+      = f.text_area :product_associate_ids, value: @collection_theme.product_ids.join(', ')
+    %br/
+    .field
+      = f.label :product_associate_ids_file
+      %br/
+      = f.file_field :product_associate_ids_file
+  %br
+  .actions
+    = f.submit

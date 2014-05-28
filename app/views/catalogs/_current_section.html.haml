@@ -1,12 +1,11 @@
-- if search.has_any_filter_selected?
+- if has_filters_selected?(@search)
   %section.filters
     %p
       Você está em
       =params[:category].try(:capitalize).try(:pluralize)
       - filters_selected = false
-      %span //
     %ul
-      - search.selected_filters_for("subcategory").sort.each do |sub|
+      - translate_site_filters('subcategory', search.selected_filters_for("subcategory")).sort.each do |sub|
         - filters_selected = true
         %li
           %span= titleize_without_pronoum(sub)
@@ -36,7 +35,7 @@
           %span= titleize_without_pronoum(format_size(size.chomp))
           = %( #{ current_section_link_to(@url_builder.add_filter(:size, size))}).html_safe
 
-      - search.selected_filters_for("brand").sort.each do |brand|
+      - translate_site_filters('brand', search.selected_filters_for("brand")).sort.each do |brand|
         - filters_selected = true
         %li
           %span= titleize_without_pronoum(brand)

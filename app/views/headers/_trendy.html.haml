@@ -2,40 +2,34 @@
 = stylesheet_link_tag  "jquery.bxslider"
 = stylesheet_link_tag "new_structure/section/custom_url"
 
-%section
-  %h2
-    Animal Fever
+%section.edit_filter
+  %h2.htrendy
+    Total Couro
   %p
-    A estampa classica de animal print est´de volta! Agora repaginado com todos os bichos da selva! Escolha a sua e solte as feras que moram em você.
-  .carousel
+    Material oficial do Inverno, o couro ganhou um editorial de moda com looks que vão do rocker ao sexy. Escolha o seu preferido e garanta seu must-have da temporada!
+  .carousel.edit_matelasse
     %ul.bxslider
       %li.big
-        = image_tag("editoriais/big_img.jpg")
+        = image_tag("editoriais/editorial_total_couro_capa1.jpg")
       %li.big
-        %iframe{allowfullscreen: "", frameborder: "0", height: "589", src: "//www.youtube.com/embed/QDL9jjqCqmo?list=UUjPbOLQD7X5ef0T29IkkXzQ", width: "792"}
-      %li.big
-        = image_tag("editoriais/big_img.jpg")
-      %li.big
-        = image_tag("editoriais/big_img.jpg")
+        = image_tag("editoriais/editorial_total_couro_pag1.jpg")
       %libig
-        = image_tag("editoriais/big_img.jpg")
+        = image_tag("editoriais/editorial_total_couro_pag2.jpg")
+      %libig
+        = image_tag("editoriais/editorial_total_couro_pag3.jpg")
+      %libig
+        = image_tag("editoriais/editorial_total_couro_pag4.jpg")
     #bx-pager
       %a{"data-slide-index" => "0", href: ""}
-        = image_tag("editoriais/thumb_1.jpg")
+        = image_tag("editoriais/editorial_total_couro_capa1.jpg")
       %a{"data-slide-index" => "1", href: ""}
-        = image_tag("editoriais/thumb_2.jpg")
+        = image_tag("editoriais/editorial_total_couro_pag1.jpg")
       %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_3.jpg")
-      %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_4.jpg")
-      %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_4.jpg")
-      %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_4.jpg")
-      %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_4.jpg")
-      %a{"data-slide-index" => "2", href: ""}
-        = image_tag("editoriais/thumb_4.jpg", :class => "last")
+        = image_tag("editoriais/editorial_total_couro_pag2.jpg")
+      %a{"data-slide-index" => "3", href: ""}
+        = image_tag("editoriais/editorial_total_couro_pag3.jpg")
+      %a{"data-slide-index" => "4", href: ""}
+        = image_tag("editoriais/editorial_total_couro_pag4.jpg", :class => "last")
   %p.box
     VEJA NOSSA COLEÇÃO
 

@@ -1,14 +1,15 @@
 .exhibition-mode.exhibition-olooklet
   = form_tag @url_builder.current_filters, method: 'get' do
-    %input{type:"hidden", name:"preco", id:"price", value:("#{@search.range_values_for(:price)[:min] rescue 0}-#{@search.range_values_for(:price)[:max] rescue 600}" if @search.filter_value(:price))}
+    - url_builder.filters_outside_path.each do |k, v|
+      = hidden_field_tag(k, v) if k.to_s != 'por'
     %fieldset
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
+        - opts = {"NOSSA SELEÇÃO" => "0", "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}
         - if params[:por].present?
-          %span= params[:por] != '0' ? params[:por].gsub("-", " ").titleize : "ORDENAÇÃO"
+          %span= opts.invert[params[:por]] || "ORDENAÇÃO"
         - else
           %span ORDENAÇÃO
-
-        = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+        = select_tag('por', options_for_select(opts, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
 .price-range.price-range-olooklet
   %p#min-value-label{style:'background-image: none'} 0

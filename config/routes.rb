@@ -4,6 +4,8 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
+  get "/modal", to: "modal#show", as: "modal"
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -110,6 +112,7 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
+  match "/faq", :to => "pages#faq", :as => "faq"
 
   # TODO use clippings when press page change
   match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
@@ -243,6 +246,7 @@ Olook::Application.routes.draw do
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
     resources :headers
+    resources :seo_links
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
@@ -462,6 +466,7 @@ Olook::Application.routes.draw do
   end
 
   match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
+  match 'new_campaign_email_subscribe', to: "campaign_emails#new_subscribe", as: :new_subscribe_campaign_email
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do

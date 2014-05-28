@@ -15,9 +15,6 @@ module Abacos
       
       variant.price = self.price
       variant.retail_price = self.retail_price
-      if variant.save!
-        CatalogService.save_product variant.product, :update_price => true
-      end
 
       confirm_price
     end

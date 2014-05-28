@@ -86,4 +86,9 @@ SitemapGenerator::Sitemap.create do
   add press_path
   add "/stylist_news"
 
+  #Good urls for seo
+  SeoLink.each do |seo_link|
+    add seo_link.path unless seo_link.try(:path).blank?
+  end
+
 end

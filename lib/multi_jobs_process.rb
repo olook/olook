@@ -1,5 +1,5 @@
 module MultiJobsProcess
-  MAX_TIME_IS_SECONDS = 2.hours.to_i
+  MAX_TIME_IS_SECONDS = 30.minutes.to_i
 
   #
   # To use a multijobs process you must overide the following methods:
@@ -72,7 +72,7 @@ module MultiJobsProcess
         slave_job.execute(data)
       rescue => e
         DevAlertMailer.notify({to: 'tech@olook.com.br', 
-          subject: "Erro", body: e.backtrace.join("\n")}).deliver!
+          subject: "Erro", body: "#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}" }).deliver!
         
         puts "erro: #{e}"
         REDIS.incr(slave_job.errors_key)

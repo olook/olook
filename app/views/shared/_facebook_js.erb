@@ -8,7 +8,7 @@
       xfbml: true
     });
 
-    olookApp.publish('fb:load');
+    if(typeof olookApp === "object") olookApp.publish('fb:load');
 
   };
 

@@ -35,34 +35,19 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-
-  version :thumb do
-    process :resize_to_limit => [45, 68]
-    process optimize: [{quality: 85}]
-  end
-  version :bag do
-    process :resize_to_limit => [70, 107]
-    process optimize: [{quality: 85}]
-  end
-  version :catalog do
-    process :resize_to_fill => [200, 300]
-    process optimize: [{quality: 85}]
-  end
-  version :showroom do
-    process :resize_to_limit => [146, 220]
-    process optimize: [{quality: 85}]
-  end
-  version :main do
-    process :resize_to_limit => [365, 550]
-    process optimize: [{quality: 85}]
-  end
-  version :zoom_out do
-    process :resize_to_limit => [730, 1100]
-    process optimize: [{quality: 85}]
-  end
-  version :look_showroom do
-    process :resize_to_limit => [242, 365]
-    process optimize: [{quality: 85}]
+  {
+    thumb: [45, 68],
+    bag: [70, 107],
+    catalog: [200, 300],
+    showroom: [146, 220],
+    main: [365, 550],
+    zoom_out: [730, 1100],
+    look_showroom: [242, 365]
+  }.each do |ver, size|
+    version ver do
+      process :resize_to_limit => size
+      process optimize: [{quality: 85}]
+    end
   end
 
   def extension_white_list

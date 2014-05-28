@@ -11,7 +11,7 @@ class CollectionThemesController < SearchController
     Rails.logger.debug("New params: #{params.inspect}")
     search_params = @url_builder.parse_params
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
-    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    @search = SearchEngine.new(search_params, skip_beachwear_on_clothes: true).for_page(params[:page]).with_limit(48)
     @url_builder.set_search @search
     @color = search_params["color"]
     @size = search_params["size"]

@@ -2,6 +2,7 @@
 module Checkout::CheckoutHelper
 
   MOTOBOY_FREIGHT_SERVICE_ID = 5
+  SATURDAY = 6
 
   def errors_for(object, field)
     if object

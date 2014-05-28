@@ -41,7 +41,7 @@ li{list-style-type:none;}
 /*------------------
 =====  CONTENT =====
 ------------------*/
-#container{width:990px;margin:0 auto;overflow:hidden;}
+#container{width:100% !important;margin:0 auto;overflow:hidden;}
 #content{width:990px;overflow:visible;margin:0 auto 0;position:relative;}
 
 /***** MODAL STYLE ****/

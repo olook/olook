@@ -3,6 +3,10 @@ class Users::FacebookConnectController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def create
+
+
+    Rails.logger.error("[FACEBOOK] loging in through facebook. Parameters:#{params}")
+
     @facebook_connect = FacebookConnectService.new(params[:authResponse])
     if @facebook_connect.connect!
       @user = @facebook_connect.user

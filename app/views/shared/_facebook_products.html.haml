@@ -8,7 +8,7 @@
     %ul.products
       - products.each do |product|
         %li.fb_prod
-          = link_to product_seo_path(product.seo_path), :class => "product_link", :rel => "#{product.id}", :alt => product.formatted_name, :title => product.formatted_name, onclick: "javascript:log_event('click', 'facebook_products', {'productId': #{product.id}})" do
+          = link_to product_seo_path(product.seo_path), :class => "product_link", :rel => "#{product.id}", :alt => product.formatted_name, :title => product.formatted_name do
             .async{data: {product: product.catalog_image, backside_picture: product.backside_picture}, itemprop: "image", alt: product.formatted_name}
             - if product.promotion?
               = render 'shared/searched_product_discount_price', from: number_to_currency(product.price), to: number_to_currency(product.retail_price)
