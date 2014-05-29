@@ -7,6 +7,7 @@ class CatalogsController < ApplicationController
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
   helper_method :header
+
   DEFAULT_PAGE_SIZE = 32
 
   def add_campaign(params)
@@ -20,14 +21,14 @@ class CatalogsController < ApplicationController
                       params: { category: params[:category] })
     @search = add_search_result(@url_builder.parse_params, params)
     @url_builder.set_search(@search)
-    @category = @search.expressions[:category].to_a.first.downcase
+    @category = @search.filter_value(:category).to_a.first.downcase
   end
 
   def add_search_result(search_params, params)
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
     search_params[:admin] = !!current_admin
-    SearchEngineWithDynamicFilters.new(search_params, 'smart')
+    SearchEngine.new(search_params, is_smart: true)
   end
 
   def index
@@ -45,9 +46,9 @@ class CatalogsController < ApplicationController
     @size = search_params["size"]
     @brand_name = search_params["brand"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].to_a.first.downcase
-    @subcategory = @search.expressions[:subcategory].to_a.first
-    params[:category] = @search.expressions[:category].to_a.first
+    @category = @search.filter_value(:category).to_a.first.to_s.downcase
+    @subcategory = @search.filter_value(:subcategory).to_a.first
+    params[:category] = @search.filter_value(:category).to_a.first
 
     key = [@search.filter_value(:category).first]
     key.push(@search.filter_value(:subcategory).first) unless @search.filter_value(:subcategory).blank?

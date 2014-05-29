@@ -43,6 +43,8 @@ module Seo
         header = Header.for_url(_url).first
         return header if header
         find_parent_meta_tag(_url.sub(%r{/[^/]*$}, ''))
+      rescue ActiveRecord::StatementInvalid
+        nil
       end
   end
 end
