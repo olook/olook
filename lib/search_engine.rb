@@ -118,13 +118,13 @@ class SearchEngine
 
   def category= _category
     if _category == "roupa" && !@skip_beachwear_on_clothes
-      @expressions["category"] = ["roupa","moda praia", "lingerie"]
+      @expressions["category"] = ["roupa","moda-praia", "lingerie"]
     elsif _category.is_a?(Array) 
-      @expressions["category"] = _category
+      @expressions["category"] = _category.map { |c| c.parameterize }
     elsif _category == 'plus-size'
       @expressions["category"] = [_category]
     else
-      @expressions["category"] = _category.to_s
+      @expressions["category"] = _category.to_s.parameterize
     end
   end
 
@@ -386,6 +386,8 @@ class SearchEngine
       end
     end
     filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
+    filter_params[:term] = ( @term.value ) if @term
+    filter_params[:page] = ( current_page ) if current_page != 1
 
     filter_params
   end

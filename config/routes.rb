@@ -466,7 +466,6 @@ Olook::Application.routes.draw do
   end
 
   match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
-  match 'new_campaign_email_subscribe', to: "campaign_emails#new_subscribe", as: :new_subscribe_campaign_email
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
@@ -536,7 +535,7 @@ Olook::Application.routes.draw do
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#index"
   match  "/:category/nao-encontrado", to: "catalogs#not_found", as: 'catalog_not_found'
-  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i }
+  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i, format: 'html' }
 
   get '*custom_url' => 'custom_url#show'
 

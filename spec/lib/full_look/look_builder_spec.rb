@@ -31,7 +31,7 @@ describe FullLook::LookBuilder do
       subject.stub(:delete_previous_looks)
       subject.stub(:category_weight).and_return(Hash.new(1))
       subject.stub(:get_look_profile).and_return(1)
-      subject.stub(:build_and_create_look)
+      subject.stub(:build_and_create_look).and_return(mock("Look", id: 1))
     end
 
     it "should create 2 Looks" do
