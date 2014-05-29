@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :shipping do
-    carrier "MyString"
-    zip_start "MyString"
-    zip_end "MyString"
+    zip_start "1000000"
+    zip_end "3000000"
     cost "9.99"
-    delivery_time 1
-    income "9.99"
+    delivery_time 5
+    income "15.99"
+    shipping_service_id 1
   end
 end
