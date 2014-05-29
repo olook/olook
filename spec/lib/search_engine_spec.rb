@@ -12,7 +12,7 @@ describe SearchEngine do
       end
 
       it "should ignore subcategory filter" do
-        expect(@search.build_filters_url(use_fields: [:category])).to_not match(/bq=[^&]*subcategory/)
+        expect(@search.build_filters_url(use_fields: [:category], multi_selection: true)).to_not match(/bq=[^&]*subcategory/)
       end
     end
   end
@@ -70,7 +70,8 @@ describe SearchEngine do
                          'price' => [],
                          'size' => [],
                          'product_id' => [],
-                         'sort' => nil
+                         'sort' => nil,
+                         'term' => ''
     } }
     before do
       search.stub(:expressions).and_return(expressions)
@@ -106,7 +107,7 @@ describe SearchEngine do
 
       context "removing filter" do
 
-        let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory-OtherSubcategory", color: "SomeColor") }
+        let(:search) { described_class.new({category: "SomeCategory", subcategory: "SomeSubcategory-OtherSubcategory", color: "SomeColor"}, multi_selection: true) }
         subject { search.filters_applied(:subcategory, "SomeSubcategory") }
 
         it { expect(subject[:category]).to eq(['somecategory']) }
