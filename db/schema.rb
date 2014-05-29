@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140522171025) do
+ActiveRecord::Schema.define(:version => 20140528182819) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(:version => 20140522171025) do
     t.datetime "updated_at"
     t.integer  "order"
     t.string   "picture_name"
+  end
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.string   "name"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "brands", :force => true do |t|
@@ -212,6 +219,7 @@ ActiveRecord::Schema.define(:version => 20140522171025) do
   add_index "carts", ["address_id"], :name => "index_carts_on_address_id"
   add_index "carts", ["coupon_id"], :name => "index_carts_on_coupon_id"
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
+  add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
   create_table "carts_backup", :id => false, :force => true do |t|
     t.integer  "id",                      :default => 0,     :null => false
@@ -1078,11 +1086,18 @@ ActiveRecord::Schema.define(:version => 20140522171025) do
 
   add_index "rule_parameters", ["matchable_id", "matchable_type"], :name => "index_rule_parameters_on_matchable_id_and_matchable_type"
 
+  create_table "seo_links", :force => true do |t|
+    t.string   "name"
+    t.string   "path"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
