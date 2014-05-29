@@ -16,7 +16,6 @@ module FreightCalculator
     }
   }
 
-
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids = nil, use_message = false)
     _zip_code = ZipCode::SanitizeService.clean(zip_code)
     return {} unless ZipCode::ValidService.apply?(_zip_code)
