@@ -160,9 +160,6 @@ class SeoUrl
     end.compact
 
     query = build_query_string(parameters)
-    if @search.term && @search.term.to_s != ''
-      query.push("q=#{@search.term}")
-    end
 
     full_path = "/#{url.join('/')}"
     full_path.concat("?#{query.join('&')}") if query.present?
