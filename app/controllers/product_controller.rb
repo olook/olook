@@ -16,7 +16,6 @@ class ProductController < ApplicationController
   end
 
   def show
-    @ab_test_parameter = params[:s] == "1" ? 1 : 0
     render layout: "lite_application"
   end
 

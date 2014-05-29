@@ -103,6 +103,10 @@ class Variant < ActiveRecord::Base
     (discount.blank? || discount.zero?) ? 0 : discount
   end
 
+  def sold_out?
+    inventory < 1
+  end
+
   private
 
   # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
