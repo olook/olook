@@ -41,9 +41,6 @@
       = header_presenter.show_header
 
     #result
-      - unless has_filters_selected?(@search)
-        %h1.title_catalog
-          = Category.t(Category.with_name(@category)).pluralize
       - unless @search.has_any_filter_selected? || params[:cmp].present?
         / local onde o viewpersonalized será exibido
         .chaordic.viewpersonalized
@@ -70,8 +67,8 @@
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda { |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
 
       - if hot_products = show_hot_products?(@leaderboard, 4)
-        / :javascript
-        /   log_event('view', 'hot_products');
+        :javascript
+          log_event('view', 'hot_products');
         %section.hot_products
           %h3 Os mais clicados
           %ul

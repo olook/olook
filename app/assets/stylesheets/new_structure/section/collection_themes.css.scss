@@ -19,6 +19,10 @@
 
     li{
       float: left;
+      img:hover{
+        opacity:0.6;
+        filter:alpha(opacity=60);
+      }
     }
     li.big{
       width: 820px;

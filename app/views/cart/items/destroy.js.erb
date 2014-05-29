@@ -21,10 +21,10 @@
 $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
 
 //remove item row
-$('tr#item_<%= @item.id %>').fadeOut();
+$('tr#item_<%= params[:id] %>').fadeOut();
 
 //Remove item from cart summary pull down
-$("li[data-id=<%= @item.id %>]").first().remove();
+$("li[data-id=<%= params[:id] %>]").first().remove();
 
 <%= render "cart/items/update_rows" %>
 

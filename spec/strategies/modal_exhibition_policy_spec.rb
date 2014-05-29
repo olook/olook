@@ -1,14 +1,31 @@
 describe ModalExhibitionPolicy do
-  context "when receive avaliable page" do
-    it{expect(described_class.apply?(path: "/sapato")).to be_true}
+  context "when have to show" do
+    context "and receive avaliable page" do
+      it{expect(described_class.apply?(path: "/sapato")).to be_true}
+    end
+    context "and include possible number of views" do
+      it{expect(described_class.apply?(path: "/sapato", cookie: ModalExhibitionPolicy::NUMBER_OF_VIEWS_TO_SHOW.first, mobile: false)).to be_true}
+      it{expect(described_class.apply?(path: "/sapato", cookie: ModalExhibitionPolicy::NUMBER_OF_VIEWS_TO_SHOW.last, mobile: false)).to be_true}
+    end
   end
-  context "when receive unavaliable page" do
-    it{expect(described_class.apply?(path: "/sacola")).to be_false}
+  context "when don't have to show" do
+    context "and receive unavaliable page" do
+      it{expect(described_class.apply?(path: "/sacola")).to be_false}
+    end
+    context "and receive user" do
+      it{expect(described_class.apply?(path: "/sapato", user: mock(:user))).to be_false}
+    end
+    context "and dont include possible number of views" do
+      it{expect(described_class.apply?(path: "/sapato", cookie: "2204", mobile: false)).to be_false}
+    end
   end
-  context "when receive user" do
-    it{expect(described_class.apply?(path: "/sapato", user: mock(:user))).to be_false}
-  end
-  context "when receive cookie" do
-    it{expect(described_class.apply?(path: "/sapato", cookie: mock(:cookie))).to be_false}
+
+
+
+  context "when there is cookie" do
+    context "and must show" do
+    end
+    context "and don't must show" do
+    end
   end
 end

@@ -1,8 +1,8 @@
 module SearchHelper
 
   HEEL_RANGE_LABELS = {
-    '0-4' => 'Baixo (0cm - 4cm)', 
-    '5-9' => 'Médio (5cm - 9cm)', 
+    '0-4' => 'Baixo (0cm - 4cm)',
+    '5-9' => 'Médio (5cm - 9cm)',
     '10-15' => 'Alto (10cm - 15cm'
   }
 
@@ -11,7 +11,8 @@ module SearchHelper
   end
 
   def heel_label_for(heel_range)
-    HEEL_RANGE_LABELS[heel_range]
+    key = HEEL_RANGE_LABELS.keys.find { |k| /#{k}/ =~ heel_range }
+    HEEL_RANGE_LABELS[key]
   end
 
   # TODO: Refactor this to improve readability

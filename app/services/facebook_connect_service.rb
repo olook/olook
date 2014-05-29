@@ -2,11 +2,12 @@ require 'net/https'
 require 'json'
 
 class FacebookConnectService
-  attr_reader :user
+  attr_reader :user, :email
 
   def initialize(auth_response_hash)
     @access_token = auth_response_hash['accessToken']
     @user_id = auth_response_hash['userId']
+    @email = auth_response_hash['email']
   end
 
   def get_facebook_data
@@ -79,6 +80,7 @@ class FacebookConnectService
     data.delete(:first_name)
     data.delete(:last_name)
     data.delete(:birthday)
+
     @user.update_attributes(data)
     @user
   end
