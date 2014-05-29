@@ -31,13 +31,16 @@
     =image_tag("home/mkt_home.gif")
   .fback.js-success.js-middlebox
     %p
-      Enviamos para seu e-mail o vale de 
+      Enviamos para seu e-mail o vale de
       %span
         R$30,00 GRÁTIS!
       Acesse seu e-mail agora e aproveite!
     =link_to "Vide regras", "/termos", :class => "regras"
   .fdenied.js-error.js-middlebox
     %p
-      Oops! Verificamos que seu e-mail 
+      Oops! Verificamos que seu e-mail
       %br
         já está cadastrado em nosso sistema.
+- content_for :footer do
+  :javascript
+    log_event('view', 'newsletter-middle');

@@ -225,6 +225,8 @@ class User < ActiveRecord::Base
     :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil),
     :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil),
     :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
+  rescue ActiveRecord::RecordNotSaved => e
+    raise ActiveRecord::RecordNotSaved.new("#{e.message} - Maybe its invalid check these errors: #{self.errors.inspect}")
   end
 
   def invitation_url(host = 'www.olook.com.br')

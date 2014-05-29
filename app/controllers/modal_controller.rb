@@ -6,7 +6,7 @@ class ModalController < ApplicationController
       partial_name = cookies[:sm] == 0 ? 'show1.html.erb' : 'show2.html.erb'
       render json: {html: render_to_string(partial: partial_name), width: "493",height: "764", color: "#fff" }
     else
-      render text: "",status: 401
+      render text: "", status: :unprocessable_entity
     end
   end
 
