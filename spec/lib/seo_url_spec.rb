@@ -147,6 +147,11 @@ describe SeoUrl do
   end
 
   describe "#build_link_for" do
+
+    before do
+      subject.set_search(SearchEngine.new())
+    end
+
     context 'without sections' do
       subject { described_class.new(path_positions: '') }
       it { expect(subject.build_link_for(category: [ 'sapato' ])).to eq('/?categoria=sapato') }
