@@ -548,6 +548,11 @@ class Product < ActiveRecord::Base
     product_list.any? ? ([self] + product_list) : product_list
   end
 
+  def has_look_products?(admin=false)
+    (look_products(admin).size > 1 && inventory > 0) || admin
+  end
+
+
 
   private
 
