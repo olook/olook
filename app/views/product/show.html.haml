@@ -63,18 +63,6 @@
               = image_tag("product/bt-modal-video.jpg", class: "vwo_1378925047103")
       #full_pic
         %p{:class => "warn #{(@product.sold_out? && user_signed_in?) ? 'sold_out' : ''}"}
-        - if @product.liquidation? && !@product.sold_out?
-          %p.warn.percentage
-            %span
-              = @product.discount_percent.to_i
-              \%
-            %br/
-            off
-        - if @product.quantity(current_user.shoes_size) > 0 && @product.quantity(current_user.shoes_size) < 4
-          %p.warn.quantity
-            Só
-            %span.more mais
-            %span.js-remaining-badge= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}"
         %ul
           - @product.pictures.order(:position).each_with_index do |picture, index|
             - class_name = index == 0 ? 'thumb-first' : 'thumb'
