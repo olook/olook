@@ -8,7 +8,7 @@
 //= require plugins/image_loader
 //= require plugins/spy
 //= require_tree ./modules/complete_look
-//= require_tree ./modules/product
+//= require modules/product/load
 
 initProduct = {
   gotoRelatedProduct :function() {
