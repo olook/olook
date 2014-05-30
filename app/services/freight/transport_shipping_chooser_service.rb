@@ -1,18 +1,17 @@
 class Freight::TransportShippingChooserService
   def initialize(shippings)
     @shippings = shippings
-    @return_hash = {}
   end
 
   def perform
-    return formated_hash(@shippings.first) if @shippings.size == 1
-    @return_hash.merge!(formated_hash(better_cost_shipping))
-    search_fast_shipping
-    @return_hash
+    return formated_hash(@shippings.first,'default_shipping') if @shippings.size == 1
+    cheaper_shipping = choose_by_cost
+    express_shipping = choose_by_delivery_time(cheaper_shipping)
+    cheaper_shipping.merge(express_shipping)
   end
 
   private
-  def formated_hash(shipping,type='default_shipping')
+  def formated_hash(shipping,type)
     {type.to_sym => {price: shipping.income || FreightCalculator::DEFAULT_FREIGHT_PRICE,
                      cost: shipping.cost || FreightCalculator::DEFAULT_FREIGHT_COST,
                      delivery_time: shipping.delivery_time || FreightCalculator::DEFAULT_INVENTORY_TIME,
@@ -20,13 +19,14 @@ class Freight::TransportShippingChooserService
     }}
   end
 
-  def better_cost_shipping
-    @shippings.sort {|x,y| x.cost <=> y.cost }.first
+  def choose_by_cost
+    chosen = @shippings.sort {|x,y| x.cost <=> y.cost }.first
+    formated_hash(chosen, 'default_shipping')
   end
 
-  def search_fast_shipping
-    @shippings.delete_if{|ship| ship.shipping_service_id == @return_hash[:default_shipping][:shipping_service_id]}
-    fast = @shippings.select{|ship| ship.delivery_time < @return_hash[:default_shipping][:delivery_time]}.first
-    @return_hash.merge!(formated_hash(fast,'fast_shipping')) unless fast.blank?
+  def choose_by_delivery_time(cheaper_shipping)
+    faster = @shippings.select{|ship| ship.delivery_time < cheaper_shipping[:default_shipping][:delivery_time]}.first
+    return {} if faster.blank?
+    formated_hash(faster, 'fast_shipping')
   end
 end
