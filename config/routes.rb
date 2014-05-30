@@ -3,9 +3,13 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :newsletter, only: [:create]
+    end 
+  end
 
   get "/modal", to: "modal#show", as: "modal"
-
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -17,6 +21,7 @@ Olook::Application.routes.draw do
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
+
   resources :mercado_pago, only: [:create]
 
   get '/api/prices' => 'prices#index', as: 'api_prices'
