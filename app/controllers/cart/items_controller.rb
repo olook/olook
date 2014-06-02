@@ -43,8 +43,7 @@ class Cart::ItemsController < ApplicationController
       respond_with(@cart) do |format|
         notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
 
-        format.js { render :error, locals: { notice: notice_response } }
-        format.json{ render json: {notice: notice_response}, status: :unprocessable_entity }
+        render_error_on_create notice_response
         format.html { render text: notice_response }
       end
     else
@@ -57,9 +56,7 @@ class Cart::ItemsController < ApplicationController
 
   def ensure_a_variant_is_found!
     respond_with do |format|
-      format.js do
-        render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
-      end
+      render_error_on_create "Por favor, selecione o tamanho do produto."
     end unless adding_a_cart_item? && a_variant_is_found
   end
 
@@ -70,22 +67,16 @@ class Cart::ItemsController < ApplicationController
   def ensure_params!
     if adding_a_cart_item?
       respond_with do |format|
-        format.js do
-          render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
-        end
+        render_error_on_create "Por favor, selecione o tamanho do produto."
       end unless (params[:variant] && params[:variant][:id])
     elsif updating_a_cart_item_qty?
       respond_with do |format|
-        format.js do
-          render :error, :locals => { :notice => "Não foram enviados os parâmetros para atualizar a quantidade do item" }
-        end
+        render_error_on_create "Não foram enviados os parâmetros para atualizar a quantidade do item"
       end unless (params[:id] && params[:quantity])
     else
       #DELETE to destroy
       respond_with do |format|
-        format.js do
-          render :error, :locals => { :notice => "Houve um problema ao deletar o item do carrinho" }
-        end
+        render_error_on_create "Houve um problema ao deletar o item do carrinho"
       end unless (params[:id] && !params[:id].empty?)
     end
   end
@@ -109,5 +100,12 @@ class Cart::ItemsController < ApplicationController
   def variant_qty
     params[:variant][:quantity]
   end
+
+  private
+
+    def render_error_on_create(notice_response)
+      format.js { render :error, locals: { notice: notice_response } }
+      format.json{ render json: {notice: notice_response}, status: :unprocessable_entity }
+    end
 
 end
