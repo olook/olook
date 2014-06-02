@@ -84,7 +84,7 @@ olook.addToCartModal = function(content, a,close_callback){
   }).delay(500).fadeIn().children().show();
 
 
-  $("button.close, #modal a.me").click(function(){
+  $("button.js-close_modal, #modal a.me").click(function(){
     _iframe = $modal.contents().find("iframe");
     if (_iframe.length > 0){
       $(_iframe).remove();
@@ -93,7 +93,11 @@ olook.addToCartModal = function(content, a,close_callback){
     $modal.fadeOut();
     $("#overlay-campaign").fadeOut();
     close_callback();
-  })
+  });
+
+  $("button.js-go_to_cart").click(function(){
+    olookApp.publish('product:redirect_to_cart');
+  });
 
 };
 
