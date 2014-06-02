@@ -42,7 +42,21 @@ class RecommendationService
   end
 
   def full_looks(opts={})
-    filtered_looks_for_profile(opts)
+    if opts[:hot_products]
+      product_ids = Leaderboard.new.rank(40)
+      if product_ids.size == 40
+        opts[:product_ids] = product_ids
+      else
+        opts[:hot_products] = false
+      end
+    end
+
+    looks = filtered_looks_for_profile(opts)
+    if opts[:hot_products]
+      looks = looks.inject({}) { |h, l| h[l.id] = l; h }
+      looks = product_ids.map { |p| looks[p] }.compact.first(opts[:limit])
+    end
+    looks
   end
 
   private
@@ -53,6 +67,7 @@ class RecommendationService
     _dAt = Detail.arel_table
 
     is_admin = opts.fetch(:admin, false)
+    product_ids = opts[:product_ids]
 
     result = Product.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago))
     .where(_pAt[:created_at].gt(DATE_WHEN_PICTURES_CHANGED))
@@ -61,6 +76,7 @@ class RecommendationService
     result = result.joins(:details).where(_dAt[:translation_token].eq('categoria').and(_dAt[:description].in(WHITELISTED_SUBCATEGORIES)))
 
     result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
+    result = result.where(_pAt[:id].in(product_ids)) if product_ids
 
     result.first(opts[:limit])
   end
