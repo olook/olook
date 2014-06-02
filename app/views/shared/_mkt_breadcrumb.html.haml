@@ -18,6 +18,9 @@
           R$30 GRÁTIS 
         na primeira compra. Cadastre-se agora!
       %fieldset
-        =text_field_tag :email, "", :class => "box_mail js-newsletter js-headerbox", :default_value => "Digite aqui seu e-mail"
+        =text_field_tag :email, "", :class => "box_mail js-newsletter js-headerbox", placeholder: "Digite aqui seu e-mail"
       %fieldset.botao
         =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-headerbox"
+  - content_for :footer do
+    :javascript
+      log_event('view', 'newsletter-header');

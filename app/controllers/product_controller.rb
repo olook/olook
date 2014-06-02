@@ -58,7 +58,7 @@ class ProductController < ApplicationController
     end
 
     unless @current_admin
-      Leaderboard.new(key: "#{@product.category_humanize.parameterize}:#{@product.subcategory.parameterize}").score(@product.id)
+      Leaderboard.new(key: "#{@product.category_humanize.to_s.parameterize}:#{@product.subcategory.to_s.parameterize}").score(@product.id)
     end
 
 
@@ -86,12 +86,11 @@ class ProductController < ApplicationController
   add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
 
   def ab_test
-    finished("complete_look_button", reset: false)
     render json: {status: :ok}.to_json
   end
 
   def meta_description
-    modify_meta_description(@product.description, @product.product_color)
+    modify_meta_description(@product.try(:description), @product.try(:product_color))
   end
 
   private

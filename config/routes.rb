@@ -3,7 +3,13 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :newsletter, only: [:create]
+    end 
+  end
 
+  get "/modal", to: "modal#show", as: "modal"
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -15,6 +21,7 @@ Olook::Application.routes.draw do
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
+
   resources :mercado_pago, only: [:create]
 
   get '/api/prices' => 'prices#index', as: 'api_prices'
@@ -110,6 +117,7 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
+  match "/faq", :to => "pages#faq", :as => "faq"
 
   # TODO use clippings when press page change
   match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
@@ -154,6 +162,7 @@ Olook::Application.routes.draw do
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
   match "/zanox" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zanox_data.xml")
+  match "/rise" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/rise_data.xml")
   match "/zoom" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zoom_data.xml")
   match "/afilio" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/afilio_data.xml")
   match "/mt_performance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/mt_performance_data.xml")
@@ -243,6 +252,7 @@ Olook::Application.routes.draw do
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
     resources :headers
+    resources :seo_links
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
@@ -531,7 +541,7 @@ Olook::Application.routes.draw do
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#index"
   match  "/:category/nao-encontrado", to: "catalogs#not_found", as: 'catalog_not_found'
-  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i }
+  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i, format: 'html' }
 
   get '*custom_url' => 'custom_url#show'
 

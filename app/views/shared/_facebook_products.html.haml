@@ -15,5 +15,5 @@
             - else
               .price= number_to_currency(product.price)
             = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
-/ :javascript
-/   log_event('view', 'facebook_products');
+:javascript
+  log_event('view', 'facebook_products');

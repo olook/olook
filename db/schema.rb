@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140508143916) do
+ActiveRecord::Schema.define(:version => 20140530214409) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
     t.datetime "updated_at"
     t.integer  "order"
     t.string   "picture_name"
+  end
+
+  create_table "api_keys", :force => true do |t|
+    t.string   "access_token"
+    t.string   "name"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "brands", :force => true do |t|
@@ -1142,6 +1149,13 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
 
   add_index "rule_parameters", ["matchable_id", "matchable_type"], :name => "index_rule_parameters_on_matchable_id_and_matchable_type"
 
+  create_table "seo_links", :force => true do |t|
+    t.string   "name"
+    t.string   "path"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -1171,8 +1185,8 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
   end
 
   create_table "shipping_policies", :force => true do |t|
-    t.string   "zip_start"
-    t.string   "zip_end"
+    t.integer  "zip_start"
+    t.integer  "zip_end"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "free_shipping"
@@ -1181,13 +1195,16 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
   create_table "shipping_services", :force => true do |t|
     t.string   "name"
     t.string   "erp_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "cubic_weight_factor"
+    t.integer  "priority"
+    t.string   "erp_delivery_service"
   end
 
   create_table "shippings", :force => true do |t|
-    t.string   "zip_start"
-    t.string   "zip_end"
+    t.integer  "zip_start"
+    t.integer  "zip_end"
     t.decimal  "cost",                :precision => 8, :scale => 2
     t.integer  "delivery_time"
     t.decimal  "income",              :precision => 8, :scale => 2
@@ -1332,6 +1349,8 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
     t.integer  "orders_count",                                    :default => 0
+    t.text     "facebook_data"
+    t.text     "facebook_likes"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"

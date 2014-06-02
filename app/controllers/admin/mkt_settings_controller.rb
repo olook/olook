@@ -10,7 +10,7 @@ class Admin::MktSettingsController < Admin::BaseController
     settings = params[:settings]
     settings.each do |key, value|
       MktSetting.send("#{key}=", value)
-    end
+    end if settings
     redirect_to :admin_mkt_settings, :notice => "Configurações atualizadas com successo"
   end
 end
