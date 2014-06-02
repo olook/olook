@@ -12,6 +12,12 @@ div#content {
   display: none;
 }
 
+.look_thumbnail {
+  img {
+    width: 242px;
+    height: 365px;
+  }
+}
 section#home {
   #banner {
     width:100%;
@@ -319,7 +325,8 @@ section#home {
       .look {
         width:294px !important;
         img {
-          width:100%;
+          width:294px;
+          height:443px;
         }
       }
     }
