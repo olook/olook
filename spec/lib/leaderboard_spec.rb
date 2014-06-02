@@ -2,6 +2,9 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../../lib/leaderboar
 require 'fakeredis'
 
 describe Leaderboard do
+  after do
+    Leaderboard.clear
+  end
   context "in case of error" do
     it "should not raise an error" do
       expect {

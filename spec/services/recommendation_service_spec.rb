@@ -115,19 +115,6 @@ describe RecommendationService do
       end
     end
 
-    context 'filtering by collection' do
-      subject { described_class.new( profiles: @profiles ).products( collection: @collection ) }
-
-      before do
-        @collection = FactoryGirl.create(:collection, :active)
-        @product = FactoryGirl.create(:variant, inventory: 10, description: "37", product: FactoryGirl.create(:shoe, collection: @collection, profiles: [@profiles.first])).product
-        @sec_product = FactoryGirl.create(:variant, inventory: 10, description: "38", product: FactoryGirl.create(:shoe, collection: FactoryGirl.create(:collection, :inactive), profiles: [@profiles.first])).product
-      end
-
-      it { should include @product }
-      it { should_not include @sec_product }
-    end
-
     context 'when the same product is being called twice' do
       before do
         @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe #{ rand }", profiles: @profiles)).product
@@ -140,21 +127,6 @@ describe RecommendationService do
 
         described_class.new({ profiles: @profiles }).products.count(@shoe).should eq(1)
       end
-    end
-  end
-
-  describe "#full_looks" do
-    before do
-      @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe #{ rand }", profiles: @profiles)).product
-      @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag #{ rand }", profiles: @profiles)).product
-      @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory #{ rand }", profiles: @profiles)).product
-      @look1 = FactoryGirl.create(:look, launched_at: "2014-02-31 02:00:00", product_id: @shoe.id)
-      @look2 = FactoryGirl.create(:look, launched_at: "2014-01-22 02:00:00", product_id: @bag.id)
-      @look3 = FactoryGirl.create(:look, launched_at: "2014-01-31 02:00:00", product_id: @accessory.id)
-
-    end
-    it "return most recent look for profile" do
-      expect(described_class.new(profiles: 1).full_looks(limit: 4)).to include(*[@look1,@look3,@look2])
     end
   end
 end

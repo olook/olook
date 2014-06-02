@@ -15,19 +15,9 @@ class ShowroomPresenter
   end
 
   def products
-    key = @recommendation.profile_name + ":products"
-
-    products = if @redis.exists(key) 
-      Product.where(id: @redis.get(key).split(","))
-    else
-      fetched_products = fetch_products_in_each_category
-      organize_fetched_products_in_category_sequence(fetched_products)
-      _products = @products.first(8)
-      @redis.set(key,_products.map(&:id))
-      @redis.expire(key, 20.minutes)
-
-      _products
-    end
+    fetched_products = fetch_products_in_each_category
+    organize_fetched_products_in_category_sequence(fetched_products)
+    @products.first(@products_limit)
   end
 
   def looks(opts = {})
