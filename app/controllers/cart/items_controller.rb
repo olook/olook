@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Cart::ItemsController < ApplicationController
-  respond_to :js
+  respond_to :js, :json
   before_filter :ensure_params!
   prepend_before_filter :create_cart
 
@@ -44,10 +44,14 @@ class Cart::ItemsController < ApplicationController
         notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
 
         format.js { render :error, locals: { notice: notice_response } }
+        format.json{ render json: {notice: notice_response}, status: :unprocessable_entity }
         format.html { render text: notice_response }
       end
     else
-      redirect_to cart_path
+      respond_with(@cart) do |format|
+        format.json{ render json: { showModal: false } }
+        format.html{ redirect_to cart_path }
+      end
     end
   end
 
