@@ -64,8 +64,7 @@ olook.addToCartModal = function(content, a,close_callback){
     if (_iframe.length > 0){
       $(_iframe).remove();
     }
-
-    $("button.close").remove();
+    
     $modal.fadeOut();
     $(this).fadeOut();
     close_callback();
