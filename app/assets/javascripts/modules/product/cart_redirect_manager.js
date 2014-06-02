@@ -5,6 +5,7 @@ var CartRedirectManager  = (function(){
   };
 
   CartRedirectManager.prototype.facade = function(){
+    window.location = window.location.origin+"/sacola";
   };
 
   return CartRedirectManager;
