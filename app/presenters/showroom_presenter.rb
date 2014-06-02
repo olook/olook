@@ -17,7 +17,7 @@ class ShowroomPresenter
   def products
     fetched_products = fetch_products_in_each_category
     organize_fetched_products_in_category_sequence(fetched_products)
-    @products.first(8)
+    @products.first(@products_limit)
   end
 
   def looks(opts = {})
