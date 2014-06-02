@@ -22,12 +22,12 @@ var AddProductToCartManager  = (function(){
     } else {
       $.post('/sacola/items.json', {"variant[id]": variantId, quantity: quantity, id: productId})
         .done(function(data) {
-          if(data.responseAction == "showModal"){
+          // if(data.responseAction == "showModal"){
               closeSpy();
               olookApp.publish('product:show_cart_modal');
-          } else {
-            olookApp.publish('product:redirect_to_cart');
-          }
+          // } else {
+          //   olookApp.publish('product:redirect_to_cart');
+          // }
         }).fail(function(data){
           _data = JSON.parse(data.responseText);
           displayAlertSize(_data.notice);

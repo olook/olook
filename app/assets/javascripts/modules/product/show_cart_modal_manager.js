@@ -5,7 +5,7 @@ var ShowCartModalManager  = (function(){
   };
 
   ShowCartModalManager.prototype.facade = function(){
-    console.log("modal up!");
+    olook.addToCartModal("<p>teste</p>", 200, '#fff', function(){console.log("closed")});
   };
 
   return ShowCartModalManager;
