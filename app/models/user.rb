@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
+  serialize :facebook_data, Hash
+  serialize :facebook_likes, Array
 
   attr_accessor :require_cpf, :validate_gender_birthday
   attr_accessible :first_name, :last_name, :email, :password,
@@ -218,11 +220,14 @@ class User < ActiveRecord::Base
 
   def add_event(type, description = '')
     description = description.with_indifferent_access if description.is_a?(Hash)
+    self.save unless self.persisted?
     self.events.create(event_type: type, description: description.to_s)
     self.create_tracking(:utm_source => description.fetch(:utm_source, nil), :utm_medium => description.fetch(:utm_medium, nil),
     :utm_content => description.fetch(:utm_content, nil), :utm_campaign => description.fetch(:utm_campaign, nil),
     :gclid => description.fetch(:gclid, nil), :placement => description.fetch(:placement, nil),
     :referer => description.fetch(:referer, nil)) if type == EventType::TRACKING && description.is_a?(Hash)
+  rescue ActiveRecord::RecordNotSaved => e
+    raise ActiveRecord::RecordNotSaved.new("#{e.message} - Maybe its invalid check these errors: #{self.errors.inspect}")
   end
 
   def invitation_url(host = 'www.olook.com.br')

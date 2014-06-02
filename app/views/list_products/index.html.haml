@@ -15,8 +15,8 @@
   - content_for(:after_body) do
     = javascript_include_tag "common/fb_like_button"
 
+= render "shared/mkt_breadcrumb"
 = cache @cache_key, expire_in: 25.minutes, raw: true do
-  = render "shared/mkt_breadcrumb"
   = @category ? second_level_breadcrumb(url_prefix.gsub('/', '').capitalize, url_prefix, url_prefix.gsub('/', '').capitalize, Category.t(Category.with_name(@category)).pluralize, 'breadcrumb'): first_level_breadcrumb(url_prefix.gsub('/', '').capitalize)
   #catalog
     %aside
@@ -49,25 +49,26 @@
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
 
-      .row.row_olooklet
-        = render "list_products/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
-        - unless @category == 'bolsa'
-          .size_top
-            - if @category
-              %p.title-category.roupa Qual seu tamanho?
-              %ul.category-list
-                -size_list(@category,@search, @category[0].downcase).each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
-            - else
-              %p.title-category.roupa Roupas & Acessórios
-              %ul.category-list
-                -size_list(["roupa","acessorio"],@search, "r").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
-              %br
-              %p.title-category.sapatos Sapatos
-              %ul.category-list
-                -size_list("sapato",@search, "s").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
+      .fixed_filter
+        .row.row_olooklet
+          = render "list_products/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
+          - unless @category == 'bolsa'
+            .size_top
+              - if @category
+                %p.title-category.roupa Qual seu tamanho?
+                %ul.category-list
+                  -size_list(@category,@search, @category[0].downcase).each do |text, amount|
+                    %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
+              - else
+                %p.title-category.roupa Roupas & Acessórios
+                %ul.category-list
+                  -size_list(["roupa","acessorio"],@search, "r").each do |text, amount|
+                    %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                %br
+                %p.title-category.sapatos Sapatos
+                %ul.category-list
+                  -size_list("sapato",@search, "s").each do |text, amount|
+                    %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
 
       - if params[:controller] == 'olooklet'
         = render 'list_products/current_section', search: @search, category: @category

@@ -8,7 +8,7 @@
 @import 'new_structure/partials/custom_headers';
 
 #result{
-  float:left;
+  float:right;
   width:793px;
   margin-bottom: 25px;
   .row {
@@ -309,6 +309,7 @@ span.summary{
   position: absolute;
   right: 0px;
   top:0px;
+  display: none;
 
   p {
     float:left;
@@ -434,4 +435,31 @@ h1.title_catalog{
 .cata_filters{
   height: 60px;
   width: 100%;
+}
+
+.js_fixed {
+  height:50px !important;
+
+  .cata_filters {
+    position: fixed !important;;
+    top: 38px;
+    background: #FFF;
+    width: 793px;
+    z-index: 99;
+    border-bottom:1px solid #d1d1d1;
+    .exhibition-mode {
+      margin-top:9px !important;
+    }
+  }
+  .row_olooklet {
+    position: fixed;
+    top: 33px;
+    background: #FFF;
+    z-index: 99;
+    width: 793px;
+    height: 40px !important;
+    min-height:40px !important;
+    padding-top:10px !important;
+    border-bottom:1px solid #d1d1d1;
+  }
 }

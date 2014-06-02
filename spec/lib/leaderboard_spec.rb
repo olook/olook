@@ -2,6 +2,9 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../../lib/leaderboar
 require 'fakeredis'
 
 describe Leaderboard do
+  after do
+    Leaderboard.clear
+  end
   context "in case of error" do
     it "should not raise an error" do
       expect {
@@ -41,7 +44,7 @@ describe Leaderboard do
     end
 
     it "should invert sequence when the second id has more scores than first" do
-      2.times { subject.score(1198) }
+      7.times { subject.score(1198) }
       expect(subject.rank(5)).to eq(['1198', '1199'])
     end
   end

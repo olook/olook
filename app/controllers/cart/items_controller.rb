@@ -23,9 +23,9 @@ class Cart::ItemsController < ApplicationController
   end
 
   def destroy
-    @item = @cart.items.find(params[:id])
+    @item = @cart.items.find_by_id(params[:id])
 
-    if @item.destroy
+    if !@item || @item.destroy
       @cart.items.reload
       @cart_calculator = CartProfit::CartCalculator.new(@cart)
       @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)

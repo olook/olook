@@ -42,7 +42,8 @@ class PictureUploader < CarrierWave::Uploader::Base
     showroom: [146, 220],
     main: [365, 550],
     zoom_out: [730, 1100],
-    look_showroom: [242, 365]
+    look_showroom: [242, 365],
+    look_big_showroom: [294, 443]
   }.each do |ver, size|
     version ver do
       process :resize_to_limit => size

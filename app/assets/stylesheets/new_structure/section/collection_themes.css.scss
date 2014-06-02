@@ -12,47 +12,38 @@
 }
 
 #home_collections{
-  height: 700px;
-  .banner_principal{
-      width: 800px;
-      height: 340px;
-  }
-  .left_banner, .right_banner{
-    width: 380px;
-    height: 320px;
-    float: left;
-    margin-top: 35px;
-  }
-  .right_banner{
-      margin-left: 38px;
-  }
-  .collection{
-    font-family: $avenir;
-    font-size: 22px;
-    color: black;
-    margin-top: 25px;
-  }
-  .resume{
-    font-family: $avenir;
-    font-size: 12px;
-    color: black;
-  }
-  .looks{
-    font-family: $avenir;
-    font-size: 10px;
-    font-weight: bold;
-    color: black;
-    text-transform: uppercase;
-    margin-top: 7px;
-    background: image-url("collections/sprite.png") no-repeat -166px 3px;
-    height: 23px;
-    a{
-      text-decoration: none;
-      &:hover{
-          color: $pink;
+  height: 820px;
+  margin-bottom: 20px;
+  ul{ 
+    width: 820px;
+
+    li{
+      float: left;
+      img:hover{
+        opacity:0.6;
+        filter:alpha(opacity=60);
       }
     }
-  }
+    li.big{
+      width: 820px;
+      margin-bottom: 15px;
+      margin-top: 14px;
+    }
+    li.medium{
+      width: 400px;
+      margin-right: 20px;
+      margin-bottom: 15px;
+    }
+    li.small{
+      width: 260px;
+      margin-bottom: 15px;
+      margin-right: 19px;
+    }
+    .last{
+      margin-right: 0 !important;
+    }
+  }  
+  
 }
 #amamos{
   position: relative;
@@ -181,6 +172,17 @@ button.nav{
         line-height: 14px;
         margin-left: 20px;
         font-weight: lighter;
+      }
+      .video_link{
+        font-family: $verdana;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+        display: block;
+        position: absolute;
+        text-align: right;
+        left: 640px;
+        top: 15px;
       }
     }
   }

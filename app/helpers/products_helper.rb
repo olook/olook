@@ -83,9 +83,9 @@ module ProductsHelper
   end
 
   def modify_meta_description description, color
-    _description = description
-    _description.concat(" Cor #{color}") unless color == "Não informado"
-    _description.concat(". #{sort_words}")
+    _description = description || ""
+    _description = "#{_description} Cor #{color}" unless color == "Não informado" || color.blank?
+    "#{_description}. #{sort_words}"
   end
 
   def sort_words
