@@ -12,6 +12,12 @@ div#content {
   display: none;
 }
 
+.look_thumbnail {
+  img {
+    width: 242px;
+    height: 365px;
+  }
+}
 section#home {
   #banner {
     width:100%;
