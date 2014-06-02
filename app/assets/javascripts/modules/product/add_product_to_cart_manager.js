@@ -20,7 +20,7 @@ var AddProductToCartManager  = (function(){
     if(StringUtils.isEmpty(variantId)){
       displayAlertSize("Qual é o seu tamanho mesmo?");
     } else {
-      $.post('/sacola/items.json', {"variant[id]": variantId, quantity: quantity, id: productId})
+      $.post('/sacola/items.json', {"variant[id]": variantId, "variant[quantity]": quantity, id: productId})
         .done(function(data) {
           // if(data.responseAction == "showModal"){
               closeSpy();
