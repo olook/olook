@@ -70,6 +70,8 @@ olook.addToCartModal = function(content, a,close_callback){
     close_callback();
   });
 
+  $("#overlay-campaign").html("");
+
   $modal.html(content)
   .css({
     'height'        : h+"px",
