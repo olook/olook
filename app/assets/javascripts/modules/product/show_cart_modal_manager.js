@@ -5,6 +5,7 @@ var ShowCartModalManager  = (function(){
   };
 
   ShowCartModalManager.prototype.facade = function(){
+    console.log("modal up!");
   };
 
   return ShowCartModalManager;

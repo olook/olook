@@ -5,3 +5,7 @@
 new AddProductToCartManager().config();
 new CartRedirectManager().config();
 new ShowCartModalManager().config();
+
+$("#add_product").click(function(){
+  olookApp.publish('product:add');
+});
