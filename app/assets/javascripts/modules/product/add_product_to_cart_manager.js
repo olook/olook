@@ -8,6 +8,10 @@ var AddProductToCartManager  = (function(){
     $('p.alert_size').show().html(text).delay(3000).fadeOut();
   }
 
+  var closeSpy = function(){
+    $('#close_quick_view').click();
+  }
+
   AddProductToCartManager.prototype.facade = function(){
     var variantId = $(".selected .js-variant_id").val();
     var quantity = $(".js-quantity").val(); 
@@ -19,6 +23,7 @@ var AddProductToCartManager  = (function(){
       $.post('/sacola/items.json', {"variant[id]": variantId, quantity: quantity, id: productId})
         .done(function(data) {
           if(data.responseAction == "showModal"){
+              closeSpy();
               olookApp.publish('product:show_cart_modal');
           } else {
             olookApp.publish('product:redirect_to_cart');
