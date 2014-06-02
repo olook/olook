@@ -1,4 +1,3 @@
-/ = form_tag(cart_items_path, onsubmit: params[:action] == "product_valentines_day" ? track_add_to_cart_valentines_day_event(product.id) : track_add_to_cart_event(product.id), id: "product_add_to_cart") do                                                                                                                                               |
 = hidden_field_tag :redirect, @ab_test_parameter
 = product_presenter.render_form_by_category
 = product_presenter.render_quantity
