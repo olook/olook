@@ -13,12 +13,12 @@ var AddProductToCartManager  = (function(){
   }
 
   var chooseAction = function(responseAction){
-    // if(responseAction == "showModal"){
+    if(responseAction == "showModal"){
         closeSpy();
         olookApp.publish('product:show_cart_modal');
-    // } else {
-    //   olookApp.publish('product:redirect_to_cart');
-    // }
+    } else {
+      olookApp.publish('product:redirect_to_cart');
+    }
   }
 
   AddProductToCartManager.prototype.facade = function(){
