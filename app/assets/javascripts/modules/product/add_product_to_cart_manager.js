@@ -12,7 +12,7 @@ var AddProductToCartManager  = (function(){
     $('#close_quick_view').click();
   }
 
-  var chooseAction(responseAction){
+  var chooseAction = function(responseAction){
     // if(responseAction == "showModal"){
         closeSpy();
         olookApp.publish('product:show_cart_modal');

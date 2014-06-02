@@ -72,13 +72,15 @@ olook.addToCartModal = function(content, a,close_callback){
 
   $modal.html(content)
   .css({
-    'height'      : h+"px",
-    'width'       : w,
-    'top'         : '50%',
-    'left'        : 0,
-    'margin-left' : ml,
-    'margin-top'  : mt,
-    'border-bottom': '1px solid #000'
+    'height'        : h+"px",
+    'width'         : w,
+    'top'           : '50%',
+    'left'          : 0,
+    'margin-left'   : ml,
+    'margin-top'    : mt,
+    'border-bottom' : '1px solid #000',
+    'background'    : 'none',
+    'background'    : 'rgba(255,255,255,0.7)'
 
   }).delay(500).fadeIn().children().show();
 
