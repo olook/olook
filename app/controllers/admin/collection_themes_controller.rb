@@ -41,6 +41,7 @@ class Admin::CollectionThemesController < Admin::BaseController
       flash[:notice] = 'Coleção Temática foi atualizada com sucesso.'
     else
       render "show"
+      return
     end
     respond_with :admin, @collection_theme do |format|
       format.js { render :update }
