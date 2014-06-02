@@ -1,7 +1,7 @@
 class RecommendationService
 
   DAYS_AGO_TO_CONSIDER_NEW = 140
-  DAYS_AGO_TO_CONSIDER_NEW_PRODUCTS = 30
+  DAYS_AGO_TO_CONSIDER_NEW_PRODUCTS = 300
   DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
   WHITELISTED_SUBCATEGORIES = [
     'blazer',
@@ -48,7 +48,6 @@ class RecommendationService
   private
 
   def filtered_looks_for_profile(opts={})
-    #Look.where(profile_id: @profiles).where(Look.arel_table[:launched_at].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).order('RAND()').first(opts[:limit])
     _pAt = Product.arel_table
     _vAt = Variant.arel_table
     _dAt = Detail.arel_table
@@ -63,7 +62,7 @@ class RecommendationService
 
     result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
 
-    result
+    result.first(opts[:limit])
   end
 
   def filtered_list_for_profile(profile, opts={})
