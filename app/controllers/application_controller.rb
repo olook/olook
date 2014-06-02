@@ -23,6 +23,12 @@ class ApplicationController < ActionController::Base
 
   around_filter :log_start_end_action_processing
 
+  before_filter do
+    # XXX: BTG pixel write that cookie inside our app
+    cookies.delete(:__bin)
+    cookies.delete(:__cip)
+  end
+
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
     Contact the system administrator"
