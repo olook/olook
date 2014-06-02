@@ -28,7 +28,7 @@ module FreightCalculator
    private
    def self.check_free_freight_policy(result, zip_code, order_value)
      if Freight::FreeCostPolicy.apply?( ShippingPolicy.with_zip(zip_code), order_value)
-       result[:default_shipping][:cost] = '0.0'.to_d
+       result[:default_shipping][:price] = '0.0'.to_d
      end
      result
    end
