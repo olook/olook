@@ -12,7 +12,7 @@
           <% end %>
         </label>  
         <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>
-        <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false, :disabled => variant.inventory < 1 ) %>
+        <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false, :disabled => variant.inventory < 1, class:"js-variant_id" ) %>
       
     </li>
   <% end %>
