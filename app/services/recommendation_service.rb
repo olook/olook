@@ -47,7 +47,7 @@ class RecommendationService
 
       product_ids = WHITELISTED_SUBCATEGORIES.inject([]) do |arr, s|
         arr + Leaderboard.new(key: "roupa:#{s.parameterize}").rank(limit * 10, with_scores: true)
-      end.sort { |a,b| b.last <=> a.last }.first(limit * 4)
+      end.sort { |a,b| b.last <=> a.last }.first(limit * 10)
       if product_ids.size >= limit
         opts[:product_ids] = product_ids.map { |pid, count| pid }
       else
