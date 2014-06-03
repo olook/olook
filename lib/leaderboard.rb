@@ -26,8 +26,8 @@ class Leaderboard
   rescue
   end
 
-  def rank(limit)
-    @redis.zrevrange(@key, 0, limit - 1)
+  def rank(limit, opts={})
+    @redis.zrevrange(@key, 0, limit - 1, opts)
   rescue
     []
   end
