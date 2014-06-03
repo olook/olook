@@ -2379,8 +2379,8 @@ section/lite_catalog.js: section/lite_catalog-e99ec5fd6eda814e301224f3e035ce3e.j
 section/lite_catalog/index.js: section/lite_catalog-e99ec5fd6eda814e301224f3e035ce3e.js
 section/lite_collection_theme.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
-section/lite_home.js: section/lite_home-5c7552c4571cf73c260191df087a5ad6.js
-section/lite_home/index.js: section/lite_home-5c7552c4571cf73c260191df087a5ad6.js
+section/lite_home.js: section/lite_home-f1f98b920f0638dab74233813f825e15.js
+section/lite_home/index.js: section/lite_home-f1f98b920f0638dab74233813f825e15.js
 section/lite_showroom.js: section/lite_showroom-cd768804da8ff1cea1f86dafef39cbe7.js
 section/lite_showroom/index.js: section/lite_showroom-cd768804da8ff1cea1f86dafef39cbe7.js
 section/load_thumbnail_images.js: section/load_thumbnail_images-be6cf301b5dcd4ec8ee0a1d53d344a99.js
