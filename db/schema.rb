@@ -1195,11 +1195,8 @@ ActiveRecord::Schema.define(:version => 20140530214409) do
   create_table "shipping_services", :force => true do |t|
     t.string   "name"
     t.string   "erp_code"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.integer  "cubic_weight_factor"
-    t.integer  "priority"
-    t.string   "erp_delivery_service"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "shippings", :force => true do |t|
