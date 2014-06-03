@@ -12,8 +12,8 @@
 
 - content_for :footer do
   = javascript_include_tag "section/lite_home"
-  - if Campaign.activated_campaign && Campaign.activated_campaign.lightbox?
-    = render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}
+  - if @current_campaign && @current_campaign.lightbox?
+    = render :partial => "shared/modal/lightbox", :locals => {:image_url => @current_campaign.lightbox_url, :link => @current_campaign.link}
 - content_for :data_layer do
   = render "shared/data_layer/home"
 
@@ -43,11 +43,11 @@
             %span= @right_highlight.subtitle
 
   - if show_unlogged_home?
-    / = cache "home/unlogged_page", expire_in: 30.minutes do
-    = render "unlogged_page"
+    = cache "home/unlogged_page", expire_in: 30.minutes do
+      = render "unlogged_page"
   - else
-    / = cache "home/#{@cache_key}", expire_in: 30.minutes do
-    = render "logged_page"
+    = cache "home/#{@cache_key}", expire_in: 30.minutes do
+      = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
     = render "home/wishlist"

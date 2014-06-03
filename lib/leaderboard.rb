@@ -1,5 +1,5 @@
 class Leaderboard
-  PREFIX = 'leaderboard/'
+  PREFIX = 'leaderboard'
   def self.clear
     redis = Redis.connect(url: ENV['REDIS_LEADERBOARD'])
     keys = redis.keys("#{PREFIX}*")
@@ -8,7 +8,7 @@ class Leaderboard
 
   def initialize(options={})
     @redis = options.delete(:redis) || Redis.connect(url: ENV['REDIS_LEADERBOARD'])
-    @key = options.delete(:key)
+    @key = [PREFIX, options.delete(:key)].compact.join(':')
     @keys = [@key]
     aux_key = @key.split(':')
     aux_key.pop
@@ -21,13 +21,13 @@ class Leaderboard
 
   def score(id)
     @keys.each do |key|
-      @redis.zincrby("#{PREFIX}#{key}", 1, id)
+      @redis.zincrby(key, 1, id)
     end
   rescue
   end
 
-  def rank(limit)
-    @redis.zrevrange("#{PREFIX}#{@key}", 0, limit - 1)
+  def rank(limit, opts={})
+    @redis.zrevrange(@key, 0, limit - 1, opts)
   rescue
     []
   end

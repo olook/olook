@@ -6,6 +6,12 @@ class ShowroomPresenter
     Category::ACCESSORY
   ]
 
+  WHITELISTED_BRANDS = [
+    "OLOOK ESSENTIAL",
+    "Olook Concept",
+    "Olook"
+  ]
+
   def initialize(args={})
     @recommendation = args[:recommendation]
     @products_limit = args[:products_limit] || 22
@@ -15,28 +21,17 @@ class ShowroomPresenter
   end
 
   def products
-    key = @recommendation.profile_name + ":products"
-
-    products = if @redis.exists(key) 
-      Product.where(id: @redis.get(key).split(","))
-    else
-      fetched_products = fetch_products_in_each_category
-      organize_fetched_products_in_category_sequence(fetched_products)
-      _products = @products.first(8)
-      @redis.set(key,_products.map(&:id))
-      @redis.expire(key, 20.minutes)
-
-      _products
-    end
+    fetched_products = fetch_products_in_each_category
+    organize_fetched_products_in_category_sequence(fetched_products)
+    @products.first(@products_limit)
   end
 
   def looks(opts = {})
-    @looks_limit = opts[:limit] if opts[:limit]
-    @recommendation.full_looks(limit: @looks_limit, category: Category.without_curves)
+    @recommendation.full_looks({limit: @looks_limit, category: Category.without_curves, brand: WHITELISTED_BRANDS}.merge(opts))
   end
 
-  def look
-    @look ||= looks(limit:1).first
+  def look(opts={})
+    @look ||= looks({limit:1, brand: WHITELISTED_BRANDS}.merge(opts)).first
   end
 
   private

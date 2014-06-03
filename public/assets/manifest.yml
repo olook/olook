@@ -2153,8 +2153,8 @@ campaign_emails_modal.js: campaign_emails_modal-822a5568a8bdd415130ae05239de1155
 campaign_emails_modal/index.js: campaign_emails_modal-822a5568a8bdd415130ae05239de1155.js
 carts.js: carts-5e7435b8dd789c0ec07a80ca8faeb410.js
 carts/index.js: carts-5e7435b8dd789c0ec07a80ca8faeb410.js
-checkout.js: checkout-a25475a553402af580e901df9dba8a9f.js
-checkout/index.js: checkout-a25475a553402af580e901df9dba8a9f.js
+checkout.js: checkout-7e37eb7387986f151f2725aede049bcd.js
+checkout/index.js: checkout-7e37eb7387986f151f2725aede049bcd.js
 checkout_addresses.js: checkout_addresses-627ff0bd5aa937855986639524732549.js
 checkout_addresses/index.js: checkout_addresses-627ff0bd5aa937855986639524732549.js
 clippings.js: clippings-7df846c26efcc6d344bb0742e9b86fcb.js
@@ -2379,8 +2379,8 @@ section/lite_catalog.js: section/lite_catalog-e99ec5fd6eda814e301224f3e035ce3e.j
 section/lite_catalog/index.js: section/lite_catalog-e99ec5fd6eda814e301224f3e035ce3e.js
 section/lite_collection_theme.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
-section/lite_home.js: section/lite_home-e2b38104e845a3962c53ae54958695ed.js
-section/lite_home/index.js: section/lite_home-e2b38104e845a3962c53ae54958695ed.js
+section/lite_home.js: section/lite_home-f1f98b920f0638dab74233813f825e15.js
+section/lite_home/index.js: section/lite_home-f1f98b920f0638dab74233813f825e15.js
 section/lite_showroom.js: section/lite_showroom-cd768804da8ff1cea1f86dafef39cbe7.js
 section/lite_showroom/index.js: section/lite_showroom-cd768804da8ff1cea1f86dafef39cbe7.js
 section/load_thumbnail_images.js: section/load_thumbnail_images-be6cf301b5dcd4ec8ee0a1d53d344a99.js
@@ -2631,8 +2631,8 @@ section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-d806b2586620fa78693b102849275c10.css
 section/half_user/index.css: section/half_user-d806b2586620fa78693b102849275c10.css
-section/home.css: section/home-284838607b15452496435867f82dc998.css
-section/home/index.css: section/home-284838607b15452496435867f82dc998.css
+section/home.css: section/home-3164ef9c3e177b9db71bcfb5523bf0a0.css
+section/home/index.css: section/home-3164ef9c3e177b9db71bcfb5523bf0a0.css
 section/how_to.css: section/how_to-fc0db3e7012ead06f1e07f860416b93b.css
 section/how_to/index.css: section/how_to-fc0db3e7012ead06f1e07f860416b93b.css
 section/invite.css: section/invite-7b72db2c78d557323cac8c2637419c73.css
