@@ -14,7 +14,7 @@ class Freight::TransportShippingChooserService
   def formated_hash(shipping,type)
     {type.to_sym => {price: shipping.income || FreightCalculator::DEFAULT_FREIGHT_PRICE,
                      cost: shipping.cost || FreightCalculator::DEFAULT_FREIGHT_COST,
-                     delivery_time: shipping.delivery_time || FreightCalculator::DEFAULT_INVENTORY_TIME,
+                     delivery_time: shipping.delivery_time.to_i + FreightCalculator::DEFAULT_INVENTORY_TIME,
                      shipping_service_id: shipping.shipping_service_id || FreightCalculator::DEFAULT_FREIGHT_SERVICE
     }}
   end
