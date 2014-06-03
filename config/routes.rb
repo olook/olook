@@ -482,8 +482,9 @@ Olook::Application.routes.draw do
     resources :items, :to => 'cart/items'
     resources :look_items, to: 'cart/look_items', only: [:create, :destroy]
   end
-  # => Used by chaordic
-  put 'sacola/:cart_id' => 'cart/cart#add_variants', as: :add_variants
+  
+  # => Used by complete look
+  put 'sacola/adicionar' => 'cart/cart#add_variants', as: :add_variants
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"

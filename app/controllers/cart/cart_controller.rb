@@ -4,6 +4,7 @@ class Cart::CartController < ApplicationController
 
   respond_to :html, :js, :json
   skip_before_filter :authenticate_user!, :only => :add_variants
+  before_filter :load_cart, only: [:add_variants], if: -> {@cart.nil?}
 
   def show
     @google_path_pixel_information = "cart"
@@ -18,7 +19,6 @@ class Cart::CartController < ApplicationController
       load_cart_service
     end
 
-    @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @promo_over_coupon = false
     if @cart.coupon_id && Promotion.select_promotion_for(@cart)
@@ -42,7 +42,7 @@ class Cart::CartController < ApplicationController
   end
 
   #
-  # Only used by chaordic and wishlist
+  # Only used by complete look and and wishlist
   #
   def add_variants
     @report  = CreditReportService.new(@user) unless @report
@@ -78,5 +78,11 @@ class Cart::CartController < ApplicationController
     Freebie.save_selection_for(@cart.id, params[:i_want_freebie])
     render text: 'OK'
   end
+
+  private
+    def load_cart
+      @cart = create_cart
+      load_cart_service
+    end
 
 end
