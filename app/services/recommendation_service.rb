@@ -44,9 +44,12 @@ class RecommendationService
   def full_looks(opts={})
     current_limit = limit = opts[:limit] || 5
     if opts[:hot_products]
-      product_ids = Leaderboard.new.rank(40)
-      if product_ids.size == 40
-        opts[:product_ids] = product_ids
+
+      product_ids = WHITELISTED_SUBCATEGORIES.inject([]) do |arr, s|
+        arr + Leaderboard.new(key: "roupa:#{s.parameterize}").rank(limit * 10, with_scores: true)
+      end.sort { |a,b| b.last <=> a.last }
+      if product_ids.size >= limit
+        opts[:product_ids] = product_ids.map { |pid, count| pid }
       else
         opts[:hot_products] = false
       end
@@ -62,8 +65,8 @@ class RecommendationService
     looks.uniq!
 
     if opts[:hot_products]
-      looks = looks.inject({}) { |h, l| h[l.id] = l; h }
-      looks = product_ids.map { |p| looks[p] }.compact.first(opts[:limit])
+      looks = looks.inject({}) { |h, l| h[l.id.to_s] = l; h }
+      looks = product_ids.map { |pid, count| looks[pid.to_s] }.compact.first(opts[:limit])
     end
     looks
   end
