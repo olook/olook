@@ -121,30 +121,64 @@
           em créditos.
           = link_to "Saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"
     .details
-      %ul
+      %ul.tabs
         %li
-          = radio_button_tag("about", "tabs")
-          %label{:for => "tab_infos"}Sobre o Produto
-          .details_info
+          = radio_button_tag("tabs", "about", "checked")
+          %label{:for => "tabs_about"}Sobre o Produto
+          #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
         %li
-          = radio_button_tag("medidas", "tabs")
-          %label{:for => "tab_infos"}Medidas
-          .details_info
-            %dl
-              - @product.sort_details_by_relevance(@product.details.only_specification.with_valid_values).each do |detail|
-                - unless @product.is_a_shoe_accessory? && detail.translation_token == "Salto"
-                  %dt #{print_detail_name_for @product, detail}:
-                  - if detail.translation_token == 'Dica'
-                    %dd{itemprop: 'review', itemscope: true, itemtype: 'http://schema.org/Review'}
-                      %p{itemprop: 'reviewBody'}= print_detail_value detail
-                  - else
-                    %dd= print_detail_value detail
-          .details-item
-            %h3.details-title MEDIDAS
-            .details-body
-              %p TABELA DE MEDIDAS
-              
+          = radio_button_tag("tabs", "medidas")
+          %label{:for => "tabs_medidas"}Medidas
+          #tab-content2.tab-content
+            %table
+              %tr.titulo
+                %td
+                %td Ombro
+                %td Busto
+                %td Cintura
+                %td Cós
+                %td Gancho
+                %td Coxa
+                %td Compi.
+              %tr.corsim
+                %td P
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+              %tr
+                %td M
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+              %tr.corsim
+                %td G
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+              %tr
+                %td GG 44/46
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+                %td 12cm
+
+
 %br{style: "clear:both"}
 - if @product.has_look_products?(current_admin)
   = render :partial => 'product/look_products', :locals => {:look_products => @product.look_products(current_admin), :complete_look_discount => Promotion.find(Setting.complete_look_promotion_id).discount_hash }
