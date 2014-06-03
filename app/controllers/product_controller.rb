@@ -72,6 +72,8 @@ class ProductController < ApplicationController
     @only_view = (params[:only_view] == "true")
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
 
+    create_cart if @product.related_products.any?
+
   end
 
   def canonical_link
