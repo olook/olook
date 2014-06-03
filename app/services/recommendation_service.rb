@@ -77,13 +77,9 @@ class RecommendationService
     _pAt = Product.arel_table
     _vAt = Variant.arel_table
     _dAt = Detail.arel_table
-    profile = opts[:profile]
 
-    is_admin = opts.fetch(:admin, false)
-    product_ids = opts[:product_ids]
-
-    if profile
-      result = profile.products
+    if opts[:profile]
+      result = opts[:profile].products
     else
       result = Product
     end
@@ -91,10 +87,12 @@ class RecommendationService
     .where(_pAt[:created_at].gt(DATE_WHEN_PICTURES_CHANGED))
     .includes(:variants, :pictures)
 
+    result = result.where(_pAt[:brand].in(opts[:brand])) if opts[:brand]
+
     result = result.joins(:details).where(_dAt[:translation_token].eq('categoria').and(_dAt[:description].in(WHITELISTED_SUBCATEGORIES)))
 
-    result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
-    result = result.where(_pAt[:id].in(product_ids)) if product_ids
+    result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless opts.fetch(:admin, false)
+    result = result.where(_pAt[:id].in(opts[:product_ids])) if opts[:product_ids]
     result.group(_pAt[:id])
 
     result
