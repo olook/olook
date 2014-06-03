@@ -144,18 +144,41 @@
             %h3.details-title MEDIDAS
             .details-body
               %p TABELA DE MEDIDAS
-              
+%br{style: "clear:both"}
+%ul.vantagens
+  %li.title
+    %p
+      OLOOK VANTAGENS
+  %li.mini_infos
+    %h3
+      TROCA E DEVOLUÇÃO 
+      %span.trade
+        GRÁTIS
+    %span.icon
+  %li.mini_infos
+    %h3
+      PARCELAMOS EM ATÉ 
+      %span
+        6 VEZES 
+      %br
+      NO CARTÃO
+    %span.icon.card
+  %li.mini_infos
+    %h3
+      %span
+        GRÁTIS! 
+      15% DE VOLTA EM CRÉDITOS
+    %span.icon.money
+  %li.mini_infos.last
+    %p Informe o CEP e consulte o prazo para destino
+    %form#shipping{:action => "", :method => "post"}
+      %input#ship-field.ship-field{:name => "ship-field", :type => "text", :value => ""}/
+      %button#search.search{:type => "button"} Pesquisar
+    %p.shipping-msg 
+
 %br{style: "clear:both"}
 - if @product.has_look_products?(current_admin)
   = render :partial => 'product/look_products', :locals => {:look_products => @product.look_products(current_admin), :complete_look_discount => Promotion.find(Setting.complete_look_promotion_id).discount_hash }
-= image_tag("product/vantagens.jpg", class:"vantagens")
-%h3.shipping-title PRAZO DE ENTREGA
-.shipping
-  %p Informe o CEP e consulte o prazo para destino
-  %form#shipping{:action => "", :method => "post"}
-    %input#ship-field.ship-field{:name => "ship-field", :type => "text", :value => ""}/
-    %button#search.search{:type => "button"} Pesquisar
-  %p.shipping-msg 
 
 .chaordic.similaritems
 .chaordic.ultimatebuy
