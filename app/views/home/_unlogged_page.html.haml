@@ -2,7 +2,7 @@
   %h3 Dicas Olook
   .mylook
     .look
-      - if @showroom_presenter.look.present?
+      - if @showroom_presenter.look( hot_products: true ).present?
         = link_to product_seo_path(@showroom_presenter.look.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}") do
           %span.look_thumbnail{data: { product: @showroom_presenter.look.front_picture.image_url, backside_picture: @showroom_presenter.look.full_look_picture.image_url }}
   #see_too.js-unlogged-carousel

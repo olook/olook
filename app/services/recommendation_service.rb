@@ -42,6 +42,7 @@ class RecommendationService
   end
 
   def full_looks(opts={})
+    current_limit = limit = opts[:limit] || 5
     if opts[:hot_products]
       product_ids = Leaderboard.new.rank(40)
       if product_ids.size == 40
@@ -51,7 +52,15 @@ class RecommendationService
       end
     end
 
-    looks = filtered_looks_for_profile(opts)
+    looks = []
+    @profiles.each do |profile|
+      opts[:profile] = profile
+      looks += filtered_looks_for_profile(opts).first(current_limit)
+      current_limit = limit - products.size
+      break if looks.size == limit
+    end
+    looks.uniq!
+
     if opts[:hot_products]
       looks = looks.inject({}) { |h, l| h[l.id] = l; h }
       looks = product_ids.map { |p| looks[p] }.compact.first(opts[:limit])
@@ -65,11 +74,17 @@ class RecommendationService
     _pAt = Product.arel_table
     _vAt = Variant.arel_table
     _dAt = Detail.arel_table
+    profile = opts[:profile]
 
     is_admin = opts.fetch(:admin, false)
     product_ids = opts[:product_ids]
 
-    result = Product.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago))
+    if profile
+      result = profile.products
+    else
+      result = Product
+    end
+    result = result.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago))
     .where(_pAt[:created_at].gt(DATE_WHEN_PICTURES_CHANGED))
     .includes(:variants, :pictures)
 
@@ -77,8 +92,9 @@ class RecommendationService
 
     result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
     result = result.where(_pAt[:id].in(product_ids)) if product_ids
+    result.group(_pAt[:id])
 
-    result.first(opts[:limit])
+    result
   end
 
   def filtered_list_for_profile(profile, opts={})
@@ -106,6 +122,7 @@ class RecommendationService
     ) if @shoe_size.present?
 
     result = result.where(category: category) if category.present?
+    result.group(_pAt[:id])
 
     result
   end
