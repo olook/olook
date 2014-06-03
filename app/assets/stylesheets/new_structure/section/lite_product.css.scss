@@ -205,4 +205,62 @@
       }
     }
   }
+  ul.vantagens{
+    width: 100%;
+    margin-top: 20px;
+    li.title{
+      border-top: 5px solid #363636;
+      width: 100%;
+      p{
+        font-size: 15px;
+        letter-spacing: 1px;
+        font-family: $bt_font;
+        display: block;
+        background: #fff;
+        width: 195px;
+        margin: -10px auto;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
+    .mini_infos{
+      width: 240px;
+      height: 147px;
+      background: #d6d6d6;
+      float: left;
+      margin-right: 10px;
+      margin-top: 30px;
+    }
+    h3{
+      font-family: $bt_font;
+      font-size: 12px;
+      color: #363636;
+      letter-spacing: 1px;
+      text-align: center;
+      width: 230px;
+      margin: 10px auto;
+      span{
+        color: $base_color;
+        &.trade{
+          display: block;
+        }
+      }
+    }
+    span.icon{
+      background:image-url('product/info_icon.png') no-repeat 0 3px;
+      display: block;
+      width: 50px;
+      height: 40px;
+      margin: 0 auto;
+    }
+    .card{
+      background-position: 0 -49px !important;
+    }
+    .money{
+      background-position: 0 -100px !important;
+    }
+    .last{
+      margin-right: 0 !important;
+    }
+  }
 
