@@ -6,6 +6,12 @@ class ShowroomPresenter
     Category::ACCESSORY
   ]
 
+  WHITELISTED_BRANDS = [
+    "OLOOK ESSENTIAL",
+    "Olook Concept",
+    "Olook"
+  ]
+
   def initialize(args={})
     @recommendation = args[:recommendation]
     @products_limit = args[:products_limit] || 22
@@ -21,12 +27,11 @@ class ShowroomPresenter
   end
 
   def looks(opts = {})
-    @looks_limit = opts[:limit] if opts[:limit]
-    @recommendation.full_looks(opts.merge(limit: @looks_limit, category: Category.without_curves))
+    @recommendation.full_looks({limit: @looks_limit, category: Category.without_curves, brand: WHITELISTED_BRANDS}.merge(opts))
   end
 
   def look(opts={})
-    @look ||= looks(opts.merge(limit:1)).first
+    @look ||= looks({limit:1, brand: WHITELISTED_BRANDS}.merge(opts)).first
   end
 
   private
