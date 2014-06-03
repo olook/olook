@@ -1,5 +1,5 @@
 class ReprocessingProductPicturesVersions
-  @queue = 'low'
+  @queue = 'calhau'
   def self.perform(product_id)
     product = Product.find_by_id(product_id)
     return unless product
