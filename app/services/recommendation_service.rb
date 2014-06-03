@@ -59,8 +59,8 @@ class RecommendationService
     @profiles.each do |profile|
       opts[:profile] = profile
       looks += filtered_looks_for_profile(opts).first(current_limit)
-      current_limit = limit - products.size
-      break if looks.size == limit
+      current_limit = limit - looks.size
+      break if looks.size >= limit
     end
     looks.uniq!
 
