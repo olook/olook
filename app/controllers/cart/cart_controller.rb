@@ -11,6 +11,10 @@ class Cart::CartController < ApplicationController
     @report  = CreditReportService.new(@user)
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
+
+    # apenas para parar de dar erro
+    create_cart if @cart.nil? 
+
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @promo_over_coupon = false
