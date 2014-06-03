@@ -6,13 +6,17 @@
 	width: 100%;
 	padding-bottom: 20px;
 	font-family: $bt_font;
-	.pics{
-		width: 430px;
+	.pics_social{
+		width: 460px;
+    float: left;
+    margin-top: 15px;
+    margin-left: 60px;
 		ul{
       float: left;
 			width: 45px;
       margin-right: 30px;
       display: block;
+      margin-top: 50px;
 			li{
 				width: 100%;
 				height: 68px;
@@ -26,7 +30,179 @@
       width: 365px;
       height: 550px;
       float: left;
+      border: 1px solid #cdcdcd;
     }
 	}
-}
+  .product-info{
+    margin-top: 30px;
+    width: 370px;
+    float: left;
+    margin-left: 40px;
+    h1{
+      font-family: $bt_font;
+      font-size: 16px;
+      letter-spacing: 1px;
+      font-weight: lighter;
+      margin-bottom: 8px;
+      color: #363636;
+    }
+    h2{
+      font-family: $verdana;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      color: #363636;
+    }
+    .cost{
+      border-bottom: 1px solid #cdcdcd;
+      p.price, p.plots{
+        color: #363636;
+        font-size: 12px;
+        font-family: $verdana;
+        font-weight: bold;
+        margin-bottom: 10px;
+        span{
+          font-weight: lighter;
+          padding-left: 30px;
+        }
+      }
+      p.plots{
+        margin-bottom: 15px;
+        span{
+          font-weight: bold;
+          font-size: 19px;
+          color: $base_color;
+          letter-spacing: -1px;
+        }
+      }
+    }
+    a.size-guide{
+      display: block;
+      float: right;
+      width: 53px;
+      height: 35px;
+      padding-left: 35px;
+      color: #000;
+      font-size: 13px;
+      text-decoration: none;
+      background: image-url('common/guide.png') no-repeat 0 3px;
+      &:hover{
+        text-decoration:underline;
+      }
+    }
+    .size, .color, .quantity{
+      margin-top: 15px;
+      height: 60px;
+      p{
+        font-family: $verdana;
+        font-size: 12px;
+        color: #4b4b4b;
+        font-weight: bold;
+      }
+      label{
+        line-height: 23px;
+        text-align: center;
+        min-width: 24px;
+        height: 24px;
+        display: inline-block;
+        cursor: pointer;
+        font-family: $verdana;
+        font-size: 12px;
+        border: 1px solid #cdcdcd;
+        float: left;
+        margin-right: 5px;
+        margin-top: 10px;
+
+      }
+      input[type="radio"]{
+        display: none;
+      }
+      .selected{
+        label{
+          color: #fff;
+          background: #000;
+          border: 1px solid #000;
+        }
+      }
+    }
+    .color {
+      height: 60px;
+      ol{
+        margin-top: 10px;
+      }
+      li {
+        float: left;
+        margin-right: 3px;
+        a img{
+          width: 24px;
+          height: 24px;
+          border: 2px solid #fff;
+          float: left;
+        }
+      }
+      li img{
+        width: 24px;
+        height: 24px;
+        border: 2px solid $base_color;
+      }
+      .color_name{
+        display: none;
+      }
+    }
+    .quantity{
+      margin-top:12px;
+      position:relative;
+      float: right;
+      overflow:hidden;
+      height: 60px;
+      top: -70px;
+      margin-bottom: -50px;
+      p{
+        display: block;
+        margin-bottom: 10px;
+      }
+      .quantity-product {
+        text-align: center;
+        width:20px;
+        height:20px;
+        display:inline-block;
+        color:#6D6E71;
+        font-size:13px;
+        border: 1px solid #cdcdcd;
+        margin-left: 5px;
+      }
+      button{position:absolute;width:14px;height:12px;border:none;color:#000;background:image-url('product/new_page_sprite.png') no-repeat;font-size:0;cursor:pointer;
+        &.minus{background-position:-3px -75px;top:45px;left:50px;}
+        &.plus{background-position:-24px -70px;top:27px;left:47px;}
+      }
+    }
+    input[type="submit"].add_product, a.add_product {
+      @include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+      width: 370px;
+      height: 45px;
+      display: block;
+      border: none;
+      cursor: pointer;
+      clear: both;
+      letter-spacing: 3px;
+      font-size: 16px;
+      padding-top: 2px;
+      margin-bottom: 8px;
+      }
+      p.bonus{
+        font-size: 11px;
+        font-family: $avenir;
+        letter-spacing: 1px;
+        span{
+          color: $base_color;
+          font-weight: bold;
+        }
+        a{
+          font-weight: bold;
+        }
+      }
+    }
+  }
 
