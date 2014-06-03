@@ -17,9 +17,15 @@ initHome = function(){
   $(".looks_logged .js-thumbnail").click(function(e){
     log_event('click', 'logged_showroom', {'productId': $(this).data().id});
   });
+  $('.looks_logged .elastislide-list li').click(function(e){
+    log_event('click', 'logged_showroom_products', {'productId': $(this).data().id});
+  });
 
   $(".looks_unlogged .js-thumbnail").click(function(e){
     log_event('click', 'unlogged_showroom', {'productId': $(this).data().id});
+  });
+  $('.looks_unlogged .elastislide-list li').click(function(e){
+    log_event('click', 'unlogged_showroom_products', {'productId': $(this).data().id});
   });
 
 };
