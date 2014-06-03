@@ -14,10 +14,19 @@ initHome = function(){
     olookApp.publish('home:load');
   }, 1000);
 
-  $(".js-thumbnail").click(function(e){
-    log_event('click', 'logged_showroom', {'productId': $(this).data().id});
-  });  
- 
+  $(".looks_logged .js-thumbnail").click(function(e){
+    log_event('click', 'logged_looks', {'productId': $(this).data().id});
+  });
+  $('.looks_logged .elastislide-list li').click(function(e){
+    log_event('click', 'logged_products', {'productId': $(this).data().id});
+  });
+
+  $(".looks_unlogged .js-thumbnail").click(function(e){
+    log_event('click', 'unlogged_looks', {'productId': $(this).data().id});
+  });
+  $('.looks_unlogged .elastislide-list li').click(function(e){
+    log_event('click', 'unlogged_products', {'productId': $(this).data().id});
+  });
 
 };
 

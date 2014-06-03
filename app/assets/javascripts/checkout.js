@@ -242,13 +242,19 @@ $(function() {
     }).done(function(data){
       var value = $("#freight_price").data('freight_price');
       freight_value = value == undefined ? 0 : parseFloat(value);
+      var total = add(data.total, freight_value);
+
 
       $('#credits_used').text(formatReal(data.credits_discount));
-      $('#total').text(formatReal(add(data.total, freight_value)));
+      $('#total').text(formatReal(total));
       $('#total_billet').text(formatReal(add(data.total_billet, freight_value)));
       $('#total_debit').text(formatReal(add(data.total_debit, freight_value)));
       $('#debit_discount_value').text(formatReal(data.debit_discount));
       $('#billet_discount_value').text(formatReal(data.billet_discount));
+
+
+      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total, false);
+
     });
   });
 
