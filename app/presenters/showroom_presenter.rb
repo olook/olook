@@ -22,11 +22,11 @@ class ShowroomPresenter
 
   def looks(opts = {})
     @looks_limit = opts[:limit] if opts[:limit]
-    @recommendation.full_looks(limit: @looks_limit, category: Category.without_curves)
+    @recommendation.full_looks(opts.merge(limit: @looks_limit, category: Category.without_curves))
   end
 
-  def look
-    @look ||= looks(limit:1).first
+  def look(opts={})
+    @look ||= looks(opts.merge(limit:1)).first
   end
 
   private
