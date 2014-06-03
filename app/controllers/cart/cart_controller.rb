@@ -13,7 +13,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
 
     # apenas para parar de dar erro
-    create_cart if @cart.nil? 
+    @cart = create_cart if @cart.nil? 
 
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
