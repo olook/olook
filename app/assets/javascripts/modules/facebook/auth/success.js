@@ -7,6 +7,9 @@ var FacebookAuthSuccess = (function(){
 
   FacebookAuthSuccess.prototype.facade = function (result) {
     if(result.redirectTo){
+      if(result.newUser){
+        olookApp.publish('stats:log',{valueHash: {value: 'email'}});
+      }
       window.location = result.redirectTo;
     }
   };

@@ -3,9 +3,13 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :newsletter, only: [:create]
+    end 
+  end
 
   get "/modal", to: "modal#show", as: "modal"
-
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -17,6 +21,7 @@ Olook::Application.routes.draw do
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
+
   resources :mercado_pago, only: [:create]
 
   get '/api/prices' => 'prices#index', as: 'api_prices'
@@ -157,6 +162,7 @@ Olook::Application.routes.draw do
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
   match "/zanox" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zanox_data.xml")
+  match "/rise" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/rise_data.xml")
   match "/zoom" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zoom_data.xml")
   match "/afilio" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/afilio_data.xml")
   match "/mt_performance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/mt_performance_data.xml")
@@ -466,7 +472,6 @@ Olook::Application.routes.draw do
   end
 
   match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
-  match 'new_campaign_email_subscribe', to: "campaign_emails#new_subscribe", as: :new_subscribe_campaign_email
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do

@@ -1,66 +1,42 @@
 # -*- encoding : utf-8 -*-
 module FreightCalculator
-  VALID_ZIP_FORMAT = /\A(\d{8})\z/
   VALID_SHIPPING_SERVICES_ID_LIST = /^(\d+,?)*$/
 
-  DEFAULT_FREIGHT_PRICE   = 0.0
-  DEFAULT_FREIGHT_COST    = 0.0
+  DEFAULT_FREIGHT_PRICE   = BigDecimal.new('0.0')
+  DEFAULT_FREIGHT_COST    = BigDecimal.new('0.0')
   DEFAULT_INVENTORY_TIME  = 1
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
 
   DEFAULT_FREIGHT = {
     default_shipping: {
-      price: DEFAULT_FREIGHT_PRICE, 
+      price: DEFAULT_FREIGHT_PRICE,
       cost: DEFAULT_FREIGHT_COST,
       delivery_time: DEFAULT_INVENTORY_TIME + 4,
       shipping_service_id: DEFAULT_FREIGHT_SERVICE
     }
   }
 
-
-  def self.freight_for_zip(zip_code, order_value, shipping_service_ids = nil, use_message = false)
-    clean_zip_code = clean_zip(zip_code)
-    return {} unless valid_zip?(clean_zip_code)
-    order_value = 1 if order_value == 0
-    return_array = []
-    shipping_service_ids = ShippingService.all.map(&:id) if shipping_service_ids.blank?
-    freight_prices = FreightPrice.with_zip_and_value(clean_zip_code,order_value, shipping_service_ids)
-    return DEFAULT_FREIGHT if freight_prices.blank?
-    freight_prices.compact.each do |freight|
-      return_array << {
-      :price => freight.try(:price) || DEFAULT_FREIGHT_PRICE,
-      :cost => freight.try(:cost) || DEFAULT_FREIGHT_COST,
-      :delivery_time => (freight.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
-      :shipping_service_id => freight.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE,
-      :shipping_service_priority => freight.try(:shipping_service).try(:priority),
-      :cost_for_free => (freight.price != 0.0) && use_message ? FreightPrice.free_cost(clean_zip_code, order_value,freight.shipping_service_id).first.try(:order_value_start) : ''
-    }
-    end
-    TransportShippingService.new(return_array).choose_better_transport_shipping
+  def self.freight_for_zip(zip_code, order_value, shipping_service_ids = nil, opts={})
+    _zip_code = ZipCode::SanitizeService.clean(zip_code)
+    return {} unless ZipCode::ValidService.apply?(_zip_code)
+    freights = prepare_shipping_query(_zip_code,shipping_service_ids)
+    return DEFAULT_FREIGHT if freights.blank?
+    result = Freight::TransportShippingChooserService.new(freights).perform
+    result = check_free_freight_policy(result, _zip_code, order_value) unless opts[:prevent_policy] == 'true'
+    result
   end
 
-  def self.valid_zip?(zip_code)
-    return unless zip_code
-    zip_code.to_s.match(VALID_ZIP_FORMAT) ? true : false
-  end
+   private
+   def self.check_free_freight_policy(result, zip_code, order_value)
+     if Freight::FreeCostPolicy.apply?( ShippingPolicy.with_zip(zip_code), order_value)
+       result[:default_shipping][:price] = '0.0'.to_d
+     end
+     result
+   end
 
-  def self.clean_zip(dirty_zip)
-    return dirty_zip.to_s.gsub(/\D/, '')
-  end
-
-  private
-    def self.shipping_services(shipping_service_ids)
-
-      sanitized_list = sanitize(shipping_service_ids)
-      if sanitized_list.any?
-        ShippingService.where(id: sanitized_list)
-      else
-        ShippingService.order('priority')
-      end
-    end
-
-    def self.sanitize list
-      VALID_SHIPPING_SERVICES_ID_LIST =~ list ? list.split(",") : []
-    end
-
+   def self.prepare_shipping_query(zip_code, shipping_ids)
+    shipping_query = Shipping.with_zip(zip_code)
+    shipping_query = shipping_query.with_shipping_service(shipping_ids) if shipping_ids
+    shipping_query
+   end
 end

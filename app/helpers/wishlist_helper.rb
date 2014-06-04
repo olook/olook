@@ -6,7 +6,7 @@ module WishlistHelper
 
     variant_number = wished_product.variant.number
 
-    hash = if cart.items.map{|item| item.variant.number}.include?(variant_number)
+    hash = if cart && cart.items.map{|item| item.variant.number}.include?(variant_number)
       { class_name: 'added_product', label: 'Adicionado'}
     else
       { class_name: 'add_product', label: 'Adicionar'}

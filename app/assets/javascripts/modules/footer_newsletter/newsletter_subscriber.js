@@ -9,35 +9,29 @@ var NewsletterSubscriber = (function(){
     $('.js-subscribe'+boxClass(prefix)).off('click')
   };
 
-  var trackEvent = function(message,prefix){
-    _gaq.push(['_trackEvent', prefix.capitalize()+'Newsletter', message, '', , true]);
-  };
-
   var displayErrorMessage = function(prefix){
-    $('.js-success'+boxClass(prefix)).fadeOut();    
+    $('.js-success'+boxClass(prefix)).fadeOut();
     $('.js-error'+boxClass(prefix)).fadeIn();
-    trackEvent('Error', prefix);
   };
 
   var displaySuccessMessage = function(prefix){
-    $('.js-error'+boxClass(prefix)).fadeOut();   
+    $('.js-error'+boxClass(prefix)).fadeOut();
     $('.js-success'+boxClass(prefix)).fadeIn();
-    trackEvent('Success', prefix);            
-  };
-
-  var displayFeedbackMessage = function(status,prefix){
-    if (status == "ok"){ 
-      displaySuccessMessage(prefix);
-      disableOkButton(prefix);
-    } else {
-     displayErrorMessage(prefix);
-    }    
   };
 
   var subscribe = function(email,prefix){
-    trackEvent("EmailSubmitted", prefix);
-    $.post('/campaign_email_subscribe', {email: email}, function( data ) {
-      displayFeedbackMessage(data.status, prefix);
+    log_event('click', 'newsletter-'+prefix ,{value: 'email'});
+    $.post('/campaign_email_subscribe', {email: email})
+      .done(function(e) {
+        log_event('action','newsletter-'+prefix,{value: 'email'});
+        if(prefix == 'modal1' || prefix == 'modal2'){
+          $('#modal button.close').click();
+        }else{
+          displaySuccessMessage(prefix);
+          disableOkButton(prefix);
+        }
+      }).fail(function(data) {
+        displayErrorMessage(prefix);
     });
   };
 
