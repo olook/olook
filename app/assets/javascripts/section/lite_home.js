@@ -9,6 +9,9 @@ initHome = function(){
   olook.carousel();
   olook.changePictureOnhover('.look_thumbnail');
   new ImageLoader().load('look_thumbnail');
+  new ImageLoader().load('highlight');
+
+
   new HomeEvents().config();
   setTimeout(function(){
     olookApp.publish('home:load');
