@@ -1,4 +1,3 @@
-//= require application_core/olook_app
 //= require ./partials/_credits_info
 //= require plugins/spy
 //= require plugins/check_freebie

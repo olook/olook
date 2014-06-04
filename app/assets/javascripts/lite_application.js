@@ -30,6 +30,7 @@
 //= require modules/facebook/auth
 //= require modules/stats/facebook_stats_logger
 //= require modules/modal/load
+//= require modules/minicart/load
 
 new FacebookAuth().config();
 new FacebookStatsLogger().config();
