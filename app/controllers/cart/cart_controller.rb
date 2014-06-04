@@ -26,6 +26,11 @@ class Cart::CartController < ApplicationController
     end
 
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @cart.to_json }
+    end
   end
 
   def destroy
