@@ -124,6 +124,10 @@ class Cart < ActiveRecord::Base
     Set.new return_array
   end
 
+  def to_json
+    
+  end
+
   private
 
     def update_coupon
