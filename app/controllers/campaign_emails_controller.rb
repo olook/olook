@@ -38,23 +38,6 @@ class CampaignEmailsController < ApplicationController
   def subscribe
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
-      status = "ok"
-      message = "NewsLetter ja cadastrado"
-    else
-      status = "error"
-      message = "Usuario ja cadastrado"
-    end
-    render json: {status: status, message: message}.to_json
-  end
-
-  # 
-  # Essa action foi feita pois a de cima está bem ligado aos forms de campaign emails,
-  # portanto é necessário verificar todas as outras barras de campanhas quando 
-  # for trocar efetivamente de action
-  def new_subscribe
-    finished('newsletter')
-    @campaign_email = CampaignEmail.new(email: params[:email])
-    if @campaign_email.save
       render json: {message: "Email cadastrado"}
     else
       render json: {message: "Email já cadastrado"}, status: :unprocessable_entity

@@ -1,6 +1,7 @@
 class WishlistController < ApplicationController
   # before_filter :authenticate_user!
   layout 'lite_application'
+  before_filter :load_cart, if: -> {@cart.nil?}
 
   def show
     if !current_user
@@ -11,4 +12,12 @@ class WishlistController < ApplicationController
       @wishlist = Wishlist.for(current_user)
     end
   end
+
+  private
+    def load_cart
+      # apenas para parar de dar erro
+      @cart = create_cart
+      load_cart_service
+    end
+
 end

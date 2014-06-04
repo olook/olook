@@ -1,27 +1,26 @@
 .isa_modal
-  - ab_test('newsletter', 'default', 'helena') do |variation|
-    %h2{class: "title_#{variation}"}
-      Bem vinda à Olook!
-    - if variation == 'default'
-      %p{class: "p_#{variation}"}
-        Fique ligada nas principais tendências da moda e conheça novos produtos toda semana.
-    - else
-      %p{class: "p_#{variation}"}
-        Fique ligada nas principais tendências da moda.
-        %br
-        Ah! E não esqueça de conhecer a coleção de sapatos que eu desenvolvi exclusivamente para a Olook. Está linda!
+  %h2{class: "title_helena"}
+    Bem vinda à Olook!
+  %p{class: "p_helena"}
+    Fique ligada nas principais tendências da moda.
+    %br
+    Ah! E não esqueça de conhecer a coleção de sapatos que eu desenvolvi exclusivamente para a Olook. Está linda!
   #modal_face.login_with_facebook
-    .fb-login-button{:data => {'max-rows' => "1", 'size' => "large", 'show-faces' => "false", 'auto-logout-link' => "false", 'scope' => FACEBOOK_CONFIG['login_scope'], 'onlogin' => "loginFacebook"}}
+    .fb-login-button.js-modal-show1{:data => {'max-rows' => "1", 'size' => "large", 'show-faces' => "false", 'auto-logout-link' => "false", 'scope' => FACEBOOK_CONFIG['login_scope'], 'onlogin' => "loginFacebookModalFirst"}}
   .modal_newsletter
     %p.join
       Cadastre seu e-mail
-    = form_tag new_subscribe_campaign_email_path, id: "campaign_email_form", onsubmit: "olookApp.publish('modal:post_response', $('.modal_error'))" , remote: true do
-      = email_field_tag :email, "",placeholder:"Digite aqui seu e-mail", class: "email", required: true
-      = submit_tag "Cadastrar", onclick: track_event('Modal', 'CampaignEmailRegistered', 'First', no_interactive: true)
-    .modal_error
+    = email_field_tag :email, "", id: 'js-emailValue', placeholder:"Digite aqui seu e-mail", class: "email", required: true
+    = button_tag "Cadastrar", id: 'js-postEmail', class: 'modal_button'
+    .js-modal1box.js-error.modal_error
+      Email já cadastrado
   %p.joinfb
     Ou entre com sua conta do Facebook
 :javascript
+  $('#js-postEmail').click(function(e){
+    olookApp.publish('newsletter:subscribe', $('#js-emailValue').val(), 'modal1');
+  });
+  log_event('view', 'newsletter-modal1');  
   try {
     FB.XFBML.parse(document.getElementById('modal_face'));
   } catch(ex){}

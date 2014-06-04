@@ -130,14 +130,6 @@ class ProductPresenter < BasePresenter
     (!member || (member && member.first_time_buyer?)) && (product.retail_price > (product.price * 0.8)) || product.promotion?
   end
 
-  def user_expiration_month(user)
-    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).month.to_s
-  end
-
-  def user_expiration_day(user)
-    "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).day.to_s
-  end
-
   def render_complete_look_badge admin, class_name
     if (look_products.size > 1 && product.inventory > 0) || admin
       h.link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: class_name 

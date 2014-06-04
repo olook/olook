@@ -32,13 +32,14 @@ class ProductController < ApplicationController
 
   def share_by_email
     name_and_emails = params.slice(:name_from, :email_from, :emails_to_deliver)
-    @product = Product.find(params[:product_id])
+    @product = Product.joins(:details).find(params[:product_id])
     @product.share_by_email(name_and_emails)
     #redirect_to(:back, notice: "Emails enviados com sucesso!")
   end
 
   def load_product_discount_service
-    @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: @cart.coupon, promotion: Promotion.select_promotion_for(@cart))
+    coupon = @cart.try(:coupon) 
+    @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: coupon, promotion: Promotion.select_promotion_for(@cart))
   end
 
   def load_show_product
@@ -49,9 +50,9 @@ class ProductController < ApplicationController
     product_name = params[:id]
     product_id = product_name.split("-").last.to_i
     @product = if current_admin
-      Product.find(product_id)
+      Product.joins(:details).includes(:details).find(product_id)
     else
-      p = Product.only_visible.find(product_id)
+      p = Product.joins(:details).includes(:details).only_visible.find(product_id)
       raise ActiveRecord::RecordNotFound unless p.price > 0
       p
     end
@@ -60,6 +61,7 @@ class ProductController < ApplicationController
       Leaderboard.new(key: "#{@product.category_humanize.to_s.parameterize}:#{@product.subcategory.to_s.parameterize}").score(@product.id)
     end
 
+
     @google_pixel_information = @product
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @chaordic_product = ChaordicInfo.product @product
@@ -67,6 +69,9 @@ class ProductController < ApplicationController
     @variants = @product.variants
 
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
+
+    create_cart if @product.related_products.any?
+
   end
 
   def canonical_link

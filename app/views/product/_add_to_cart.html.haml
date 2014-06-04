@@ -1,27 +1,19 @@
-= form_tag(cart_items_path, onsubmit: params[:action] == "product_valentines_day" ? track_add_to_cart_valentines_day_event(@product.id) : track_add_to_cart_event(@product.id), |
-  id: "product_add_to_cart") do                                                                                                                                               |
-  = hidden_field_tag :redirect, @ab_test_parameter
-  = render :partial => 'product/colors', :locals => {:product => @product, :gift => false, :shoe_size => @shoe_size}
-  - case @product.category
-    - when Category::SHOE
-      = render :partial => 'product/sizes', :locals => {:variants => @product.variants.sorted_by_description, :shoe_size => @shoe_size, :show_cloth_size_table => false}
-    - when Category::BAG
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => @shoe_size, :show_cloth_size_table => false}
-    - when Category::ACCESSORY
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => @shoe_size, :show_cloth_size_table => false}
-    - when Category::CLOTH
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
-    - when Category::LINGERIE
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
-    - when Category::BEACHWEAR
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
-    - when Category::CURVES
-      = render :partial => 'product/sizes', :locals => {:variants => order_variants_by_size(@product.variants), :shoe_size => nil, :show_cloth_size_table => true}
-  = render :partial => 'product/quantity_product', :locals => {:product => @product}
-  - if @product.sold_out?
-    = submit_tag "PRODUTO ESGOTADO", id: "add_product", class: "add_product disabled", disabled: "disabled"
-  - else
-    = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product"
+= product_presenter.render_form_by_category
+= product_presenter.render_quantity
+%p.alert_size
+- if product_presenter.show_quantity_left?
+  %p.remaining
+    = product_presenter.quantity_left_text
+    %strong
+      %span= product_presenter.quantity_left
+      = product_presenter.unities_left_text
+    para o seu tamanho
+= hidden_field_tag("id",product.id)
+
+- if product.sold_out?
+  = submit_tag "PRODUTO ESGOTADO", id: "add_product", class: "add_product disabled", disabled: "disabled"
+- else
+  = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product", onclick: track_add_to_cart_event(product.id)
 
 .social-media-box
   = render partial: 'add_to_wishlist'

@@ -11,13 +11,26 @@ class Cart::CartController < ApplicationController
     @report  = CreditReportService.new(@user)
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
+
+    # apenas para parar de dar erro
+    if @cart.nil? 
+      @cart = create_cart
+      load_cart_service
+    end
+
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @promo_over_coupon = false
     if @cart.coupon_id && Promotion.select_promotion_for(@cart)
       @promo_over_coupon = true
     end
+
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @cart.to_json }
+    end
   end
 
   def destroy
