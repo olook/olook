@@ -253,12 +253,13 @@ class SeoUrl
   end
 
   def extract_color(path_section, section)
-    /#{KEYS_TRANSLATION.invert['color']}=(?<param_colors>[^#{ section[:separator] }\/]*)/ =~ path_section.to_s
+    /#{KEYS_TRANSLATION.invert['color']}#{section[:value_separator]}([^#{ section[:separator] }\/]*)/ =~ path_section.to_s
+    param_colors = Regexp.last_match[1]
     return [] if param_colors.nil?
 
     _colors = []
-    self.whitelisted_colors.each do |c|
-      if /#{c.parameterize}/ =~ param_color
+    self.class.whitelisted_colors.each do |c|
+      if /#{c.parameterize}/ =~ param_colors
         _colors << c
         param_colors.slice!(/#{c.parameterize}/)
       end
@@ -391,6 +392,7 @@ class SeoUrl
     filter_params.to_s.split(section[:separator]).each do |item|
       auxs = item.split(section[:value_separator])
       key = auxs.shift
+      vals = auxs
       parsed_values[KEYS_TRANSLATION[key]] = vals
     end
     parsed_values
