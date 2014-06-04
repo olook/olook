@@ -18,7 +18,8 @@ function ImageLoader() {
         container.appendChild(img_container);
         attributes = {
           'data-backside-picture': container.getAttribute('data-backside-picture'),
-          'data-product': container.getAttribute('data-product')
+          'data-product': container.getAttribute('data-product'),
+          'alt': container.getAttribute('data-alt')
         };
       } else {
         img_container = container;
