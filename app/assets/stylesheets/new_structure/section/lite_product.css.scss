@@ -1,10 +1,6 @@
 @import 'new_structure/common/global_stuffs';
 @import 'partials/credits_info';
 @import 'new_structure/section/product/look';
-@import url("http://fonts.googleapis.com/css?family=Lato");
-
-$background: #9b59b6;
-$tabs-base-color: #8e44ad;
 
 #product{
 	width: 100%;
@@ -27,6 +23,7 @@ $tabs-base-color: #8e44ad;
 				margin-bottom: 10px;
         display: block;
         float: left;
+        text-align: center;
 			}
 		}
     .big_pic{
@@ -422,10 +419,39 @@ $tabs-base-color: #8e44ad;
     li{
       float: left !important;
       width: 35px !important;
-      height: 35px !important;
+      height: 29px !important;
       margin-right: 5px;
+      padding-top: 5px;
 
     }
+    .icon-facebook:before {
+      content: "\e601";
+    }
+    .icon-youtube:before {
+      content: "\e60c";
+    }
+    .icon-twitter:before {
+      content: "\e603";
+    }
+    .icon-mail:before {
+      content: "\e600";
+    }
+    .icon-pin:before {
+      content: "\e60d";
+    }
+    .icon-fav:before {
+      content: "\e604";
+    }
+    .icon-nofav:before {
+      content: "\e606";
+    }
+    [class^="icon-"], [class*=" icon-"] {
+      font-size: 21px;
+      color: #a0a0a0;
+      background:#e5e5e5;
+      margin-top:0px;
+    }
+
     .remove-button, .add-button{
       text-transform: uppercase;
       font-family: $bt_font;
