@@ -3,7 +3,7 @@ class CampaignEmailsController < ApplicationController
   respond_to :html, :js
 
   def new
-    @campaign_text = @cart.coupon.try(:modal) || 1
+    @campaign_text = @cart.coupon.modal rescue 1
     @campaign_email = @campaign_email || CampaignEmail.new
   end
 
