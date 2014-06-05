@@ -124,8 +124,16 @@ class Cart < ActiveRecord::Base
     Set.new return_array
   end
 
-  def to_json
-    
+  def as_json options
+    super(:include => 
+      {
+        :coupon => {:only => [:is_percentage, :value]}, 
+        :items => 
+        {
+          :methods => [:formatted_product_name, :thumb_picture,:retail_price, :description],
+          :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description]
+        }
+      }, :only => [:coupon, :items])
   end
 
   private
