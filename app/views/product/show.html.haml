@@ -59,14 +59,15 @@
     .big_pic.js-image-zoom= image_tag(@product.pictures.order(:position).first.image_url(:main), :class => "full", itemprop: "image")
     .social-media
       %ul.social-list
-        %li.remove-button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
-          Remover
-        %li.add-button{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
-          Favoritar
-        %li.twitter
-        %li.fb
-        %li.instagram
-        %li.email
+        %li.icon-nofav{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
+          / Remover
+        %li.icon-fav{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
+          / Favoritar
+        %li.icon-twitter
+        %li.icon-facebook
+        %li.icon-instagram
+        %li.icon-mail
+        %li.icon-pin
       /   %li.twitter
       /     %a.twitter-share-button{data: { count: "none", size: "none", hashtags: "ficaadica", lang: "pt" }, :href => "https://twitter.com/share?text=#{share_description(@product)}"} Tweetar
       /   %li.fb
