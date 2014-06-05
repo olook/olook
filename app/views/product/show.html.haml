@@ -59,15 +59,17 @@
     .big_pic.js-image-zoom= image_tag(@product.pictures.order(:position).first.image_url(:main), :class => "full", itemprop: "image")
     .social-media
       %ul.social-list
-        %li.icon-nofav{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
-          / Remover
-        %li.icon-fav{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
-          / Favoritar
+        %li.icon-nofav.wishlist{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
+          %p
+            Remover
+        %li.icon-fav.wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
+          %p
+            Favoritar
         %li.icon-twitter
         %li.icon-facebook
         %li.icon-instagram
-        %li.icon-mail
         %li.icon-pin
+        %li.icon-mail
       /   %li.twitter
       /     %a.twitter-share-button{data: { count: "none", size: "none", hashtags: "ficaadica", lang: "pt" }, :href => "https://twitter.com/share?text=#{share_description(@product)}"} Tweetar
       /   %li.fb
@@ -102,7 +104,7 @@
 
 
       #add-to-cart
-        = hidden_field_tag("id",product.id)
+        = hidden_field_tag("id",@product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)
           %a.size-guide{:href => "javascript:void(0);"} Guia de medidas
         .size
@@ -119,7 +121,7 @@
           = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
-        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product", onclick: track_add_to_cart_event(product.id)
+        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product", onclick: track_add_to_cart_event(@product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
           Compre e ganhe 
