@@ -12,8 +12,8 @@
 
 - content_for :footer do
   = javascript_include_tag "section/lite_home"
-  - if Campaign.activated_campaign && Campaign.activated_campaign.lightbox?
-    = render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}
+  - if @current_campaign && @current_campaign.lightbox?
+    = render :partial => "shared/modal/lightbox", :locals => {:image_url => @current_campaign.lightbox_url, :link => @current_campaign.link}
 - content_for :data_layer do
   = render "shared/data_layer/home"
 
@@ -23,31 +23,33 @@
     .column
       - if @left_highlight && @left_highlight.image_for_position
         = link_to @left_highlight.link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "left") do
-          = image_tag @left_highlight.image_for_position, alt: @left_highlight.alt_text, title: @left_highlight.alt_text
+          .highlight{data: {product: @left_highlight.image_for_position, alt: @left_highlight.alt_text}}
           %h2 
             = @left_highlight.title
             %span= @left_highlight.subtitle
     .column.big
       - if @center_highlight && @center_highlight.image_for_position
         =link_to @center_highlight.link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "center") do
-          =image_tag @center_highlight.image_for_position, alt: @center_highlight.alt_text, title: @center_highlight.alt_text
+        
+          .highlight{data: {product: @center_highlight.image_for_position, alt: @center_highlight.alt_text}}
           %h2 
             = @center_highlight.title
             %span= @center_highlight.subtitle
     .column
       - if @right_highlight && @right_highlight.image_for_position
         =link_to @right_highlight.link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "right") do
-          =image_tag @right_highlight.image_for_position, alt: @right_highlight.alt_text, title: @right_highlight.alt_text
+        
+          .highlight{data: {product: @right_highlight.image_for_position, alt: @right_highlight.alt_text}}
           %h2 
             = @right_highlight.title
             %span= @right_highlight.subtitle
 
   - if show_unlogged_home?
-    / = cache "home/unlogged_page", expire_in: 30.minutes do
-    = render "unlogged_page"
+    = cache "home/unlogged_page", expire_in: 30.minutes do
+      = render "unlogged_page"
   - else
-    / = cache "home/#{@cache_key}", expire_in: 30.minutes do
-    = render "logged_page"
+    = cache "home/#{@cache_key}", expire_in: 30.minutes do
+      = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
     = render "home/wishlist"

@@ -100,7 +100,8 @@
 
 
 
-      = form_tag(cart_items_path, onsubmit: track_add_to_cart_event(@product.id), id: "product_add_to_cart") do                                                                                                                                               |
+      #add-to-cart
+        = hidden_field_tag("id",product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)
           %a.size-guide{:href => "javascript:void(0);"} Guia de medidas
         .size
@@ -110,14 +111,14 @@
               %li{:class => "size_#{variant.description}"}
                 %label{:for => "variant_id_#{variant.id}"}= variant.description
                 = hidden_field_tag("inventory_#{variant.id}", variant.inventory)
-                = radio_button_tag('variant[id]', variant.id, variant_classes(variant, @shoe_size).include?('selected'), :disabled => variant.sold_out? )
+                = radio_button_tag('variant[id]', variant.id, variant_classes(variant, @shoe_size).include?('selected'), :disabled => variant.sold_out?, class:"js-variant_id" )
         = render 'colors'
         .quantity
           %p Quantidade:
-          = text_field_tag('variant[quantity]', "1", class: "quantity-product")
+          = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
-        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product"
+        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product", onclick: track_add_to_cart_event(product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
           Compre e ganhe 

@@ -8,10 +8,9 @@ class HeaderPresenter < BasePresenter
   # => NoBannerCatalogHeader -> _no_banner.html.haml
   # => BigBannerCatalogHeader -> _big_banner.html.haml
   #
-  def show_header 
+  def show_header
     _header = header || OpenStruct.new({type: "NoBanner"})
     template_name =  _header.type.underscore.gsub("_catalog_header", "")
     h.render partial: "headers/#{template_name}", locals: {header: header}
   end
-
 end

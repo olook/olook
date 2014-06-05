@@ -102,7 +102,7 @@ class Promotion < ActiveRecord::Base
     end
 
     def self.best_promotion_for(cart, promotions_to_apply = [])
-      if cart.items.any? && promotions_to_apply.any?
+      if cart && cart.items.any? && promotions_to_apply.any?
         best_promotion = calculate(promotions_to_apply, cart).sort_by { |promotion| promotion[:total_discount] }.last
         best_promotion[:promotion]
       end

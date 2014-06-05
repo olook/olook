@@ -53,7 +53,7 @@ var masks = {
   }
 }
 
-function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
+function retrieve_freight_price_for_checkout(zip_code, shipping_id, prevent_shipping_policy) {
   url_path = '/shippings/' + zip_code
   if (!zip_code) {
     return;
@@ -65,6 +65,7 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
   $.ajax({
     url: url_path,
     type: 'GET',
+    data:{prevent_policy: prevent_shipping_policy},
     beforeSend: function(){
       $("#freight_price").hide();
       $("#delivery_time").hide();
@@ -77,10 +78,14 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
 }
 
 function retrieve_shipping_service(){
-  shipping_service_id = $('.shipping_service_radio:checked').data('shipping-service');
+  var checked_shipping = $('.shipping_service_radio:checked');
+  var shipping_service_id = checked_shipping.data('shipping-service');
   zipcode = $('input.address_recorded:checked').data('zipcode') || $('.zip_code').val();
-
-  retrieve_freight_price_for_checkout(zipcode, shipping_service_id);
+  var force_shipping_policy = '';
+  if(checked_shipping.hasClass('express')){
+    force_shipping_policy = true;
+  }
+  retrieve_freight_price_for_checkout(zipcode, shipping_service_id,force_shipping_policy);
 }
 
 function retrieve_zip_data(zip_code) {
@@ -145,12 +150,12 @@ function showTotal(){
 function freightCalc(){
   zip_code = $("#checkout_address_zip_code").val();
   if (zip_code) {
-    retrieve_freight_price_for_checkout(zip_code,"");
+    retrieve_freight_price_for_checkout(zip_code,"",true);
   }
 
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_checkout(zip_code,"");
+    retrieve_freight_price_for_checkout(zip_code,"",true);
   });
 }
 
@@ -237,13 +242,19 @@ $(function() {
     }).done(function(data){
       var value = $("#freight_price").data('freight_price');
       freight_value = value == undefined ? 0 : parseFloat(value);
+      var total = add(data.total, freight_value);
+
 
       $('#credits_used').text(formatReal(data.credits_discount));
-      $('#total').text(formatReal(add(data.total, freight_value)));
+      $('#total').text(formatReal(total));
       $('#total_billet').text(formatReal(add(data.total_billet, freight_value)));
       $('#total_debit').text(formatReal(add(data.total_debit, freight_value)));
       $('#debit_discount_value').text(formatReal(data.debit_discount));
       $('#billet_discount_value').text(formatReal(data.billet_discount));
+
+
+      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total, false);
+
     });
   });
 

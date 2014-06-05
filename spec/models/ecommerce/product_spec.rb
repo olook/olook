@@ -572,13 +572,13 @@ describe Product do
 
     context "without params" do
       it "returns valid url with the product id" do
-        subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_content=#{subject.id}&utm_medium=vitrine"
+        subject.product_url.should == "http://www.olook.com.br/#{subject.seo_path}?utm_content=#{subject.id}&utm_medium=vitrine"
       end
     end
 
     context "with params" do
       it "returns valid url with the product id" do
-        subject.product_url(:utm_source => "criteo", :utm_campaign => "teste").should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=teste&utm_content=#{subject.id}&utm_medium=vitrine&utm_source=criteo"
+        subject.product_url(:utm_source => "criteo", :utm_campaign => "teste").should == "http://www.olook.com.br/#{subject.seo_path}?utm_campaign=teste&utm_content=#{subject.id}&utm_medium=vitrine&utm_source=criteo"
       end
     end
 

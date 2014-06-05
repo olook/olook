@@ -7,7 +7,7 @@ class ShippingsController < ApplicationController
   def show
     @warranty_deliver = true if params[:warranty_deliver]
     @zip_code = params[:id]
-    freights = shipping_freights
+    freights = shipping_freights(params[:prevent_policy])
     prepare_freights(freights)
     if freights.empty?
       render :status => :not_found 
@@ -22,12 +22,14 @@ class ShippingsController < ApplicationController
 
   private
 
-  def shipping_freights
+  def shipping_freights(prevent_policy)
+    prevent_shipping = {}
+    prevent_shipping.merge!(prevent_policy: 'true') if params[:prevent_policy] == 'true'
     FreightCalculator.freight_for_zip(
       @zip_code,
       @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
       params[:freight_service_ids],
-      true
+      prevent_shipping
     )
   end
 

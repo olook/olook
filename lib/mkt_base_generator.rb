@@ -46,10 +46,20 @@ class MktBaseGenerator
 
   def join
     begin
+      csv = []
+      CampaignEmail.uncoverted_users.find_each do |c|
+        csv << [ nil, c.email, c.created_at.strftime("%d-%m-%Y"), nil, nil, nil, nil, nil, nil, nil, nil, nil].join(";")
+      end
+
       open("tmp/base_atualizada.csv", 'wb') do |file|
         file << csv_header
         merge_csv_files_to file
+        # Add newsletter base
+        file << csv.join("\n")
       end
+
+
+
       # upload to S3
       # MarketingReports::S3Uploader.new('allin').copy_file('base_atualizada.csv')
 

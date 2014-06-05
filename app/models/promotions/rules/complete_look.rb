@@ -8,6 +8,10 @@ class CompleteLook < PromotionRule
   end  
 
   def matches?(cart, parameter=nil)
+
+    if cart.nil?
+      return false
+    end
     cart_item_ids = cart.items.map{|item| item.product.id}
 
     cart.items.each do |item|

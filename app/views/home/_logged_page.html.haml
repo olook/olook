@@ -1,21 +1,22 @@
-#looks
+#looks.looks_logged
   %h3
     Meus Looks
     =link_to "ver meu estilo", profile_url
   .mylook
-    - @showroom_presenter.looks.each_with_index do |look,idx|
+    - @showroom_presenter.looks(hot_products: true).each_with_index do |product,idx|
       .look{class: ('last' if idx == 3)}
-        = link_to product_seo_path(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.product_id}") do
-          %span.look_thumbnail.js-thumbnail{data: {id: look.product_id, product: look.front_picture.showroom.url, backside_picture: look.full_look_picture.showroom.url }}
+        = link_to product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{product.id}") do
+          %span.look_thumbnail.js-thumbnail{data: {id: product.id, product: product.front_picture.image_url(:main), backside_picture: product.full_look_picture.image_url(:main) }}
   #see_too.js-logged-carousel
     %h4
       Veja Também
     %ul#carousel.elastislide-list
       - @showroom_presenter.products.each do |product|
-        %li
-          = link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
+        %li{data: {id: product.id}}
+          = link_to image_tag(product.front_picture.try(:image_url, :main)), product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
 
 :javascript
-  log_event('view', 'logged_showroom');
+  log_event('view', 'logged_looks');
+  log_event('view', 'logged_products');

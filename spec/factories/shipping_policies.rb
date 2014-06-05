@@ -2,9 +2,8 @@
 
 FactoryGirl.define do
   factory :shipping_policy do
-    zip_start "MyString"
-    zip_end "MyString"
-    value_start "MyString"
-    value_end "MyString"
+    zip_start "1000000"
+    zip_end "3000000"
+    free_shipping 100.00
   end
 end

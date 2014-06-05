@@ -18,7 +18,6 @@ class Header < ActiveRecord::Base
     'NoBanner' => NoBanner,
     'TrendyCatalogHeader' => TrendyCatalogHeader,
     'MatelasseTrendyCatalogHeader' => MatelasseTrendyCatalogHeader,
-    'BasicoTrendyCatalogHeader' => BasicoTrendyCatalogHeader,
     'CurvesTrendyCatalogHeader' => CurvesTrendyCatalogHeader,
     'FiorentinoTrendyCatalogHeader' => FiorentinoTrendyCatalogHeader
   }
