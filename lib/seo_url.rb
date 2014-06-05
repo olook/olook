@@ -254,7 +254,7 @@ class SeoUrl
 
   def extract_color(path_section, section)
     /#{KEYS_TRANSLATION.invert['color']}#{section[:value_separator]}([^#{ section[:separator] }\/]*)/ =~ path_section.to_s
-    param_colors = Regexp.last_match[1]
+    param_colors = Regexp.last_match ? Regexp.last_match[1] : nil
     return [] if param_colors.nil?
 
     _colors = []
@@ -289,13 +289,18 @@ class SeoUrl
     section_proceseed = false
     section[:fields].each do |field|
       begin
-        processed = send("extract_#{field}", path_section.dup, section)
+        processed = self.send("extract_#{field}", path_section.dup, section)
+      rescue NoMethodError => e
+        if /extract_#{field}/ =~ e.message
+          puts "Method extract_#{field} does not exist. Create it please\e"
+        else
+          raise e
+        end
+      else
         if !processed.blank?
           @parsed_values[field] = processed
           section_proceseed = true
         end
-      rescue NoMethodError
-        puts "Method extract_#{field} does not exist. Create it please"
       end
     end
     section_proceseed
