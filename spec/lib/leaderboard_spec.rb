@@ -1,5 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../../lib/leaderboard'))
-require 'fakeredis'
 
 describe Leaderboard do
   after do
