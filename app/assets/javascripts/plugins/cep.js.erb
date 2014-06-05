@@ -33,7 +33,9 @@ olook.cep = function(selector, options) {
           context.foundCEP = true;
           context.setValueReadOnly(context.rua, data.endereco);
           context.setValueReadOnly(context.bairro, data.bairro);
-
+          if($('.express')){
+            $('.conventional').click();
+          }
           var p = $(context.estado).parent();
           $(context.estado).remove();
           var custom = p.find('p');
