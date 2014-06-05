@@ -82,7 +82,6 @@ function retrieve_shipping_service(){
   var shipping_service_id = checked_shipping.data('shipping-service');
   zipcode = $('input.address_recorded:checked').data('zipcode') || $('.zip_code').val();
   var force_shipping_policy = '';
-  debugger;
   if(checked_shipping.hasClass('express')){
     force_shipping_policy = true;
   }
