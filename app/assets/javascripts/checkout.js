@@ -150,12 +150,12 @@ function showTotal(){
 function freightCalc(){
   zip_code = $("#checkout_address_zip_code").val();
   if (zip_code) {
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   }
 
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   });
 }
 
