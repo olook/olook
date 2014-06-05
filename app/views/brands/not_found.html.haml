@@ -11,13 +11,6 @@
 #catalog
   = render "side_filters", search: @search
   #result
-    - unless @search.has_any_filter_selected?
-      / local onde o viewpersonalized será exibido
-      .chaordic.viewpersonalized
-      / local onde o purchasepersonalized será exibido
-      .chaordic.purchasepersonalized
-      / local onde o mostpopular será exibido
-      .chaordic.mostpopular
     %section.container_product
       %ul#products
         = raw(I18n.t("product_not_found"))

@@ -9,7 +9,6 @@ class Checkout::OrdersController < Checkout::BaseController
 
     coupon_pm = @order.payments.where(:type => "CouponPayment").first
     coupon = coupon_pm.coupon if coupon_pm
-    @chaordic_confirmation = ChaordicInfo.buy_order @order
     @google_path_pixel_information = "purshase"
     @google_pixel_information = @order
 

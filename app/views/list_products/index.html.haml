@@ -1,6 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
-  %meta{:content => @chaordic_user, :name => "chaordic:user"}/
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
 
 - content_for :footer do
@@ -41,14 +40,6 @@
           %span.summary
             = header.resume_title.html_safe
     #result
-      - unless @search.has_any_filter_selected? || params[:cmp].present?
-        / local onde o viewpersonalized será exibido
-        .chaordic.viewpersonalized
-        / local onde o purchasepersonalized será exibido
-        / .chaordic.purchasepersonalized
-        / local onde o mostpopular será exibido
-        / .chaordic.mostpopular
-
       .fixed_filter
         .row.row_olooklet
           = render "list_products/ordenation_filters", search: @search, url_builder: @url_builder, category: @category

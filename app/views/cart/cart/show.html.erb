@@ -1,8 +1,5 @@
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/checkout" %>
-    <meta name="chaordic:source" content="cart">
-    <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
-    <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
   <% end %>
   <% content_for :ecommerce_tracking do %>
   <script type="text/javascript">
@@ -81,9 +78,6 @@ _gaq.push(['_addTrans',
     <%= render 'freebie/item', freebie: @freebie if @freebie && @freebie.available? %>
 
     <!-- <%= render "checkout_banner" %> -->
-
-  <div class="chaordic shoppingcart"></div>
-
   <table cellpadding="0" cellspacing="0" class="check gift">
     <tbody>
       <tr>

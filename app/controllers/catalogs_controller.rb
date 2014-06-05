@@ -40,7 +40,6 @@ class CatalogsController < ApplicationController
     @search = add_search_result(search_params, params)
     @url_builder.set_search(@search)
     redirect_to catalog_not_found_path if @search.products.size == 0
-    @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
     @color = search_params["color"]
     @size = search_params["size"]

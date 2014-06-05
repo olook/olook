@@ -40,7 +40,6 @@
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
 
 - if @search.products.size == 0
-  .chaordic.mostpopular{"data-skin" => "MP-top-5"}
   %section#stylists.search_result
     %ul.products_list
       - @recommendation.products(limit: 6, category: Category.without_curves).each do |product|

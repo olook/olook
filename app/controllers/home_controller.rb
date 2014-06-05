@@ -2,7 +2,6 @@
 class HomeController < ApplicationController
   def index
     @google_path_pixel_information = "Home"
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback) || [Profile.default])
     @showroom_presenter = ShowroomPresenter.new(recommendation: recommendation, looks_limit: 4, products_limit: 22, cart: @cart)
     @cache_key = current_user_profile

@@ -4,7 +4,6 @@ class BrandsController < ApplicationController
   before_filter :set_brand, only: [ :show, :not_found ]
   before_filter :set_url_builder, only: [ :index, :show, :not_found ]
   before_filter :load_cmp, only: :show
-  before_filter :load_chaordic_user, only: :show
 
   def index
     set_search

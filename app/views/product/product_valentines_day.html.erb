@@ -16,11 +16,6 @@
     <meta property="og:url" content="<%= "#{@url}/produto/#{@product.id}" %>" />
     <meta property="og:site_name" content="Olook" />
     <meta property="og:type" content="website" />
-    <meta name="chaordic:source" content="product">
-    <meta name="chaordic:user" content="<%= @chaordic_user %>">
-    <meta name="chaordic:product" content="<%= @chaordic_product %>" data-pid="<%= @product.id %>" >
-    <meta name="chaordic:category" content="<%= @chaordic_category %>">
-    <meta name="chaordic:cart_id" content="<%= current_cart.try(:id) %>">
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     <%= stylesheet_link_tag "section/product" %>
   <% end %>
@@ -70,15 +65,6 @@
          <%= link_to image_tag("https://a248.e.akamai.net/f/248/52872/0s/img.ebit.com.br/ebitBR/selo/img_19329.png"), "http://www.ebit.com.br/#/selo", target: '_blank', class: "mt" %>
         </div>
       </div>
-
-      <p class="gift-title">QUE TAL SURPREENDÊ-LA COM MAIS UM PRESENTINHO?</p>
-      <!-- local onde o frequentlyboughttogether será exibido -->
-      <div class="chaordic frequentlyboughttogether"></div>
-      <!-- local onde o similaritems será exibido -->
-      <div class="chaordic similaritems"></div>
-      <!-- local onde o ultimatebuy será exibido -->
-      <div class="chaordic ultimatebuy"></div>
-      <div class="chaordic mostpopular" data-skin="MP-product-detail"></div>
 
       <div id="modal_guide">
         <h3>GUIA DE MEDIDAS</h3>

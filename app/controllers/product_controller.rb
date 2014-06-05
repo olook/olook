@@ -61,7 +61,6 @@ class ProductController < ApplicationController
     end
 
     @google_pixel_information = @product
-    @chaordic_category = @product.category_humanize
     @variants = @product.variants
 
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i

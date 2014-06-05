@@ -64,9 +64,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def load_chaordic_user
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-  end
+  protected
 
   def load_cmp
     @campaign = HighlightCampaign.find_campaign(params[:cmp])

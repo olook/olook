@@ -10,10 +10,7 @@
     %meta{property: "og:type", content:"website"}/
     %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}  
 
-  %meta{:content => @chaordic_user, :name => "chaordic:user"}/
-
 - content_for :data_layer do
-  =# render "shared/metrics/sociomantic/category"
 
 - content_for :footer do
   :javascript
@@ -28,14 +25,6 @@
     = render "side_filters", search: @search
 
     #result
-      - unless @search.has_any_filter_selected?
-        / local onde o viewpersonalized será exibido
-        .chaordic.viewpersonalized
-        / local onde o purchasepersonalized será exibido
-        .chaordic.purchasepersonalized
-        / local onde o mostpopular será exibido
-        .chaordic.mostpopular
-
       - if @brand = @brand.first
         - if @brand.header_image.present?
           %div.collections_header

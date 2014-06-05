@@ -18,7 +18,6 @@ class Gift::HomeController < Gift::BaseController
     @helena_tips = GiftBox.find_by_name("Dica da Helena")
     @top_five = GiftBox.find_by_name("Top Five")
     @hot_on_facebook = GiftBox.find_by_name("Hot on Facebook")
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 
   def update_birthdays_by_month
