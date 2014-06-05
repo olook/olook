@@ -138,6 +138,14 @@
           %label{:for => "tabs_about"}Sobre o Produto
           #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
+            %p.category
+              Modelo:
+              %span
+                Blusa draconiana
+            %p.category
+              Material:
+              %span
+                Couro de Dragão
         %li
           = radio_button_tag("tabs", "medidas")
           %label{:for => "tabs_medidas"}Medidas
