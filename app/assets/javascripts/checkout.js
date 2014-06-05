@@ -91,12 +91,6 @@ function retrieve_shipping_service(){
   retrieve_freight_price_for_checkout(zipcode, shipping_service_id,force_shipping_policy);
 }
 
-function check_shipping_service(){
-  if($('.express')){
-    $('.conventional').click();
-  }
-}
-
 function retrieve_zip_data(zip_code) {
 
   $.ajax({
