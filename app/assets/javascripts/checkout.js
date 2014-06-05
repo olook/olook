@@ -54,13 +54,16 @@ var masks = {
 }
 
 function retrieve_freight_price_for_checkout(zip_code, shipping_id, prevent_shipping_policy) {
-  url_path = '/shippings/' + zip_code
+  var url_path = '/shippings/' + zip_code
+  var sel_shipping = $('input[name="checkout[shipping_service]"]:visible:checked').val();
   if (!zip_code) {
     return;
   }
 
-  if(shipping_id.length != ''){
-    url_path = url_path.concat('?freight_service_ids=' + shipping_id)
+  if(typeof shipping_id != 'undefined' && shipping_id.length != ''){
+    url_path = url_path.concat('?freight_service_ids=' + shipping_id);
+  } else if(sel_shipping) {
+    url_path = url_path.concat('?freight_service_ids=' + sel_shipping);
   }
   $.ajax({
     url: url_path,
@@ -150,12 +153,12 @@ function showTotal(){
 function freightCalc(){
   zip_code = $("#checkout_address_zip_code").val();
   if (zip_code) {
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   }
 
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   });
 }
 
