@@ -4,6 +4,11 @@
     <%= render :partial => "shared/errorception" %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "//d22zjnmu4464ds.cloudfront.net/statistics-39960abf724be88d95e604b175729d68.js" %>
+
+    <script type="text/javascript">
+      $skip_log_event=true;
+    </script>
+
     <%= javascript_include_tag "control.js" %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,7 +27,7 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag  "//olook.neoassist.com/clients/olook/novo/modal.css" %>
+    
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
     <%= stylesheet_link_tag  "desktop" unless mobile? %>
 
@@ -58,9 +63,7 @@
     <%= render "shared/facebook_js", member: current_user, facebook_app_id: @facebook_app_id  %>
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
-    <div id="modalneo" align="right" style="display:none;border:0px;">
-      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
-    </div>
+
     <nav id="main-nav" class="navigation overflow">
       <%= render 'shared/search_bar' %>
       <br style="clear:both;">
@@ -200,7 +203,6 @@
        </section>
 
        <%= render(:partial => "shared/footer") %>
-       <%= render(:partial => "shared/footer_bar") %>
 
        <!-- Modals -->
        <div id="modal" class="promo-olook"></div>
@@ -218,7 +220,6 @@
          <%= yield :footer %>
        <% end %>
 
-       <%= javascript_include_tag "//olook.neoassist.com/clients/olook/js/chat.js" %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </section>
     <script>
