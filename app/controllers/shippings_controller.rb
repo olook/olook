@@ -14,7 +14,6 @@ class ShippingsController < ApplicationController
     else
       track_zip_code_fetch_event
       @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
-      @force_show_div = true if params[:freight_service_ids]
       @freight_price = freights.fetch(:default_shipping)[:price]
       @first_free_freight_price = freights.fetch(:default_shipping)[:cost_for_free]  if freights.fetch(:default_shipping)[:cost_for_free]
     end
