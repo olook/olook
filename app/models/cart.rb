@@ -130,10 +130,11 @@ class Cart < ActiveRecord::Base
         :coupon => {:only => [:is_percentage, :value]}, 
         :items => 
         {
-          :methods => [:formatted_product_name, :thumb_picture,:retail_price, :description],
-          :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description]
+          :methods => [:formatted_product_name, :thumb_picture,:retail_price, :description, :name],
+          :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description, :id, :name]
         }
-      }, :only => [:coupon, :items])
+      }, :methods => [:items_total],
+      :only => [:coupon, :items, :items_total])
   end
 
   private
