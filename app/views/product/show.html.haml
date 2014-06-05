@@ -82,16 +82,22 @@
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
       %span{itemprop: 'name'}= @product.brand
     - if @product.sold_out?
-      %p PRODUTO ESGOTADO
+      %p.out PRODUTO ESGOTADO
+      %form#sold_out{:action => "", :method => "post"}
+        %input{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite aqui seu e-mail"}
+        %button{:type => "button"} Avise-me quando disponível
       = render 'colors'
     - else
       .cost{itemprop: 'offers', itemscope: true, itemtype: 'http://schema.org/Offer'}
         - @product_discount_service.calculate_without_promotion_or_coupon
         - if @product_discount_service.discount > 0
-          %p.price-retail de: #{number_to_currency(@product_discount_service.base_price)}
-          %p.price{itemprop: 'price'} por: #{number_to_currency(@product_discount_service.final_price)}
-
-
+          %p.price-retail.price 
+            de: 
+            %span
+              #{number_to_currency(@product_discount_service.base_price)}
+          %p.plots
+            por:
+            %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.final_price)}
         - else
           %p.price
             Preço 
@@ -100,9 +106,6 @@
             Ou em 
             %span
               #{installments(@product.price)}
-
-
-
       #add-to-cart
         = hidden_field_tag("id",@product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)

@@ -55,6 +55,10 @@
       text-transform: uppercase;
       color: #363636;
     }
+    p.out{
+      color: $base_color;
+      font-weight: bold;
+    }
     .cost{
       border-bottom: 1px solid #cdcdcd;
       p.price, p.plots{
@@ -204,6 +208,38 @@
         }
       }
     }
+    #sold_out{
+      width: 320px;
+      height: 30px;
+      margin-top: 20px;
+      input[type="text"]{
+        width: 210px;
+        height: 33px;
+        border: 1px solid #cdcdcd;
+        background: #f7f7f7;
+        float: left;
+        font-size: 10px;
+        padding-left: 5px;
+        font-family: $bt_font;
+        letter-spacing: 1px;
+      }
+      button{
+        width: 95px;
+        height: 35px;
+        text-align: center;
+        background: $base_color;
+        color: #FFF;
+        float: left;
+        border: none;
+        margin-left: 0 !important;
+        margin-bottom: 5px;
+        font-size: 9px;
+        font-family: $bt_font;
+        letter-spacing: 1px; 
+        line-height: 13px;
+
+      }
+    }
   }
   .tabs {
     width: 100%;  
@@ -351,6 +387,7 @@
       background-position: 0 -150px !important;
       width: 93px !important;
     }
+
     #shipping{
       input[type="text"]{
         width: 137px;
