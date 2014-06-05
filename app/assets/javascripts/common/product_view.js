@@ -1,5 +1,5 @@
 //= require application_core/olook_app
-//= require_tree ../modules/product
+//= require_tree ../modules/wishlist
 
 window.onload = function() {
   initQuickView.productZoom();

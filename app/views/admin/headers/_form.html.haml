@@ -54,7 +54,7 @@
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader'],['Tendencia-Matelasse', 'MatelasseTrendyCatalogHeader'],['Tendencia-Basico', 'BasicoTrendyCatalogHeader'],['Tendencia-Curves', 'CurvesTrendyCatalogHeader'],['Tendencia-Fiorentino', 'FiorentinoTrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader'],['Tendencia-Matelasse', 'MatelasseTrendyCatalogHeader'],['Tendencia-Curves', 'CurvesTrendyCatalogHeader'],['Tendencia-Fiorentino', 'FiorentinoTrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
       = f.label :page_title
       %br/

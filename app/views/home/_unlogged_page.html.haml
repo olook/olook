@@ -2,19 +2,22 @@
   %h3 Dicas Olook
   .mylook
     .look
-      - if @showroom_presenter.look.present?
-        = link_to product_seo_path(@showroom_presenter.look.product.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.product_id}") do
-          %span.look_thumbnail{data: { product: @showroom_presenter.look.front_picture.big_showroom.url, backside_picture: @showroom_presenter.look.full_look_picture.big_showroom.url }}
+      - if @showroom_presenter.look( hot_products: true ).present?
+        = link_to product_seo_path(@showroom_presenter.look.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}") do
+          %span.look_thumbnail{data: { product: @showroom_presenter.look.front_picture.image_url, backside_picture: @showroom_presenter.look.full_look_picture.image_url }}
   #see_too.js-unlogged-carousel
     %h4
       Veja Também
     %ul#carousel.elastislide-list
       - @showroom_presenter.products.each do |product|
-        %li
+        %li{data: {id: product.id}}
           =link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_path(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
   = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
+:javascript
+  log_event('view', 'unlogged_looks');
+  log_event('view', 'unlogged_products');
 
 %section{class: "emkt_box"}
   %ul.mail
@@ -31,13 +34,16 @@
     =image_tag("home/mkt_home.gif")
   .fback.js-success.js-middlebox
     %p
-      Enviamos para seu e-mail o vale de 
+      Enviamos para seu e-mail o vale de
       %span
         R$30,00 GRÁTIS!
       Acesse seu e-mail agora e aproveite!
     =link_to "Vide regras", "/termos", :class => "regras"
   .fdenied.js-error.js-middlebox
     %p
-      Oops! Verificamos que seu e-mail 
+      Oops! Verificamos que seu e-mail
       %br
         já está cadastrado em nosso sistema.
+- content_for :footer do
+  :javascript
+    log_event('view', 'newsletter-middle');

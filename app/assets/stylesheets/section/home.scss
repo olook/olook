@@ -12,6 +12,12 @@ div#content {
   display: none;
 }
 
+.look_thumbnail {
+  img {
+    width: 242px;
+    height: 365px;
+  }
+}
 section#home {
   #banner {
     width:100%;
@@ -319,7 +325,8 @@ section#home {
       .look {
         width:294px !important;
         img {
-          width:100%;
+          width:294px;
+          height:443px;
         }
       }
     }
@@ -427,7 +434,7 @@ section#home {
     }
   }
   .fback, .fdenied{
-    width: 343px;
+    width: 330px;
     height: 41px;
     background: image-url('common/sprite_modal_footer.png') no-repeat 4px -162px;
     background-color: #bfd7bd;
@@ -440,7 +447,7 @@ section#home {
     position: relative;
     padding-left: 34px;
     position: relative;
-    top: -65px;
+    top: -116px;
     z-index: 10000;
     left: 453px;
     padding-top: 5px;

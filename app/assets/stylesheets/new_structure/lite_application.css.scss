@@ -113,10 +113,6 @@ a.selecionado:hover {color:$pink !important;}
         margin-bottom: 15px;
         margin-right: 103px;
       }
-      form{
-        background: none;
-        color: #000;
-      }
       .email{
         width: 240px;
         height: 29px;
@@ -127,9 +123,9 @@ a.selecionado:hover {color:$pink !important;}
         letter-spacing: 1px;
         color: #000 !important;
         margin-right: -7px;
-        margin-left: 19px;
+        margin-left: 31px;
       }
-      input[type="submit"] {
+      .modal_button {
         background: $base_color;
         font-family: $bt_font;
         text-transform: uppercase;
@@ -147,8 +143,11 @@ a.selecionado:hover {color:$pink !important;}
         letter-spacing: 1px;
       }
     }
+    .fb-login-button{
+      z-index:20;
+    }
     p.joinfb{
-      margin-top: 31px;
+      margin-top: 42px;
       position: absolute;
       margin-left: 259px;
       font-size: 15px;
@@ -164,7 +163,7 @@ a.selecionado:hover {color:$pink !important;}
     .modal_error {
       position: absolute;
       background: #fff8c5;
-      width: 351px;
+      width: 339px;
       margin-left: 31px;
       margin-top: -11px;
       padding: 5px;

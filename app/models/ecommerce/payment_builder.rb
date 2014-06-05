@@ -136,7 +136,7 @@ class PaymentBuilder
     def notify_big_billet_sail payment
       order = payment.order
       quantity = order.line_items.inject(0){|total, item| total += item.quantity}
-      to = %w(jenny.liu rafael.manoel tiago.almeida carol.sampaio diogo.silva sofia.sanz rafael.rocha).map{|s| "#{s}@olook.com.br"}.join(",")
+      to = %w(renata.perina rafael.manoel carol.sampaio diogo.silva sofia.sanz).map{|s| "#{s}@olook.com.br"}.join(",")
 
       Resque.enqueue(NotificationWorker, {
         to: to,

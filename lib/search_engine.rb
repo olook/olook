@@ -386,6 +386,8 @@ class SearchEngine
       end
     end
     filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
+    filter_params[:term] = ( @term.value ) if @term
+    filter_params[:page] = ( current_page ) if current_page != 1
 
     filter_params
   end

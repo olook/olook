@@ -4,24 +4,10 @@
     <b>Nome:</b>
     <%= @shipping_service.name %>
   </p>
-
-  <p>
-    <b>Prioridade:</b>
-    <%= @shipping_service.priority %>
-  </p>
   <p>
     <b>Código ERP:</b>
     <%= @shipping_service.erp_code %>
   </p>
-  <p>
-    <b>Código ERP de entrega:</b>
-    <%= @shipping_service.erp_delivery_service %>
-  </p>
-  <p>
-    <b>Fator cúbico de peso:</b>
-    <%= @shipping_service.cubic_weight_factor %>
-  </p>
-
   <td><%= link_to 'Remover todos preços de frete', admin_shipping_service_path(@shipping_service), confirm: 'Tem certeza?', method: :delete %></td>
 
   <%= render :partial => 'freight_prices', :locals => {:freight_prices => @freight_prices} %>

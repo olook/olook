@@ -935,3 +935,44 @@ nav.menu_new{
 body.mobile .default_new a,
 body.mobile .default_new a:hover,
 body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
+
+/* MODAL PRODUCT ADDED */
+
+.product_added {
+  width: 990px;
+  margin: 0 0 0 -495px; 
+  position:absolute;
+  text-align: center;
+  left: 50%;
+  p {
+    display: block;
+    width:100%;
+    font-family: "Trebuchet Ms", Tahoma;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color:#000;
+    margin-top:50px;
+    text-align:center;
+    background:image-url('ico_bag.png') no-repeat 302px -20px;
+    padding:10px 0;
+  }
+  button {
+    padding:10px;
+    font-family: "Trebuchet Ms";
+    letter-spacing: 2px;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top:20px;
+    border:0px;
+  }
+  button.js-close_modal {
+    color:#FFF;
+    background:#df2c4b;
+    margin-right:20px;
+  }
+  button.js-go_to_cart {
+    background:#000;
+    color:#FFF;
+  }
+}

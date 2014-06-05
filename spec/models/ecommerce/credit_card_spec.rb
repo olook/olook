@@ -7,7 +7,6 @@ describe CreditCard do
   subject { FactoryGirl.build(:credit_card, :order => order) }
 
   context "attributes validation" do
-    it { should validate_presence_of(:bank) }
     it { should validate_presence_of(:user_name) }
     it { should validate_presence_of(:security_code) }
     it { should validate_presence_of(:expiration_date) }

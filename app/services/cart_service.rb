@@ -184,7 +184,7 @@ class CartService
         order.subtotal += (0.1)
       end
     end
-    order.freight = Freight.create(freight.except(:shipping_service_priority,:cost_for_free))
+    order.freight = Freight.create(freight.except(:cost_for_free))
     order.save
     order
   end

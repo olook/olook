@@ -1,7 +1,7 @@
 # Stub for running in development
 # edit config/rubber/role/resque_worker/resque-pool.yml for production/staging
 
-"*": 3
+"*": 2
 
 production:
-  "urgent,high,medium,low": 50
+  "urgent,high,medium,low,calhau": 50

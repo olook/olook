@@ -3,10 +3,10 @@
 <script type="text/javascript">
 
 
-	function load_fb_comments() {
-		$('#facebook-comments').append('<fb:comments href="https://<%= request.host %>/<%= product.seo_path %>" num_posts="1" width="535"></fb:comments>');		
-		FB.XFBML.parse(document.getElementById('facebook-comments'));
-	}
+    function load_fb_comments() {
+        $('#facebook-comments').append('<fb:comments href="https://<%= request.host %>/<%= product.seo_path %>" num_posts="1" width="535"></fb:comments>');     
+        FB.XFBML.parse(document.getElementById('facebook-comments'));
+    }
 
-	window.addEventListener('load', load_fb_comments);
+    window.addEventListener('load', load_fb_comments);
 </script>

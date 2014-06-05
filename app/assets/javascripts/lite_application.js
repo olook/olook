@@ -28,9 +28,11 @@
 //= require modules/facebook/events
 //= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
+//= require modules/stats/facebook_stats_logger
 //= require modules/modal/load
 
 new FacebookAuth().config();
+new FacebookStatsLogger().config();
 $(function(){
   olookApp.publish('modal:request', document.location.pathname);
 });

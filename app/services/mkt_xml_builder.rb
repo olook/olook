@@ -28,6 +28,7 @@ class MktXmlBuilder
     all_in: 'all_in.xml.erb',
     zoom: 'zoom_template.xml.erb',
     buscape: 'buscape_template.xml.erb',
+    rise: 'rise_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb'
   }
 
