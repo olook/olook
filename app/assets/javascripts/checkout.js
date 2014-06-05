@@ -82,6 +82,7 @@ function retrieve_shipping_service(){
   var shipping_service_id = checked_shipping.data('shipping-service');
   zipcode = $('input.address_recorded:checked').data('zipcode') || $('.zip_code').val();
   var force_shipping_policy = '';
+  debugger;
   if(checked_shipping.hasClass('express')){
     force_shipping_policy = true;
   }
@@ -150,12 +151,12 @@ function showTotal(){
 function freightCalc(){
   zip_code = $("#checkout_address_zip_code").val();
   if (zip_code) {
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   }
 
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_checkout(zip_code,"",true);
+    retrieve_freight_price_for_checkout(zip_code,"",false);
   });
 }
 
