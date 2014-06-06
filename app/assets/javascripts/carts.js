@@ -32,6 +32,7 @@ CartUpdater.prototype = {
         $("#coupon_info").hide();
         $("#coupon").show();
       }
+      olookApp.publish('minicart:update');
     }
     if(data.subtotal) {
       $('#subtotal_parcial').html(data.subtotal);
