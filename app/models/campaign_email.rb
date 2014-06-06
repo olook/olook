@@ -7,6 +7,10 @@ class CampaignEmail < ActiveRecord::Base
 
   before_validation :default_values
 
+  # has_many :campaign_emails_products
+  # has_many :products, through: CampaignEmailsProducts
+  has_and_belongs_to_many :products, :join_table => "campaign_emails_products", :foreign_key => "campaign_email_id"
+
   def enqueue_notification
     Resque.enqueue(CampaignEmailNotificationWorker, self.email)
   end
