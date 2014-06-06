@@ -1,16 +1,12 @@
+# -*- encoding : utf-8 -*-
 module Api
   module V1
-    class ProductInterestController < ApplicationController
-
-      respond_to :json
+    class ProductInterestController < ApiBasicController
 
       def create
-        respond_with ProductInterest.create(params[:product_interest])
+     		respond_with ProductInterest.creates_for(params[:email], params[:product_id]), location: '/'
       end
 
-      def product_interest_url(a)
-      	"/teste"
-      end
     end
   end
 end
