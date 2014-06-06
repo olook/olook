@@ -5,6 +5,7 @@ var ProductAvailableNoticeEmailSubmitter  = (function(){
   };
 
   ProductAvailableNoticeEmailSubmitter.prototype.facade = function(email, productId){
+
     $.post('/api/v1/product_interest', {"email": email, "product_id": productId})
       .done(function() {
         olookApp.subscribe('product_available_notice:display_success_message');
