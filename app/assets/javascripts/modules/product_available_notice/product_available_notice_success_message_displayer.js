@@ -5,6 +5,7 @@ var ProductAvailableNoticeSuccessMessageDisplayer  = (function(){
   };
 
   ProductAvailableNoticeSuccessMessageDisplayer.prototype.facade = function(email, productId){
+    console.log("displaying success message");
     $('.js-email_field').delay(200).fadeOut();
     $('.js-notice_email_success').delay(200).fadeIn();
   };
