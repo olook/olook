@@ -122,6 +122,5 @@ gem 'open4'
 gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
-  gem "fakeredis"
 end
 gem 'passenger', require: false
