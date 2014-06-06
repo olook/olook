@@ -16,7 +16,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = render "shared/mkt_breadcrumb"
-= cache @cache_key, expire_in: 25.minutes, raw: true do
+= cache @cache_key, expire_in: 60.minutes, raw: true do
   = @category ? second_level_breadcrumb(url_prefix.gsub('/', '').capitalize, url_prefix, url_prefix.gsub('/', '').capitalize, Category.t(Category.with_name(@category)).pluralize, 'breadcrumb'): first_level_breadcrumb(url_prefix.gsub('/', '').capitalize)
   #catalog
     %aside
