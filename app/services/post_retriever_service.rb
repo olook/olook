@@ -11,8 +11,10 @@ class PostRetrieverService
       JSON.parse(@redis.get("sn-post-data"))["data"]
     else
       post_data = retrieve_post_data
-      @redis.set("sn-post-data", {data: post_data}.to_json)
-      @redis.expire("sn-post-data", 1.hour)
+      if retrieve_post_data.any?
+        @redis.set("sn-post-data", {data: post_data}.to_json)
+        @redis.expire("sn-post-data", 1.hour)
+      end
       post_data
     end
 
@@ -30,7 +32,7 @@ class PostRetrieverService
     def retrieve_post_data(number = 1)
       posts(number).map do |post|
         format_post post
-      end.compact
+      end
     end
 
     def posts number = 1
@@ -38,17 +40,17 @@ class PostRetrieverService
     end
 
     def format_post post
-      if post 
-        img_hash = process_images(post["post_thumbnail"]["link"])
 
-        data_hash = {
-          link: post["link"],
-          title: post["post_title"], 
-          subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
-        }
+      img_hash = process_images(post["post_thumbnail"]["link"]) if post["post_thumbnail"]
 
-        data_hash.merge(img_hash)      
-      end
+      data_hash = {
+        link: post["link"],
+        title: post["post_title"], 
+        subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
+      }
+
+      data_hash.merge(img_hash) if img_hash
+
     end
 
     def process_images img
