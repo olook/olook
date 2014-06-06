@@ -1,5 +1,6 @@
 # encoding: utf-8
 class LoyaltyProgramCreditType < CreditType
+  DAYS_TO_EXPIRE = 61.days
 
   def self.percentage_for_order
     BigDecimal.new(Setting.percentage_on_order)
@@ -90,14 +91,12 @@ class LoyaltyProgramCreditType < CreditType
   end
 
 
-  def period_start(date = Time.zone.now)
-    date += 1.month
-    date.at_beginning_of_month
+  def period_start
+    Time.zone.now.at_midnight
   end
 
   def period_end(date = Time.zone.now)
-    date += 2.months
-    date.at_end_of_month
+    (Time.zone.now + DAYS_TO_EXPIRE).at_midnight
   end
 
 end
