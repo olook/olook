@@ -3,7 +3,7 @@ class Leaderboard
   def self.clear
     redis = Redis.connect(url: ENV['REDIS_LEADERBOARD'])
     keys = redis.keys("#{PREFIX}*")
-    redis.del(*keys)
+    redis.del(*keys) if keys.size > 0
   end
 
   def initialize(options={})
