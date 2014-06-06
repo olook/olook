@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+  <% @products.each do |product| %>
+  <item> 
+    <itemId><%= product.id %></itemId> 
+    <name><![CDATA[<%= product.formatted_name(200) %>]]></name> 
+    <fullCategory><%= product.category_humanize %></fullCategory> 
+    <category><%= product.subcategory %></category> 
+    <gender>Feminino</gender> 
+    <color><%= product.filter_color %></color> 
+    <brand><![CDATA[<%= product.brand %>]]></brand> 
+    <material><![CDATA[<%= product.details.find_by_translation_token("Material").try(:description) %>]]></material> 
+    <description><![CDATA[<%= product.description %>]]></description> 
+    <price><%= product.retail_price %></price> 
+    <oldPrice><%= product.price %></oldPrice> 
+    <PARCELAMENTO><![CDATA[<%= build_installment_text(product.retail_price)%>]]></PARCELAMENTO> 
+    <currency>REAIS</currency> 
+    <deliveryTime></deliveryTime> 
+    <shippingCosts></shippingCosts> 
+    <sizes><![CDATA[<%= product.variants.map(&:description).join(',') %>]]></sizes> 
+    <image><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></image> 
+    <deepLink><![CDATA[<%= product.product_url(:utm_source => "shopalike")%>]]></deepLink>
+  </item> 
+  <% end %>
+</items>

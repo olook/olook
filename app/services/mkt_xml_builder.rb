@@ -31,6 +31,7 @@ class MktXmlBuilder
     rise: 'rise_template.xml.erb',
     myestilo: 'myestilo_template.xml.erb',
     h2h: 'h2h_template.xml.erb',
+    shopalike: 'shopalike_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb'
   }
 
