@@ -28,9 +28,9 @@ class PostRetrieverService
   private
 
     def retrieve_post_data(number = 1)
-      posts(number).map do |post|        
+      posts(number).map do |post|
         format_post post
-      end
+      end.compact
     end
 
     def posts number = 1
@@ -38,15 +38,17 @@ class PostRetrieverService
     end
 
     def format_post post
-      img_hash = process_images(post["post_thumbnail"]["link"])
+      if post 
+        img_hash = process_images(post["post_thumbnail"]["link"])
 
-      data_hash = {
-        link: post["link"],
-        title: post["post_title"], 
-        subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
-      }
+        data_hash = {
+          link: post["link"],
+          title: post["post_title"], 
+          subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
+        }
 
-      data_hash.merge(img_hash)      
+        data_hash.merge(img_hash)      
+      end
     end
 
     def process_images img
