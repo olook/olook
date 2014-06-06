@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140602194345) do
+ActiveRecord::Schema.define(:version => 20140606194939) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -220,20 +220,6 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
   add_index "carts", ["coupon_id"], :name => "index_carts_on_coupon_id"
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
-
-  create_table "carts_backup", :id => false, :force => true do |t|
-    t.integer  "id",                      :default => 0,     :null => false
-    t.integer  "user_id"
-    t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "legacy_id"
-    t.boolean  "gift_wrap",               :default => false
-    t.boolean  "use_credits",             :default => false
-    t.integer  "coupon_id"
-    t.integer  "address_id"
-    t.boolean  "facebook_share_discount"
-  end
 
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
@@ -761,16 +747,6 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
     t.string   "movie_image"
   end
 
-  create_table "looks", :force => true do |t|
-    t.integer  "product_id"
-    t.string   "front_picture"
-    t.datetime "launched_at"
-    t.integer  "profile_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "full_look_picture"
-  end
-
   create_table "mkt_settings", :force => true do |t|
     t.string   "var",                      :null => false
     t.text     "value"
@@ -959,6 +935,13 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
   add_index "points", ["profile_id"], :name => "index_points_on_profile_id"
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
   add_index "points", ["user_id"], :name => "temp_user_id"
+
+  create_table "product_interests", :force => true do |t|
+    t.integer  "campaign_email_id"
+    t.integer  "product_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "product_price_logs", :force => true do |t|
     t.integer  "product_id"
