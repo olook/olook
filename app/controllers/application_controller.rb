@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
                 :set_modal_show,
                 :load_campaign_email_if_user_is_not_logged
 
+  after_filter :save_search_url
+
+
   helper_method :mobile?,
                 :current_cart,
                 :current_referer,
@@ -22,10 +25,9 @@ class ApplicationController < ActionController::Base
                 :canonical_link,
                 :meta_description
 
-  around_filter :log_start_end_action_processing
-
   before_filter do
     # XXX: BTG pixel write that cookie inside our app
+    # PUT THAT COOKIE DOWN, NOW!!! https://www.youtube.com/watch?v=pNoNpDAPBhI
     cookies.delete(:__bin)
     cookies.delete(:__cip)
   end
@@ -36,8 +38,16 @@ class ApplicationController < ActionController::Base
     redirect_to admin_url
   end
 
+  protected
+
   def after_login_return_to path
     session[:previous_url] = path
+  end
+
+  def save_search_url
+    if @url_builder
+      session[:search_url] = @url_builder.current_filters
+    end
   end
 
   def load_campaign
@@ -45,7 +55,6 @@ class ApplicationController < ActionController::Base
   end
 
   def render_public_exception
-    Rails.logger.debug('ApplicationController#render_public_exception')
     case env["action_dispatch.exception"]
       when ActiveRecord::RecordNotFound, ActionController::UnknownController,
         ::AbstractController::ActionNotFound
@@ -55,8 +64,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  protected
-
   def load_chaordic_user
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
@@ -65,182 +72,163 @@ class ApplicationController < ActionController::Base
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
   end
 
-    # making this method public so it can be stubbed in tests
-    # TODO: find a way to stub without this ugly hack
-    def current_cart
-      Rails.logger.debug('ApplicationController#current_cart')
-      #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
-      cart_id_session = session[:cart_id]
-      cart_id_params = params[:cart_id]
-      cart_id_legacy = params[:order_id]
+  # making this method public so it can be stubbed in tests
+  # TODO: find a way to stub without this ugly hack
+  def current_cart
+    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+    cart_id_session = session[:cart_id]
+    cart_id_params = params[:cart_id]
+    cart_id_legacy = params[:order_id]
 
-      cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
-      cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
+    cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
+    cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
 
-      cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
+    cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
 
-      cart = assign_coupon_to_cart(cart, params[:coupon_code]) if params[:coupon_code]
+    cart = assign_coupon_to_cart(cart, params[:coupon_code]) if params[:coupon_code]
 
-      assign_cart_to_user(cart) if cart
+    assign_cart_to_user(cart) if cart
 
-      cart
+    cart
+  end
+
+  def set_modal_show
+    if params[:modal] || params[:coupon_code].present?
+      @modal_show = params[:modal] != "0" ? "1" : "0"
+    else
+      @modal_show = cookies[:ms].blank? ? "1" : "0"
     end
+  end
 
-    def set_modal_show
-      if params[:modal] || params[:coupon_code].present?
-        @modal_show = params[:modal] != "0" ? "1" : "0"
+  def header
+    @header ||= Header.for_url(request.path).first
+  end
+
+  def seo_info
+    @seo_info ||= Seo::SeoManager.new(request.path, fallback_title: @product.try(:title_text),fallback_description: @product.try(:description), color: @color, size: @size, brand: @brand_name).select_meta_tag
+  end
+
+  def title_text
+    seo_info[:title]
+  end
+
+  def meta_description
+    seo_info[:description]
+  end
+
+  def canonical_link
+    if request.fullpath.match('\?')
+      "http://#{request.host_with_port}#{request.path}"
+    end
+  end
+
+  def assign_coupon_to_cart(cart, coupon_code)
+    coupon = Coupon.find_by_code(coupon_code)
+    if coupon
+      cart ||= create_cart
+      cart.coupon_code = coupon.code
+      if cart.valid?
+        cart.update_attributes(:coupon_id => coupon.id)
+        @show_coupon_warn = true
       else
-        @modal_show = cookies[:ms].blank? ? "1" : "0"
+        flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
+        cart.remove_coupon!
       end
+    else
+      flash.now[:notice] = 'Cupom Inválido'
     end
+    cart
+  end
 
-    def header
-      @header ||= Header.for_url(request.path).first
+  def assign_cart_to_user(cart)
+    if cart && @user
+      cart.update_attribute("user_id", @user.id) if cart.user.nil?
     end
+  end
 
-    def seo_info
-      @seo_info ||= Seo::SeoManager.new(request.path, fallback_title: @product.try(:title_text),fallback_description: @product.try(:description), color: @color, size: @size, brand: @brand_name).select_meta_tag
+  def create_cart
+    cart_id_session = session[:cart_id]
+    cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
+    cart ||= Cart.create(user: current_user)
+    session[:cart_id] = cart.id
+    cart
+  end
+
+  def current_referer
+    session[:return_to] = case request.referer
+                          when /produto|sacola/ then
+                            session[:return_to] ? session[:return_to] : nil
+                          when /colecoes/ then
+                            { text: "Voltar para coleções", url: collection_themes_path }
+                          when /suggestions/ then
+                            session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
+                          when /gift/ then
+                            { text: "Voltar para presentes", url: gift_root_path }
+                          else
+                            nil
+                          end
+
+    if @cart && @cart.has_gift_items?
+      session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
+    elsif @user && !@user.half_user?
+      session[:return_to] ||= { text: "Voltar para a minha vitrine", url: root_path }
+    else
+      session[:return_to] ||= { text: "Voltar para coleções", url: collection_themes_path }
     end
+  end
 
-    def title_text
-      seo_info[:title]
+  def load_coupon
+    if @cart
+      @coupon = @cart.coupon
+      @coupon.reload if @coupon
     end
+  end
 
-    def meta_description
-      seo_info[:description]
-    end
+  def load_cart_service
+    @cart_service = CartService.new(
+      :cart => @cart
+    )
+  end
 
-    def canonical_link
-      if request.fullpath.match('\?')
-        "http://#{request.host_with_port}#{request.path}"
-      end
-    end
+  def load_facebook_api
+    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+  end
 
-    def assign_coupon_to_cart(cart, coupon_code)
-      coupon = Coupon.find_by_code(coupon_code)
-      if coupon
-        cart ||= create_cart
-        cart.coupon_code = coupon.code
-        if cart.valid?
-          cart.update_attributes(:coupon_id => coupon.id)
-          @show_coupon_warn = true
-        else
-          flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
-          cart.remove_coupon!
-        end
-      else
-        flash.now[:notice] = 'Cupom Inválido'
-      end
-      cart
-    end
+  def load_referer
+    @referer = current_referer
+  end
 
-    def assign_cart_to_user(cart)
-      if cart && @user
-        cart.update_attribute("user_id", @user.id) if cart.user.nil?
-      end
-    end
+  def load_user
+    @user = current_user
+  end
 
-    def log_start_end_action_processing
-      Rails.logger.debug("START #{params[:controller].to_s.camelize}Controller##{params[:action]}")
-      yield
-      Rails.logger.debug("END #{params[:controller].to_s.camelize}Controller##{params[:action]}")
-    end
+  def load_campaign_email_if_user_is_not_logged
+    @campaign_email = CampaignEmail.new if @user.nil?
+  end
 
-    def create_cart
-      Rails.logger.debug('ApplicationController#create_cart')
-      cart_id_session = session[:cart_id]
-      cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
-      cart ||= Cart.create(user: current_user)
-      session[:cart_id] = cart.id
-      cart
-    end
+  def load_cart
+    @cart = current_cart
+  end
 
-    def current_referer
-      Rails.logger.debug('ApplicationController#current_referer')
-      session[:return_to] = case request.referer
-        when /produto|sacola/ then
-          session[:return_to] ? session[:return_to] : nil
-        when /colecoes/ then
-          { text: "Voltar para coleções", url: collection_themes_path }
-        when /suggestions/ then
-          session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
-        when /gift/ then
-          { text: "Voltar para presentes", url: gift_root_path }
-        else
-          nil
-      end
+  def current_ability
+    @current_ability ||= ::Ability.new(current_admin)
+  end
 
-      if @cart && @cart.has_gift_items?
-        session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
-      elsif @user && !@user.half_user?
-        session[:return_to] ||= { text: "Voltar para a minha vitrine", url: root_path }
-      else
-        session[:return_to] ||= { text: "Voltar para coleções", url: collection_themes_path }
-      end
-    end
+  def logged_in?
+    current_user
+  end
 
-    def load_coupon
-      Rails.logger.debug('ApplicationController#load_coupon')
-      if @cart
-        @coupon = @cart.coupon
-        @coupon.reload if @coupon
-      end
-    end
+  def load_tracking_parameters
+    incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+    incoming_params[:referer] = request.referer unless request.referer.nil?
+    session[:tracking_params] = incoming_params if session[:tracking_params].nil? || session[:tracking_params].empty?
+    session[:order_tracking_params] = incoming_params if incoming_params.has_key?("utm_source") || external_referer?(request.referer)
+  end
 
-    def load_cart_service
-      Rails.logger.debug('ApplicationController#load_cart_service')
-      @cart_service = CartService.new(
-        :cart => @cart
-      )
-    end
-
-    def load_facebook_api
-      Rails.logger.debug('ApplicationController#load_facebook_api')
-      @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    end
-
-    def load_referer
-      Rails.logger.debug('ApplicationController#load_referer')
-      @referer = current_referer
-    end
-
-    def load_user
-      Rails.logger.debug('ApplicationController#load_user')
-      @user = current_user
-    end
-
-    def load_campaign_email_if_user_is_not_logged
-      @campaign_email = CampaignEmail.new if @user.nil?
-    end
-
-    def load_cart
-      Rails.logger.debug('ApplicationController#load_cart')
-      @cart = current_cart
-    end
-
-    def current_ability
-      Rails.logger.debug('ApplicationController#current_ability')
-      @current_ability ||= ::Ability.new(current_admin)
-    end
-
-    def logged_in?
-      Rails.logger.debug('ApplicationController#logged_in?')
-      current_user
-    end
-
-    def load_tracking_parameters
-      Rails.logger.debug('ApplicationController#load_tracking_parameters')
-      incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
-      incoming_params[:referer] = request.referer unless request.referer.nil?
-      session[:tracking_params] = incoming_params if session[:tracking_params].nil? || session[:tracking_params].empty?
-      session[:order_tracking_params] = incoming_params if incoming_params.has_key?("utm_source") || external_referer?(request.referer)
-    end
-
-    def external_referer?(referer)
-      Rails.logger.debug('ApplicationController#external_referer?(referer)')
-      return false if referer.nil?
-      !(referer =~ /olook\.com\.br/)
-    end
+  def external_referer?(referer)
+    return false if referer.nil?
+    !(referer =~ /olook\.com\.br/)
+  end
 
   def mobile?
 
@@ -285,5 +273,4 @@ class ApplicationController < ActionController::Base
       @shipping_service_fast = OpenStruct.new freights.fetch(:fast_shipping)
     end
   end
-
 end

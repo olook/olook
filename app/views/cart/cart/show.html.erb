@@ -188,7 +188,7 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="buy-link">
-            <p class="buying-continue"><%= link_to "<< Continuar comprando","/colecoes" %></p>
+            <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>

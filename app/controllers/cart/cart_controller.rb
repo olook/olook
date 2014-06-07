@@ -25,6 +25,8 @@ class Cart::CartController < ApplicationController
       @promo_over_coupon = true
     end
 
+    @return_url = session[:search_url] || catalog_url((@cart.items.first.try(:product).try(:category_humanize) || 'sapato').parameterize)
+
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
 
     respond_to do |format|
