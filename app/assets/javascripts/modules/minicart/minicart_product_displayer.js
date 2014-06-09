@@ -7,7 +7,6 @@ var MinicartProductDisplayer  = (function(){
   MinicartProductDisplayer.prototype.facade = function(product_list){
     for(i = 0; i<product_list.length; i++){
       displayProduct(product_list[i]);
-      console.log(product_list[i]);
     }    
   };
 
