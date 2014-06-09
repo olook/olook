@@ -1,0 +1,35 @@
+- content_for :head do
+  = stylesheet_link_tag "section/our_essence"
+= render "shared/mkt_breadcrumb"
+= first_level_breadcrumb("Nossa Essência")
+
+%section#essence
+  %h1
+    Nossa essência
+  %h2
+    Nossa essência se traduz em nossa marca!
+  %ul
+    %li.sketch
+      = image_tag("common/essence.png")
+    %li.mini_frames
+      %p
+        %span
+          1.
+        Infinitude e circularidade.
+    %li.mini_frames
+      %p
+        %span
+          2.
+        Fluidez e feminilidade através das formas curvas.
+    %li.mini_frames
+      %p
+        %span
+          3.
+        Moda através da trama / entrelaçamento de fios.
+    %li.mini_frames
+      %p
+        %span
+          4.
+        Diversidade de caminhos, sentidos e direções.
+    %li.full_text
+    %li.full_text
