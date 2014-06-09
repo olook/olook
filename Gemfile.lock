@@ -227,8 +227,6 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
-    fakeredis (0.4.3)
-      redis (~> 3.0.0)
     faraday (0.7.6)
       addressable (~> 2.2)
       multipart-post (~> 1.1)
@@ -616,7 +614,6 @@ DEPENDENCIES
   equivalent-xml (~> 0.2.9)
   factory_girl_rails (~> 4.2.0)
   faker
-  fakeredis
   fastercsv
   fb-channel-file
   fog (~> 1.2)

@@ -29,6 +29,7 @@ class MktXmlBuilder
     zoom: 'zoom_template.xml.erb',
     buscape: 'buscape_template.xml.erb',
     rise: 'rise_template.xml.erb',
+    myestilo: 'myestilo_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb'
   }
 

@@ -252,6 +252,21 @@ class SeoUrl
     end
   end
 
+  def extract_color(path_section, section)
+    /#{KEYS_TRANSLATION.invert['color']}#{section[:value_separator]}([^#{ section[:separator] }\/]*)/ =~ path_section.to_s
+    param_colors = Regexp.last_match ? Regexp.last_match[1] : nil
+    return [] if param_colors.nil?
+
+    _colors = []
+    self.class.whitelisted_colors.each do |c|
+      if /#{c.parameterize}/ =~ param_colors
+        _colors << c
+        param_colors.slice!(/#{c.parameterize}/)
+      end
+    end
+    _colors
+  end
+
   def parse_path_into_sections
     index = 0
     /^(?<path>\/[^\?]*)\??(?<query>.*)?$/ =~ URI.decode(@path)
@@ -274,13 +289,18 @@ class SeoUrl
     section_proceseed = false
     section[:fields].each do |field|
       begin
-        processed = send("extract_#{field}", path_section.dup, section)
+        processed = self.send("extract_#{field}", path_section.dup, section)
+      rescue NoMethodError => e
+        if /extract_#{field}/ =~ e.message
+          puts "Method extract_#{field} does not exist. Create it please\e"
+        else
+          raise e
+        end
+      else
         if !processed.blank?
           @parsed_values[field] = processed
           section_proceseed = true
         end
-      rescue NoMethodError
-        puts "Method extract_#{field} does not exist. Create it please"
       end
     end
     section_proceseed
@@ -336,7 +356,6 @@ class SeoUrl
       end
     end
 
-    brands = brands.join(section[:value_separator]) if brands.any?
     brands
   end
 
@@ -347,7 +366,6 @@ class SeoUrl
     all_categories.each do |c|
       _categories << param_category.slice!(/#{c.parameterize}/) if /#{c.parameterize}/ =~ param_category
     end
-    _categories = _categories.join(section[:value_separator]) if _categories.any?
     _categories
   end
 
@@ -361,7 +379,6 @@ class SeoUrl
         param_subcategory.slice!(/#{c.parameterize}/i)
       end
     end
-    _subcategories = _subcategories.join(section[:value_separator]) if _subcategories.any?
     _subcategories
   end
 
@@ -380,7 +397,7 @@ class SeoUrl
     filter_params.to_s.split(section[:separator]).each do |item|
       auxs = item.split(section[:value_separator])
       key = auxs.shift
-      vals = auxs.join(section[:value_separator])
+      vals = auxs
       parsed_values[KEYS_TRANSLATION[key]] = vals
     end
     parsed_values

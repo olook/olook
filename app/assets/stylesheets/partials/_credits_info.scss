@@ -19,11 +19,12 @@ div.credits_description {
     }
     h3 {
       color: #000;
-      font-family: $avenir;
+      font-family: $bt_font;
       font-size: 19px;
       font-weight: normal;
       text-align: center;
-      margin: 0 0 20px;
+      margin: 20px 20px;
+      line-height: 26px;
     }
     ul.steps {
       margin-top: 20px;

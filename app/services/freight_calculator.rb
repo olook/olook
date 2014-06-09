@@ -19,10 +19,16 @@ module FreightCalculator
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids = nil, opts={})
     _zip_code = ZipCode::SanitizeService.clean(zip_code)
     return {} unless ZipCode::ValidService.apply?(_zip_code)
-    freights = prepare_shipping_query(_zip_code,shipping_service_ids)
+    freights = prepare_shipping_query(_zip_code)
+    selected_freight = freights.find { |s| s.shipping_service_id.to_s == shipping_service_ids.to_s }
     return DEFAULT_FREIGHT if freights.blank?
     result = Freight::TransportShippingChooserService.new(freights).perform
-    result = check_free_freight_policy(result, _zip_code, order_value) unless opts[:prevent_policy] == 'true'
+    result = check_free_freight_policy(result, _zip_code, order_value)
+
+    if selected_freight
+      selected_result = result.values.find { |v| v[:shipping_service_id] == selected_freight.shipping_service_id } || result[:default_shipping]
+      result = {default_shipping: selected_result}
+    end
     result
   end
 
@@ -34,7 +40,7 @@ module FreightCalculator
      result
    end
 
-   def self.prepare_shipping_query(zip_code, shipping_ids)
+   def self.prepare_shipping_query(zip_code, shipping_ids=nil)
     shipping_query = Shipping.with_zip(zip_code)
     shipping_query = shipping_query.with_shipping_service(shipping_ids) if shipping_ids
     shipping_query
