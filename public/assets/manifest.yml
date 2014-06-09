@@ -521,6 +521,8 @@ common/earn_credits.jpg: common/earn_credits-302e443fb67ff9a09340bc6fcf49eb9e.jp
 common/earn_credits/index.jpg: common/earn_credits-302e443fb67ff9a09340bc6fcf49eb9e.jpg
 common/error.png: common/error-b33534ba7de3d2dc7ee3355debcb5687.png
 common/error/index.png: common/error-b33534ba7de3d2dc7ee3355debcb5687.png
+common/essence.png: common/essence-05f16a73b785cff06db2acaf5a8cd6fe.png
+common/essence/index.png: common/essence-05f16a73b785cff06db2acaf5a8cd6fe.png
 common/exame.jpg: common/exame-0abd3f166f0c45ebbd9e9ee59737e9b2.jpg
 common/exame/index.jpg: common/exame-0abd3f166f0c45ebbd9e9ee59737e9b2.jpg
 common/facebook-title.png: common/facebook-title-2325a277ef17d5df4fc8a779ed7ac30a.png
@@ -1385,8 +1387,8 @@ home/trash/small/9.jpg: home/trash/small/9-2dca5ddc47fc585b280c493f5b100406.jpg
 home/trash/small/9/index.jpg: home/trash/small/9-2dca5ddc47fc585b280c493f5b100406.jpg
 how_to/big_pic.png: how_to/big_pic-0402fe012af51be10abf22a8ea782612.png
 how_to/big_pic/index.png: how_to/big_pic-0402fe012af51be10abf22a8ea782612.png
-how_to/mini_infos.png: how_to/mini_infos-41de8dd73fc16cb320e34ab02db1c786.png
-how_to/mini_infos/index.png: how_to/mini_infos-41de8dd73fc16cb320e34ab02db1c786.png
+how_to/mini_infos.png: how_to/mini_infos-8d5e73f08b27ea846beed1afe888c942.png
+how_to/mini_infos/index.png: how_to/mini_infos-8d5e73f08b27ea846beed1afe888c942.png
 ico_bag.png: ico_bag-70e5db96c94b8a6f9a12cf553b114280.png
 ico_bag/index.png: ico_bag-70e5db96c94b8a6f9a12cf553b114280.png
 kombi/bg-dates.jpg: kombi/bg-dates-d1d6094bf7fdd74995086c16b518dff1.jpg
