@@ -45,8 +45,8 @@ class ApplicationController < ActionController::Base
   end
 
   def save_search_url
-    if @url_builder.respond_to?(:current_filters)
-      session[:search_url] = @url_builder.current_filters
+    if @url_builder
+      session[:search_url] = @url_builder.current_filters rescue nil
     end
   end
 
