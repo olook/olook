@@ -12,7 +12,7 @@
 
 initProduct = {
   gotoRelatedProduct :function() {
-    $('a#goRelatedProduct').live('click', function(e) {
+    $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
 
       $.post("/produto/ab_test", {}, function( data ) {
