@@ -83,9 +83,14 @@
       %span{itemprop: 'name'}= @product.brand
     - if @product.sold_out?
       %p.out PRODUTO ESGOTADO
-      %form#sold_out{:action => "", :method => "post"}
-        %input{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite aqui seu e-mail"}
-        %button{:type => "button"} Avise-me quando disponível
+      %p.notice_success_message.js-product_available_notice_success 
+        E-mail cadastrado com sucesso! 
+        %br A gente te avisa qualquer novidade ;)
+      %form#sold_out{:action => "", :method => "post", :class => "js-product_available_notice_form"}
+        %input{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite aqui seu e-mail", :class => "js-product_available_notice_email"}
+        = hidden_field_tag("id",@product.id)
+        %button{:type => "button", :class => "js-product_available_notice_submit"} Avise-me quando disponível
+      %p.notice_error_message.js-product_available_notice_error e-mail inválido
       = render 'colors'
     - else
       .cost{itemprop: 'offers', itemscope: true, itemtype: 'http://schema.org/Offer'}

@@ -2,9 +2,14 @@ var ProductAvailableNoticeEmailSubmitter  = (function(){
   function ProductAvailableNoticeEmailSubmitter() {};
   ProductAvailableNoticeEmailSubmitter.prototype.config = function(){
     olookApp.subscribe('product_available_notice:submit_email', this.facade, {}, this);
+    $(".js-product_available_notice_submit").click(function(){
+      olookApp.publish('product_available_notice:submit_email');
+    });
   };
 
-  ProductAvailableNoticeEmailSubmitter.prototype.facade = function(email, productId){
+  ProductAvailableNoticeEmailSubmitter.prototype.facade = function(){
+    var email = $(".js-product_available_notice_email").val();
+    var productId = $("#id").val();
     $.ajax({
       url: '/api/v1/product_interest',
       type: 'post',
