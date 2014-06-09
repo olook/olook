@@ -47,7 +47,9 @@ olook.newModal = function(content, a, l, background_color, close_callback){
     $("button.close").remove();
     $modal.fadeOut();
     $("#overlay-campaign").fadeOut();
-    close_callback();
+    if(typeof close_callback === 'function') {
+      close_callback();
+    }
   })
 
 };
@@ -69,7 +71,9 @@ olook.addToCartModal = function(content, a,close_callback){
     
     $modal.fadeOut();
     $(this).fadeOut();
-    close_callback();
+    if(typeof close_callback === 'function') {
+      close_callback();
+    }
   });
 
   $("#overlay-campaign").html("");
@@ -97,7 +101,9 @@ olook.addToCartModal = function(content, a,close_callback){
 
     $modal.fadeOut();
     $("#overlay-campaign").fadeOut();
-    close_callback();
+    if(typeof close_callback === 'function') {
+      close_callback();
+    }
   });
 
   $("button.js-go_to_cart").click(function(){
