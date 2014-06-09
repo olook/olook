@@ -1,7 +1,7 @@
 #cart_summary
   .detalhe
   .scroll
-    %ul
+    %ul.js-minicart{"data-coupon-image-url" => image_path('common/nav/big_coupon.png')}
       - if @cart and @cart.coupon
         %li.coupon_info.product_item
           - if @show_coupon_warn

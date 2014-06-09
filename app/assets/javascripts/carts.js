@@ -1,4 +1,3 @@
-//= require application_core/olook_app
 //= require ./partials/_credits_info
 //= require plugins/spy
 //= require plugins/check_freebie
@@ -33,6 +32,7 @@ CartUpdater.prototype = {
         $("#coupon_info").hide();
         $("#coupon").show();
       }
+      olookApp.publish('minicart:update');
     }
     if(data.subtotal) {
       $('#subtotal_parcial').html(data.subtotal);
