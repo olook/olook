@@ -7,7 +7,7 @@ class ProductInterest < ActiveRecord::Base
     newsletter_user = newsletter_user_for(email)
 
     # TODO => Nao gostei disso.
-    interest = ProductInterest.new(campaign_email_id: newsletter_user.id, product_id: product_id)   
+    interest = ProductInterest.new(campaign_email_id: newsletter_user.id, product_id: product_id)
 
     if newsletter_user.valid?
       interest.save
