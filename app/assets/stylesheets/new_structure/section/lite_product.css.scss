@@ -64,6 +64,17 @@
       color: $base_color;
       font-weight: bold;
     }
+    p.notice_error_message{
+      color: red;
+      font-weight: bold;
+      display:none;
+      clear:both;
+    }
+    p.notice_success_message{
+      color: green;
+      font-weight: bold;
+      display:none;
+    }    
     .cost{
       border-bottom: 1px solid #cdcdcd;
       p.price, p.plots{
