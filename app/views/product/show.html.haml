@@ -59,32 +59,45 @@
     .big_pic.js-image-zoom= image_tag(@product.pictures.order(:position).first.image_url(:main), :class => "full", itemprop: "image")
     .social-media
       %ul.social-list
-        %li.remove-button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
-        Remover dos favoritos
-        %li.add-button{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
-        Adicionar aos favoritos
-        %li.twitter
-          %a.twitter-share-button{data: { count: "none", size: "none", hashtags: "ficaadica", lang: "pt" }, :href => "https://twitter.com/share?text=#{share_description(@product)}"} Tweetar
-        %li.fb
-          .fb-share-button{data: {href: product_seo_url(@product.seo_path), type: "icon_link"} }
-        %li.email= link_to "Email", "javascript:void(0);"
-      :javascript
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+        %li.icon-nofav.wishlist{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
+          %p
+            Remover
+        %li.icon-fav.wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
+          %p
+            Favoritar
+        %li.icon-twitter
+        %li.icon-facebook
+        %li.icon-instagram
+        %li.icon-pin
+        %li.icon-mail
+      /   %li.twitter
+      /     %a.twitter-share-button{data: { count: "none", size: "none", hashtags: "ficaadica", lang: "pt" }, :href => "https://twitter.com/share?text=#{share_description(@product)}"} Tweetar
+      /   %li.fb
+      /     .fb-share-button{data: {href: product_seo_url(@product.seo_path), type: "icon_link"} }
+      /   %li.email= link_to "Email", "javascript:void(0);"
+      / :javascript
+      /   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
   .product-info
     %h1{itemprop: 'name'}= @product.formatted_name(200)
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
       %span{itemprop: 'name'}= @product.brand
     - if @product.sold_out?
-      %p PRODUTO ESGOTADO
+      %p.out PRODUTO ESGOTADO
+      %form#sold_out{:action => "", :method => "post"}
+        %input{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite aqui seu e-mail"}
+        %button{:type => "button"} Avise-me quando disponível
       = render 'colors'
     - else
       .cost{itemprop: 'offers', itemscope: true, itemtype: 'http://schema.org/Offer'}
         - @product_discount_service.calculate_without_promotion_or_coupon
         - if @product_discount_service.discount > 0
-          %p.price-retail de: #{number_to_currency(@product_discount_service.base_price)}
-          %p.price{itemprop: 'price'} por: #{number_to_currency(@product_discount_service.final_price)}
-
-
+          %p.price-retail.price 
+            de: 
+            %span
+              #{number_to_currency(@product_discount_service.base_price)}
+          %p.plots
+            por:
+            %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.final_price)}
         - else
           %p.price
             Preço 
@@ -93,18 +106,15 @@
             Ou em 
             %span
               #{installments(@product.price)}
-
-
-
       #add-to-cart
-        = hidden_field_tag("id",product.id)
+        = hidden_field_tag("id",@product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)
           %a.size-guide{:href => "javascript:void(0);"} Guia de medidas
         .size
           %p Selecione o tamanho:
           %ol
             - order_variants_by_size(@product.variants).each do |variant|
-              %li{:class => "size_#{variant.description}"}
+              %li{:class => "size_#{variant.description}#{' unavailable' if variant.sold_out?}"}
                 %label{:for => "variant_id_#{variant.id}"}= variant.description
                 = hidden_field_tag("inventory_#{variant.id}", variant.inventory)
                 = radio_button_tag('variant[id]', variant.id, variant_classes(variant, @shoe_size).include?('selected'), :disabled => variant.sold_out?, class:"js-variant_id" )
@@ -114,7 +124,8 @@
           = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
-        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product", onclick: track_add_to_cart_event(product.id)
+        %p.alert.js-alert
+        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
           Compre e ganhe 
@@ -128,6 +139,14 @@
           %label{:for => "tabs_about"}Sobre o Produto
           #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
+            %p.category
+              Modelo:
+              %span
+                Blusa draconiana
+            %p.category
+              Material:
+              %span
+                Couro de Dragão
         %li
           = radio_button_tag("tabs", "medidas")
           %label{:for => "tabs_medidas"}Medidas
@@ -178,19 +197,58 @@
                 %td 12cm
                 %td 12cm
                 %td 12cm
+            %p
+              *Medidas aproximadas em cm
 
+%br{style: "clear:both"}
+%ul.vantagens
+  %li.title
+    %p
+      OLOOK VANTAGENS
+  %li.mini_infos
+    %h3
+      TROCA E DEVOLUÇÃO 
+      %span.trade
+        GRÁTIS
+    %span.icon
+    %p.details
+      Em até 30 dias após receber o produto efetuamos troca e devolução grátis para você!
+  %li.mini_infos
+    %h3
+      PARCELAMOS EM ATÉ 
+      %span
+        6 VEZES 
+      %br
+      NO CARTÃO
+    %span.icon.card
+    %p.details_card
+      Parcelas mínima de R$30,00
+  %li.mini_infos
+    %h3
+      %span
+        GRÁTIS! 
+      15% DE VOLTA EM CRÉDITOS
+    %span.icon.money
+    %p.details
+      Te presenteamos com 15% do valor do produto em créditos para usar nós próximos 2 meses
+  %li.mini_infos.last
+    %h3
+      ENTREGA SUPER ULTRA 
+      %span.trade
+        RÁPIDA
+    %span.icon.shipping
+    %form#shipping{:action => "", :method => "post"}
+      %input#ship-field.ship-field{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite seu cep"}
+      %button#search.search{:type => "button"} OK
+    %p.details
+      Verifique aqui prazo 
+      %br
+      de entrega para seu cep
+    %p.shipping-msg 
 
 %br{style: "clear:both"}
 - if @product.has_look_products?(current_admin)
   = render :partial => 'product/look_products', :locals => {:look_products => @product.look_products(current_admin), :complete_look_discount => Promotion.find(Setting.complete_look_promotion_id).discount_hash }
-= image_tag("product/vantagens.jpg", class:"vantagens")
-%h3.shipping-title PRAZO DE ENTREGA
-.shipping
-  %p Informe o CEP e consulte o prazo para destino
-  %form#shipping{:action => "", :method => "post"}
-    %input#ship-field.ship-field{:name => "ship-field", :type => "text", :value => ""}/
-    %button#search.search{:type => "button"} Pesquisar
-  %p.shipping-msg 
 
 .chaordic.similaritems
 .chaordic.ultimatebuy

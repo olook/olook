@@ -1,7 +1,8 @@
 - post =  POST_RETRIEVER_SERVICE.retrieve_posts.first
-#about
-  = link_to post["link"], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post["link"]) do
-    = image_tag post["img_new_home"], title: "destaque semanal" if post["img_new_home"].present?
-    %h5
-      \// ÚLTIMAS DO BLOG //
-      %span= post["subtitle"]
+- if post
+  #about
+    = link_to post["link"], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post["link"]) do
+      = image_tag post["img_new_home"], title: "destaque semanal" if post["img_new_home"].present?
+      %h5
+        \// ÚLTIMAS DO BLOG //
+        %span= post["subtitle"]

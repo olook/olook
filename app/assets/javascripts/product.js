@@ -12,7 +12,7 @@
 
 initProduct = {
   gotoRelatedProduct :function() {
-    $('a#goRelatedProduct').live('click', function(e) {
+    $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
 
       $.post("/produto/ab_test", {}, function( data ) {
@@ -27,7 +27,7 @@ initProduct = {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
   showAlert : function(){
-    $('p.alert_size').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
+    $('p.alert_size, p.js-alert').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
   },
   // for reasons unknown, this carousel is awkwardly inverted. I had to re-invert the names in order for it to work properly :P
   showCarousel : function() {
@@ -86,6 +86,12 @@ initProduct = {
 
     $("form#product_add_to_cart").submit(function() {
       return !!(initProduct.selectedVariantMaxVal());
+    });
+
+    $(".js-add-product").click(function(e) {
+      if(!initProduct.selectedVariantMaxVal()){
+        e.stopPropagation();
+      }
     });
 
     $("#add_product").click(function(e){

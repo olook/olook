@@ -56,7 +56,7 @@ $(function() {
   });
 
   
-  $("div#product-details div.size ol li").live('click', function() {
+  $(".size ol li").live('click', function() {
     if($(this).hasClass("unavailable") == false) {
       lists = $(this).parents("ol").find("li");
       lists.find("input[type='radio']").attr('checked', false);

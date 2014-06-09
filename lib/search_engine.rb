@@ -62,10 +62,6 @@ class SearchEngine
     @term.value
   end
 
-  # TODO: Mudar a forma que o recebe o collection_theme pois
-  # o ideal é modificar o MULTISELECTION_SEPARATOR para ','
-  # e passar a usar parameterize na indexação e mudar as urls.
-  # Depende de fazer um tradutor dos links antigos para os novos.
   def collection_theme=(val)
     @expressions['collection_theme'] = [val.to_s] unless val.blank?
   end

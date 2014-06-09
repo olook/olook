@@ -131,7 +131,6 @@ $(function() {
   }
 
   showGiftPackageModal();
-  showCreditPackageModal();
   olook.showSmellPackageModal();
 });
 
