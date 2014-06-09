@@ -5,9 +5,19 @@ var ProductAvailableNoticeEmailSubmitter  = (function(){
   };
 
   ProductAvailableNoticeEmailSubmitter.prototype.facade = function(email, productId){
+    $.ajax({
+      url: '/api/v1/product_interest',
+      type: 'post',
+      data: {
+        "email": email, 
+        "product_id": productId
+      },
+      headers: {
+        'Authorization': 'Token token=' + AUTH.token
+      },
+      dataType: 'json'
 
-    $.post('/api/v1/product_interest', {"email": email, "product_id": productId})
-      .done(function() {
+    }).done(function() {
         olookApp.publish('product_available_notice:display_success_message');
       }).fail(function(){
         olookApp.publish('product_available_notice:display_error_message');
