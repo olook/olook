@@ -1,0 +1,22 @@
+- content_for :head do
+  = stylesheet_link_tag  "section/how_to"
+= render "shared/mkt_breadcrumb"
+= first_level_breadcrumb("Como Funciona")
+
+%section#how_to
+  %h1
+    Não conhece a Olook? Veja como funciona!
+  %ul
+    %li.pic
+      = image_tag("how_to/big_pic.png")
+    %li.description
+      %p
+        Em primeiro lugar, queremos entender melhor seu estilo! Por isso montamos o 
+        %span
+          Style Quiz
+        , com perguntas de moda e comportamento. No final, você descobre qual estilo tem mais a ver com você e a gente pode recomendar peças 
+        %br
+        e looks inteiros que são as sua cara!
+      =link_to ">> Clique aqui para começar", survey_path
+    %li.mini_infos
+      = image_tag("how_to/mini_infos.png")
