@@ -47,6 +47,11 @@ li.product{display:inline-block;
     }
   }
 }
+.custom_url {
+  li.product:nth-child(-n+3) {
+    background: red !important;
+  }
+}
 
 li.product:hover .spy {
   display: block;

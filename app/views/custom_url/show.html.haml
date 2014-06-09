@@ -11,7 +11,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expires_in: 20.minutes, raw: true do
-  #catalog
+  #catalog.custom_url
     %aside
       = check_organic_url_section( collection: -> { render("collection_themes/menu", collection_theme_groups: @collection_theme_groups) }, |
         brand: -> { render("brands/side_filters", search: @search) }, |
