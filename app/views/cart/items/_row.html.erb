@@ -23,7 +23,8 @@
                                :remote => :true,
                                           :html => {
                                             :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                            :id => "remove_item_form_#{item.id}" }) do %>
+                                            :id => "remove_item_form_#{item.id}",
+                                            :class => "js-cart_delete" }) do %>
               <%= submit_tag('excluir')  %>
             <% end %>
           </td>
