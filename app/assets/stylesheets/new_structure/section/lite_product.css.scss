@@ -131,6 +131,13 @@
           border: 1px solid #000;
         }
       }
+      .unavailable {
+        label {
+          color: #aaa;
+          background: #eee;
+          border: 1px solid #eee;
+        }
+      }
     }
     .color {
       height: 60px;
