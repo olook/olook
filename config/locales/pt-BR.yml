@@ -297,6 +297,9 @@
             not_delivered: "Não entregue"
 
     models:
+      productinterest:
+        one: Produto esgotado
+        other: Produtos esgotados
       seo_link:
         one: Link para SEO
         other: Links para SEO
