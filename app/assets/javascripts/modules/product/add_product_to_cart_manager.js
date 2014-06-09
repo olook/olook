@@ -16,6 +16,7 @@ var AddProductToCartManager  = (function(){
     if(responseAction == "showModal"){
         closeSpy();
         olookApp.publish('product:show_cart_modal');
+        olookApp.publish("minicart:update");
     } else {
       olookApp.publish('product:redirect_to_cart');
     }

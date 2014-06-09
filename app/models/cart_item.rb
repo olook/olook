@@ -66,6 +66,10 @@ class CartItem < ActiveRecord::Base
     without_liquidation? || is_adjust_greater?(adjust)
   end
 
+  def formatted_product_name
+    self.product.formatted_name(24)
+  end
+
   private
 
     def suggested_product_quantity

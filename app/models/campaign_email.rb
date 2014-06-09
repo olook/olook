@@ -2,10 +2,14 @@ class CampaignEmail < ActiveRecord::Base
   after_create :enqueue_notification
   scope :uncoverted_users , where(converted_user: false)
 
-  validates_with CampaignEmailValidator, :attributes => [:email]
+  validates_with CampaignEmailValidator, :attributes => [:email], unless: -> {converted_user}
   validates :email, presence: true, format: { with: /\A\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b\z/i }, uniqueness: true
 
   before_validation :default_values
+
+  # has_many :campaign_emails_products
+  # has_many :products, through: CampaignEmailsProducts
+  has_and_belongs_to_many :products, :join_table => "campaign_emails_products", :foreign_key => "campaign_email_id"
 
   def enqueue_notification
     Resque.enqueue(CampaignEmailNotificationWorker, self.email)
