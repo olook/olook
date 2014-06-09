@@ -56,7 +56,7 @@
         %li= image_tag("#{picture.image_url(:thumb).to_s}", data: {full: picture.image_url(:main).to_s, zoom: picture.image_url(:zoom_out).to_s })
       - unless @product.youtube_token.blank?
         %li= image_tag("product/bt-modal-video.jpg", class: "js-video-modal", onclick: "#{track_event("Product", "ClickVideo", @product.id.to_s)};javascript:olook.videoModalBuild(olook.youtubePlayer(olook.youtubeParser('#{@product.youtube_token}')));", data: {videoId: @product.youtube_token})
-    .big_pic.js-image-zoom= image_tag(@product.pictures.order(:position).first.image_url(:main), :class => "full", itemprop: "image")
+    .big_pic.js-image-zoom= image_tag(@product.pictures.order(:position).first.image_url(:main), data: {zoom: @product.pictures.order(:position).first.image_url(:zoom_out)}, :class => "full", itemprop: "image")
     .social-media
       %ul.social-list
         %li.icon-nofav.wishlist{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'block' : 'none'}"}
