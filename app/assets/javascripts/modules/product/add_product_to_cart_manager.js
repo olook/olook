@@ -5,7 +5,7 @@ var AddProductToCartManager  = (function(){
   };
 
   var displayAlertSize = function(text){
-    $('p.alert_size').show().html(text).delay(3000).fadeOut();
+    $('p.alert_size, p.js-alert').show().html(text).delay(3000).fadeOut();
   }
 
   var closeSpy = function(){
