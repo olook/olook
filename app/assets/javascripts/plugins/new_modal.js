@@ -20,7 +20,9 @@ olook.newModal = function(content, a, l, background_color, close_callback){
     $("button.close").remove();
     $modal.fadeOut();
     $(this).fadeOut();
-    close_callback();
+    if(typeof close_callback === 'function') {
+      close_callback();
+    }
   });
 
   $modal.html(content)
