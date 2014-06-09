@@ -9,7 +9,7 @@ var MinicartFadeOutManager = (function(){
     $("#total_price").val('0.0');
 
     $('.cart_related').fadeOut("fast",function(){
-      $('.cart_related').addClass('product_added');
+      $('.cart_related').addClass('look_product_added');
       $('.empty_minicart').hide();
     });
   };
