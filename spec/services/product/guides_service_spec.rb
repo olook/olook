@@ -9,16 +9,25 @@ describe Product::GuidesService do
       it {expect(described_class.new(new_detail).old_style?).to be_false}
     end
   end
-  context "In new style",focus: true do
-    it "return model size" do
-      detail = described_class.new(new_detail)
-      detail.process
-      expect(detail.model_size).to eql("P")
+  context "On old style" do
+    it "return same string" do
+      expect(described_class.new(old_detail).process).to eql(old_detail)
     end
-    it "return array" do
-      detail = described_class.new(new_detail)
-      
-      expect(detail.process).to eql("P")
+
+  end
+  context "On new style" do
+    before do
+      @detail = described_class.new(new_detail)
+      @detail_result = @detail.process
+    end
+    it "return table header" do
+      expect(@detail_result.fetch(:header)).to eql(['ombro','busto','quadril','comp.'])
+    end
+    it "return table keys content" do
+      expect(@detail_result.fetch(:content)).to include("P" => ['12cm','12cm', '12cm', '12cm'],"M" => ['12cm','12cm', '12cm', '12cm'], "G" => ['12cm','12cm', '12cm', '12cm'])
+    end
+    it "return model size" do
+      expect(@detail_result.fetch(:model_size)).to include("P")
     end
   end
 end
