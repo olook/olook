@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def cart_total(cart)
-    content_tag(:span,"(#{content_tag(:span, "#{pluralize(cart.try(:items_total).to_i, 'item', 'itens')}", :id => "cart_items")})".html_safe)
+    content_tag(:span,"(#{content_tag(:span, "#{pluralize(cart.try(:items_total).to_i, 'item', 'itens')}", :id => "cart_items", :class =>"js-minicart_header_items")})".html_safe)
   end
 
   def discount_percentage(value)
@@ -129,7 +129,7 @@ module ApplicationHelper
     if item.variant.inventory == 1
       '1 (última peça!)'
     else
-      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}');")
+      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}');", class: "js-quantity_select")
     end
   end
 
