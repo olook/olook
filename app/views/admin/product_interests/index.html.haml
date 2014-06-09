@@ -1,0 +1,26 @@
+%h2 Listando produtos esgotados
+-content_for :sidebar do
+  .block
+    %h3
+      Filtros
+    .content
+      = form_for([:admin, @search], :html => {:class => "form"}) do |f|
+        .group
+          = f.label :created_at, "Inicio",class: "label"
+          = f.date_select :created_at_gte, :include_blank => true
+        .group
+          = f.label :created_at, "Fim",class: "label"
+          = f.date_select :created_at_lte, :include_blank => true
+        =f.submit 'Procurar', :class => "button"
+.inner
+  %table.table
+    %tr
+      %th Email
+      %th Produto
+      %th Data
+    - @product_interests.each do |interest|
+      %tr
+        %td= interest.campaign_email.email
+        %td= interest.product_id
+        %td= interest.created_at
+
