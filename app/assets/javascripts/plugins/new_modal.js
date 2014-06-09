@@ -50,7 +50,7 @@ olook.newModal = function(content, a, l, background_color, close_callback){
 
 };
 
-olook.addToCartModal = function(content, a,close_callback){
+olook.addToCartModal = function(content, a, background_color){
   var $modal = $("div#modal.promo-olook"),
   h = a > 0 ? a : $("img",content).outerHeight(),
   w = "100%",
@@ -95,7 +95,6 @@ olook.addToCartModal = function(content, a,close_callback){
 
     $modal.fadeOut();
     $("#overlay-campaign").fadeOut();
-    close_callback();
   });
 
   $("button.js-go_to_cart").click(function(){
