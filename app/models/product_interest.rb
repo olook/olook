@@ -9,7 +9,11 @@ class ProductInterest < ActiveRecord::Base
     # TODO => Nao gostei disso.
     interest = ProductInterest.new(campaign_email_id: newsletter_user.id, product_id: product_id)   
 
-    !newsletter_user.valid? ? interest.errors.add(:email, "Email invalido") : interest.save
+    if newsletter_user.valid?
+      interest.save
+    else 
+      interest.errors.add(:email, "Email invalido")
+    end
 
     interest
   end
