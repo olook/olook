@@ -357,6 +357,46 @@
 		#home, #banner, .column {display: block !important;}
     #product {
       margin-bottom:0px;
+      .pics_social {
+        margin:0px;
+        padding:0px;
+        width:100%;
+        .thumbs {
+          margin-right:0px;
+          position: absolute;
+          left:8px;
+          top:10px;
+          z-index: 99;
+          img {
+            width:100%;
+          }
+        }
+        .big_pic {
+          width:100%;
+          position: relative;
+          z-index: 1;
+          top:-14px;
+          height:auto;
+          img {
+            width:100%;
+          }
+        }
+      }
+      .product-info {
+        margin:0 0 0 10px;
+        width:96%; 
+        input[type="submit"].add_product {
+          width:100%;
+        }
+        .tabs .tab-content {
+          width:95%;
+          padding:8px;
+          td {
+            padding:2px;
+            font-size: 10px;
+          }
+        }
+      }
     }
 		#banner {
 			width:100%;
@@ -579,7 +619,6 @@
           .category-list,
           .subcategory-list {
             position: absolute;
-            background: red;
             z-index: 9999;
             background: #FFF;
             border: 1px dotted #d1d1d1;
