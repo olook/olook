@@ -35,7 +35,7 @@ class ProductDocument
       }
     else
       {
-        version: Time.zone.now / 60,
+        version: Time.zone.now.to_i / 60,
         lang: 'pt',
         type: @type,
         id: @id,
