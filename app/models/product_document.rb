@@ -27,11 +27,21 @@ class ProductDocument
   end
 
   def to_document
-    {
-      type: @type,
-      id: @id,
-      fields: @fields
-    }
+    if Search::Config[:api_version] == "2013-01-01"
+      {
+        type: @type,
+        id: @id,
+        fields: @fields
+      }
+    else
+      {
+        version: Time.zone.now / 60,
+        lang: 'pt',
+        type: @type,
+        id: @id,
+        fields: @fields
+      }
+    end
   end
 
   def initialize
