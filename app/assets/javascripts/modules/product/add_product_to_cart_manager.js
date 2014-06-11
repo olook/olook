@@ -28,7 +28,7 @@ var AddProductToCartManager  = (function(){
     var productId = $("#id").val();
 
     if(StringUtils.isEmpty(variantId)){
-      displayAlertSize("Qual é o seu tamanho mesmo?");
+      displayAlertSize("Selecione seu tamanho");
     } else {
       $.post('/sacola/items.json', {"variant[id]": variantId, "variant[quantity]": quantity, id: productId})
         .done(function(data) {

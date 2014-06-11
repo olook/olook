@@ -7,7 +7,7 @@ var AddToWishlist = (function(){
 
     var element = $('[name="variant[id]"]:checked');
     if (element.size() == 0) {
-      olookApp.publish("wishlist:add:error_message", "Qual é o seu tamanho mesmo?");
+      olookApp.publish("wishlist:add:error_message", "Selecione seu tamanho");
     } else {
       var values = {'variant_id': element.val()}
       $.post(action_url, values, function(data) {
