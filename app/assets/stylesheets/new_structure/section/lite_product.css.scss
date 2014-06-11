@@ -577,8 +577,18 @@
 }
 
 p.alert {
-  color: #c00;
-  font-weight: bold;
+    font-family: Arial,"Trebuchet Ms",arial,sans-serif,avenir;
+    font-size: 12px;
+    color: #c00;
+    width: 180px;
+    height: 20px;
+    margin-left: 90px;
+    margin-top: 10px;
+    background-color: #ffeeee;
+    font-weight: bold;
+    margin-bottom: 10px;    
+    padding: 3px 8px;
+    display: none;
 }
 
 /*** MODAL GUIA DE MEDIDAS ***/
