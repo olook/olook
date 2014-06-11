@@ -31,7 +31,7 @@
 %section#product{itemscope: true, itemtype: "http://schema.org/Product" }
   = product_breadcrumbs_for(@product)
   - if @product.has_look_products?(current_admin)
-    = link_to "Comprar o look completo", "#related"
+    = link_to "Comprar o look completo", "#related", :id => 'goRelatedProduct', :class => 'bt_domit'
   .pics_social
     %ul.thumbs
       - @product.pictures.order(:position).each do |picture|
