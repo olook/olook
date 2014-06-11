@@ -139,66 +139,34 @@
           %label{:for => "tabs_about"}Sobre o Produto
           #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
-            %p.category
-              Modelo:
-              %span
-                Blusa draconiana
-            %p.category
-              Material:
-              %span
-                Couro de Dragão
-        %li
-          = radio_button_tag("tabs", "medidas")
-          %label{:for => "tabs_medidas"}Medidas
-          #tab-content2.tab-content
-            %table
-              %tr.titulo
-                %td
-                %td Ombro
-                %td Busto
-                %td Cintura
-                %td Cós
-                %td Gancho
-                %td Coxa
-                %td Compi.
-              %tr.corsim
-                %td P
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-              %tr
-                %td M
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-              %tr.corsim
-                %td G
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-              %tr
-                %td GG 44/46
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-                %td 12cm
-            %p
-              *Medidas aproximadas em cm
+            - prepare_product_detail_info(@product).each do |detail|
+              %p.category
+                = print_detail_name_for @product, detail
+                %span
+                  = print_detail_value detail
+        - if show_size_tables?(@product)
+          %li
+            = radio_button_tag("tabs", "medidas")
+            %label{:for => "tabs_medidas"}Medidas
+            #tab-content2.tab-content
+              -if @new_detail
+                %table
+                  %tr.titulo
+                    %td
+                    -@size_detail.fetch(:header).each do |header|
+                      %td= header.capitalize
+                  -@size_detail.fetch(:content).each do |size,line|
+                    %tr{class: cycle("corsim", "")}
+                      %td=size
+                      -line.each do |value|
+                        %td= "#{value}cm"
+                %p
+                  ="Modelo Veste #{@size_detail.fetch(:model_size)}"
+                %p
+                  *Medidas aproximadas em cm
+              -else
+                = print_detail_name_for @product, @product_detail_info
+                = print_detail_value @product_detail_info
 
 %br{style: "clear:both"}
 %ul.vantagens
