@@ -17,7 +17,9 @@
       <h1>Resumo dos seus créditos. Você tem:</h1>
       <h2><span><%= number_to_currency @available_credits %></span> disponíveis para uso</h2>
       <h2><%= number_to_currency @holding_credits %> ainda não liberados para uso</h2>
-      <p>Os créditos acumulados por compras realizadas são liberados nos 2 meses seguintes após a confirmação do pedido</p>
+
+      <p>Os créditos acumulados por compras realizadas só podem ser utilizados em compras acima de R$100.</p>
+
       <% if @available_credits <= 0.0 && @holding_credits <= 0.0 %>
         <p class="earn_credits">Você ainda não acumulou créditos. <%= link_to "Saiba como ganhar créditos.", member_earn_credits_path %></p>
       <% end %>
@@ -128,14 +130,10 @@
             <td>Soma dos créditos acumulados</td>
             <td class="value"><%= number_to_currency @holding_credits + @available_credits %></td>
           </tr>
-          <tr>
-            <td>Créditos ainda não liberados</td>
-            <td class="value"><%= number_to_currency @holding_credits %></td>
-          </tr>
-        </tbody>
+         </tbody>
       </table>
       <% if @loyalty_credits.count > 0 %>
-        <p>*A cada compra realizada, você ganhará 15% do valor do seu pedido em créditos para usar nos 2 próximos meses <br /> (em compras acima de R$ 100).</p>
+        <p>A cada compra realizada, você ganhará 15% do valor do seu pedido em créditos para usar na sua próxima compra acima de R$100.</p>
       <% end %>
     </div>
   </div>
