@@ -42,7 +42,7 @@ module Search
         flush_to_sdf_file(file_name, documents)
         upload_sdf_file file_name
       rescue => e
-        Rails.logger.info("Erro ao enviar para amazon: #{e}")
+        Rails.logger.error("Erro ao enviar para amazon: #{e.class}, #{e.message}\n#{e.backtrace.join("\n")}")
         send_failure_mail e
       end
     end
