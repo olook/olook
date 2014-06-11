@@ -11,4 +11,4 @@
         %td Em andamento
       - else
         %td=button_to "Processar", admin_pictures_process_path(key: key), method: :post
-
+  = will_paginate @keys
