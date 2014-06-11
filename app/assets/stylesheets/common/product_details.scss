@@ -465,3 +465,27 @@ input.quero_este {cursor: pointer;}
 @-moz-document url-prefix() {
   .has_bt_face{position:asbolute;right:-78px !important;top:8px;}
 }
+.color {
+  height: 60px;
+  ol{
+    margin-top: 10px;
+  }
+  li {
+    float: left;
+    margin-right: 3px;
+    a img{
+      width: 24px;
+      height: 24px;
+      border: 2px solid #fff;
+      float: left;
+    }
+  }
+  li img{
+    width: 24px;
+    height: 24px;
+    border: 2px solid $base_color;
+  }
+  .color_name{
+    display: none;
+  }
+}
