@@ -149,9 +149,11 @@
                       %td=size
                       -line.each do |value|
                         %td= "#{value}cm"
-                %p
-                  ="Modelo Veste #{@size_detail.fetch(:model_size)}"
-                %p
+                %p.model_size
+                  Modelo Veste:
+                  %span
+                    = @size_detail.fetch(:model_size)
+                %p.alert_guide
                   *Medidas aproximadas em cm
               -else
                 = print_detail_name_for @product, @product_detail_info
