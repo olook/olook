@@ -367,7 +367,7 @@
 
   ul.vantagens{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 35px;
     li.title{
       border-top: 5px solid #363636;
       width: 100%;
@@ -634,4 +634,27 @@ p.wishlist_alert {
 }
 #compartilhar_email{
   display: none;
+}
+
+a#goRelatedProduct {
+  width:111px;
+  height: 111px;
+  display: block;
+  text-indent: -9999px;
+  position: absolute;
+  left: 410px;
+  z-index: 40;
+  top: 111px;
+
+}
+
+a.bt_angel {
+  background: image-url('product/botao_look_completo.png') center center no-repeat;
+}
+
+
+a.bt_domit {
+  background: image-url('product/teste_look_completo.png') center center no-repeat;
+  width: 127px !important;
+  height: 127px !important;
 }
