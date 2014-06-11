@@ -55,6 +55,7 @@ module Search
       errors = JSON.parse(result)['errors']
       if errors
         Rails.logger.info("Erro no arquivo #{file_name}: #{errors.map{|a| a.values.first.split(/\(near/).first}.uniq}")
+        raise "Erros no arquivo #{file_name} #{errors.inspect}" unless Rails.env.production?
       end
       result
     end
