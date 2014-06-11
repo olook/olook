@@ -618,3 +618,26 @@ p.alert {
 #compartilhar_email{
   display: none;
 }
+
+a#goRelatedProduct {
+  width:111px;
+  height: 111px;
+  display: block;
+  text-indent: -9999px;
+  position: absolute;
+  left: 410px;
+  z-index: 40;
+  top: 111px;
+
+}
+
+a.bt_angel {
+  background: image-url('product/botao_look_completo.png') center center no-repeat;
+}
+
+
+a.bt_domit {
+  background: image-url('product/teste_look_completo.png') center center no-repeat;
+  width: 127px !important;
+  height: 127px !important;
+}
