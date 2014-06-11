@@ -71,7 +71,17 @@ class ProductController < ApplicationController
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
 
     create_cart if @product.related_products.any?
-
+    @details = @product.details.only_specification.with_valid_values.to_a.select do |d|
+      if d.translation_token == "Detalhes"
+        @product_detail_info ||= d
+        false
+      else
+        true
+      end
+    end
+    product_detail = Product::GuidesService.new(@product_detail_info.description)
+    @new_detail = product_detail.new_style?
+    @size_detail = product_detail.parse
   end
 
   def canonical_link
