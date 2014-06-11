@@ -134,7 +134,7 @@
         }
       }
       li.product:hover {
-        border:0px;
+        border:1px #fff solid;
       }
   }
   .carousel-prev, 
@@ -234,7 +234,7 @@
       font-weight: bold;
     }
   }
-  .product_added {
+  .look_product_added {
     background: none;
     padding:0px;
     display: none;

@@ -140,7 +140,7 @@ _gaq.push(['_addTrans',
                   <li>
                   <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
                   </li>
-                  <li class="cupom">
+                  <li class="cupom js-coupon">
                   <%= f.submit '', :value => 'APLICAR CUPOM' %>
                   </li>
                 </ol>
@@ -158,7 +158,7 @@ _gaq.push(['_addTrans',
               <strong id="coupon_discount"><%= @cart.coupon.try(:code) %></strong>
               <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <%= f.hidden_field('coupon_code', :value => nil) %>
-                <%= f.submit "Excluir cupom", :class => 'excluirCupom' %>
+                <%= f.submit "Excluir cupom", :class => 'excluirCupom js-coupon' %>
               <% end %>
             </td>
           </tr>
@@ -188,7 +188,7 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="buy-link">
-            <p class="buying-continue"><%= link_to "<< Continuar comprando","/colecoes" %></p>
+            <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>

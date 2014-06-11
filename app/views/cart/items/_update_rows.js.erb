@@ -48,3 +48,6 @@ olookApp.publish('cart:update', {
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
   if(olook.attachFreebieActions) olook.attachFreebieActions();
 <% end %>
+
+olookApp.publish('minicart:update');
+
