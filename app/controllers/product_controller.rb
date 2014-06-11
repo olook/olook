@@ -79,9 +79,11 @@ class ProductController < ApplicationController
         true
       end
     end
-    product_detail = Product::GuidesService.new(@product_detail_info.description)
-    @new_detail = product_detail.new_style?
-    @size_detail = product_detail.parse
+    if @product_detail_info
+      product_detail = Product::GuidesService.new(@product_detail_info.description)
+      @new_detail = product_detail.new_style?
+      @size_detail = product_detail.parse
+    end
   end
 
   def canonical_link
