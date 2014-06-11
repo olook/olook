@@ -60,7 +60,7 @@
       /   %li.email= link_to "Email", "javascript:void(0);"
       / :javascript
       /   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-  %p.wishlist_alert.js-wishlist_alert
+    %p.wishlist_alert.js-wishlist_alert
   .product-info
     %h1{itemprop: 'name'}= @product.formatted_name(200)
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
