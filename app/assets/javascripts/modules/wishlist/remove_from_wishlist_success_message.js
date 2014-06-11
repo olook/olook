@@ -3,7 +3,7 @@ var RemoveFromWishlistSuccessMessage = (function(){
   RemoveFromWishlistSuccessMessage.prototype.facade = function(productId) {
     // product-page
     $('#js-removeFromWishlistButton').fadeOut();
-    $('#js-addToWishlistButton').fadeIn();
+    $('#js-addToWishlistButton').delay(400).fadeIn();
 
     // wishlist page
     $('.js-product-' + productId).fadeOut();
