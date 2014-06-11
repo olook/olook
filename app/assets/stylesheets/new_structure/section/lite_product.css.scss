@@ -291,6 +291,7 @@
       position: absolute;
       top:-30px;
       left:0px;
+      z-index: 99 !important;
       &:hover {
         
       }
@@ -500,18 +501,23 @@
     }
     .icon-facebook:before {
       content: "\e601";
+      display: none;
     }
     .icon-youtube:before {
       content: "\e60c";
+      display: none;
     }
     .icon-twitter:before {
       content: "\e603";
+      display: none;
     }
     .icon-mail:before {
       content: "\e600";
+      display: none;
     }
     .icon-pin:before {
       content: "\e60d";
+      display: none;
     }
     .icon-fav:before {
       content: "\e604";
@@ -575,6 +581,9 @@
 .tabs li:last-child label {
   left:123px !important;
 }
+.tabs li:first-child label {
+  left:0px !important;
+}
 
 p.alert {
     font-family: Arial,"Trebuchet Ms",arial,sans-serif,avenir;
@@ -603,4 +612,6 @@ p.alert {
   display: none;
   background: image-url('common/guia_de_medidas_novo.jpg') no-repeat center center #FFF;
 }
-
+#compartilhar_email{
+  display: none;
+}
