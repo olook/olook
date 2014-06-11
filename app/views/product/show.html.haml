@@ -131,7 +131,7 @@
                 = print_detail_name_for @product, detail
                 %span
                   = print_detail_value detail
-        - if show_size_tables?(@product)
+        - if show_size_tables?(@product) && @product_detail_info
           %li
             = radio_button_tag("tabs", "medidas")
             %label{:for => "tabs_medidas"}Medidas
