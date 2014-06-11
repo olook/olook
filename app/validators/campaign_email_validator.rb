@@ -6,4 +6,3 @@ class CampaignEmailValidator < ActiveModel::Validator
     end
   end
 end
-

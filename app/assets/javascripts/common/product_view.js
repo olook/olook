@@ -30,14 +30,20 @@ var loadWishlistModules = function() {
   new RemoveFromWishlistSuccessMessage().config();
 }
 
+var setZoom = function(context){
+  var it = $(context);
+  var zoom_img = it.data('zoom');
+  if(!zoom_img) zoom_img = it.find('[data-zoom]').data('zoom');
+  it.zoom({url: zoom_img});
+}
+
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   
   /** MODAL GUIA DE MEDIDAS **/
-  $(".size_guide a").click(function(e){
-    modal.show($("#modal_guide"));
+  $(".size_guide a, .size-guide").click(function(e){
+    olook.newModal($('<div id="modal_guide"></div>'), 630, 800, '#000');
     e.preventDefault();
-    
   })
 
   $("div#product-details a.more").live("click", function() {
@@ -46,26 +52,33 @@ $(function() {
     el.append("<a href='javascript:void(0);' class='less'>Esconder</a>");
   });
 
-  $("div#gallery ul#thumbs li a").live("click", function() {
-    rel = $(this).attr('rel');
+  $("#thumbs li a").live("click", function() {
+    var rel = $(this).attr('rel');
     $("div#gallery div#full_pic ul li").hide();
     $("div#gallery div#full_pic ul li."+rel).show();
-    $("ul#thumbs li a").find("img.selected").removeClass("selected");
+    $(this).parents('ul').find("img.selected").removeClass("selected");
     $(this).children().addClass("selected");
     return false;
   });
 
-  
+  $('.thumbs li img').on('click', function(){
+    var it = $(this);
+    $('.js-image-zoom img').attr('src', it.data('full')).data('zoom', it.data('zoom'));
+    setZoom('.js-image-zoom');
+  });
+
+  setZoom('.js-image-zoom');
+
   $(".size ol li").live('click', function() {
     if($(this).hasClass("unavailable") == false) {
-      lists = $(this).parents("ol").find("li");
+      var lists = $(this).parents("ol").find("li");
       lists.find("input[type='radio']").attr('checked', false);
       lists.removeClass("selected");
       $(this).find("input[type='radio']").attr('checked', true);
       $(this).addClass('selected');
-      inventory = $(this).find("input[type='hidden']").val();
-      badge = $("div#gallery div#full_pic p.warn.quantity");
-      remaining = $("div#product-details p.remaining");
+      var inventory = $(this).find("input[type='hidden']").val();
+      var badge = $("div#gallery div#full_pic p.warn.quantity");
+      var remaining = $("div#product-details p.remaining");
       if(inventory < 2) {
         $(remaining).html("Resta apenas <strong><span>0</span> unidade</strong> para o seu tamanho");
       } else {

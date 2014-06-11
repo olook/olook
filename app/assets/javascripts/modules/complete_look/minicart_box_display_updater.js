@@ -2,7 +2,7 @@ var MinicartBoxDisplayUpdater = (function(){
   function MinicartBoxDisplayUpdater(){};
 
   var showEmptyCartBox = function(){
-    $('.cart_related').removeClass('product_added');
+    $('.cart_related').removeClass('look_product_added');
     $('.minicart_price').html("");
     $('.empty_minicart').fadeIn("fast");
   };
