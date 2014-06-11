@@ -501,23 +501,18 @@
     }
     .icon-facebook:before {
       content: "\e601";
-      display: none;
     }
     .icon-youtube:before {
       content: "\e60c";
-      display: none;
     }
     .icon-twitter:before {
       content: "\e603";
-      display: none;
     }
     .icon-mail:before {
       content: "\e600";
-      display: none;
     }
     .icon-pin:before {
       content: "\e60d";
-      display: none;
     }
     .icon-fav:before {
       content: "\e604";
@@ -530,6 +525,10 @@
       color: #a0a0a0;
       background:#e5e5e5;
       margin-top:0px;
+      display: none;
+    }
+    li.icon-fav, li.icon-nofav{
+      display: block;
     }
     li.icon-facebook:hover{
       color: #03307a;
