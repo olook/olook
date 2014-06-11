@@ -55,6 +55,18 @@ module ProductsHelper
 
   end
 
+  def show_size_tables? product
+    product.category == 4
+  end
+
+  def prepare_product_detail_info product
+    if !show_size_tables? product
+      product.details.only_specification.with_valid_values.to_a
+    else
+      product.details.only_specification.with_valid_values.to_a.select{|detail| detail.translation_token != "Detalhes"}
+    end
+  end
+
   def print_detail_value detail
     html_sizes = ""
     sizes = detail.description.split(";")
