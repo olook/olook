@@ -1,6 +1,6 @@
 # encoding: utf-8
 class LoyaltyProgramCreditType < CreditType
-  DAYS_TO_EXPIRE = 61.days
+  DAYS_TO_EXPIRE = 31.days
 
   def self.percentage_for_order
     BigDecimal.new(Setting.percentage_on_order)
