@@ -28,7 +28,7 @@ initProduct = {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
   showAlert : function(){
-    $('p.alert_size, p.js-alert').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
+    $('p.alert_size, p.js-alert').show().html("Selecione seu tamanho").delay(3000).fadeOut();
   },
   // for reasons unknown, this carousel is awkwardly inverted. I had to re-invert the names in order for it to work properly :P
   showCarousel : function() {
