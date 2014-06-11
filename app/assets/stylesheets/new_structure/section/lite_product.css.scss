@@ -605,17 +605,18 @@ p.alert {
 }
 
 p.wishlist_alert {
-    font-family: Arial,"Trebuchet Ms",arial,sans-serif,avenir;
+    font-family: $avenir;
     font-size: 12px;
     color: #c00;
-    width: 150px;
+    width: 135px;
     height: 20px;
     background-color: #ffeeee;
     font-weight: bold;
     padding: 0 8px;
     display: none;
     text-align: center;
-    margin-left: 117px;
+    margin-left: 75px;
+    clear: both;
 }
 
 /*** MODAL GUIA DE MEDIDAS ***/
