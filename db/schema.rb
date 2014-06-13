@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140606194939) do
+ActiveRecord::Schema.define(:version => 20140613174319) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -965,6 +965,8 @@ ActiveRecord::Schema.define(:version => 20140606194939) do
     t.integer  "product_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "subcategory"
+    t.string   "color"
   end
 
   create_table "product_price_logs", :force => true do |t|

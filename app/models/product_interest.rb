@@ -1,13 +1,13 @@
 class ProductInterest < ActiveRecord::Base
-  attr_accessible :campaign_email_id, :product_id
+  attr_accessible :campaign_email_id, :product_id, :color, :subcategory
 
   belongs_to :campaign_email
 
-  def self.creates_for(email, product_id)
+  def self.creates_for(email, product_id,product_color,product_subcategory)
     newsletter_user = newsletter_user_for(email)
 
     # TODO => Nao gostei disso.
-    interest = ProductInterest.new(campaign_email_id: newsletter_user.id, product_id: product_id)
+    interest = ProductInterest.new(campaign_email_id: newsletter_user.id, product_id: product_id, color: product_color, subcategory: product_subcategory)
 
     if newsletter_user.valid?
       interest.save
