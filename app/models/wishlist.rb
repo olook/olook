@@ -7,11 +7,12 @@ class Wishlist < ActiveRecord::Base
   def add variant
     raise 'variant cannot be nil' if variant.nil?
     return false unless variant.valid?
-    return false if find_wished_product_by(variant.number).any?
+    return false if wished_products.where(variant_id: variant.number).any?
 
-    wished_products << WishedProduct.create({
+    wp = wished_products.build({
       retail_price: variant.retail_price,
       variant_id: variant.id})
+    wp.save
   end
 
   def remove variant_number
@@ -35,9 +36,4 @@ class Wishlist < ActiveRecord::Base
   def size
     products.size
   end
-
-  private
-    def find_wished_product_by variant_number
-      products.select{|wp| wp.variant_number == variant_number}
-    end
 end
