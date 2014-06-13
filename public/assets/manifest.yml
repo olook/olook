@@ -609,8 +609,8 @@ common/menu-invitefriends.png: common/menu-invitefriends-38ab7873bc151c9e7d7d646
 common/menu-invitefriends/index.png: common/menu-invitefriends-38ab7873bc151c9e7d7d6468afd20bd3.png
 common/modal_1.jpg: common/modal_1-b791820f1d23437303a134ec731f0b74.jpg
 common/modal_1/index.jpg: common/modal_1-b791820f1d23437303a134ec731f0b74.jpg
-common/modal_video.jpg: common/modal_video-65a2a768212abd3d6ddca62105ed71d1.jpg
-common/modal_video/index.jpg: common/modal_video-65a2a768212abd3d6ddca62105ed71d1.jpg
+common/modal_video.jpg: common/modal_video-e90f62b02b3b7238c79acf3a44976406.jpg
+common/modal_video/index.jpg: common/modal_video-e90f62b02b3b7238c79acf3a44976406.jpg
 common/model-banner.png: common/model-banner-e61de2bf8221bd42da4dd082d563612e.png
 common/model-banner/index.png: common/model-banner-e61de2bf8221bd42da4dd082d563612e.png
 common/model-sign-in.png: common/model-sign-in-4bece78a2fe6a3e1315c8d379219ad7f.png
@@ -759,8 +759,8 @@ common/wishlist/ico_close.png: common/wishlist/ico_close-c1541aa59a418354990ecc0
 common/wishlist/ico_close/index.png: common/wishlist/ico_close-c1541aa59a418354990ecc0a285c81a2.png
 common/wishlist/ico_heart.png: common/wishlist/ico_heart-d22a672ad6e92b4a3b3dbe68f2ce4e8d.png
 common/wishlist/ico_heart/index.png: common/wishlist/ico_heart-d22a672ad6e92b4a3b3dbe68f2ce4e8d.png
-common/wishlist/img_wishlist.png: common/wishlist/img_wishlist-27c5ebf85144d87502d018d6bc8a0f75.png
-common/wishlist/img_wishlist/index.png: common/wishlist/img_wishlist-27c5ebf85144d87502d018d6bc8a0f75.png
+common/wishlist/img_wishlist.png: common/wishlist/img_wishlist-56d0fbcd7add2d31949c614f8addd9ac.png
+common/wishlist/img_wishlist/index.png: common/wishlist/img_wishlist-56d0fbcd7add2d31949c614f8addd9ac.png
 common/wishlist/label_price.png: common/wishlist/label_price-1831bd80369f860a143c742aee7f54e6.png
 common/wishlist/label_price/index.png: common/wishlist/label_price-1831bd80369f860a143c742aee7f54e6.png
 compre_olook_completo.jpg: compre_olook_completo-cc3a4822824eca9d15bacc8e795432bc.jpg
@@ -1477,8 +1477,8 @@ liquidations/shoes.png: liquidations/shoes-c623bf069139e5249c5f26af04752b81.png
 liquidations/shoes/index.png: liquidations/shoes-c623bf069139e5249c5f26af04752b81.png
 login/ico_security.png: login/ico_security-88fddaa5ad60a7cf379eead59e797ad7.png
 login/ico_security/index.png: login/ico_security-88fddaa5ad60a7cf379eead59e797ad7.png
-login/olook_vantagens.png: login/olook_vantagens-eef1c738b301c72ef5a8558760104034.png
-login/olook_vantagens/index.png: login/olook_vantagens-eef1c738b301c72ef5a8558760104034.png
+login/olook_vantagens.png: login/olook_vantagens-6e2ee93f886ddb1f1ffa1751867c58f3.png
+login/olook_vantagens/index.png: login/olook_vantagens-6e2ee93f886ddb1f1ffa1751867c58f3.png
 login/quiz.jpg: login/quiz-3e89d0ae747d0615187c11361eb38805.jpg
 login/quiz/index.jpg: login/quiz-3e89d0ae747d0615187c11361eb38805.jpg
 login/social_icons.png: login/social_icons-dfff32c852a3df1afa4e37890aec174b.png
@@ -2581,8 +2581,8 @@ desktop.css: desktop-6b02a505c723ff925d26ae5232a4553d.css
 desktop/index.css: desktop-6b02a505c723ff925d26ae5232a4553d.css
 jquery.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
 jquery/index.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
-new_structure/lite_application.css: new_structure/lite_application-3ade1c7a02154285a00e5329e7c0d822.css
-new_structure/lite_application/index.css: new_structure/lite_application-3ade1c7a02154285a00e5329e7c0d822.css
+new_structure/lite_application.css: new_structure/lite_application-64832522e9316a1fd5167cee20127322.css
+new_structure/lite_application/index.css: new_structure/lite_application-64832522e9316a1fd5167cee20127322.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-05937b5aae79feb158bad9437b44031d.css
