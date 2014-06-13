@@ -72,8 +72,7 @@
         %br A gente te avisa qualquer novidade ;)
       %form#sold_out{:action => "", :method => "post", :class => "js-product_available_notice_form"}
         %input{:name => "ship-field", :type => "text", :value => current_user.try(:email), :placeholder => "Digite aqui seu e-mail", :class => "js-product_available_notice_email"}
-        = hidden_field_tag("id",@product.id)
-        %button{:type => "button", :class => "js-product_available_notice_submit"} Avise-me quando disponível
+        %button{:type => "button", :class => "js-product_available_notice_submit", data: {product_id: @product.id, product_color: @product.product_color, product_subcategory: @product.subcategory}} Avise-me quando disponível
       %p.notice_error_message.js-product_available_notice_error e-mail inválido
       = render 'colors'
     - else
@@ -128,12 +127,12 @@
           %label{:for => "tabs_about"}Sobre o Produto
           #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
-            - prepare_product_detail_info(@product).each do |detail|
+            - @details.each do |detail|
               %p.category
                 = print_detail_name_for @product, detail
                 %span
                   = print_detail_value detail
-        - if show_size_tables?(@product) && @product_detail_info
+        - if @product_detail_info
           %li
             = radio_button_tag("tabs", "medidas")
             %label{:for => "tabs_medidas"}Medidas
@@ -209,7 +208,7 @@
 
 %br{style: "clear:both"}
 - if @product.has_look_products?(current_admin)
-  = render :partial => 'product/look_products', :locals => {:look_products => @product.look_products(current_admin), :complete_look_discount => Promotion.find(Setting.complete_look_promotion_id).discount_hash }
+  = render :partial => 'product/look_products', :locals => {:look_products => @product.look_products(current_admin), :complete_look_discount => Promotion.find_by_id(Setting.complete_look_promotion_id).try(:discount_hash) }
 
 .chaordic.similaritems
 .chaordic.ultimatebuy
