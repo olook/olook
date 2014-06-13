@@ -71,7 +71,7 @@
         E-mail cadastrado com sucesso! 
         %br A gente te avisa qualquer novidade ;)
       %form#sold_out{:action => "", :method => "post", :class => "js-product_available_notice_form"}
-        %input{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite aqui seu e-mail", :class => "js-product_available_notice_email"}
+        %input{:name => "ship-field", :type => "text", :value => current_user.try(:email), :placeholder => "Digite aqui seu e-mail", :class => "js-product_available_notice_email"}
         = hidden_field_tag("id",@product.id)
         %button{:type => "button", :class => "js-product_available_notice_submit"} Avise-me quando disponível
       %p.notice_error_message.js-product_available_notice_error e-mail inválido
