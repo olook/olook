@@ -127,12 +127,12 @@
           %label{:for => "tabs_about"}Sobre o Produto
           #tab-content1.tab-content
             %p.description{itemprop: 'description'}= @product.description_html.html_safe
-            - prepare_product_detail_info(@product).each do |detail|
+            - @details.each do |detail|
               %p.category
                 = print_detail_name_for @product, detail
                 %span
                   = print_detail_value detail
-        - if show_size_tables?(@product) && @product_detail_info
+        - if @product_detail_info
           %li
             = radio_button_tag("tabs", "medidas")
             %label{:for => "tabs_medidas"}Medidas
