@@ -5,7 +5,7 @@ var ProductAvailableNoticeErrorMessageDisplayer  = (function(){
   };
 
   ProductAvailableNoticeErrorMessageDisplayer.prototype.facade = function(email, productId){
-    $('.js-product_available_notice_error').delay(200).fadeIn();
+    $('.js-product_available_notice_error').fadeIn();
   };
 
   return ProductAvailableNoticeErrorMessageDisplayer;
