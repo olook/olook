@@ -55,7 +55,8 @@
       %li
         = link_to 'Vestido', catalog_path(category:'roupa', parameters: 'vestido-moda-praia'), :class => 'sub_menu'
 
-  %span.column.second
+    %br
+
     %h5 
       = link_to 'PLUS SIZE', catalog_path(category:'curves')
     %ul
@@ -76,3 +77,18 @@
       %li
         = link_to 'Vestido', catalog_path(category:'curves', parameters: 'vestido'), :class => 'sub_menu'
 
+
+  %span.column.third
+    %h5 
+      = link_to 'MAIS BUSCADOS', "#"
+    %ul
+      %li
+        = link_to 'Calça Jeans', '/calca/calca-jeans', :class => 'sub_menu'
+      %li
+        = link_to 'Calça Flare', '/calca/calca-flare', :class => 'sub_menu'
+      %li
+        = link_to 'Camisa Xadrez', '/camisa/camisa-xadrez', :class => 'sub_menu'
+      %li
+        = link_to 'Minissaia', '/saia/minissaia', :class => 'sub_menu'
+      %li
+        = link_to 'Vestido longo', '/vestido/vestido-longo', :class => 'sub_menu'

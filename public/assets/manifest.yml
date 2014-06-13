@@ -2549,8 +2549,8 @@ common/typography.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 common/typography/index.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 customlanding.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
 customlanding/index.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
-desktop.css: desktop-e1e81db81a19c2298080c8ee4d3ae778.css
-desktop/index.css: desktop-e1e81db81a19c2298080c8ee4d3ae778.css
+desktop.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
+desktop/index.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 new_structure/lite_application.css: new_structure/lite_application-70513c096daa7991572e653e534f1aa9.css
