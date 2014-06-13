@@ -57,6 +57,19 @@
       margin-bottom: 30px;
       text-transform: uppercase;
       color: #363636;
+
+      a {
+        text-decoration: none !important;
+        color: #000;
+      }
+      
+      a:hover {
+        color: #ef3742;
+      }
+      
+
+
+
     }
     p.out{
       color: $base_color;
