@@ -4,7 +4,7 @@ class WishedProduct < ActiveRecord::Base
   belongs_to :variant
   belongs_to :wishlist
 
-  validate :variant_id, uniqueness: { scope: :wishlist_id }
+  validates :variant_id, uniqueness: { scope: :wishlist_id }
 
   def product_id
     variant.product_id
