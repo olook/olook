@@ -7,16 +7,16 @@ class Wishlist < ActiveRecord::Base
   def add variant
     raise 'variant cannot be nil' if variant.nil?
     return false unless variant.valid?
-    return false if wished_products.where(variant_id: variant.number).any?
 
     wp = wished_products.build({
       retail_price: variant.retail_price,
+      wishlist_id: self.id,
       variant_id: variant.id})
     wp.save
   end
 
   def remove variant_number
-    to_be_deleted = find_wished_product_by(variant_number)
+    to_be_deleted = wished_products.joins(:variant).where(Variant.arel_table[:number].eq(variant_number))
     deleted = wished_products.delete(to_be_deleted)
     deleted.any?
   end
