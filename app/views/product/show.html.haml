@@ -64,7 +64,8 @@
   .product-info
     %h1{itemprop: 'name'}= @product.formatted_name(200)
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
-      %span{itemprop: 'name'}= @product.brand
+      %span{itemprop: 'name'}
+        = link_to @product.brand, brand_path(@product.brand.downcase)
     - if @product.sold_out?
       %p.out PRODUTO ESGOTADO
       %p.notice_success_message.js-product_available_notice_success 
