@@ -131,7 +131,7 @@ class PromotionAction < ActiveRecord::Base
 
   def apply_filter_collection_theme(cis, filters)
     filter_by(cis, filters, 'collection_theme', condition: lambda { |collection_theme, item|
-      (collection_theme & item.product.collection_themes.map { |c| c.name.to_s.strip.parameterize} ).size > 0
+      (collection_theme & item.product.collection_themes.map { |c| c.slug.to_s.strip.parameterize} ).size > 0
     })
   end
 
