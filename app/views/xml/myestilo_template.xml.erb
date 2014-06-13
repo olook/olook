@@ -7,6 +7,9 @@
       <preco><![CDATA[<%= product.retail_price %>]]></preco>
       <numero_parcelas><![CDATA[<%= installments_number(product.retail_price) %>]]></numero_parcelas>
       <valor_parcelas><![CDATA[<%= installments_value(product.retail_price) %>]]></valor_parcelas>
+      <marca><![CDATA[<%= product.brand %>]]></marca>
+      <cor><![CDATA[<%= product.filter_color %>]]></cor>
+      <descricao><![CDATA[<%= product.description %>]]></descricao>
     </item>
   <% end %>
 </produtos>
