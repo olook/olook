@@ -20,10 +20,14 @@
     %tr
       %th Email
       %th Produto
-      %th Data
+      %th Subcategoria
+      %th Cor
+      %th Criado em
     - @product_interests.each do |interest|
       %tr
         %td= interest.campaign_email.email
-        %td= interest.product_id
+        %td= link_to(interest.product_id, admin_product_path(interest.product_id)) if interest.product_id
+        %td= interest.subcategory
+        %td= interest.color
         %td= interest.created_at
 
