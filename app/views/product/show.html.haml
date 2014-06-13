@@ -34,7 +34,7 @@
     = link_to "Comprar o look completo", "#related", :id => 'goRelatedProduct', :class => 'bt_domit'
   .pics_social
     %ul.thumbs
-      - @product.pictures.order(:position).each do |picture|
+      - pictures_for(@product).each do |picture|
         %li= image_tag("#{picture.image_url(:thumb).to_s}", data: {full: picture.image_url(:main).to_s, zoom: picture.image_url(:zoom_out).to_s })
       - unless @product.youtube_token.blank?
         %li= image_tag("product/bt-modal-video.jpg", class: "js-video-modal", onclick: "#{track_event("Product", "ClickVideo", @product.id.to_s)};javascript:olook.videoModalBuild(olook.youtubePlayer(olook.youtubeParser('#{@product.youtube_token}')));", data: {videoId: @product.youtube_token})
