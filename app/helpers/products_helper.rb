@@ -94,7 +94,7 @@ module ProductsHelper
 
   def pictures_for product      
     limit = product.youtube_token.blank? ? 7 : 6
-    product.pictures.order(:position).first(limit)
+    product.pictures.order(:display_on).first(limit)
   end
 
 end
