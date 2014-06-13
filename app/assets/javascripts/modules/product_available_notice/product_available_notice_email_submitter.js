@@ -5,6 +5,11 @@ var ProductAvailableNoticeEmailSubmitter  = (function(){
     $(".js-product_available_notice_submit").click(function(){
       olookApp.publish('product_available_notice:submit_email');
     });
+
+    $(".js-product_available_notice_form").submit(function(){
+      olookApp.publish('product_available_notice:submit_email');
+      return false;
+    });
   };
 
   ProductAvailableNoticeEmailSubmitter.prototype.facade = function(){
