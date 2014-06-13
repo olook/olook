@@ -2,136 +2,65 @@
 @import 'partials/fonts';
 
 #how_to{
-  min-height: 280px;
-  margin: 0 auto;
-  div#description {
-    width: 100%;
-    overflow: auto;
-    float: left;
-    > h1 {
-      font-family: $johnston;
-      font-size: 24px;
-      text-transform: uppercase;
-      display: block;
-      margin: 0 0 20px;
-      padding-top:10px
-    }
-    h2 {
-      font-family: $kepler;
-      font-size: 16px;
-      width: 100%;
-      margin: 0 0 25px;
-      .txtpink{color: $pink;
-      }
-    }
-    p {
-      margin-bottom: 20px;
-    }
-
-  }
-  div#making_of {
-    position: relative;
-    width: 446px;
-    height: 241px;
-    margin: 75px 0 0;
-    float: right;
-    a.label, h1 {
-      position: absolute;
-    }
-    a.label {
-      background: image-url("lookbooks/label_video.png") no-repeat;
-      color: #FFF;
-      font-family: $johnston;
-      font-size: 12px;
-      font-weight: 100;
-      line-height: 26px;
-      text-decoration: none;
-      text-transform: uppercase;
-      width: 122px;
-      height: 33px;
-      padding: 0 0 0 32px;
-      display: block;
-      top: 10px;
-      right: 0;
-    }
-    h1 {
-      background: image-url('lookbooks/bg-title.png') repeat;
-      color: #FFF;
-      font-family: $kepler;
-      font-size: 22px;
-      font-weight: lighter;
-      width: 418px;
-      margin: 0;
-      padding: 7px 0 7px 15px;
-      left: 0;
-      bottom: 0;
-    }
-    div.video_description {
-      display: none;
-    }
-  }
-}
-
-#steps {
   width: 100%;
-  overflow: hidden;
-  margin: 0 auto 0 10px;
-  h1 {
-    font-family: $avenir;
-    font-size: 24px;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 20px;
-    padding-top:10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  h1{
+    font-family: $verdana;
+    color: #000;
+    text-align: center;
+    font-size: 23px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
-  ul {
+  ul{
     width: 100%;
-    overflow: auto;
-    li {
-      margin-right: 10px;
-      width: 237px;
-      height: 278px;
-      margin-right: 5px !important;
+    margin-top: 40px;
+    li{
       float: left;
-      &#left_box {
-        background: image-url('how_to/box-1.jpg') no-repeat;
+      width: 480px;
+    }
+    .pic{
+      img{
+        margin-left: 70px;
       }
-
-      &#left_box_mid {
-        background: image-url('how_to/box-2.jpg') no-repeat;
+    }
+    .description{
+      p{
+        line-height: 23px;
+        font-size: 15px;
+        text-align: center;
+        width: 315px;
+        color: #000;
+        font-family: $verdana;
+        margin-left: 65px;
+        margin-top: 65px;
+        span{
+          font-weight: bold;
+        }
       }
-
-      &#right_box_mid {
-        background: image-url('how_to/box-3.jpg') no-repeat;
-      }
-
-      &#right_box {
-        background: image-url('how_to/box-4.jpg') no-repeat;
-        margin-right: none !important;
-      }
-      h3 {
-        font-weight: normal;
-        font-size: 16px;
+      a{
+        font-family: $bt_font;
+        font-size: 15px;
         text-transform: uppercase;
+        text-decoration: none;
         text-align: center;
-        text-indent: -9999px;
-        letter-spacing: -1px;
-        width:185px;
+        font-weight: bold;
+        margin-top: 30px;
+        display: block;
+        width: 315px;
+        margin-left: 65px;
       }
-      p {
-        font-size: 11px;
-        text-align: center;
-        text-indent: -9999px;
+    }
+    .mini_infos{
+      width: 970px;
+      img{
+        margin: 50px 10px 50px 50px;
       }
     }
   }
 }
 
-.win {
-  #steps h1 {
-    font-weight: bold;
-  }
-}
 
 .content { 
 width:970px !important;

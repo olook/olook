@@ -1,4 +1,6 @@
-div.credits_description {
+@import 'new_structure/common/global_stuffs';
+
+.credits_description{
   display: none;
   padding: 0 45px;
   float:left;
@@ -36,38 +38,15 @@ div.credits_description {
         font-size: 15px;
         color: #000;
         text-align: center;
-        width: 175px;
-        height: 265px;
-        display: inline-block;
-        float: left;
-        &:first-child {
-          width:140px;
-          background-position: 30px 0;
-          margin-left: 0;
-        }
-        &:last-child, &.last {
-          width: 200px;
-          background-position: -397px 0;
-          margin-left: 33px;
-        }
-        p{
-          line-height: 18px;
-          margin-top: 165px;
-        }
       }
     }
+    .last{
+      margin-right: 0 !important;
+      margin-left: 99px;
+    }
+    .first{
+      margin-left: 31px;
+      margin-right: 132px;
+    }
   }
-  &.clone {
-    display: block;
-  }
-  a.rules {
-    color: #ef3742;
-    text-align: center;
-    display: block;
-    margin: 0 auto;
-    padding: 10px 0;
-    border-top: 1px #eee solid;
-    outline: none;
-  }
-  .close{width:20px;height:20px;border:0;background:image-url("campaign_emails/close_bt.png")no-repeat;position:absolute;top:1px;right:8px;font-size:0;font-family:a;cursor:pointer;}
 }
