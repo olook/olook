@@ -1,52 +1,48 @@
 @import 'new_structure/common/global_stuffs';
 
 .credits_description{
+  width: 800px !important;
+  height: 450px !important;
   display: none;
-  padding: 0 45px;
-  float:left;
-  background:#FFF;
-  position: relative;
-  width: 600px !important;
-  height: 400px;
-  overflow: auto;
-  border:1px solid #a7a9ac;
-  div.box_months {
-    h2 {
-      margin-top: 45px;
-      font-family: $avenir;
-      font-size: 18px;
-      text-align: center;
-      letter-spacing: 2px;
-      font-weight: 600 !important;
-    }
-    h3 {
-      color: #000;
-      font-family: $bt_font;
-      font-size: 19px;
-      font-weight: normal;
-      text-align: center;
-      margin: 20px 20px;
-      line-height: 26px;
-    }
-    ul.steps {
-      margin-top: 20px;
-      overflow: auto;
-      li {
-        background: image-url('loyalty/icon_fidelidade.jpg') no-repeat;
-        margin-left: 40px;
-        background-position: -180px 0;
-        font-size: 15px;
-        color: #000;
+  h2 {
+    font-family: $verdana;
+    font-size: 26px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-top: 40px;
+  }
+  h3 {
+    font-family: $verdana;
+    font-size: 20px;
+    font-weight: lighter;
+    color: #000;
+    text-align: center;
+    margin-top: 25px;
+  }
+  img{
+    margin-left: 63px;
+    margin-top: 50px;
+  }
+  ul{
+    li {
+      width: 170px;
+      float: left;
+      margin-top: 25px;
+      p{
+        font-family: $verdana;
+        line-height: 26px;
+        font-size: 16px;
         text-align: center;
       }
     }
-    .last{
-      margin-right: 0 !important;
-      margin-left: 99px;
-    }
-    .first{
-      margin-left: 31px;
-      margin-right: 132px;
-    }
+  }
+  .last{
+    margin-right: 0 !important;
+    margin-left: 99px;
+  }
+  .first{
+    margin-left: 31px;
+    margin-right: 132px;
   }
 }
