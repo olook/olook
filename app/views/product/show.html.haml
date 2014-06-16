@@ -87,7 +87,7 @@
             por:
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.final_price)}
         - else
-          %p.price
+          %p.price{:class => ('plots' if low_installments?(@product.price))}
             Preço 
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.base_price)}
           - if !low_installments?(@product.price)
