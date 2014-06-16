@@ -3,6 +3,7 @@
   %span.color_name{itemprop: 'color'}= @product.color_name
   %ol.colors
     - @product.all_colors(@shoe_size, current_admin).each do |related_product|
+      - next if related_product.color_sample.blank?
       %li
         - if related_product.id == @product.id
           = image_tag(related_product.color_sample.url, title: related_product.product_color)
