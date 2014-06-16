@@ -131,7 +131,7 @@ footer, .footer_checkout {
         display: block;
         float: right;
         margin-top: -18px;
-        margin-right: 54px;
+        margin-right: 45px;
         &:hover{
           color: $pink;
         }
@@ -252,11 +252,11 @@ footer.footer_checkout{
 
 @font-face {
   font-family: 'icomoon';
-  src: asset-url('icon/icomoon.eot?-twdbeg', 'fonts');
-  src: asset-url('icon/icomoon.eot?#iefix-twdbeg', 'fonts') format('embedded-opentype'),
-    asset-url('icon/icomoon.woff?-twdbeg', 'fonts') format('woff'),
-    asset-url('icon/icomoon.ttf?-twdbeg', 'fonts') format('truetype'),
-    asset-url('icon/icomoon.svg?-twdbeg#icomoon', 'fonts') format('svg');
+  src: font-url('icon/icomoon.eot?-twdbeg');
+  src: font-url('icon/icomoon.eot?#iefix-twdbeg') format('embedded-opentype'),
+    font-url('icon/icomoon.woff?-twdbeg') format('woff'),
+    font-url('icon/icomoon.ttf?-twdbeg') format('truetype'),
+    font-url('icon/icomoon.svg?-twdbeg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -284,16 +284,16 @@ footer.footer_checkout{
 }
 
 .icon-instagram:before {
-  content: "\e600";
+  content: "\e602";
 }
 .icon-facebook:before {
-  content: "\e601";
+  content: "\e607";
 }
 .icon-youtube:before {
-  content: "\e603";
+  content: "\e60b";
 }
 .icon-twitter:before {
-  content: "\e602";
+  content: "\e609";
 }
 
 

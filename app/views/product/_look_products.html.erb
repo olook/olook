@@ -25,7 +25,7 @@
     </div>
     <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
       <% look_products.each do |product| %>
-        <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
+        <%= render 'look_product_item', product: product %>
       <% end %>
     </ul>
 <% if look_products.count > 3 %>

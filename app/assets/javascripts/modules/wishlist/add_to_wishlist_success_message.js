@@ -4,7 +4,7 @@ var AddToWishlistSuccessMessage = (function(){
 
   AddToWishlistSuccessMessage.prototype.facade = function(message) {
     $('#js-addToWishlistButton').fadeOut();
-    $('#js-removeFromWishlistButton').fadeIn();
+    $('#js-removeFromWishlistButton').delay(400).fadeIn();
 
     if($('.js-empty-wishlist-box').size() == 1){
       $('.js-empty-wishlist-box').addClass('wishlistHasProduct').removeClass('wishlist').removeClass('js-empty-wishlist-box').addClass('js-full-wishlist-box');

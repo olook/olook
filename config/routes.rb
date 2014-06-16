@@ -6,6 +6,7 @@ Olook::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :newsletter, only: [:create]
+      resources :product_interest, only: [:create]
     end 
   end
 
@@ -254,6 +255,7 @@ Olook::Application.routes.draw do
 
     resources :headers
     resources :seo_links
+    resources :product_interests, only: [:index]
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"

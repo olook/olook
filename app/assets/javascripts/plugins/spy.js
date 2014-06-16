@@ -33,7 +33,8 @@ olook.spy = function(selector){
         var width = $(document).width(), height = $(document).height();
         $('#overlay-campaign').width(width).height(height).fadeIn();
 
-        var script = $(dataHtml).find('script:first').attr('src');
+        var script = $(dataHtml).filter('script:first').attr('src');
+        var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
 
         $('#quick_view')
         .html(dataHtml)
@@ -47,6 +48,9 @@ olook.spy = function(selector){
         $('#close_quick_view, #overlay-campaign').on("click", function() {
           $('#quick_view, #overlay-campaign').fadeOut(300);
         });
+        if($('head link[href="' + style.attr('href') + '"]').length == 0) {
+          $('head').append(style);
+        }
         if(typeof initProduct !== 'undefined') {
           initProduct.loadAddToCartForm();
         } else {

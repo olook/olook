@@ -537,6 +537,23 @@ class Product < ActiveRecord::Base
     rp_ids
   end      
 
+  def look_products(admin = nil)
+    product_list = self.related_products.inject([]) do |result, related_product|
+      if ((related_product.name != self.name && related_product.category) && (!related_product.sold_out?) || admin)
+        result << related_product
+      else
+        result
+      end
+    end
+    product_list.any? ? ([self] + product_list) : product_list
+  end
+
+  def has_look_products?(admin=false)
+    (look_products(admin).size > 1 && inventory > 0) || admin
+  end
+
+
+
   private
 
     def details_relevance

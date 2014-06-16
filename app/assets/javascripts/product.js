@@ -9,16 +9,16 @@
 //= require plugins/spy
 //= require_tree ./modules/complete_look
 //= require modules/product/load
+//= require modules/product_available_notice/load
 
 initProduct = {
   gotoRelatedProduct :function() {
-    $('a#goRelatedProduct').live('click', function(e) {
+    $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
 
       $.post("/produto/ab_test", {}, function( data ) {
         console.log(data);
       });
-
 
       e.preventDefault();
     });
@@ -26,8 +26,16 @@ initProduct = {
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
-  showAlert : function(){
-    $('p.alert_size').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
+  showAlert : function(el){
+    if(el) {
+      var it = $(el);
+      var alert_p = $('<div class="alert_div"><p class="alert">Selecione seu tamanho</p></div>');
+      it.before(alert_p);
+      $('.alert_div .alert').show();
+      $('.alert_div').delay(3000).fadeOut();
+    } else {
+      $('p.alert_size, p.js-alert').show().html("Selecione seu tamanho").delay(3000).fadeOut();
+    }
   },
   // for reasons unknown, this carousel is awkwardly inverted. I had to re-invert the names in order for it to work properly :P
   showCarousel : function() {
@@ -54,16 +62,16 @@ initProduct = {
     initProduct.changeQuantity(-1);
   },
   changeQuantity: function(by) {
-    var maxVal = initProduct.selectedVariantMaxVal(),
+    var maxVal = initProduct.selectedVariantMaxVal(this),
       newVal = parseInt($("#variant_quantity").val()) + by;
     if(maxVal && newVal <= maxVal && newVal >= 1 ){
       $("#variant_quantity").val(newVal);
     }
   },
-  selectedVariantMaxVal: function(){
+  selectedVariantMaxVal: function(el){
     var variant = $('[name="variant[id]"]:checked');
     if (variant.length == 0) {
-      initProduct.showAlert();
+      initProduct.showAlert(el);
       return false;
     }
     var inventory = $('[name=inventory_' + variant.val() + ']');
@@ -85,7 +93,13 @@ initProduct = {
     $("a.open_loyalty_lightbox").show();
 
     $("form#product_add_to_cart").submit(function() {
-      return !!(initProduct.selectedVariantMaxVal());
+      return !!(initProduct.selectedVariantMaxVal(this));
+    });
+
+    $(".js-add-product").click(function(e) {
+      if(!initProduct.selectedVariantMaxVal(this)){
+        e.stopPropagation();
+      }
     });
 
     $("#add_product").click(function(e){
@@ -103,7 +117,7 @@ initProduct = {
       } else {
         var variant = $('[name="variant[id]"]:checked');
         var inventory = $('#inventory_' + variant.val());
-        if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
+        if(initProduct.selectedVariantMaxVal(this) && it.val() > inventory.val()) {
           it.val(inventory.val());
         }
       }

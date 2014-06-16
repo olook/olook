@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140602194345) do
+ActiveRecord::Schema.define(:version => 20140613174319) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -761,6 +761,16 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
     t.string   "movie_image"
   end
 
+  create_table "looks", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "front_picture"
+    t.datetime "launched_at"
+    t.integer  "profile_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "full_look_picture"
+  end
+
   create_table "mkt_settings", :force => true do |t|
     t.string   "var",                      :null => false
     t.text     "value"
@@ -950,6 +960,15 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
   add_index "points", ["user_id"], :name => "temp_user_id"
 
+  create_table "product_interests", :force => true do |t|
+    t.integer  "campaign_email_id"
+    t.integer  "product_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "subcategory"
+    t.string   "color"
+  end
+
   create_table "product_price_logs", :force => true do |t|
     t.integer  "product_id"
     t.decimal  "price",        :precision => 8, :scale => 2, :default => 0.0, :null => false
@@ -1124,9 +1143,6 @@ ActiveRecord::Schema.define(:version => 20140602194345) do
     t.string   "erp_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cubic_weight_factor"
-    t.integer  "priority"
-    t.string   "erp_delivery_service"
   end
 
   create_table "shippings", :force => true do |t|

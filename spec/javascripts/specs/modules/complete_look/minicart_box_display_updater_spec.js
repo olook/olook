@@ -20,9 +20,9 @@ describe("MinicartBoxDisplayUpdater", function() {
       });
 
       it("must not indicate that there are products inside the cart",function(){
-        setFixtures("<div class='cart_related product_added'></div>");
+        setFixtures("<div class='cart_related look_product_added'></div>");
         new MinicartBoxDisplayUpdater().facade();
-        expect($('.product_added').length).toEqual(0);
+        expect($('.look_product_added').length).toEqual(0);
       });
 
       it("erases the minicart price",function(){

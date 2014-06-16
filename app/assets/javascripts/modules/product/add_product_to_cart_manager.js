@@ -5,7 +5,7 @@ var AddProductToCartManager  = (function(){
   };
 
   var displayAlertSize = function(text){
-    $('p.alert_size').show().html(text).delay(3000).fadeOut();
+    $('p.alert_size, p.js-alert').show().html(text).delay(3000).fadeOut();
   }
 
   var closeSpy = function(){
@@ -28,7 +28,7 @@ var AddProductToCartManager  = (function(){
     var productId = $("#id").val();
 
     if(StringUtils.isEmpty(variantId)){
-      displayAlertSize("Qual é o seu tamanho mesmo?");
+      displayAlertSize("Selecione seu tamanho");
     } else {
       $.post('/sacola/items.json', {"variant[id]": variantId, "variant[quantity]": quantity, id: productId})
         .done(function(data) {
