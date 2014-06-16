@@ -80,6 +80,18 @@ class Promotion < ActiveRecord::Base
     matches?(cart)
   end
 
+  def discount_hash
+    discount_hash = nil
+    begin
+      filters = self.action_parameter.action_params
+      discount = self.action_parameter.promotion_action.desc_value filters
+      discount_hash = {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
+    rescue
+      discount_hash = {}
+    end
+    discount_hash
+  end
+
   private
 
     def self.matched_promotions_for cart

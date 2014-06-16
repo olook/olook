@@ -28,19 +28,13 @@ class ProductPresenter < BasePresenter
     image_url = product.pictures.first.image_url(:main).to_s if product.pictures.first
     "http://pinterest.com/pin/create/button/?url=http://#{h.request.host_with_port}/produto/#{product.id}&media=#{image_url}&description=#{h.share_description(product)}"
   end
-  
+
   def render_quantity
     h.render :partial => 'product/quantity_product', :locals => {:product_presenter => self, :product => product}
-  end  
-  
-  def render_add_to_cart
-    return '' if only_view?
+  end
 
-    if gift?
-      h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
-    else
-      h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
-    end
+  def render_add_to_cart
+    h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
   end
 
   def render_details
@@ -48,8 +42,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_colors
-    return '' if only_view?
-    h.render :partial => 'product/colors', :locals => {:product => product, :gift => gift?, :shoe_size => shoe_size}
+    h.render :partial => 'product/colors', :locals => {:product => product, :gift => false, :shoe_size => shoe_size}
   end
 
   def render_facebook_comments
@@ -74,8 +67,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_multiple_sizes
-    variants = product.variants.sorted_by_description
-    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size, :show_cloth_size_table => false}
+    h.render :partial => 'product/sizes', :locals => {:variants => product.variants.sorted_by_description, :shoe_size => shoe_size, :show_cloth_size_table => false}
   end
 
   def render_accessory_sizes

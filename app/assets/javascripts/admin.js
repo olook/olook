@@ -6,10 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require_tree ./plugins
 //= require_tree ./common
-//= require_tree ./ui
+//= require_tree ../../../vendor/assets/javascripts/ui-v1.10.4
 //= require_tree ./admin
 $(function() {
   $("#search_custom_cpf_finder").setMask("999.999.999-99")

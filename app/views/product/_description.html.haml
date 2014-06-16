@@ -1,12 +1,23 @@
 #product-info.pl9
   %h1= @product.formatted_name(200)
   %h2= @product.brand
-  = product_presenter.render_price_for @product_discount_service
+  - @product_discount_service.calculate_without_promotion_or_coupon
+  - if @product_discount_service.discount > 0
+    %p.price_retail.left2
+      de:
+      = number_to_currency(@product_discount_service.base_price)
+    %p.price.left2
+      por:
+      = number_to_currency(@product_discount_service.final_price)
+
+  - else
+    %p.price= number_to_currency(@product_discount_service.base_price)
   - unless @product.promotion?
     %p.plots
       ou em #{installments(@product.price)}
   - if current_user && !current_user.reseller && params[:action] != "spy"
-    %div{:class => "warn_discount #{product_presenter.is_promotion? ? 'promotion' : ''}"}
+    - promotion = (!current_user || (current_user && current_user.first_time_buyer?)) && (@product.retail_price > (@product.price * 0.8)) || @product.promotion?
+    %div{:class => "warn_discount #{promotion ? 'promotion' : ''}"}
       %p
         Compre e ganhe #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} em créditos,
         \#{link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"}

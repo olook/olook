@@ -16,8 +16,8 @@
   <% if @product.liquidation? && !@product.sold_out? %>
     <p class="warn percentage"><span><%= @product.discount_percent.to_i %>%</span><br />off</p>
   <% end %>
-  <% if product_presenter.show_quantity_left? %>
-    <p class="warn quantity">Só<span class="more">mais</span><span class="js-remaining-badge"><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
+  <% if @product.quantity(current_user.try(:shoes_size)) > 0 && @product.quantity(current_user.try(:shoes_size)) < 4 %>
+    <p class="warn quantity">Só<span class="more">mais</span><span class="js-remaining-badge"><%= "#{(current_user.try(:shoes_size).nil?) ? '' : @product.quantity( current_user.try(:shoes_size) )}" %></span></p>
   <% end %>
   <ul>
     <% @product.pictures.order(:position).each_with_index do |picture, index| %>
