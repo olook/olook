@@ -20,10 +20,10 @@ var TwitterShare  = (function(){
   
   TwitterShare.prototype.config = function(){
     olookApp.subscribe('product:twitter_share', this.facade, {}, this);
-    document.querySelectorAll('.js-twitter_share')[0].onclick = function(event) {
+    $('.js-twitter_share').click(function(event) {
       olookApp.publish('product:twitter_share');
       return false;
-    };
+    });
   };
 
   TwitterShare.prototype.facade = function(){
