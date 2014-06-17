@@ -3,7 +3,7 @@ require 'redis'
 
 describe Leaderboard do
   before do
-    Leaderboard.clear
+    Redis.new.flushall
   end
   context "in case of error" do
     it "should not raise an error" do
