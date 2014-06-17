@@ -2,7 +2,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../../lib/leaderboar
 require 'redis'
 
 describe Leaderboard do
-  after do
+  before do
     Leaderboard.clear
   end
   context "in case of error" do
