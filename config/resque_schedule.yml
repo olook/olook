@@ -98,23 +98,11 @@ send_billet_reminder:
   queue: low
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
-send_enabled_credits_notification:
-  cron: "0 5 1 * *"
-  class: SendEnabledCreditsNotificationWorker
-  queue: low
-  description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
-
 send_seven_days_to_expiration_warning:
-  cron: "40 4 23 * *"
+  cron: "40 4 * * *"
   class: SendExpirationWarningWorker
   queue: low
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
-
-send_one_day_to_expiration_warning:
-  cron: "15 3 27 * *"
-  class: SendExpirationTomorrowWarningWorker
-  queue: low
-  description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 force_clearsale_callback:
   cron: "*/5 * * * *"
