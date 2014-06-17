@@ -48,7 +48,7 @@
           %li.icon-fav.wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
             %p
               Favoritar
-        %li.icon-twitter
+        %li.icon-twitter.js-twitter_share{'data-text' => share_description(@product,false), 'data-product-url' => ERB::Util.url_encode(product_seo_url(@product.seo_path)) }
         %li.icon-facebook
         %li.icon-instagram
         %li.icon-pin

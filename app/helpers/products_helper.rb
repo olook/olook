@@ -20,14 +20,18 @@ module ProductsHelper
     classes.join(" ")
   end
 
-  def share_description(product)
-    if product.category == 1 #shoes
-      "Vi o sapato #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
-    elsif product.category == 2 #purse
-      "Vi a bolsa #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
-    else #accessory
-      "Vi o acessório #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
+  def share_description(product,has_link=true)
+    response = if product.category == 1
+      "Vi o sapato #{product.name} no site da olook e amei! <3" 
+    elsif product.category == 2
+      "Vi a bolsa #{product.name} no site da olook e amei! <3" 
+    elsif product.category == 3
+      "Vi o acessório #{product.name} no site da olook e amei! <3"
+    else
+      "Vi a roupa #{product.name} no site da olook e amei! <3" 
     end
+    response = "#{response} #{product_seo_url(product.seo_path)}" if has_link
+    response
   end
 
   def print_detail_name_for product, detail

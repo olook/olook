@@ -525,7 +525,7 @@
     .icon-youtube:before {
       content: "\e60c";
     }
-    .icon-twitter:before {
+    .icon-twitter a:before {
       content: "\e603";
     }
     .icon-mail:before {
@@ -571,7 +571,6 @@
     }
     li.icon-facebook,
     li.icon-youtube,
-    li.icon-twitter,
     li.icon-pin,
     li.icon-mail,
     li.icon-instagram {
