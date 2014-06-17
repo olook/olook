@@ -13,9 +13,13 @@ module CollectionThemesHelper
     {catalog_path(category: "sapato") => "sapato", catalog_path(category: "acessorio") => "acessório", catalog_path(category: "bolsa") => "bolsa", catalog_path(category: "roupa") => "Roupa"}[request.fullpath]
   end
 
+  def low_installments?(price)
+    price <= MIN_INSTALLMENT_VALUE
+  end
+
   private
-    def number_of_installments_for price
-      return 1 if price <= MIN_INSTALLMENT_VALUE
+    def number_of_installments_for(price)
+      return 1 if low_installments?(price)
       return MAX_INSTALLMENT_NUMBER if price >= MIN_INSTALLMENT_VALUE * MAX_INSTALLMENT_NUMBER
 
       price.to_i / MIN_INSTALLMENT_VALUE

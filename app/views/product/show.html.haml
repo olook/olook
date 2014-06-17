@@ -88,13 +88,14 @@
             por:
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.final_price)}
         - else
-          %p.price
+          %p.price{:class => ('plots' if low_installments?(@product.price))}
             Preço 
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.base_price)}
-          %p.plots 
-            Ou em 
-            %span
-              #{installments(@product.price)}
+          - if !low_installments?(@product.price)
+            %p.plots 
+              Ou em 
+              %span
+                #{installments(@product.price)}
       #add-to-cart
         = hidden_field_tag("id",@product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)
