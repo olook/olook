@@ -1,4 +1,7 @@
-var name = $("input#name_from").val(), email = $("#email_from").val(), to = $("#emails_to_deliver").val();
+var name = $("input#name_from").val(), 
+    email = $("#email_from").val(), 
+    to = $("#emails_to_deliver").val();
+
 if(name == "" || email == "" || to == ""){
    $(".msg").addClass("error").delay(300).fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação");
    $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
