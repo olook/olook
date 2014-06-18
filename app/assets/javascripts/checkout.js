@@ -93,26 +93,6 @@ function retrieve_shipping_service(){
   retrieve_freight_price_for_checkout(zipcode, shipping_service_id,force_shipping_policy);
 }
 
-function retrieve_zip_data(zip_code) {
-
-  $.ajax({
-    url: '/address_data',
-  type: 'POST',
-  data: {
-    zip_code: zip_code
-  },
-  beforeSend: function(){
-    $("#address_fields").fadeOut();
-  },
-  success: function(){
-    $("#address_fields").delay(300).fadeIn();
-    masks.tel(".tel_contato1");
-    masks.tel(".tel_contato2");
-    masks.cep();
-  }
-  });
-}
-
 function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();
 }
