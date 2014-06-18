@@ -2,6 +2,27 @@
 require 'spec_helper'
 
 describe ProductsHelper do
+  describe "#share_description" do
+    let(:shoe){FactoryGirl.build(:shoe, id: 1)}
+    let(:bag){FactoryGirl.build(:bag, id: 1)}
+    context "When dont need to have product link" do
+      it "return message with 'o' letter" do
+        expect(helper.share_description(shoe,false)).to eql("Vi o sapato #{shoe.name} no site da Olook e amei! <3")
+      end
+      it "return message with 'a' letter" do
+        expect(helper.share_description(bag,false)).to eql("Vi a bolsa #{bag.name} no site da Olook e amei! <3")
+      end
+    end
+    context "When need to have product link" do
+      it "return message with 'o' letter" do
+        expect(helper.share_description(shoe)).to eql("Vi o sapato #{shoe.name} no site da Olook e amei! <3 #{product_seo_url(shoe.seo_path)}")
+      end
+      it "return message with 'a' letter" do
+        expect(helper.share_description(bag)).to eql("Vi a bolsa #{bag.name} no site da Olook e amei! <3 #{product_seo_url(bag.seo_path)}")
+      end
+    end
+  end
+
   with_a_logged_user do
     let!(:user_info) { FactoryGirl.create(:user_info, user: user) }
     let(:not_size_variant) { FactoryGirl.create(:basic_shoe_size_37) }

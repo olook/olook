@@ -2,6 +2,7 @@
 module ProductsHelper
   HEEL_MODELS = ["anabela","ankle boot","boneca","bota","creeper","oxford","peep toe","sandália","scarpin","sneaker"]
   SORT_WORDS = ["Confira!","Clique e confira!", "Veja mais!","Conheça!"]
+  MALE_CATEGORY = [1,3]
 
   def variant_classes(variant, shoe_size = nil)
     classes = []
@@ -20,14 +21,11 @@ module ProductsHelper
     classes.join(" ")
   end
 
-  def share_description(product)
-    if product.category == 1 #shoes
-      "Vi o sapato #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
-    elsif product.category == 2 #purse
-      "Vi a bolsa #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
-    else #accessory
-      "Vi o acessório #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
-    end
+  def share_description(product,has_link=true)
+    article = MALE_CATEGORY.include?(product.category) ? "o" : "a"
+    message = "Vi #{article} #{product.category_humanize.downcase} #{product.name} no site da Olook e amei! <3"
+    message.concat(" #{product_seo_url(product.seo_path)}") if has_link
+    message
   end
 
   def print_detail_name_for product, detail

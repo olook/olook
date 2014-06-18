@@ -45,8 +45,6 @@ class ProductController < ApplicationController
   def load_show_product
     @google_path_pixel_information = "product"
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    @url = request.protocol + request.host
-
     product_name = params[:id]
     product_id = product_name.split("-").last.to_i
     @product = if current_admin
