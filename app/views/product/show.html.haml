@@ -48,13 +48,11 @@
           %li.icon-fav.wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{has_wished?(@product.id) ? 'none' : 'block'}"}
             %p
               Favoritar
-        %li.icon-twitter
-        %li.icon-facebook
+        %li.icon-twitter.js-twitter_share{'data-text' => share_description(@product,false), 'data-product-url' => ERB::Util.url_encode(product_seo_url(@product.seo_path)) }
+        %li.icon-facebook.js-facebook_share{'data-product-url' => product_seo_url(@product.seo_path)}
         %li.icon-instagram
         %li.icon-pin
         %li.icon-mail
-      /   %li.twitter
-      /     %a.twitter-share-button{data: { count: "none", size: "none", hashtags: "ficaadica", lang: "pt" }, :href => "https://twitter.com/share?text=#{share_description(@product)}"} Tweetar
       /   %li.fb
       /     .fb-share-button{data: {href: product_seo_url(@product.seo_path), type: "icon_link"} }
       /   %li.email= link_to "Email", "javascript:void(0);"

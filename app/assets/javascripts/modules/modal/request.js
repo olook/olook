@@ -1,11 +1,14 @@
 var ModalRequest = (function(){
-  function ModalRequest() {};
+  function ModalRequest(selector) {
+    this.selector = selector;
+  };
+
   ModalRequest.prototype.config = function(){
-    olookApp.subscribe('modal:request', this.facade);
+    olookApp.subscribe('modal:request', this.facade, {}, this);
   };
 
   ModalRequest.prototype.facade = function(path){
-    $.get("/modal", {path: path}).done(function(data){
+    this.selector.get("/modal", {path: path}).done(function(data){
       olookApp.publish("modal:show", data);
     }).fail(function() {
       olookApp.publish("modal:error");

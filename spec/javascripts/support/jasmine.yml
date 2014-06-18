@@ -21,6 +21,7 @@ src_files:
   - vendor/assets/javascripts/mediator.js
   - app/assets/javascripts/application_core/olook_app.js
   - app/assets/javascripts/modules/**/*.js
+  - '!app/assets/javascripts/modules/**/load.js'
   # - assets/javascripts/*.js
   # - assets/application.js
 

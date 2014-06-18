@@ -3,5 +3,5 @@
 //= require modules/modal/post
 
 new ModalShow().config();
-new ModalRequest().config();
+new ModalRequest(jQuery).config();
 new ModalPost().config();
