@@ -607,28 +607,34 @@
   left:0px !important;
 }
 
-div.alert_div {
-  position: relative;
-  width: 100%;
-  clear: both;
-  p.alert {
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    margin-left: -68px;
-  }
-}
 p.alert {
     font-family: Arial,"Trebuchet Ms",arial,sans-serif,avenir;
     font-size: 12px;
-    width: 136px;
     color: #c00;
+    width: 150px;
+    height: 20px;
+    margin-left: 100px;
+    margin-top: 10px;
+    background-color: #ffeeee;
+    font-weight: bold;
+    margin-bottom: 10px;    
+    padding: 3px 8px;
+    display: none;
+    text-align: center;
+}
+
+p.wishlist_alert {
+    font-family: $avenir;
+    font-size: 12px;
+    color: #c00;
+    width: 135px;
     height: 20px;
     background-color: #ffeeee;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 0 8px;
     display: none;
     text-align: center;
+    margin-left: 75px;
     clear: both;
 }
 

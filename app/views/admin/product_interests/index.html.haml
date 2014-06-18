@@ -16,6 +16,9 @@
           = f.date_select :created_at_lte, :include_blank => true
         =f.submit 'Procurar', :class => "button"
 .inner
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @products
   %table.table
     %tr
       %th Email
@@ -30,4 +33,7 @@
         %td= interest.subcategory
         %td= interest.color
         %td= interest.created_at
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @products
 

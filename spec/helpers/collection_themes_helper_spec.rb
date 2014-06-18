@@ -3,6 +3,15 @@ require 'spec_helper'
 
 describe CollectionThemesHelper do
 
+  describe "#low_installments?" do
+    context "When installments is low than minimum" do
+      it{expect(helper.low_installments?(25.9)).to be_true}
+    end
+    context "When installments is high than minimum" do
+      it{expect(helper.low_installments?(65.9)).to be_false}
+    end
+  end
+
   describe "#installments" do
     context "when price is 83,56" do
       it "return '2 x de R$ 40,00'" do

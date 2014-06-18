@@ -9,8 +9,8 @@
   %meta{content: @facebook_app_id, property: "fb:app_id"}/
   %meta{content: "#{@product.name} | Olook", property: "og:title"}/
   %meta{content: @product.description, property: "og:description"}/
-  %meta{content: @product.catalog_picture.to_s, property: "og:image"}/
-  %meta{content: "#{@url}/produto/#{@product.id}", property: "og:url"}/
+  %meta{content: "http://#{@product.catalog_picture.to_s}", property: "og:image"}/
+  %meta{content: product_seo_url(@product.seo_path), property: "og:url"}/
   %meta{content: "Olook", property: "og:site_name"}/
   %meta{content: "product.item", property: "og:type"}/
   %meta{content: "product", name: "chaordic:source"}/
@@ -58,6 +58,7 @@
       /   %li.email= link_to "Email", "javascript:void(0);"
       / :javascript
       /   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    %p.wishlist_alert.js-wishlist_alert
   .product-info
     %h1{itemprop: 'name'}= @product.formatted_name(200)
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
@@ -85,13 +86,14 @@
             por:
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.final_price)}
         - else
-          %p.price
+          %p.price{:class => ('plots' if low_installments?(@product.price))}
             Preço 
             %span{itemprop: 'price'} #{number_to_currency(@product_discount_service.base_price)}
-          %p.plots 
-            Ou em 
-            %span
-              #{installments(@product.price)}
+          - if !low_installments?(@product.price)
+            %p.plots 
+              Ou em 
+              %span
+                #{installments(@product.price)}
       #add-to-cart
         = hidden_field_tag("id",@product.id)
         - if [Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES].include?(@product.category)
@@ -110,6 +112,7 @@
           = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
+        %p.alert.js-alert
         = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
