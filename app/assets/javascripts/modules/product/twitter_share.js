@@ -27,6 +27,7 @@ var TwitterShare  = (function(){
   };
 
   TwitterShare.prototype.facade = function(){
+    _gaq.push(['_trackEvent', 'Share', 'Twitter', 'Product_page', , true]);
     shareOnTwitter();
   };
 
