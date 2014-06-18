@@ -1,6 +1,6 @@
 describe("TwitterShare", function() {
   beforeEach(function () {
-    loadFixtures("twitter_share.html");
+    loadFixtures("social_share.html");
   });
 
   describe("#config", function() {
