@@ -1,21 +1,24 @@
 describe("ModalRequest", function() {
   describe("#facade", function(){
-    var selector;
     beforeEach(function(){
-      selector = {
+      $ = {
         get:function(){},
         done:function(){},
         fail:function(){},
       };
-      spyOn(selector, 'get').andReturn(selector);
-      spyOn(selector, 'done').andReturn(selector);
-      spyOn(selector, 'fail').andReturn(selector);
+      spyOn($, 'get').andReturn($);
+      spyOn($, 'done').andReturn($);
+      spyOn($, 'fail').andReturn($);
     });
 
+    afterEach(function(){
+      $ = jQuery;
+    });    
+
     it("should call get on /modal", function(){
-      var obj = new ModalRequest(selector);
+      var obj = new ModalRequest();
       obj.facade('pathfromcaller');
-      expect(selector.get).toHaveBeenCalledWith('/modal', {path: 'pathfromcaller'});
+      expect($.get).toHaveBeenCalledWith('/modal', {path: 'pathfromcaller'});
     });
 
   });
