@@ -2,7 +2,9 @@
 //= require modules/product/show_cart_modal_manager
 //= require modules/product/add_product_to_cart_manager
 //= require modules/product/twitter_share
+//= require modules/product/facebook_share
 
+new FacebookShare().config();
 new TwitterShare().config();
 new AddProductToCartManager().config();
 new CartRedirectManager().config();

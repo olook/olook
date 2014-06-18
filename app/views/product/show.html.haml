@@ -49,7 +49,7 @@
             %p
               Favoritar
         %li.icon-twitter.js-twitter_share{'data-text' => share_description(@product,false), 'data-product-url' => ERB::Util.url_encode(product_seo_url(@product.seo_path)) }
-        %li.icon-facebook
+        %li.icon-facebook.js-facebook_share{'data-product-url' => ERB::Util.url_encode(product_seo_url(@product.seo_path))}
         %li.icon-instagram
         %li.icon-pin
         %li.icon-mail
