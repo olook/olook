@@ -1,10 +1,10 @@
 /* 
-  Para utilizar essa classe, deve-se ter um elemento com a classe 'js-twitter_share'. 
-Este elemento, por sua vez, deve conter um parametro chamado data-product-url, possuindo o url do produto,
-e um parametro chamado data-text, com o texto a ser compartilhado.
 
-  Obs.: Para personalizar o tamanho do box do twitter, devem ser passadas as dimensoes do box de share no
-  momento do publish da mensagem.
+Para utilizar essa classe, deve-se ter um elemento com a classe 'js-twitter_share'. 
+Este elemento, por sua vez, deve conter um parametro chamado data-product-url, possuindo o url do produto,
+e um parametro chamado data-text, com o texto a ser compartilhado. Tambem devem ser passadas as dimensoes do 
+box de share no momento do publish da mensagem.
+
 */
 
 var TwitterShare  = (function(){
@@ -13,8 +13,8 @@ var TwitterShare  = (function(){
   var shareOnTwitter = function(w, h){
     var product_url = $('.js-twitter_share').data('product-url');
     var text = $('.js-twitter_share').data('text');
-    var width  = (typeof w === "undefined") ? 575 : w;
-    var height = (typeof h === "undefined") ? 400 : h;
+    var width  = w;
+    var height = h;
 
     var left   = ($(window).width()  - width)  / 2,
     top    = ($(window).height() - height) / 2,
@@ -31,7 +31,7 @@ var TwitterShare  = (function(){
   TwitterShare.prototype.config = function(){
     olookApp.subscribe('product:twitter_share', this.facade, {}, this);
     $('.js-twitter_share').click(function(event) {
-      olookApp.publish('product:twitter_share',1000,1000);
+      olookApp.publish('product:twitter_share',575,400);
       return false;
     });
   };

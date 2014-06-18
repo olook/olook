@@ -24,7 +24,7 @@ describe("TwitterShare", function() {
     describe("when the class is clicked", function() {
       it("must publish to twitter_share channel",function(){
         $('.js-twitter_share').click();
-        expect(olookApp.publish).toHaveBeenCalledWith("product:twitter_share");
+        expect(olookApp.publish).toHaveBeenCalledWith("product:twitter_share", 575,400);
       });
     });
   });
