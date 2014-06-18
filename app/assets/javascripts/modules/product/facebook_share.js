@@ -1,3 +1,10 @@
+/* 
+
+Para utilizar essa classe, deve-se ter um elemento com a classe 'js-facebook_share'. 
+Este elemento, por sua vez, deve conter um parametro chamado data-product-url, possuindo o url do produto. 
+
+*/
+
 var FacebookShare  = (function(){
   function FacebookShare(selector) {
     this.selector = selector;
