@@ -4,8 +4,7 @@
 //= require modules/product/twitter_share
 //= require modules/product/facebook_share
 
-new FacebookShare().config();
-new TwitterShare().config();
+new FacebookShare(jQuery).config();
 new TwitterShare(jQuery).config();
 new AddProductToCartManager().config();
 new CartRedirectManager().config();

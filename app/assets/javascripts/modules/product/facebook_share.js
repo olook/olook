@@ -1,5 +1,7 @@
 var FacebookShare  = (function(){
-  function FacebookShare() {};
+  function FacebookShare(selector) {
+    this.selector = selector;
+  };
 
   FacebookShare.prototype.config = function(){
     olookApp.subscribe('product:facebook_share', this.facade, {}, this);
@@ -11,8 +13,7 @@ var FacebookShare  = (function(){
 
   FacebookShare.prototype.facade = function(){
     _gaq.push(['_trackEvent', 'Share', 'Facebook', 'Product_page', , true]);
-    var product_url = $('.js-facebook_share').data('product-url');
-    debugger;
+    var product_url = this.selector('.js-facebook_share').data('product-url');
     FB.ui({
       method: 'share',
       href: product_url,
