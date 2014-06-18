@@ -41,6 +41,7 @@ describe PaymentBuilder do
       payment = double(Payment)
       moip_sender_strategy.should_receive(:send_to_gateway).and_return(payment)
       moip_sender_strategy.should_receive(:return_code).and_return(nil)
+      moip_sender_strategy.should_receive(:payment_successful?).and_return(false)
       subject.process!
     end
 
