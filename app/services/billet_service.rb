@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class BilletService
 
-  ALLOWED_PAYMENT_TYPES_REGEX = [/LIQ\.I\.BANKING/, /LIQ\.\ AUTOATEN/, /LIQ\ COMPENS/,/LIQ\.CX\.DINH\./, /LIQ\. CORBAN/, /LIQ\.\ PGTO\ FOR/]
+  ALLOWED_PAYMENT_TYPES_REGEX = [/LIQ\.I\.BANKING/, /LIQ\.\ AUTOATEN/, /LIQ\ COMPENS/,/LIQ\.CX\.DINH\./, /LIQ\. CORBAN/, /LIQ\.\ PGTO\ FOR/, /LIQ\.\ TELEATEN/]
 
   def self.process_billets(file_name)
     billet_numbers_array, successful_value = parse_file(file_name)
