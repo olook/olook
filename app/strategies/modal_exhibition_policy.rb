@@ -1,6 +1,6 @@
 class ModalExhibitionPolicy
   BLACK_LIST = /(sacola|pagamento|admin)/
-  NUMBER_OF_VIEWS_TO_SHOW = [0,6]
+  NUMBER_OF_VIEWS_TO_SHOW = [0,5]
 
   def self.apply?(opts={})
     return false if opts[:mobile] == true || opts[:user]
