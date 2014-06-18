@@ -80,7 +80,7 @@
     <p>Prazo de entrega: <%= @order.freight.delivery_time %> dias úteis</p>
     <% loyalty_credits = LoyaltyProgramCreditType.amount_for_order(@order) %>
     <% if loyalty_credits > 0 %>
-<p>Por esta compra, você ganhou <b><%= number_to_currency loyalty_credits %></b> em créditos de Fidelidade que estarão disponíveis para serem utilizados a partir do próximo mês!
+<p>Por esta compra, você ganhou <b><%= number_to_currency loyalty_credits %></b> em créditos de Fidelidade que já estão disponíveis para a sua próxima compra ;)
   <% end %>
 
 <center>Enquanto espera seu pedido chegar, <br>que tal convidar suas amigas para ganhar créditos?</center><p>
@@ -89,7 +89,7 @@
             <tr>
               <td height="30" bgcolor="ef3742" align="center">
               <center>
-                   <a href="http://www.olook.com.br/membro/convite/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t6_pagamento_confirmado" style="color:#ffffff; font-size:14px;text-decoration:none;">CONVIDAR MINHAS AMIGAS</a>
+                   <a href="http://www.olook.com.br/membro/ganhe-creditos?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t6_pagamento_confirmado" style="color:#ffffff; font-size:14px;text-decoration:none;">CONVIDAR MINHAS AMIGAS</a>
               </center>
               </td>
             </tr>
