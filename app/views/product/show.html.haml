@@ -9,8 +9,8 @@
   %meta{content: @facebook_app_id, property: "fb:app_id"}/
   %meta{content: "#{@product.name} | Olook", property: "og:title"}/
   %meta{content: @product.description, property: "og:description"}/
-  %meta{content: @product.catalog_picture.to_s, property: "og:image"}/
-  %meta{content: "#{@url}/produto/#{@product.id}", property: "og:url"}/
+  %meta{content: "http://#{@product.catalog_picture.to_s}", property: "og:image"}/
+  %meta{content: product_seo_url(@product.seo_path), property: "og:url"}/
   %meta{content: "Olook", property: "og:site_name"}/
   %meta{content: "product.item", property: "og:type"}/
   %meta{content: "product", name: "chaordic:source"}/
