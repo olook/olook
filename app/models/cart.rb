@@ -86,10 +86,6 @@ class Cart < ActiveRecord::Base
     items.inject(0) {|sum, item| /Coupon:/ =~ item.cart_item_adjustment.source ? sum + item.adjustment_value : 0 }
   end
 
-  def total_price
-    items.inject(0) { |total, item| total += item.quantity * item.price }
-  end
-
   def sub_total
     items.inject(0) do |total, item|
       total += (item.quantity * item.retail_price)

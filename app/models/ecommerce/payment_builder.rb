@@ -4,6 +4,7 @@ class PaymentBuilder
   attr_accessor :cart_service, :payment, :delivery_address, :response, :gateway_strategy
 
   def initialize(opts = { })
+    @cart = opts[:cart] || opts[:cart_service].cart
     @cart_service = opts[:cart_service]
     @payment = opts[:payment]
     @gateway_strategy = opts[:gateway_strategy]

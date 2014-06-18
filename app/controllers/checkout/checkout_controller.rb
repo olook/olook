@@ -34,8 +34,11 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.address = address
     @cart_service.prefered_shipping_services = params[:checkout][:shipping_service]
 
+
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
-    payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
+    payment_builder = PaymentBuilder.new(cart: @cart_service.cart, cart_service: @cart_service,
+                                         payment: payment, gateway_strategy: sender_strategy,
+                                         tracking_params: session[:order_tracking_params])
 
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS

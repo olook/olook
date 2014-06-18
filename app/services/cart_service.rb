@@ -18,10 +18,6 @@ class CartService
     end
   end
 
-  def freight
-    cart.address ? (freight_for_zip_code(cart.address.zip_code).fetch(:fast_shipping,nil) || freight_for_zip_code(cart.address.zip_code).fetch(:default_shipping)).merge({address: cart.address}) : {}
-  end
-
   def freight_for_zip_code zip_code
     FreightCalculator.freight_for_zip(zip_code, subtotal, prefered_shipping_services)
   end
@@ -324,12 +320,17 @@ class CartService
   end
 
   private
-    def calculate_percentage_discount_for product, coupon
-      product.price - ((product.price * coupon.value) / 100)
-    end
 
-    def should_not_calculate? product, coupon
-      coupon.nil? || !coupon.is_percentage? || product.promotion?
-    end
+  def freight
+    cart.address ? (freight_for_zip_code(cart.address.zip_code).fetch(:fast_shipping,nil) || freight_for_zip_code(cart.address.zip_code).fetch(:default_shipping)).merge({address: cart.address}) : {}
+  end
+
+  def calculate_percentage_discount_for product, coupon
+    product.price - ((product.price * coupon.value) / 100)
+  end
+
+  def should_not_calculate? product, coupon
+    coupon.nil? || !coupon.is_percentage? || product.promotion?
+  end
 
 end

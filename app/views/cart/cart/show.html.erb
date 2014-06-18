@@ -1,38 +1,26 @@
-  <% content_for :head do %>
-    <%= stylesheet_link_tag "section/checkout" %>
-    <meta name="chaordic:source" content="cart">
-    <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
-    <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
-  <% end %>
-  <% content_for :ecommerce_tracking do %>
-  <script type="text/javascript">
-_gaq.push(['_addTrans',
-   '<%= @cart.id %>',
-   'olook',
-   '<%= @cart_service.total %>',
-   '',
-   '<%= @cart_service.freight_price.to_s %>',
-   '<%= @cart_service.freight_city %>',
-   '<%= @cart_service.freight_state %>',
-   'Brasil'
- ]);
-</script>
-  <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/checkout" %>
+  <meta name="chaordic:source" content="cart">
+  <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
+  <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
 <% end %>
 
 <% content_for :data_layer do %>
   <%= render "shared/lightbox_credits" %>
   <%= render partial: "shared/data_layer/cart" %>
 <% end %>
+
 <% content_for :footer do %>
   <%= javascript_include_tag "carts" %>
 <% end %>
 
-
-
 <section id="cart">
 
-  <h1><span class="icon"></span>Minha sacola <span class="total_itens js-total-itens">(<%= @cart.try(:items_total).to_i %> itens)</span></h1>
+  <h1>
+    <span class="icon"></span>
+    Minha sacola
+    <span class="total_itens js-total-itens">(<%= @cart.try(:items_total).to_i %> itens)</span>
+  </h1>
 
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
