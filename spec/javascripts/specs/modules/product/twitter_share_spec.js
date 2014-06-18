@@ -8,7 +8,7 @@ describe("TwitterShare", function() {
       olookApp = jasmine.createSpyObj('olookApp', ['subscribe']);
     });
     it("should call subscribe in channel product:twitter_share", function(){
-      var ts = new TwitterShare();
+      var ts = new TwitterShare(jQuery);
       ts.config();
       expect(olookApp.subscribe).toHaveBeenCalledWith("product:twitter_share", ts.facade, {}, ts);
     });
@@ -17,14 +17,14 @@ describe("TwitterShare", function() {
   describe("#facade", function() {
     var ts;
     beforeEach(function(){
-      ts = new TwitterShare();
+      ts = new TwitterShare(jQuery);
       ts.config();
       olookApp = jasmine.createSpyObj('olookApp', ['publish']);
     });
     describe("when the class is clicked", function() {
       it("must publish to twitter_share channel",function(){
         $('.js-twitter_share').click();
-        expect(olookApp.publish).toHaveBeenCalledWith("product:twitter_share");
+        expect(olookApp.publish).toHaveBeenCalledWith("product:twitter_share", 575,400);
       });
     });
   });

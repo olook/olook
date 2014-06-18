@@ -2,8 +2,9 @@ var ModalRequest = (function(){
   function ModalRequest(selector) {
     this.selector = selector;
   };
+
   ModalRequest.prototype.config = function(){
-    olookApp.subscribe('modal:request', this.facade);
+    olookApp.subscribe('modal:request', this.facade, {}, this);
   };
 
   ModalRequest.prototype.facade = function(path){

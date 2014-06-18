@@ -6,6 +6,7 @@
 
 new FacebookShare().config();
 new TwitterShare().config();
+new TwitterShare(jQuery).config();
 new AddProductToCartManager().config();
 new CartRedirectManager().config();
 new ShowCartModalManager().config();

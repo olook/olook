@@ -8,7 +8,7 @@ describe QuizResponder do
     end
 
     it "should save on redis" do
-      @redis.should_receive(:set).with("qr:123", '{"uuid":123,"profile":"sexy","user_data":null}')
+      @redis.should_receive(:setex).with("qr:123", 24*3600, '{"uuid":123,"profile":"sexy","user_data":null}')
 
       @quiz = QuizResponder.new(uuid: 123, profile: 'sexy')
       @quiz.save
@@ -100,6 +100,10 @@ describe QuizResponder do
         @api = mock(WhatsYourStyle)
         subject.stub(:api).and_return(@api)
         @api.stub(:profile_from).and_return({uuid: '123', profile: 'sexy'})
+        @api.stub(:default_quiz_response).and_return({
+          classification_label: 'casual/romantica',
+          uuid: '00000000-e59f-0130-abc2-12313b12189d'
+        })
       end
 
       context 'only without user' do

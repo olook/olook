@@ -3,11 +3,8 @@ var AddToWishlistErrorMessage = (function(){
   function AddToWishlistErrorMessage(){};
 
   AddToWishlistErrorMessage.prototype.facade = function(message) {
-    var el = $('#js-addToWishlistButton');
-    if(el.length > 0)
-      initProduct.showAlert(el)
-    else
-      initProduct.showAlert();
+    $('p.js-wishlist_alert').html(message).show()
+      .delay(3000).fadeOut();    
   };
 
   AddToWishlistErrorMessage.prototype.config = function(){
