@@ -16,7 +16,7 @@ var FacebookShare  = (function(){
     FB.ui({
       method: 'share',
       href: product_url,
-    }, function(response){});
+    });
   };
 
   return FacebookShare;
