@@ -10,6 +10,7 @@ class SpecificItem < PromotionRule
   end
 
   def matches?(cart, products)
+    return false unless cart
     (get_product_ids_from(cart.items) & product_ids_list_for(products)).size == 1
   end
 

@@ -10,6 +10,7 @@ class FirstBuy < PromotionRule
   end
 
   def matches?(cart, parameter=nil)
+    return false unless cart
     user = cart.user
     return true if user.nil?
 
