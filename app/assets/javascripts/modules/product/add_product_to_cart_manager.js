@@ -9,7 +9,7 @@ var AddProductToCartManager  = (function(){
   }
 
   var closeSpy = function(){
-    $('#close_quick_view').click();
+    olook.closeSpy();
   }
 
   var chooseAction = function(responseAction){

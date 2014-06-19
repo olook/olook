@@ -1,4 +1,59 @@
 if(!olook) var olook = {};
+olook.getCss = function(url, callback){
+  $.get(url, function(){
+    $('<link>', {rel:'stylesheet', type:'text/css', 'href':url}).appendTo('head');
+    if (typeof callback=='function') callback();
+  });
+}
+olook.getCachedScript = function(url) {
+  $.ajax({
+    dataType: "script",
+    cache: true,
+    url: url
+  });
+}
+olook.loadSpyContent = function(dataHtml) {
+  var width = $(document).width(), height = $(document).height();
+  $('#overlay-campaign').width(width).height(height).fadeIn();
+
+  initQuickView.inQuickView = true;
+  $('#ajax-loader').hide();
+  if($("div#quick_view").size() == 0) {
+    $("body").prepend("<div id='quick_view'></div>");
+  }
+  $('#quick_view')
+  .html(dataHtml)
+  .css("top", $(window).scrollTop()  + 35)
+  .fadeIn(100);
+
+  $('#quick_view ol.colors li a').attr('data-remote', true);
+  $("ul.social li.email").hide();
+
+  $('#close_quick_view, #overlay-campaign').off('click').on("click", function() {
+    olook.closeSpy();
+  });
+
+  accordion();
+  delivery();
+  guaranteedDelivery();
+
+  load_first_image();
+  load_all_other_images();
+
+  if (typeof initSuggestion != 'undefined') {
+    initSuggestion.checkIfProductIsAlreadySelected();
+  }
+  initQuickView.productZoom();
+
+  try{
+    FB.XFBML.parse();
+  }catch(ex){}
+}
+olook.closeSpy = function() {
+  $('#quick_view, #overlay-campaign').fadeOut(300, function(){
+    $('#quick_view').remove();
+  });
+}
 olook.spy = function(selector){
   $(selector).click(function(e){
     e.preventDefault();
@@ -22,57 +77,25 @@ olook.spy = function(selector){
         $('#ajax-loader').fadeIn();
       },
       success: function(dataHtml) {
-        $('#ajax-loader').hide();
-
-        initQuickView.inQuickView = true;
-
-        if($("div#quick_view").size() == 0) {
-          $("body").prepend("<div id='quick_view'></div>");
-        }
-
-        var width = $(document).width(), height = $(document).height();
-        $('#overlay-campaign').width(width).height(height).fadeIn();
-
         var script = $(dataHtml).filter('script:first').attr('src');
-        var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
 
-        $('#quick_view')
-        .html(dataHtml)
-        .css("top", $(window).scrollTop()  + 35)
-        .fadeIn(100);
-
-        $('#quick_view ol.colors li a').attr('data-remote', true);
-        $("ul.social li.email").hide();
-
-
-        $('#close_quick_view, #overlay-campaign').on("click", function() {
-          $('#quick_view, #overlay-campaign').fadeOut(300);
-        });
-        if($('head link[href="' + style.attr('href') + '"]').length == 0) {
-          $('head').append(style);
-        }
         if(typeof initProduct !== 'undefined') {
           initProduct.loadAddToCartForm();
         } else {
-          $.getScript(script);
-          $.getScript(script);
+          olook.getCachedScript(script);
         }
 
-        accordion();
-        delivery();
-        guaranteedDelivery();
+        var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
 
-        load_first_image();
-        load_all_other_images();
-
-        if (typeof initSuggestion != 'undefined') {
-          initSuggestion.checkIfProductIsAlreadySelected();
+        if($('head link[href="' + style.attr('href') + '"]').length == 0) {
+          olook.getCss(style.attr('href'), function(){
+            olook.loadSpyContent(dataHtml);
+          });
+          $('head').append(style);
+        } else {
+          olook.loadSpyContent(dataHtml);
         }
-        initQuickView.productZoom();
 
-        try{
-          FB.XFBML.parse();
-        }catch(ex){}
       },
       error: function() {
         window.location = url;
