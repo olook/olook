@@ -571,7 +571,6 @@
     }
     li.icon-youtube,
     li.icon-pin,
-    li.icon-mail,
     li.icon-instagram {
       display: none !important;
     }
@@ -649,8 +648,69 @@ p.wishlist_alert {
   display: none;
   background: image-url('common/guia_de_medidas_novo.jpg') no-repeat center center #FFF;
 }
-#compartilhar_email{
+
+/** MODAL COMPARTILHAR POR EMAIL**/
+div#compartilhar_email {
+  display:none;
+  background: #FFF;
+  padding: 35px;
   display: none;
+  width: 530px;
+  height:370px;
+  fieldset{
+    margin-bottom: 20px;
+  }
+  form{margin-left: 35px;padding-top: 13px;}
+  input,textarea{
+    background: white image-url("common/background-inputs.png") bottom repeat-x;
+    border: 1px solid #bfbfbf;
+    display: block;
+    width: 445px;
+    height: 35px;
+    margin-top: 5px;
+    padding-left: 10px;
+    &#send{
+      display: block;
+      border: none;
+      cursor: pointer;
+      width: 138px;
+      height: 43px;
+      float: right;
+      margin-right: 13px;
+      margin-top: 0px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 15px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
+      &.opacidade{opacity:0.7;filter:alpha(opacity=70);}
+    }
+  }
+  textarea{
+    height: 50px;
+    padding-top:10px;
+  }
+  label{
+    font-size: 14px;
+    font-family: $avenir;
+    color: #000;
+    padding-bottom: 3px;
+    span{font-size:14px;}
+  }
+  p{font-family: $johnston;
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: #000;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-top: 2px;
+    &.forgot-msg{font-family:$avenir;font-size:14px;margin:0 !important;display:none;}
+  }
+  div.msg{height: 32px;margin: 10px 0px 5px 46px;width: 455px;border: 1px solid #FFFFFF;
+    p{color: #000;font-family: avenir,arial,sans-serif;font-size: 14px;line-height: 24px;margin-top: 4px;min-height: 32px;padding: 0 0 0 38px;}
+    &.error{background:#FDADB6;border: 1px solid #F37C8F;display: none;height: 32px;padding: 0;
+      p{background: image-url('campaign_emails/sprite.png') no-repeat -333px 0 !important;padding: 0 0 0 25px;}
+    }
+  }
 }
 
 a#goRelatedProduct {

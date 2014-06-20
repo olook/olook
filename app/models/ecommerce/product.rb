@@ -428,7 +428,7 @@ class Product < ActiveRecord::Base
 
   def share_by_email( informations = { } )
     emails_to_deliver = informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip)
-    informations.slice!(:email_from, :name_from)
+    informations.slice!(:email_from, :name_from, :email_body)
     emails_to_deliver.each do |email|
       ShareProductMailer.send_share_message_for(self, informations, email)
     end
