@@ -43,9 +43,8 @@
       = field_set_tag do
         = label_tag :emails_to_deliver, "Para <span>(use vírgula para enviar para vários contatos)</span>".html_safe
         = text_field_tag :emails_to_deliver, "", class: 'fields', size: '30'
-      = field_set_tag do
-        = hidden_field_tag :product_id, @product.id
-        = submit_tag 'Enviar', id: :send  
+      = hidden_field_tag :product_id, @product.id
+      = submit_tag 'Enviar', id: :send
   = render "shared/lightbox_credits"
 
 = render "shared/mkt_breadcrumb"
