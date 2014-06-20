@@ -14,7 +14,14 @@ olook.getCachedScript = function(url) {
 }
 olook.loadSpyContent = function(dataHtml) {
   var width = $(document).width(), height = $(document).height();
-  $('#overlay-campaign').width(width).height(height).fadeIn();
+  var overlay = $('#overlay-campaign');
+  if(overlay.length == 0) {
+    overlay = $('<div id="overlay-campaign"></div>');
+    overlay.prependTo('body');
+  }
+  overlay.html('<%= image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%' %>');
+  overlay.css("background-color", '#FFF')
+  .width(width).height(height).fadeIn();
 
   initQuickView.inQuickView = true;
   $('#ajax-loader').hide();

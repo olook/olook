@@ -81,8 +81,9 @@
           = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
-        %p.alert.js-alert
-        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
+        .add-product-container
+          %p.alert.js-alert
+          = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
           Compre e ganhe 
