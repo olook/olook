@@ -1,9 +1,7 @@
 if(!olook) var olook = {};
 olook.getCss = function(url, callback){
-  $.get(url, function(){
-    $('<link>', {rel:'stylesheet', type:'text/css', 'href':url}).appendTo('head');
-    if (typeof callback=='function') callback();
-  });
+  $('<link>', {rel:'stylesheet', type:'text/css', 'href':url}).appendTo('head');
+  if (typeof callback=='function') callback();
 }
 olook.getCachedScript = function(url) {
   $.ajax({
