@@ -72,16 +72,6 @@ csv_for_all_in:
     - MktBaseGenerator
   description: "Cria arquivo de importação para allinemail"
 
-# userbase_with_auth_token_and_credits:
-#   cron: "0 2 * * *"
-#   class: MarketingUploaderWorker
-#   queue: low
-#   args:
-#     - userbase_with_auth_token_and_credits
-#     - basegeral_novos_usuarios.csv
-#     - false
-#   description: "Cria arquivo de importação para allinemail com os usuarios criados a partir de 16/7/13"
-
 campaign_emails:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
@@ -98,23 +88,11 @@ send_billet_reminder:
   queue: low
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
-send_enabled_credits_notification:
-  cron: "0 5 1 * *"
-  class: SendEnabledCreditsNotificationWorker
-  queue: low
-  description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
-
 send_seven_days_to_expiration_warning:
-  cron: "40 4 23 * *"
+  cron: "40 4 * * *"
   class: SendExpirationWarningWorker
   queue: low
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
-
-send_one_day_to_expiration_warning:
-  cron: "15 3 27 * *"
-  class: SendExpirationTomorrowWarningWorker
-  queue: low
-  description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 force_clearsale_callback:
   cron: "*/5 * * * *"

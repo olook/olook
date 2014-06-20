@@ -9,7 +9,7 @@ describe SendExpirationWarningWorker do
   let(:another_user_credit) { FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type, :user => another_member) }  
   let(:mock_mail) { double :mail }
 
-  it "should send the send credit expiration warning to everyone" do
+  it "should send the credit expiration warning to everyone" do
     user_credit.add({amount: 20})
     user_credit.add({amount: 20})
     user_credit.add({amount: 20})
@@ -20,7 +20,7 @@ describe SendExpirationWarningWorker do
     another_user_credit.add({amount: 20})
 
     expiration_warning_date = (user_credit.credits.last.expires_at - 7.days)
-    Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+    Delorean.time_travel_to(expiration_warning_date)
 
   
     mock_mail.should_receive(:deliver).twice
@@ -42,7 +42,7 @@ describe SendExpirationWarningWorker do
 
 
     expiration_warning_date = (user_credit.credits.last.expires_at - 7.days)
-    Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+    Delorean.time_travel_to(expiration_warning_date)
 
     LoyaltyProgramMailer.should_receive(:send_expiration_warning).once.and_return(nil)
 
@@ -64,7 +64,7 @@ describe SendExpirationWarningWorker do
     another_user_credit.add({amount: 20})
 
     expiration_warning_date = (user_credit.credits.first.expires_at - 7.days)
-    Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+    Delorean.time_travel_to(expiration_warning_date)
 
   
     mock_mail.should_receive(:deliver).once
@@ -88,7 +88,7 @@ describe SendExpirationWarningWorker do
     another_user_credit.add({amount: 20})
 
     expiration_warning_date = (user_credit.credits.last.expires_at - 7.days)
-    Delorean.time_travel_to(DateTime.new(expiration_warning_date.year, expiration_warning_date.month, 23))
+    Delorean.time_travel_to(expiration_warning_date)
 
   
     mock_mail.should_receive(:deliver).once

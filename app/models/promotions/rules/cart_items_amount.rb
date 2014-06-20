@@ -10,6 +10,7 @@ class CartItemsAmount < PromotionRule
   end
 
   def matches?(cart, parameter)
+    return false unless cart
     items_amount = cart.items.inject(0) {|total, i| total += i.quantity}
     items_amount / parameter.to_i > 0
   end
