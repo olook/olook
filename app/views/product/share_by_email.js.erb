@@ -1,8 +1,9 @@
 var name = $("input#name_from").val(),
     email = $("#email_from").val(),
+    body = $("#email_body").val(),
     to = $("#emails_to_deliver").val();
 
-if(name == "" || email == "" || to == ""){
+if(name == "" || email == "" || to == "" || body == ""){
   $(".msg").addClass("error").fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação");
   $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
 }else if(email.indexOf("@") < 0 || to.indexOf("@") < 0){
