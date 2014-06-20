@@ -32,7 +32,6 @@ describe UserCreditsCalculationService do
       before do
         user.user_credits_for(:invite).add(:amount => 10.0)
         user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
-        Timecop.travel(Time.zone.now + 1.month)
       end
 
       it "returns total of credits value" do
