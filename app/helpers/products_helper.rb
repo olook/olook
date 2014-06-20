@@ -95,4 +95,8 @@ module ProductsHelper
     product.pictures.order(:display_on).first(limit)
   end
 
+  def indefinite_article_for product
+    MALE_CATEGORY.include?(product.category) ? "um" : "uma"
+  end
+
 end

@@ -49,7 +49,8 @@
 
 		<tr>
 			<td width="620" align="center" valign="top" style="font-family:Verdana,Arial, Helvetica, sans-serif; text-align:left; font-size:12px;">
-        <p style="font-family:Verdana,Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:-2px; margin:3px 0; text-align:center"><%= @user_name.upcase %> viu <%= @product.category_humanize.last %> <%= @product.category_humanize %> <%= @product.name %> no site da olook e quis<br /> compartilhar contigo! Que tal conferir?</p>
+        <p style="font-family:Verdana,Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:-2px; margin:3px 0; text-align:center">Olá<br/><br/>
+        	<%= @user_name.capitalize %> viu <%= indefinite_article_for(@product.category_humanize) %> <%= @product.category_humanize.downcase %> na Olook e quer compartilhar<br />com você. Dá uma olhada!</p>
 
 				<table width="580" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #ffffff; padding-top:20px;">
 					<tr>
