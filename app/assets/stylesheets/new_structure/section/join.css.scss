@@ -1,5 +1,4 @@
 @import 'new_structure/common/global_stuffs';
-
 @import 'new_structure/partials/fonts';
 
 
@@ -41,9 +40,20 @@ label .hint {
   position: absolute;
   display:none;
   z-index:10001;
-  overflow:hidden;
-  padding-top:10px;
 }
+.close-new-modal{
+  width:20px;
+  height:20px;
+  border:0;
+  background:image-url("campaign_emails/close_bt.png")no-repeat;
+  position:absolute;
+  right:-10px;
+  top:-10px;
+  font-size:0;font-family:a;
+  cursor:pointer;
+  z-index:10002;
+}
+
 .box-remember-login{
   background-color: #fff;
   border: 1px solid #000;
@@ -178,18 +188,6 @@ label .hint {
                 cursor:pointer;
                 z-index:10002;
               }
-button.close{
-  width:20px;
-  height:20px;
-  border:0;
-  background:image-url("campaign_emails/close_bt.png")no-repeat;
-  position:absolute;
-  right:0;
-  top:0;
-  font-size:0;font-family:a;
-  cursor:pointer;
-  z-index:10002;
-}
 span.span_error{
   color:#EA1E40;
   font-size:12px;

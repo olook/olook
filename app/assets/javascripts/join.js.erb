@@ -133,11 +133,13 @@ $(function(){
   });
 
   if(user_has_errors) {
-    olook.newModal($(".box-remember-login"),370,492, "#FFF");
+    var box = $(".box-remember-login");
+    olook.newModal(box, box.outerHeight(), box.outerWidth(), "#FFF");
   };
 
   $("#login").on("click", function(){
-    olook.newModal($(".box-remember-login"),370,492, "#FFF");
+    var box = $(".box-remember-login");
+    olook.newModal(box, box.outerHeight(), box.outerWidth(), "#FFF");
   });
 
   $('#new_wysquiz').submit(function(e){
