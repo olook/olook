@@ -1,22 +1,22 @@
 <html>
 <head>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "EmailMessage",
-  "action": {
-    "@type": "ViewAction",
-    "url": "http://www.olook.com.br/produto/<%= @product.id %>?utm_source=olook&utm_medium=email&utm_campaign=compartilhar_por_email&utm_content=compartilhar_produto_por_email",
-    "name": "Ver Produto"
-  },
-  "description": "#{ @user_name.upcase } viu #{ @product.category_humanize.last } #{ @product.category_humanize } #{ @product.name } no site da olook e lembrou de você"
-}
-</script>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Olook</title>
 </head>
 
 <body>
+	<script type="application/ld+json">
+	{
+	  "@context": "http://schema.org",
+	  "@type": "EmailMessage",
+	  "action": {
+	    "@type": "ViewAction",
+	    "url": "http://www.olook.com.br/produto/<%= @product.id %>?utm_source=olook&utm_medium=email&utm_campaign=compartilhar_por_email&utm_content=compartilhar_produto_por_email",
+	    "name": "Ver Produto"
+	  },
+	  "description": "#{ @user_name.upcase } viu #{ @product.category_humanize.last } #{ @product.category_humanize } #{ @product.name } no site da olook e lembrou de você"
+	}
+	</script>		
 	<table border="0" align="center" cellpadding="0" cellspacing="0" width="620" bgcolor="#FFFFFF">
 		<tr>
 			<td>
