@@ -3,14 +3,15 @@ var name = $("input#name_from").val(),
     to = $("#emails_to_deliver").val();
 
 if(name == "" || email == "" || to == ""){
-   $(".msg").addClass("error").fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação");
-   $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
+  $(".msg").addClass("error").fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação");
+  $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
 }else if(email.indexOf("@") < 0 || to.indexOf("@") < 0){
-   $(".msg").addClass("error").fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação")
-   $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
+  $(".msg").addClass("error").fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação")
+  $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
 }else{
-   $(".msg").removeClass("error");
-   $("#compartilhar_email form .fields").val("");
-   $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
-   $(".close").click();
+  _gaq.push(['_trackEvent', 'Share', 'Email', 'Product_page', , true]);
+  $(".msg").removeClass("error");
+  $("#compartilhar_email form .fields").val("");
+  $("#compartilhar_email input#send").removeClass("opacidade").removeAttr('disabled', false);
+  $(".close").click();
 }
