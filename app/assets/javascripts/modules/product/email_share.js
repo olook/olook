@@ -21,7 +21,7 @@ var EmailShare  = (function(){
   };
 
   EmailShare.prototype.facade = function(){
-    _gaq.push(['_trackEvent', 'Share', 'Email', 'Product_page', , true]);
+    _gaq.push(['_trackEvent', 'Open', 'Email', 'Product_page', , true]);
     var content = $('#compartilhar_email');
     olook.newModal(content,515,630,'#FFF');
   };
