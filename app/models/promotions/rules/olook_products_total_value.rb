@@ -11,6 +11,7 @@ class OlookProductsTotalValue < PromotionRule
   end
 
   def matches?(cart, parameter)
+    return false unless cart
     olook_products_total_value(cart) >= BigDecimal(parameter)
   end
 

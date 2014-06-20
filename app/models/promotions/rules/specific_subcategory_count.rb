@@ -10,6 +10,7 @@ class SpecificSubcategoryCount < PromotionRule
   end
 
   def matches?(cart, parameter=nil)
+    return false unless cart
     return false if cart.items.empty? || parameter.nil?
     /\A\((?<total_count>\d+)\) (?<subcategories>.*)\z/ =~ parameter.to_s
     subcategories = Set.new(subcategories.split(/\s*,\s*/).map { |s| s.parameterize })

@@ -9,6 +9,7 @@ class SpecificCollectionThemeCount < PromotionRule
   end
 
   def matches?(cart, parameter=nil)
+    return false unless cart
     return false if cart.items.empty? || parameter.nil?
     /\A\((?<total_count>\d+)\) (?<collection_themes>.*)\z/ =~ parameter.to_s
     collection_themes = collection_themes.split(/\s*,\s*/).map { |c| c.parameterize }
