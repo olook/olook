@@ -12,7 +12,7 @@ class ShareProductMailer < ActionMailer::Base
     @email_body = informations[:email_body]
     @product = Product.find(product)
 
-    mail(to: email_receiver, reply_to: @user_email, subject: "#{@user_name.capitalize} viu #{indefinite_article_for(@product.category_humanize)} #{@product.category_humanize.downcase} na Olook e quer compartilhar com você. Dá uma olhada!").deliver
+    mail(to: email_receiver, reply_to: @user_email, subject: "#{@user_name.capitalize} viu #{indefinite_article_for(@product.category)} #{@product.category_humanize.downcase} na Olook e quer compartilhar com você. Dá uma olhada!").deliver
   end
 
   private
