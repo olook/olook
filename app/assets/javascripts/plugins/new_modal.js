@@ -24,7 +24,6 @@ olook.newModal = function(content, a, l, background_color, close_callback){
     if(typeof close_callback === 'function') close_callback();
   });
 
-  debugger;
   $modal.html(content)
   .css({
     'height'      : h+"px",
