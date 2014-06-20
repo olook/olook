@@ -23,5 +23,7 @@
     dataLayer.push({'ConfirmedBuy': 'sociomantic'});
   <% elsif @order.tracking && @order.tracking.utm_source.to_s.match(/struq.*/) %>
     dataLayer.push({'ConfirmedBuy': 'struq'});
+  <% elsif @order.tracking && @order.tracking.utm_source.to_s.match(/afilio.*/) %>
+    dataLayer.push({'ConfirmedBuy': 'afilio'});
   <% end %>
 </script>

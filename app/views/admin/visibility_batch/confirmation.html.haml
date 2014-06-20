@@ -38,6 +38,7 @@
       %th
         Foto
     - @liquidation_previews.each do |p|
+      - next if p.product.nil?
       %tr{class:"#{'not-visible' if !p.product.is_visible? }"}
         %td
           = p.product.id

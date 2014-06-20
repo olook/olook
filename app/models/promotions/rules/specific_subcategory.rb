@@ -10,6 +10,7 @@ class SpecificSubcategory < PromotionRule
   end
 
   def matches?(cart, parameter=nil)
+    return false unless cart
     return false if cart.items.empty? || parameter.nil?
     categories = cart.items.collect(&:product).collect(&:subcategory).map {|c| c.parameterize }
     categories.include?(parameter.parameterize)

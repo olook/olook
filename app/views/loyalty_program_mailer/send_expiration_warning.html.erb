@@ -1,10 +1,4 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>
-
-
-
-
-
 <div>
   <table border="0" align="center" cellpadding="0" cellspacing="0" width="620" bgcolor="#FFFFFF">
     <tr>
@@ -58,7 +52,7 @@
         </p></div>
         <div align="center">
           <center><img src="http://cdn.olook.com.br/assets/emailmkt/topo/div.jpg"></center>
-          <font style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:14px">Este crédito específico estará disponível até <%= @end_of_month %></font>
+          <font style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:14px">Este crédito específico estará disponível até <%= @date.strftime('%d/%m/%Y') %>.</font>
           <center><img src="http://cdn.olook.com.br/assets/emailmkt/topo/div.jpg"></center>
           <br><br>
         </div>
@@ -68,55 +62,12 @@
               <tr>
                 <td height="30" bgcolor="ef3742" align="center">
                 <center>
-                     <a href="http://www.olook.com.br/membro/vitrine?utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_vaoexpirar&amp;utm_medium=email&amp;utm_source=olook" style="color:#ffffff;font-size:14px;text-decoration:none" target="_blank">USAR MEUS CREDITOS</a>
+                     <a href="http://www.olook.com.br?utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_vaoexpirar&amp;utm_medium=email&amp;utm_source=olook" style="color:#ffffff;font-size:14px;text-decoration:none" target="_blank">USAR MEUS CREDITOS</a>
                 </center>
                 </td>
               </tr>
               </table>
               
-<% if @product %>
-        <table width="580" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #ffffff;padding-top:30px">
-          <tr>
-            <td>
-              <font style="font-style:italic;font-weight:lighter;letter-spacing:-2px;font-family:&#39;Times New Roman&#39;,Times,serif;font-size:32px;line-height:25px">Que tal esse?</font>
-            </td> 
-          </tr>          
-          <tr>
-            
-            <td>
-              
-              <table width="500" align="center" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:30px">      
-                <tr>
-                  <td>
-                  <%= image_tag @product.variants.first.showroom_picture %>
-                  </td>
-                  
-                  <td valign="top" style="padding:15px 0 0 15px">
-                  <p style="font-style:italic;font-weight:lighter;letter-spacing:-2px;font-family:&#39;Times New Roman&#39;,Times,serif;font-size:35px;line-height:25px;margin:0 auto 20px;">
-<a href="http://www.olook.com.br/produto/<%= @product.id.to_s %>?utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_vaoexpirar&amp;utm_medium=email&amp;utm_source=olook" style="text-decoration:none;color:black;" target="_blank"><%= @product.variants.first.name %></a><br>
-                  <span style="font-size:25px;color:#ef3742"><%= number_to_currency(@product.variants.first.price) %></span><br>
-                  <span style="font-family:Arial,Helvetica,sans-serif;font-style:normal;letter-spacing:0;line-height:15px;font-size:14px;color:#505050"><%= @product.variants.first.product.description %></span>
-                  
-                  <table width="190" align="left">
-                        <tr>
-                          <td height="30" bgcolor="ef3742" align="center">
-                          <center>
-                               <a href="http://www.olook.com.br/produto/<%= @product.id.to_s %>?utm_campaign=transacional_fidelidade&amp;utm_content=f_creditos_vaoexpirar&amp;utm_medium=email&amp;utm_source=olook" style="text-decoration:none;color:#FFFFFF;" target="_blank">GOSTEI! VER PRODUTO</a>
-                          </center>
-                          </td>
-                        </tr>
-                        </table>
-
-                  </td>
-                </tr>
-              </table>
-
-            </td>
-
-          </tr>
-
-        </table>
-          <% end %>      
         <div style="margin:0 auto 30px;font-size:14px;width:560px;text-align:center"></div>
         
         </td></tr></table></div>

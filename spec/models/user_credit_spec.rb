@@ -58,13 +58,9 @@ describe UserCredit do
 
       UserCredit.process!(invitee_order)
 
-      invitee.user_credits_for(:loyalty_program).total.should eq(0.00)
-      user.user_credits_for(:invite).total.should == BigDecimal.new(Setting.invite_credits_bonus_for_inviter)
-
-      Delorean.jump 1.month
-
       invitee.user_credits_for(:loyalty_program).total.should eq(20.00)
       user.user_credits_for(:invite).total.should == BigDecimal.new(Setting.invite_credits_bonus_for_inviter)
+
     end
 
     context "when User Credit specific settings change" do

@@ -10,6 +10,7 @@ class CartItemsTotalValue < PromotionRule
   end
 
   def matches?(cart, parameter)
+    return false unless cart
     cart.sub_total >= BigDecimal(parameter)
   end
 
