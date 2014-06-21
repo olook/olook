@@ -21,7 +21,7 @@
         %li.icon-facebook.js-facebook_share{'data-product-url' => product_seo_url(@product.seo_path)}
         %li.icon-instagram
         %li.icon-pin
-        %li.icon-mail
+        %li.icon-mail.js-email_share
       /   %li.fb
       /     .fb-share-button{data: {href: product_seo_url(@product.seo_path), type: "icon_link"} }
       /   %li.email= link_to "Email", "javascript:void(0);"
@@ -81,9 +81,8 @@
           = text_field_tag('variant[quantity]', "1", class: "quantity-product js-quantity")
           %button.plus{:type => "button"} +
           %button.minus{:type => "button"} -
-        .add-product-container
-          %p.alert.js-alert
-          = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
+        %p.alert.js-alert
+        = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
       - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
         %p.bonus
           Compre e ganhe 

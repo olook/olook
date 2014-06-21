@@ -31,7 +31,7 @@ class ProductController < ApplicationController
   end
 
   def share_by_email
-    name_and_emails = params.slice(:name_from, :email_from, :emails_to_deliver)
+    name_and_emails = params.slice(:name_from, :email_from, :emails_to_deliver, :email_body)
     @product = Product.joins(:details).find(params[:product_id])
     @product.share_by_email(name_and_emails)
     #redirect_to(:back, notice: "Emails enviados com sucesso!")

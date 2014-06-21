@@ -69,7 +69,7 @@ class Admin::PicturesController < Admin::BaseController
       flash[:notice] = 'Pictures were successfully created.'
       redirect_to [:admin, @product]
     else
-      flash[:notice] = 'Erro'
+      flash[:notice] = @product.errors.messages
       render :new_multiple_pictures
     end
   end

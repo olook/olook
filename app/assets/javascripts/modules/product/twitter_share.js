@@ -40,7 +40,6 @@ var TwitterShare  = (function(){
 
   TwitterShare.prototype.facade = function(width, height){
     _gaq.push(['_trackEvent', 'Share', 'Twitter', 'Product_page', , true]);
-    console.log(this.selector);
     shareOnTwitter(this.selector, width, height);
   };
 

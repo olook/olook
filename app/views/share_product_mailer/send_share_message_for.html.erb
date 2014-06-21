@@ -4,7 +4,7 @@
 <title>Olook</title>
 </head>
 
-<body>
+<body>		
 	<table border="0" align="center" cellpadding="0" cellspacing="0" width="620" bgcolor="#FFFFFF">
 		<tr>
 			<td>
@@ -49,7 +49,9 @@
 
 		<tr>
 			<td width="620" align="center" valign="top" style="font-family:Verdana,Arial, Helvetica, sans-serif; text-align:left; font-size:12px;">
-        <p style="font-family:Verdana,Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:-2px; margin:3px 0; text-align:center"><%= @user_name.upcase %> viu <%= @product.category_humanize.last %> <%= @product.category_humanize %> <%= @product.name %> no site da olook e quis<br /> compartilhar contigo! Que tal conferir?</p>
+				<p style="font-family:Verdana,Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:-2px; margin:3px 0 15px 60px; text-align:left">Olá!</p>
+        <p style="font-family:Verdana,Arial, Helvetica, sans-serif; font-size:22px; letter-spacing:-2px; margin:3px 0 0 60px; text-align:left">
+        	<b><%= @user_name.capitalize %></b> viu <%= indefinite_article_for(@product.category) %> <%= @product.category_humanize.downcase %><br/> na <b>Olook</b> e quer compartilhar com você.<br/> Dá uma olhada!</p>
 
 				<table width="580" align="center" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #ffffff; padding-top:20px;">
 					<tr>
@@ -58,15 +60,14 @@
 							<table width="500" align="center" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:30px;">
 								<tr>
 									<td>
-									<%= image_tag @product.master_variant.showroom_picture %>
+									<%= image_tag "http:#{@product.master_variant.showroom_picture}" %>
 									</td>
 
-									<td valign="top" style="padding:15px 0 0 15px">
-									<p style="font-style:italic; font-weight:lighter; letter-spacing:-2px; font-family:'Times New Roman', Times, serif; font-size:35px; line-height:25px;"><%= @product.master_variant.name %><br><br>
-									<span style="font-family:Arial, Helvetica, sans-serif; font-style:normal; letter-spacing:0; line-height:15px; font-size:14px; color:#505050;"><%= @product.description %></span></p>
+									<td valign="top" style="padding:0 0 0 15px">
+									<p style="font-family:Arial, Helvetica, sans-serif; font-style:normal; letter-spacing:0; line-height:15px; font-size:14px; color:#505050;"><%= @email_body.html_safe %></p>
 									<p>
                     <a href="http://www.olook.com.br/produto/<%= @product.id %>?utm_source=olook&utm_medium=email&utm_campaign=compartilhar_por_email&utm_content=compartilhar_produto_por_email">
-									<img src="http://cdn.olook.com.br/assets/emailmkt/transacionais/botoes/btn_conheça.png"></a>
+									Clique aqui e veja mais detalhes</a>
 									</p>
 									</td>
 								</tr>
@@ -81,8 +82,8 @@
 				<div style="margin:0 auto 30px; font-size:14px; width:560px; text-align:center">
 
 				</div>
-					<p style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:10px; color:#6d6e71" align="center">
-			        A olook respeita a sua privacidade e de todos os seus clientes.<br>Você está recebendo este e-mail pois alguém lhe recomendou este produto. Em caso de dúvida, entre em contato com: <%= @user_email %>
+					<p style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:10px; color:#6d6e71; margin:0 70px 0 50px;" align="center">
+			        A <b>Olook</b> respeita a sua privacidade e de todos os seus clientes.<br>Você está recebendo este e-mail pois alguém lhe recomendou este produto. Em caso de dúvida, entre em contato com: <%= @user_email %>
 			      </p>
 				</div>
 

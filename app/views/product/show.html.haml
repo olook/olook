@@ -25,6 +25,26 @@
 
 - content_for :footer do
   = javascript_include_tag "product"
+  #compartilhar_email
+    %p COMPARTILHAR POR E-MAIL
+    .msg
+      %p
+    %p.forgot-msg Lembrou de mais alguém? Compartilhe
+    = form_tag product_share_by_email_path, remote: true do
+      = field_set_tag do
+        = label_tag :nome, "Seu nome"
+        = text_field_tag :name_from, current_user.try(:first_name), class: 'fields', size: '30'
+      = field_set_tag do
+        = label_tag :email_from, "Seu e-mail"
+        = text_field_tag :email_from, current_user.try(:email), class: 'fields', size: '30'
+      = field_set_tag do
+        = label_tag :email_body, "Digite sua mensagem"
+        = text_area_tag :email_body, nil, rows: 3, cols: 30, class: 'fields'
+      = field_set_tag do
+        = label_tag :emails_to_deliver, "Para <span>(use vírgula para enviar para vários contatos)</span>".html_safe
+        = text_field_tag :emails_to_deliver, "", class: 'fields', size: '30'
+      = hidden_field_tag :product_id, @product.id
+      = submit_tag 'Enviar', id: :send
   = render "shared/lightbox_credits"
 
 = render "shared/mkt_breadcrumb"
