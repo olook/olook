@@ -70,16 +70,17 @@ olook.newModal = function(content, a, l, background_color, close_callback, after
     'z-index': 10002
   }).append('<button type="button" class="close-new-modal" role="button">close</button>').delay(500).fadeIn().children().show();
 
-  if(typeof afterLoaded === 'function') afterLoaded();
-
   $(".close-new-modal, .js-close-modal, #" + id + " a.me").click(function(){
     olook.closeNewModal(id, close_callback);
   });
+
+  if(typeof afterLoaded === 'function') afterLoaded();
   return id;
 };
 
 olook.addToCartModal = function(content, a, l, background_color){
   olook.newModal(content, a, l, background_color, null, function(){
+    $('.close-new-modal').hide();
     $('.modal').css('background-color', 'rgba(255,255,255,0.7)');
     $("button.js-go_to_cart").click(function(){
       olookApp.publish('product:redirect_to_cart');
