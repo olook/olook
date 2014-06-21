@@ -1,5 +1,4 @@
 //= require plugins/change_picture_onhover
-//= require plugins/spy
 
 $(function(){
   olook.init();

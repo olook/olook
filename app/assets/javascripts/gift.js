@@ -1,5 +1,3 @@
-//= require plugins/spy
-
 $(function () {
 
   olook.spy('.spy[data-url]');

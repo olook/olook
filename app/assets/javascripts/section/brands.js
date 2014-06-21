@@ -1,6 +1,5 @@
 //= require plugins/custom_select
 //= require plugins/slider
-//= require plugins/spy
 //= require plugins/change_picture_onhover
 
 var brands = {} || null;

@@ -6,7 +6,6 @@
 //= require plugins/valentines_day
 //= require plugins/jquery.meio.mask
 //= require plugins/image_loader
-//= require plugins/spy
 //= require_tree ./modules/complete_look
 //= require modules/product/load
 //= require modules/product_available_notice/load

@@ -20,6 +20,7 @@
 //= require plugins/jquery.carouFredSel-6.2.1-packed
 //= require plugins/css_browser_selector
 //= require plugins/change_picture_onhover
+//= require plugins/spy
 //= require common/product_view
 //= require lite_base
 //= require _search_bar

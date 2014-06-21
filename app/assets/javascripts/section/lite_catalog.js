@@ -1,5 +1,4 @@
 //= require plugins/slider
-//= require plugins/spy
 //= require plugins/toggle_class_slide_next
 //= require plugins/custom_select
 //= require plugins/change_picture_onhover
