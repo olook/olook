@@ -20,20 +20,6 @@
         text-decoration: underline;
       }
     }
-    a.open_carousel {
-      background: image-url('product/bt-carousel.jpg') 0 0 no-repeat;
-      color: #505050;
-      font-size: 13px;
-      text-decoration: none;
-      line-height: 32px;
-      width: 102px;
-      padding: 0 0 0 9px;
-      display: block;
-      float: right;
-      &.open {
-        background-position: 0 -32px;
-      }
-    }
     div#carousel {
       position: relative;
       width: 100%;

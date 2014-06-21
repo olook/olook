@@ -1,7 +1,7 @@
 var AddProductToCartManager  = (function(){
   function AddProductToCartManager() {};
   AddProductToCartManager.prototype.config = function(){
-    olookApp.subscribe('product:add', this.facade);
+    olookApp.subscribe('product:add', this.facade, {}, this, 'AddProductToCartManager');
   };
 
   var displayAlertSize = function(text){
@@ -33,6 +33,7 @@ var AddProductToCartManager  = (function(){
       var addproduct = $('.js-add-product');
       var origText = addproduct.val();
       addproduct.attr('disabled', 'disabled').addClass('sending').val('ENVIANDO...');
+      console.log("adding product to cart in " + Date.now());
       $.post('/sacola/items.json', {"variant[id]": variantId, "variant[quantity]": quantity, id: productId})
         .done(function(data) {
           chooseAction(data.responseAction);

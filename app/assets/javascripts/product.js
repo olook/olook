@@ -71,6 +71,7 @@ initProduct = {
     return inventory.val();
   },
   loadAddToCartForm : function() {
+    console.log('binding addToCartForm in ' + Date.now());
     if($('#compartilhar_email').length == 1) {
       var content = $('#compartilhar_email');
       $("ul.social-list li.email").on("click", function(e){
@@ -85,18 +86,8 @@ initProduct = {
 
     $("a.open_loyalty_lightbox").show();
 
-    $("form#product_add_to_cart").submit(function() {
-      return !!(initProduct.selectedVariantMaxVal());
-    });
-
-    $(".js-add-product").click(function(e) {
-      if(!initProduct.selectedVariantMaxVal()){
-        e.stopPropagation();
-      }
-    });
-
-    $("#add_product").click(function(e){
-      e.preventDefault;
+    $(".js-add-product").off('click').on('click', function(){
+      olookApp.publish('product:add');
     });
 
     $(".plus").off('click').on('click', initProduct.plusQuantity);
@@ -125,42 +116,6 @@ initProduct = {
     initProduct.gotoRelatedProduct();
     initProduct.loadUnloadTriggers();
     showInfoCredits();
-
-    $("#product div.box_carousel a.open_carousel").live("click", function () {
-      word = $(this).find("span");
-      carousel = $(this).parent().find("div#carousel");
-      if($(this).hasClass("open") == true) {
-        $(carousel).animate({
-          height: '0px'
-        }, 'fast');
-        $(this).removeClass("open");
-        $(word).text("Abrir");
-      } else{
-        $(carousel).animate({
-          height: '315px'
-        }, 'fast');
-        $(this).addClass("open");
-        $(word).text("Fechar");
-        _gaq.push(['_trackEvent', 'product_show','open_showroom' ]);
-
-      }
-    });
-
-    $("div#carousel ul.products_list").carouFredSel({
-      auto: false,
-      width: 760,
-      items: {
-        visible: 4
-      },
-      prev : {
-        button : ".product-prev",
-        items : 4
-      },
-      next : {
-        button : ".product-next",
-        items : 4
-      }
-    });
     initProduct.loadAddToCartForm();
   },
 
@@ -176,8 +131,6 @@ initProduct = {
     }
   }
 }
-
-initProduct.loadAddToCartForm();
 
 var bindWishlistEvents = function(){
   $('#js-addToWishlistButton').click(function(){
@@ -200,9 +153,6 @@ var loadCompleteLookModules = function(){
 
 $(function(){
   loadCompleteLookModules();
-
   initProduct.loadAll();
-  olook.spy('.spy');
-
   bindWishlistEvents();
 });

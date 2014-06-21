@@ -23,12 +23,12 @@ olook.getCss = function(attrs){
     if (typeof onLoaded=='function') onLoaded();
   }
 }
-olook.getCachedScript = function(url) {
+olook.getCachedScript = function(url, cb) {
   $.ajax({
     dataType: "script",
     cache: true,
     url: url
-  });
+  }).done(cb);
 }
 olook.loadSpyOverlay = function() {
   var overlay = $('#spy-overlay');
@@ -54,8 +54,6 @@ olook.loadSpyOverlay = function() {
   .width(width).height(height).fadeIn();
 }
 olook.loadSpyContent = function(dataHtml, style) {
-
-  initQuickView.inQuickView = true;
   if($("div#quick_view").size() == 0) {
     $("body").prepend("<div id='quick_view'></div>");
   }
@@ -68,18 +66,6 @@ olook.loadSpyContent = function(dataHtml, style) {
   $('#close_quick_view, #spy-overlay').off('click').on("click", function() {
     olook.closeSpy();
   });
-
-  accordion();
-  delivery();
-  guaranteedDelivery();
-
-  load_first_image();
-  load_all_other_images();
-
-  if (typeof initSuggestion != 'undefined') {
-    initSuggestion.checkIfProductIsAlreadySelected();
-  }
-  initQuickView.productZoom();
 
   try{
     FB.XFBML.parse();
@@ -125,14 +111,14 @@ olook.spy = function(selector){
       dataType: 'html',
       beforeSend: olook.loadSpyOverlay,
       success: function(dataHtml) {
-        var script = $(dataHtml).filter('script:first').attr('src');
-
+        var script = $(dataHtml).filter('script:first').remove();
         if(typeof initProduct !== 'undefined') {
           initProduct.loadAddToCartForm();
-        } else {
-          olook.getCachedScript(script);
+        }else{
+          olook.getCachedScript(script.attr('src'), function(){
+            initProduct.loadAddToCartForm();
+          });
         }
-
         var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
         olook.loadSpyContent(dataHtml, style);
       },

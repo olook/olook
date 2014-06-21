@@ -11,13 +11,6 @@ describe ProductPresenter do
   let(:only_view) { described_class.new template, :product => product, :member => member, :facebook_app_id => facebook_app_id, :shoe_size => 35, :only_view? => true }
 
   describe "user showroom methods" do
-    describe '#render_member_showroom' do
-      it "should render the partial with the carousel with the member's showroom" do
-        template.should_receive(:render).with(:partial => 'product/member_showroom', :locals => {:product_presenter => subject}).and_return('showroom')
-        subject.render_member_showroom.should == 'showroom'
-      end
-    end
-
     describe '#collection_name' do
       context "when there is an active collection" do
         let!(:collection) { FactoryGirl.create :collection }

@@ -1,9 +1,3 @@
-<% if request.xhr? %>
-  <script type="text/javascript" charset="utf-8">
-    olook.getCachedScript('<%= javascript_path('product') %>');
-  </script>
-<% else %>
-    <%= javascript_include_tag('product') %>
-<% end %>
+<%= javascript_include_tag('product') %>
 <%= stylesheet_link_tag  "new_structure/section/lite_product" %>
 <%= render(:partial => 'product') %>

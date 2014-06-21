@@ -6,10 +6,6 @@ class ProductPresenter < BasePresenter
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
-  def render_member_showroom
-    h.render :partial => 'product/member_showroom', :locals => {:product_presenter => self}
-  end
-
   def render_main_profile_showroom
     h.render :partial => "shared/product_item", :collection => member.main_profile_showroom, :as => :product
   end
