@@ -60,8 +60,13 @@ olook.loadSpyContent = function(dataHtml, style) {
   var qv = $('#quick_view');
   qv.html(dataHtml).css("top", $(window).scrollTop()  + 35);
 
-  $('#quick_view ol.colors li a').attr('data-remote', true);
-  $("ul.social li.email").hide();
+  $('#quick_view ol.colors li a').off('click').on('click', function(e) {
+    e.preventDefault();
+    olook.closeSpy();
+    olook.requestSpy($(this).attr('href'));
+  });
+
+  $(".icon-email").hide();
 
   $('#close_quick_view, #spy-overlay').off('click').on("click", function() {
     olook.closeSpy();
@@ -92,40 +97,43 @@ olook.closeSpy = function() {
     $('#quick_view, #spy-overlay').remove();
   });
 }
+olook.requestSpy = function(url) {
+  if(_gaq){
+    var source = url.match(/from=(\w+)/);
+    if(source){
+      source = source[1];
+    } else {
+      source = 'Product';
+    }
+    _gaq.push(['_trackEvent', source, 'clickOnSpyProduct', url.replace(/\D/g, '')]);
+  }
+  $.ajax({
+    url: url,
+    cache: 'true',
+    dataType: 'html',
+    beforeSend: olook.loadSpyOverlay,
+    success: function(dataHtml) {
+      var script = $(dataHtml).filter('script:first').remove();
+      if(typeof initProduct !== 'undefined') {
+        initProduct.loadAddToCartForm();
+      }else{
+        olook.getCachedScript(script.attr('src'), function(){
+          initProduct.loadAddToCartForm();
+        });
+      }
+      var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
+      olook.loadSpyContent(dataHtml, style);
+    },
+    error: function() {
+      window.location = url;
+    }
+  });
+}
 olook.spy = function(selector){
   $(selector).click(function(e){
     e.preventDefault();
     var url = $(this).data('url');
-    if(_gaq){
-      var source = url.match(/from=(\w+)/);
-      if(source){
-        source = source[1];
-      } else {
-        source = 'Product';
-      }
-      _gaq.push(['_trackEvent', source, 'clickOnSpyProduct', url.replace(/\D/g, '')]);
-    }
-    $.ajax({
-      url: url,
-      cache: 'true',
-      dataType: 'html',
-      beforeSend: olook.loadSpyOverlay,
-      success: function(dataHtml) {
-        var script = $(dataHtml).filter('script:first').remove();
-        if(typeof initProduct !== 'undefined') {
-          initProduct.loadAddToCartForm();
-        }else{
-          olook.getCachedScript(script.attr('src'), function(){
-            initProduct.loadAddToCartForm();
-          });
-        }
-        var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
-        olook.loadSpyContent(dataHtml, style);
-      },
-      error: function() {
-        window.location = url;
-      }
-    });
+    olook.requestSpy(url);
   }).mouseover(function() {
     var img = $(this).parent(".product").find("img");
     img.attr('src', img.data('backside-picture'));
