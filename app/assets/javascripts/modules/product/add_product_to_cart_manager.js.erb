@@ -1,7 +1,7 @@
 var AddProductToCartManager  = (function(){
   function AddProductToCartManager() {};
   AddProductToCartManager.prototype.config = function(){
-    olookApp.subscribe('product:add', this.facade);
+    olookApp.subscribe('product:add', this.facade, {}, this, 'AddProductToCartManager');
   };
 
   var displayAlertSize = function(text){
@@ -9,7 +9,7 @@ var AddProductToCartManager  = (function(){
   }
 
   var closeSpy = function(){
-    $('#close_quick_view').click();
+    olook.closeSpy();
   }
 
   var chooseAction = function(responseAction){
@@ -24,18 +24,24 @@ var AddProductToCartManager  = (function(){
 
   AddProductToCartManager.prototype.facade = function(){
     var variantId = $(".selected .js-variant_id").val();
-    var quantity = $(".js-quantity").val(); 
+    var quantity = $(".js-quantity").val();
     var productId = $("#id").val();
 
     if(StringUtils.isEmpty(variantId)){
       displayAlertSize("Selecione seu tamanho");
     } else {
+      var addproduct = $('.js-add-product');
+      var origText = addproduct.val();
+      addproduct.attr('disabled', 'disabled').addClass('sending').val('ENVIANDO...');
+      console.log("adding product to cart in " + Date.now());
       $.post('/sacola/items.json', {"variant[id]": variantId, "variant[quantity]": quantity, id: productId})
         .done(function(data) {
           chooseAction(data.responseAction);
         }).fail(function(data){
           _data = JSON.parse(data.responseText);
           displayAlertSize(_data.notice);
+        }).complete(function(){
+          addproduct.removeAttr('disabled').removeClass('sending').val(origText);
         });
     }
   };

@@ -10,6 +10,7 @@
 var OlookApp = (function() {
   function OlookApp(_mediator) {
     this.mediator = _mediator;
+    this.loadedModules = [];
   };
 
   var shift = function(list, starting_point) {
@@ -32,7 +33,12 @@ var OlookApp = (function() {
     }
     var options = (arguments.length >= 3) ? arguments[2] : null;
     var context = (arguments.length >= 4) ? arguments[3] : null;
+    var single = (arguments.length >= 5) ? arguments[4] : null;
     // console.log('mediator ' + arguments[0] + ' subscribed by ' + arguments[1]);
+    if(single) {
+      if(this.loadedModules.indexOf(single) >= 0) return;
+      this.loadedModules.push(single);
+    }
     this.mediator.subscribe(arguments[0], arguments[1], options, context);
   };
 

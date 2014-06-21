@@ -66,140 +66,137 @@ ul.breadcrumb {
 a.selecionado,
 a.selecionado:hover {color:$pink !important;}
 
-#modal {
-  position: fixed !important;
-  .hello, .isa_modal, .isa_modal2 {
-    width:100%;
-    height:100%;
-    background: image-url('common/modal_1.jpg') no-repeat center center;
-    iframe {
-      position: absolute;
-      top: 400px;
-      left: 495px;
-    }
+.hello, .isa_modal, .isa_modal2 {
+  width:100%;
+  height:100%;
+  background: image-url('common/modal_1.jpg') no-repeat center center;
+  iframe {
+    position: absolute;
+    top: 400px;
+    left: 495px;
   }
-  .isa_modal,
-  .isa_modal2{
-    background: image-url('common/isabela_modal_email.jpg') no-repeat center center;
-    h2{
-      font-family: $verdana;
-      font-size: 33px;
-      color: $base_color;
-      float: right;
-      width: 407px;
-      text-align: center;
-      margin-bottom: 19px;
-      margin-top: 178px;
-      margin-right: 54px;
-    }
-    p{
+}
+.isa_modal,
+.isa_modal2{
+  background: image-url('common/isabela_modal_email.jpg') no-repeat center center;
+  h2{
+    font-family: $verdana;
+    font-size: 33px;
+    color: $base_color;
+    float: right;
+    width: 407px;
+    text-align: center;
+    margin-bottom: 19px;
+    margin-top: 178px;
+    margin-right: 54px;
+  }
+  p{
+    font-family: $bt_font;
+    color: #000;
+    font-size: 18px;
+    float: right;
+    width: 407px;
+    text-align: center;
+    margin-right: 54px;
+    margin-bottom: 55px;
+  }
+  .modal_newsletter{
+    width: 407px;
+    background: none !important;
+    margin-left: 300px;
+    p.join{
       font-family: $bt_font;
-      color: #000;
-      font-size: 18px;
-      float: right;
-      width: 407px;
-      text-align: center;
-      margin-right: 54px;
-      margin-bottom: 55px;
-    }
-    .modal_newsletter{
-      width: 407px;
-      background: none !important;
-      margin-left: 300px;
-      p.join{
-        font-family: $bt_font;
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        margin-right: 103px;
-      }
-      .email{
-        width: 240px;
-        height: 29px;
-        padding: 3px 3px 7px 10px;
-        border: 1px solid #000;
-        font-family: $bt_font;
-        font-size: 11px;
-        letter-spacing: 1px;
-        color: #000 !important;
-        margin-right: -7px;
-        margin-left: 31px;
-      }
-      .modal_button {
-        background: $base_color;
-        font-family: $bt_font;
-        text-transform: uppercase;
-        font-size: 12px;
-        color: #fff;
-        cursor: pointer;
-        border: none !important;
-        text-align: center;
-        width: 107px;
-        height: 41px;
-        display: block;
-        position: absolute;
-        margin-top: -41px !important;
-        margin-left: 273px;
-        letter-spacing: 1px;
-      }
-    }
-    .fb-login-button{
-      z-index:20;
-    }
-    p.joinfb{
-      margin-top: 42px;
-      position: absolute;
-      margin-left: 259px;
       font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      margin-right: 103px;
+    }
+    .email{
+      width: 240px;
+      height: 29px;
+      padding: 3px 3px 7px 10px;
+      border: 1px solid #000;
       font-family: $bt_font;
-      text-decoration: underline;
-      font-weight: bold;
-    }
-    iframe{
-      position: absolute;
-      top: 414px;
-      left: 605px;
-    }
-    .modal_error {
-      position: absolute;
-      background: #fff8c5;
-      width: 339px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #000 !important;
+      margin-right: -7px;
       margin-left: 31px;
-      margin-top: -11px;
-      padding: 5px;
-      font-size: 10px;
-      text-align: center;
+    }
+    .modal_button {
+      background: $base_color;
+      font-family: $bt_font;
       text-transform: uppercase;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: #666;
-      display: none;
-    }
-    .p_helena{
-      font-size: 14px !important;
-    }
-    .title_helena{
-      margin-top: 173px !important;
-      margin-bottom: 15px !important;
+      font-size: 12px;
+      color: #fff;
+      cursor: pointer;
+      border: none !important;
+      text-align: center;
+      width: 107px;
+      height: 41px;
+      display: block;
+      position: absolute;
+      margin-top: -41px !important;
+      margin-left: 273px;
+      letter-spacing: 1px;
     }
   }
-  .isa_modal2{
-    background: image-url('common/isabela_modal_email2.jpg') no-repeat center center;
-    .modal_newsletter{
-      width: 407px;
-      background: none !important;
-      margin-left: 350px;
-      margin-top:280px;
-    }
-    p.joinfb {
-      margin-top:19px;
-      margin-left:309px;
-    }
-    iframe {
-      position: absolute;
-      top: 438px;
-      left: 381px;
-    }
+  .fb-login-button{
+    z-index:20;
+  }
+  p.joinfb{
+    margin-top: 42px;
+    position: absolute;
+    margin-left: 259px;
+    font-size: 15px;
+    font-family: $bt_font;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  iframe{
+    position: absolute;
+    top: 414px;
+    left: 605px;
+  }
+  .modal_error {
+    position: absolute;
+    background: #fff8c5;
+    width: 339px;
+    margin-left: 31px;
+    margin-top: -11px;
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #666;
+    display: none;
+  }
+  .p_helena{
+    font-size: 14px !important;
+  }
+  .title_helena{
+    margin-top: 173px !important;
+    margin-bottom: 15px !important;
+  }
+}
+.isa_modal2{
+  background: image-url('common/isabela_modal_email2.jpg') no-repeat center center;
+  .modal_newsletter{
+    width: 407px;
+    background: none !important;
+    margin-left: 350px;
+    margin-top:280px;
+  }
+  p.joinfb {
+    margin-top:19px;
+    margin-left:309px;
+  }
+  iframe {
+    position: absolute;
+    top: 438px;
+    left: 381px;
   }
 }
 
