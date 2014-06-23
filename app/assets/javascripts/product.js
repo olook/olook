@@ -8,6 +8,7 @@
 //= require plugins/jquery.meio.mask
 //= require plugins/image_loader
 //= require_tree ./modules/complete_look
+//= require_tree ./modules/wishlist/
 //= require modules/product/load
 //= require modules/product_available_notice/load
 
@@ -140,6 +141,7 @@ initProduct = {
     });
 
     initProduct.setZoom('.js-image-zoom');
+    loadWishlistModules();
   },
   loadAll : function() {
     initProduct.showCarousel();
@@ -172,6 +174,15 @@ var bindWishlistEvents = function(){
     olookApp.mediator.publish('wishlist:remove:click_button', productId);
   });
 };
+
+var loadWishlistModules = function() {
+  new AddToWishlist().config();
+  new AddToWishlistSuccessMessage().config();
+  new AddToWishlistErrorMessage().config();  
+  new RemoveFromWishlist().config();
+  new RemoveFromWishlistSuccessMessage().config();
+}
+
 
 var loadCompleteLookModules = function(){
   new MinicartFadeOutManager().config();
