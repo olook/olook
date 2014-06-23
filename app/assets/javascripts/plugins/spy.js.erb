@@ -1,152 +1,168 @@
-if(!olook) var olook = {};
-olook.getCss = function(attrs){
-  var url = attrs['url'],
-  checkLoaded = attrs['checkLoaded'],
-  onLoaded = attrs['onLoaded'];
-  $('<link>', {rel:'stylesheet', type:'text/css', 'href':url}).appendTo('head');
-  if(typeof checkLoaded === 'function') {
-    function checkLoad(times) {
-      var loaded = checkLoaded();
-      if (loaded || times > 50) {
-        console.log('loading after ' + times + ' times');
-        if (typeof onLoaded=='function') onLoaded();
-      } else {
-        times += 1;
-        setTimeout(function(){
-          checkLoad(times);
-        }, 100);
-      }
-    };
-    checkLoad(0);
-  } else {
-    console.log('loading after ' + times + ' times');
-    if (typeof onLoaded=='function') onLoaded();
-  }
-}
-olook.getCachedScript = function(url, cb) {
-  $.ajax({
-    dataType: "script",
-    cache: true,
-    url: url
-  }).done(cb);
-}
-olook.loadSpyOverlay = function() {
-  var overlay = $('#spy-overlay');
-  if(overlay.length == 0) {
-    overlay = $('<div id="spy-overlay"></div>');
-    overlay.css({
-      'top': '0',
-      'left': '0',
-      'z-index': '10000',
-      'width': '100%',
-      'min-height': '800px',
-      'background': '#FFF',
-      'zoom': '1',
-      'opacity': '0.75',
-      'display': 'none',
-      'position': 'absolute'
-    });
-    overlay.prependTo('body');
-  }
-  overlay.html('<%= image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%' %>');
-  var width = $(document).width(), height = $(document).height();
-  overlay.css("background-color", '#FFF')
-  .width(width).height(height).fadeIn();
-}
-olook.loadSpyContent = function(dataHtml, style) {
-  if($("div#quick_view").size() == 0) {
-    $("body").prepend("<div id='quick_view'></div>");
-  }
-  var qv = $('#quick_view');
-  qv.html(dataHtml).css("top", $(window).scrollTop()  + 35);
-
-  $('#quick_view ol.colors li a').off('click').on('click', function(e) {
-    e.preventDefault();
-    olook.closeSpy(true);
-    var u = $(this).attr('href');
-    var match = /(\d+)$/.exec(u);
-    if(match) {
-      var url = "/produto/" + match[0] + "/spy";
-      olook.requestSpy(url);
-    }
-  });
-
-  $(".icon-email").hide();
-
-  $('#close_quick_view, #spy-overlay').off('click').on("click", function() {
-    olook.closeSpy();
-  });
-
-  try{
-    FB.XFBML.parse();
-  }catch(ex){}
-
-  function _showQuickView(){
-    $('#ajax-loader').remove();
-    qv.fadeIn(100);
-  }
-  if($('head link[href="' + style.attr('href') + '"]').length == 0) {
-    olook.getCss({
-      url: style.attr('href'),
-      checkLoaded: function(){
-        return $('#product .pics_social .big_pic').css('float') === 'left';
-      },
-      onLoaded: _showQuickView
-    });
-  } else {
-    _showQuickView();
-  }
-}
-olook.closeSpy = function(keepOverlay) {
-  var sel='#quick_view';
-  if(!keepOverlay)
-    sel+=', #spy-overlay';
-  $(sel).fadeOut(300, function(){
-    $(sel).remove();
-  });
-}
-olook.requestSpy = function(url) {
-  olook.loadSpyOverlay();
-  if(_gaq){
-    var source = url.match(/from=(\w+)/);
-    if(source){
-      source = source[1];
+var Spy = (function(){
+  function Spy() {};
+  var getCss = function(attrs){
+    var url = attrs['url'],
+    checkLoaded = attrs['checkLoaded'],
+    onLoaded = attrs['onLoaded'];
+    $('<link>', {rel:'stylesheet', type:'text/css', 'href':url}).appendTo('head');
+    if(typeof checkLoaded === 'function') {
+      function checkLoad(times) {
+        var loaded = checkLoaded();
+        if (loaded || times > 50) {
+          console.log('loading after ' + times + ' times');
+          if (typeof onLoaded=='function') onLoaded();
+        } else {
+          times += 1;
+          setTimeout(function(){
+            checkLoad(times);
+          }, 100);
+        }
+      };
+      checkLoad(0);
     } else {
-      source = 'Product';
+      console.log('loading after ' + times + ' times');
+      if (typeof onLoaded=='function') onLoaded();
     }
-    _gaq.push(['_trackEvent', source, 'clickOnSpyProduct', url.replace(/\D/g, '')]);
   }
-  $.ajax({
-    url: url,
-    cache: 'true',
-    dataType: 'html',
-    success: function(dataHtml) {
-      var script = $(dataHtml).filter('script:first').remove();
-      if(typeof initProduct !== 'undefined') {
-        initProduct.loadAddToCartForm();
-      }else{
-        olook.getCachedScript(script.attr('src'), function(){
-          initProduct.loadAddToCartForm();
-        });
-      }
-      var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
-      olook.loadSpyContent(dataHtml, style);
-    },
-    error: function() {
-      window.location = url;
+  var getCachedScript = function(url, cb) {
+    $.ajax({
+      dataType: "script",
+      cache: true,
+      url: url
+    }).done(cb);
+  }
+
+  var loadSpyOverlay = function() {
+    var overlay = $('#spy-overlay');
+    if(overlay.length == 0) {
+      overlay = $('<div id="spy-overlay"></div>');
+      overlay.css({
+        'top': '0',
+        'left': '0',
+        'z-index': '10000',
+        'width': '100%',
+        'min-height': '800px',
+        'background': '#FFF',
+        'zoom': '1',
+        'opacity': '0.75',
+        'display': 'none',
+        'position': 'absolute'
+      });
+      overlay.prependTo('body');
     }
-  });
+    overlay.html('<%= image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%' %>');
+    var width = $(document).width(), height = $(document).height();
+    overlay.css("background-color", '#FFF')
+    .width(width).height(height).fadeIn();
+  }
+  var loadSpyContent = function(spy, dataHtml, style) {
+    if($("div#quick_view").size() == 0) {
+      $("body").prepend("<div id='quick_view'></div>");
+    }
+    var qv = $('#quick_view');
+    qv.html(dataHtml).css("top", $(window).scrollTop()  + 35);
+
+    $('#quick_view ol.colors li a').off('click').on('click', function(e) {
+      e.preventDefault();
+      var clickedEl = this;
+      spy.closeSpy(true, function(){
+        var u = $(clickedEl).attr('href');
+        var match = /(\d+)$/.exec(u);
+        if(match) {
+          var url = "/produto/" + match[0] + "/spy";
+          spy.requestSpy(url);
+        }
+      });
+    });
+
+    $(".icon-email").hide();
+
+    $('#close_quick_view, #spy-overlay').off('click').on("click", function() {
+      spy.closeSpy();
+    });
+
+    try{
+      FB.XFBML.parse();
+    }catch(ex){}
+
+    function _showQuickView(){
+      $('#ajax-loader').remove();
+      qv.fadeIn(100);
+    }
+    if($('head link[href="' + style.attr('href') + '"]').length == 0) {
+      getCss({
+        url: style.attr('href'),
+        checkLoaded: function(){
+          return $('#product .pics_social .big_pic').css('float') === 'left';
+        },
+        onLoaded: _showQuickView
+      });
+    } else {
+      _showQuickView();
+    }
+  }
+  Spy.prototype.closeSpy = function(keepOverlay, callback) {
+    var sel='#quick_view';
+    if(!keepOverlay)
+      sel+=', #spy-overlay';
+    $(sel).fadeOut(300, function(){
+      $(sel).remove();
+      if(typeof callback === 'function') callback();
+    });
+  }
+  Spy.prototype.requestSpy = function(url) {
+    var spy = this;
+    loadSpyOverlay();
+    if(_gaq){
+      var source = url.match(/from=(\w+)/);
+      if(source){
+        source = source[1];
+      } else {
+        source = 'Product';
+      }
+      _gaq.push(['_trackEvent', source, 'clickOnSpyProduct', url.replace(/\D/g, '')]);
+    }
+    $.ajax({
+      url: url,
+      cache: 'true',
+      dataType: 'html',
+      success: function(dataHtml) {
+        var script = $(dataHtml).filter('script:first').remove();
+        if(typeof initProduct !== 'undefined') {
+          initProduct.loadAddToCartForm();
+        }else{
+          getCachedScript(script.attr('src'), function(){
+            initProduct.loadAddToCartForm();
+          });
+        }
+        var style = $(dataHtml).filter('link[rel="stylesheet"]:first').remove();
+        loadSpyContent(spy, dataHtml, style);
+      },
+      error: function() {
+        window.location = url;
+      }
+    });
+  }
+  Spy.prototype.config = function(selector){
+    var spy = this;
+    $(selector).click(function(e){
+      e.preventDefault();
+      var url = $(this).data('url');
+      spy.requestSpy(url);
+    }).mouseover(function() {
+      var img = $(this).parent(".product").find("img");
+      img.attr('src', img.data('backside-picture'));
+    }).mouseout(function() {
+      var img = $(this).parent(".product").find("img");
+      img.attr('src', img.data('product'));
+    });
+  };
+
+  return Spy;
+})();
+
+
+if(!olook) var olook = {};
+olook.spy = function(selector) {
+  new Spy().config(selector);
 }
-olook.spy = function(selector){
-  $(selector).click(function(e){
-    e.preventDefault();
-    var url = $(this).data('url');
-    olook.requestSpy(url);
-  }).mouseover(function() {
-    var img = $(this).parent(".product").find("img");
-    img.attr('src', img.data('backside-picture'));
-  }).mouseout(function() {
-    var img = $(this).parent(".product").find("img");
-    img.attr('src', img.data('product'));
-  });
-};
