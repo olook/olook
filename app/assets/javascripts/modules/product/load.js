@@ -10,5 +10,3 @@ new TwitterShare(jQuery).config();
 new EmailShare(jQuery).config();
 new AddProductToCartManager().config();
 new CartRedirectManager().config();
-new ShowCartModalManager().config();
-

@@ -48,7 +48,7 @@ class Cart::ItemsController < ApplicationController
       end
     else
       respond_with(@cart) do |format|
-        format.json{ render json: { responseAction: ab_test("add_to_cart","redirect","showModal") } }
+        format.json{ render json: {}, status: :ok }
         format.html{ redirect_to cart_path }
       end
     end
