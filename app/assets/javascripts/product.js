@@ -18,6 +18,16 @@ initProduct = {
     if(!zoom_img) zoom_img = it.find('[data-zoom]').data('zoom');
     it.zoom({url: zoom_img});
   },
+  setSizeClick: function(clicked) {
+    if(!$(clicked).hasClass("unavailable")) {
+      var lists = $(clicked).parents("ol").find("li");
+      lists.find("input[type='radio']").attr('checked', false);
+      lists.removeClass("selected");
+      $(clicked).find("input[type='radio']").attr('checked', true);
+      $(clicked).addClass('selected');
+      return false;
+    }
+  },
   gotoRelatedProduct :function() {
     $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
@@ -115,6 +125,11 @@ initProduct = {
 
     $('.size li').click(function(){
       $('#variant_quantity').val(1);
+    });
+
+    /** Clique no Tamanho **/
+    $(".size ol li").on('click', function() {
+      initProduct.setSizeClick(this);
     });
 
     /** MODAL GUIA DE MEDIDAS **/
