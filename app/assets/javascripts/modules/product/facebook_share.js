@@ -12,7 +12,7 @@ var FacebookShare  = (function(){
 
   FacebookShare.prototype.config = function(){
     olookApp.subscribe('product:facebook_share', this.facade, {}, this, 'FacebookShare');
-    $('.js-facebook_share').click(function(event) {
+    $('.js-facebook_share').off('click').on('click', function(event) {
       olookApp.publish('product:facebook_share');
       return false;
     });

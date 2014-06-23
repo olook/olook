@@ -32,7 +32,7 @@ var TwitterShare  = (function(){
   
   TwitterShare.prototype.config = function(){
     olookApp.subscribe('product:twitter_share', this.facade, {}, this, 'TwitterShare');
-    this.selector('.js-twitter_share').click(function(event) {
+    this.selector('.js-twitter_share').off('click').on('click', function(event) {
       olookApp.publish('product:twitter_share',575,400);
       return false;
     });

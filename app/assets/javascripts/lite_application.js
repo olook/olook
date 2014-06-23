@@ -7,7 +7,6 @@
 //= require common/if_console_log
 //= require application_core/olook_app
 //= require jquery_ujs
-//= require ./plugins/jquery.zoom-min
 //= require ui/jquery.ui.core
 //= require ui/jquery.ui.widget
 //= require ui/jquery.ui.mouse
@@ -21,7 +20,6 @@
 //= require plugins/css_browser_selector
 //= require plugins/change_picture_onhover
 //= require plugins/spy
-//= require common/product_view
 //= require lite_base
 //= require _search_bar
 //= require ./partials/_credits_info

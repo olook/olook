@@ -1,3 +1,4 @@
+//= require ./plugins/jquery.zoom-min
 //= require ./partials/_credits_info
 //= require formatter
 //= require credit_card
@@ -11,6 +12,12 @@
 //= require modules/product_available_notice/load
 
 initProduct = {
+  setZoom: function(context){
+    var it = $(context);
+    var zoom_img = it.data('zoom');
+    if(!zoom_img) zoom_img = it.find('[data-zoom]').data('zoom');
+    it.zoom({url: zoom_img});
+  },
   gotoRelatedProduct :function() {
     $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
@@ -109,6 +116,21 @@ initProduct = {
     $('.size li').click(function(){
       $('#variant_quantity').val(1);
     });
+
+    /** MODAL GUIA DE MEDIDAS **/
+    $(".size_guide a, .size-guide").click(function(e){
+      olook.newModal($('<div id="modal_guide"></div>'), 630, 800, '#000');
+      e.preventDefault();
+    })
+
+    /** Thumbs e Zoom **/
+    $('.thumbs li img').on('click', function(){
+      var it = $(this);
+      $('.js-image-zoom img').attr('src', it.data('full')).data('zoom', it.data('zoom'));
+      initProduct.setZoom('.js-image-zoom');
+    });
+
+    initProduct.setZoom('.js-image-zoom');
   },
   loadAll : function() {
     initProduct.showCarousel();
