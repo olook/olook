@@ -164,5 +164,8 @@ var Spy = (function(){
 
 if(!olook) var olook = {};
 olook.spy = function(selector) {
-  new Spy().config(selector);
+  olook._spy = new Spy().config(selector);
+}
+olook.closeSpy = function() {
+  olook._spy.closeSpy();
 }
