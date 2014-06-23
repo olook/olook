@@ -192,7 +192,6 @@ Olook::Application.routes.draw do
   get "/produto/:id" => "product#show", :as => "product"
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
-  post "/produto/ab_test" => "product#ab_test", as: 'product_ab_test'
 
   # get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
   get "/quero_ganhar/:encrypted_id/:id" => "product#product_valentines_day"

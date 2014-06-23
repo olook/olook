@@ -31,12 +31,6 @@ initProduct = {
   gotoRelatedProduct :function() {
     $('a[href="#related"]').live('click', function(e) {
       $("html, body").animate({scrollTop: 900}, 'fast');
-
-      $.post("/produto/ab_test", {}, function( data ) {
-        console.log(data);
-      });
-
-
       e.preventDefault();
     });
   },

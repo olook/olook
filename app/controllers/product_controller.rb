@@ -95,10 +95,6 @@ class ProductController < ApplicationController
   add_method_tracer :title_text, 'Custom/ProductController/title_text'
   add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
 
-  def ab_test
-    render json: {status: :ok}.to_json
-  end
-
   def meta_description
     modify_meta_description(@product.try(:description), @product.try(:product_color))
   end
