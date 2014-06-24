@@ -1,5 +1,3 @@
-var App = App || {}
-
 var Address = Backbone.Model.extend({
   url: '/api/v1/addresses',
 
@@ -19,18 +17,6 @@ var Address = Backbone.Model.extend({
   }
 });
 
-var AddressView = Backbone.View.extend({
-  model: Address,
-  template: _.template($("#template").html()),
-  initialize: function() {
-    this.model.on('sync', this.render());
-  },
-  render: function() {
-    var dict = this.model.toJSON();
-    var html = this.template(dict);
-    this.$el.html(html);
-  }
-});
 
 
 var AddressList = Backbone.Collection.extend({
@@ -88,65 +74,3 @@ var AddressListView = Backbone.View.extend({
 
 
 })
-
-
-App.AddressForm = Backbone.View.extend({
-  el: $(".form"),
-  className: 'addressForm',
-  tagName: 'form',
-  template: _.template($("#form_template").html()),
-
-  initialize: function() {
-    this.model.on('invalid', this.showErrors, this);
-  },
-
-  events: {
-    'click #save-btn': 'addNew',
-    'blur #zip_code': 'fetchAddress'
-  },
-  addNew: function(e) {
-    e.preventDefault();
-
-    var me = this;
-
-    var values = {
-      city: this.$('#city').val(),
-      zip_code: this.$('#zip_code').val(),
-      street: this.$('#street').val(),
-      state: this.$('#state').val(),
-      country: this.$('#country').val(),
-      number: this.$('#number').val(),
-      neighborhood: this.$('#neighborhood').val(),
-      telephone: this.$('#telephone').val(),
-    };
-
-    this.model.save(values);
-  },
-  showErrors: function(model, errors) { 
-    _.each(errors, function (error) {
-      var controlGroup = this.$('.' + error.name);
-      controlGroup.addClass('error');
-      controlGroup.find('.help-inline').text(error.message);
-    }, this);
-  },
-
-  render: function() {
-    var html = this.template({});
-    this.$el.html(html);
-  },
-  fetchAddress: function() {
-    console.log('deveria buscar o cep agora...')
-  }  
-});
-
-var addressList = new AddressList();
-
-form = new App.AddressForm({model: new Address(), collection: addressList});
-form.render();
-
-
-// $(function() {
-  var view = new AddressListView({collection: addressList});
-  addressList.fetch();
-  $('#addressApp').html(view.el);
-// })
