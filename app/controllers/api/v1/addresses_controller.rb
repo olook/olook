@@ -11,7 +11,7 @@ module Api
 
       def destroy
         selected_address(params[:id]).destroy
-        render json: address.to_json, status: :ok
+        head :ok, content_type: :json
       end
 
       def create

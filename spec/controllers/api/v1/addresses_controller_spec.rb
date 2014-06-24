@@ -82,17 +82,22 @@ describe Api::V1::AddressesController do
   describe "#destroy" do
 
     context "when the address is valid" do
-      # let(:address) { FactoryGirl.create(:address, :user => user) }
+      let(:address) { FactoryGirl.create(:address, :user => user) }
 
-      # it "returns success status (201)" do
-      #   delete :destroy, id: address.id
-      #   response.should be_success
-      # end
+      it "returns success status (201)" do
+        delete :destroy, id: address.id
+        response.should be_success
+      end
 
-      # it "returns the updated address JSON" do
-      #   delete :destroy, id: address.id
-      #   address.attributes.reject{|k,v| k == "id"}.should eq(JSON.parse(response.body).reject{|k,v| k == "id"})
-      # end
+      it "returns the updated address JSON" do
+        delete :destroy, id: address.id
+        response.body.should be_blank
+      end
+
+      it "deletes the address" do
+        delete :destroy, id: address.id
+        Address.where(address.attributes).should be_empty
+      end
     end
   end
 
