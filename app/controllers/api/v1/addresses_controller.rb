@@ -34,8 +34,12 @@ module Api
       end  
 
       def show
-        render json: selected_address(params[:id]).to_json, status: :ok    
-      end
+        address = selected_address(params[:id])
+        render json: address.to_json, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        head :not_found, content_type: :json
+      end        
+
 
       private
 

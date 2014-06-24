@@ -57,7 +57,7 @@ describe Api::V1::AddressesController do
 
       it "returns the updated address JSON" do
         post :update, address: address.attributes, id: address.id
-        address.attributes.reject{|k,v| k == "id"}.should eq(JSON.parse(response.body).reject{|k,v| k == "id"})
+        address.attributes.should eq(JSON.parse(response.body))
       end
     end
 
@@ -102,9 +102,7 @@ describe Api::V1::AddressesController do
   end
 
   describe "#index" do
-    context "when address list exists for the given user" do
-      let(:first) { FactoryGirl.create(:address, :user => user) }
-      let(:second) { FactoryGirl.create(:address, :user => user, :city => "Sao Paulo") }
+    context "when there are addresses for the given user" do
 
       it "returns success status (201)" do
         get :index
@@ -112,13 +110,51 @@ describe Api::V1::AddressesController do
       end
 
       it "returns the updated address list JSON" do
+        FactoryGirl.create(:address, :user => user)
+        FactoryGirl.create(:address, :user => user, :city => "Sao Paulo")
+        user.reload
         get :index
-        # address.attributes.reject{|k,v| k == "id"}.should eq(JSON.parse(response.body).reject{|k,v| k == "id"})
+        user.addresses.to_json.should eq(response.body)
       end
     end    
+
+    context "when there aren't any addresses for the given user" do
+
+      it "returns success status (201)" do
+        get :index
+        response.should be_success
+      end
+
+      it "returns an empty JSON list" do
+        get :index
+        response.body.should eq("[]")
+      end
+    end    
+
   end
 
   describe "#show" do
+    let(:address) { FactoryGirl.create(:address, :user => user) }
+
+    context "when the address is valid" do
+      it "returns success status (201)" do
+        get :show, address: address.attributes, id: address.id
+        response.should be_success
+      end
+
+      it "returns the address JSON" do
+        get :show, address: address.attributes, id: address.id
+        address.attributes.should eq(JSON.parse(response.body))
+      end
+    end
+
+    context "when the address isn't valid" do
+      it "returns file not found status (404)" do
+        get :show, id: -1
+        response.status.should eq(404)
+      end
+    end    
+
   end
 
 end
