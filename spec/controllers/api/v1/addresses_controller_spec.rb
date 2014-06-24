@@ -102,6 +102,20 @@ describe Api::V1::AddressesController do
   end
 
   describe "#index" do
+    context "when address list exists for the given user" do
+      let(:first) { FactoryGirl.create(:address, :user => user) }
+      let(:second) { FactoryGirl.create(:address, :user => user, :city => "Sao Paulo") }
+
+      it "returns success status (201)" do
+        get :index
+        response.should be_success
+      end
+
+      it "returns the updated address list JSON" do
+        get :index
+        # address.attributes.reject{|k,v| k == "id"}.should eq(JSON.parse(response.body).reject{|k,v| k == "id"})
+      end
+    end    
   end
 
   describe "#show" do
