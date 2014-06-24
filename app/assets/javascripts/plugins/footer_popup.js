@@ -1,6 +1,7 @@
 //= require_tree ../modules/footer_newsletter
 $(document).ready(function() {
-  new NewsletterSubscriber().config();
+  if(typeof olookApp != 'undefined')
+    new NewsletterSubscriber().config();
 
    $('a.sac').click(function(ev){
     window.open('http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1',
@@ -57,7 +58,8 @@ $(document).ready(function() {
       if (input.val() == input.attr('default_value')) {
         input.val('');
       }
-      olookApp.publish("newsletter:subscribe", input.val(),prefix);
+      if(typeof olookApp != 'undefined')
+        olookApp.publish("newsletter:subscribe", input.val(),prefix);
     })
   };
 
