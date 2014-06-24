@@ -9,6 +9,8 @@ App.AddressFormView = Backbone.View.extend({
   initialize: function() {
     this.model.on('invalid', this.showErrors, this);
     this.render();
+
+    _.bindAll(this, 'fetchAddress');
   },
 
   events: {
@@ -47,6 +49,11 @@ App.AddressFormView = Backbone.View.extend({
     this.$el.html(html);
   },
   fetchAddress: function() {
-    console.log('deveria buscar o cep agora...')
+    $.get("/get_address_by_zipcode", {zipcode: this.$('#zip_code').val()} , function(data) {
+      $('#city').val(data.city);
+      $('#state').val(data.state);
+      $('#street').val(data.street);
+      $('#neighborhood').val(data.neighborhood);
+    },"json");
   }  
 });
