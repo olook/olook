@@ -1,4 +1,4 @@
-class Api::V1::AddressesController < ApplicationController
+class Api::V1::AddressesController < ApiBasicController
   respond_to :json
 
   before_filter :authenticate_user!
