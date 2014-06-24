@@ -1,0 +1,17 @@
+=javascript_include_tag "lib/underscore"
+=javascript_include_tag "lib/backbone"
+
+
+
+%h1 Beta#index
+%p Find me in app/views/beta/index.html.haml
+#addressApp
+
+%script{id: "template", type: "text/html"}
+  <div class='address'>
+  <strong class='zip' id='<%= id %>'><%= zip_code %></strong>
+  <span><%= city %></span>
+  </div>
+
+
+=javascript_include_tag "beta.js"  
