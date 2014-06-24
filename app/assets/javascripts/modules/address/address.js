@@ -1,5 +1,5 @@
 var Address = Backbone.Model.extend({
-  url: '/api/v1/addresses',
+  urlRoot: '/api/v1/addresses',
 
   validate: function(attr) {
     errors = [];
