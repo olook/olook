@@ -8,8 +8,7 @@ class Api::V1::AddressesController < ApplicationController
   end
 
   def destroy
-    address = current_user.addresses.find_by_id(params[:id])
-    address.destroy
+    selected_address(params[:id]).destroy
     render json: address.to_json, status: :ok
   end
 
@@ -24,7 +23,7 @@ class Api::V1::AddressesController < ApplicationController
   end
 
   def update
-    address = current_user.addresses.active.find(params[:id])
+    address = selected_address(params[:id])
     if address.update_attributes(params[:address])
       render json: address.to_json, status: :ok
     else  
@@ -33,8 +32,13 @@ class Api::V1::AddressesController < ApplicationController
   end  
 
   def show
-    address = current_user.addresses.find_by_id(params[:id])
-    render json: address.to_json, status: :ok    
+    render json: selected_address(params[:id]).to_json, status: :ok    
+  end
+
+  private
+
+  def selected_address id
+    current_user.addresses.active.find(params[:id])
   end
 
 end
