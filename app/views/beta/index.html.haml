@@ -1,17 +1,40 @@
 =javascript_include_tag "lib/underscore"
 =javascript_include_tag "lib/backbone"
 
+#appView
 
-
-%h1 Beta#index
-%p Find me in app/views/beta/index.html.haml
 #addressApp
+
+.form
+
 
 %script{id: "template", type: "text/html"}
   <div class='address'>
-  <strong class='zip' id='<%= id %>'><%= zip_code %></strong>
+  <strong><%= zip_code %></strong>
   <span><%= city %></span>
+  <a href="#" id='<%= id %>' class='zip'>Remover</a>
   </div>
+
+%script{id: "form_template", type: "text/html"}
+  <div class='control-group zip_code'>
+  <p>Cep: <input type='text' id='zip_code'></p>
+  <span class='help-inline'></span>
+  </div>
+  <p>Rua: <input type='text' id='street'></p>
+  <p>Estado: <input type='text' id='state'></p>
+  <p>Pais: <input type='text' id='country'></p>
+  <p>Numero: <input type='text' id='number'></p>
+  <p>Bairro: <input type='text' id='neighborhood'></p>
+  
+  <div class='control-group city'>
+  <p>Cidade: <input type='text' id='city'></p>
+  <span class='help-inline'></span>
+  </div>  
+  
+  <p>Telefone: <input type='text' id='telephone'></p>
+
+  <p><input type='button' id='save-btn' value='Cadastrar'></p>
+  
 
 
 =javascript_include_tag "beta.js"  
