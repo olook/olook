@@ -17,11 +17,8 @@ module Api
       def create
         params[:address][:country] = 'BRA' if params[:address]    
         address = current_user.addresses.create(params[:address])
-        if address.valid?
-          render json: address.to_json, status: :created
-        else  
-          render json: address.errors.to_json, status: :unprocessable_entity
-        end
+
+        respond_with address
       end
 
       def update
@@ -40,6 +37,10 @@ module Api
         head :not_found, content_type: :json
       end        
 
+
+      def address_url(address)
+        api_v1_address_path(address)
+      end
 
       private
 

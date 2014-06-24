@@ -1,6 +1,13 @@
+/**
+ * Represents an Address
+ */
 var Address = Backbone.Model.extend({
-  urlRoot: '/api/v1/addresses',
 
+  /**
+   * Cidade e cep sao obrigatorios
+   * @param  {[hash]} attr
+   * @return {[boolean]} false is is valid, a hash otherwise
+   */
   validate: function(attr) {
     errors = [];
 
@@ -24,15 +31,9 @@ var AddressList = Backbone.Collection.extend({
   url: '/api/v1/addresses',
 
   initialize: function() {
-    console.log('colecao inicializada');
-    this.bind('add', this.onModelAdded, this);
     this.bind('remove', this.onModelRemoved, this);
   },
 
-  onModelAdded: function(model, collection, options) {
-    console.log("[add] options = ", options);
-    // model.save();
-  },
   onModelRemoved: function (model, collection, options) {
     console.log("[remove] options = ", options);
     model.destroy();
@@ -40,37 +41,3 @@ var AddressList = Backbone.Collection.extend({
 
 
 });
-
-var AddressListView = Backbone.View.extend({
-  tagName: 'ul',
-  initialize: function() {
-    console.log('view principal inicializada');
-    this.collection.on('add', this.addOne, this);
-    this.collection.on('remove', this.remove, this);
-    this.collection.on('reset', this.addAll, this);
-  },
-  addOne: function(address) {
-    var addressView = new AddressView({model: address});
-    addressView.render();
-    this.$el.append(addressView.el);
-  },
-  addAll: function() {
-    this.collection.forEach(this.addOne, this);
-  },
-  render: function(){
-    this.addAll();
-  },
-
-  remove: function(e) {
-    var id = e.target.id;
-    var modelToDestroy = this.collection.get(id);
-    this.collection.remove(modelToDestroy);
-    this.collection.trigger('reset');
-  },
-
-  events: {
-    'click .zip': 'remove'
-  },  
-
-
-})

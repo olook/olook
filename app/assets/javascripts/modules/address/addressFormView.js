@@ -33,7 +33,10 @@ App.AddressFormView = Backbone.View.extend({
       telephone: this.$('#telephone').val(),
     };
 
-    this.model.save(values);
+    addr = new Address(values);
+    if (addr.isValid()) {
+      this.collection.create(addr.toJSON(), {wait: true})
+    }
   },
   
   showErrors: function(model, errors) { 
