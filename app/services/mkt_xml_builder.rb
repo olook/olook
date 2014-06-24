@@ -30,6 +30,7 @@ class MktXmlBuilder
     buscape: 'buscape_template.xml.erb',
     rise: 'rise_template.xml.erb',
     myestilo: 'myestilo_template.xml.erb',
+    h2h: 'h2h_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb'
   }
 
