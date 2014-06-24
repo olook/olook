@@ -254,7 +254,9 @@ module CatalogsHelper
   end
 
   def whitelisted_color_filters(search)
-    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k.titleize) && should_color_appear?(search, k)}
+    filters_by("color", search, use_fields: [:category]).select do |k,v|
+      SeoUrl.whitelisted_colors.include?(k.titleize) && should_color_appear?(search, k)
+    end.map {|c, count| [c.parameterize, count] }
   end
 
   def show_hot_products?(leaderboard, qty)

@@ -260,7 +260,7 @@ class SeoUrl
     _colors = []
     self.class.whitelisted_colors.each do |c|
       if /#{c.parameterize}/ =~ param_colors
-        _colors << c.downcase
+        _colors << c.parameterize
         param_colors.slice!(/#{c.parameterize}/)
       end
     end
