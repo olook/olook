@@ -15,7 +15,8 @@ App.AddressFormView = Backbone.View.extend({
 
   events: {
     'click #save-btn': 'addNew',
-    'blur #zip_code': 'fetchAddress'
+    'blur #zip_code': 'fetchAddress',
+    'click .js-addAddress': 'showForm'
   },
   addNew: function(e) {
     e.preventDefault();
@@ -35,7 +36,8 @@ App.AddressFormView = Backbone.View.extend({
 
     addr = new Address(values);
     if (addr.isValid()) {
-      this.collection.create(addr.toJSON(), {wait: true})
+      this.collection.create(addr.toJSON(), {wait: true});
+      this.hideForm();
     }
   },
   
@@ -45,6 +47,16 @@ App.AddressFormView = Backbone.View.extend({
       controlGroup.addClass('error');
       controlGroup.find('.help-inline').text(error.message);
     }, this);
+  },
+
+  showForm: function(e) {
+    this.$('.js-address_form').show();
+    this.$('.js-addAddress').hide();
+  },
+  
+  hideForm: function(e) {
+    this.$('.js-address_form').hide();
+    this.$('.js-addAddress').show();
   },
 
   render: function() {

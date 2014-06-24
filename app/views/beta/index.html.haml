@@ -7,7 +7,6 @@
 
 .form
 
-
 %script{id: "template", type: "text/html"}
   <div class='address'>
   <strong><%= zip_code %></strong>
@@ -16,6 +15,8 @@
   </div>
 
 %script{id: "form_template", type: "text/html"}
+  <a href="#" class='js-addAddress'>Adicionar endereco</a>
+  <div class='js-address_form' style='display: none'>
   <div class='control-group zip_code'>
   <p>Cep: <input type='text' id='zip_code'></p>
   <span class='help-inline'></span>
@@ -34,7 +35,7 @@
   <p>Telefone: <input type='text' id='telephone'></p>
 
   <p><input type='button' id='save-btn' value='Cadastrar'></p>
-  
+  </div>
 
 
 =javascript_include_tag "beta.js"  
