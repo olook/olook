@@ -45,7 +45,6 @@
       = render 'colors'
     - else
       .cost{itemprop: 'offers', itemscope: true, itemtype: 'http://schema.org/Offer'}
-        - @product_discount_service.calculate_without_promotion_or_coupon
         - if @product_discount_service.discount > 0
           %p.price-retail.price 
             de: 

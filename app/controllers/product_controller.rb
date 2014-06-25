@@ -40,6 +40,7 @@ class ProductController < ApplicationController
   def load_product_discount_service
     coupon = @cart.try(:coupon) 
     @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: coupon, promotion: Promotion.select_promotion_for(@cart))
+    @product_discount_service.calculate
   end
 
   def load_show_product

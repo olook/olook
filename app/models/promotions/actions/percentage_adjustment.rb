@@ -15,6 +15,13 @@ class PercentageAdjustment < PromotionAction
     "#{'%d' % percent.to_i }%"
   end
 
+  def calculate_value(value, filters)
+    percent = filters[ 'param' ].to_f
+    percent_rest = (1 - ( percent/100 ))
+    percent_rest = 0 if percent_rest < 0
+    value * percent_rest
+  end
+
   def calculate(cart_items, filters = {})
     _filters = filters.dup
     percent = _filters[ 'param' ]
@@ -38,7 +45,7 @@ class PercentageAdjustment < PromotionAction
         product_id: cart_item.product.id,
         adjustment: adjustment
       }
-    end    
+    end
     calculated_values
   end
 end

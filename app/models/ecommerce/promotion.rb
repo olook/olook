@@ -1,4 +1,5 @@
 class Promotion < ActiveRecord::Base
+  AVG_PRICE_OF_PRODUCTS = 130.0
   validates_presence_of :name
 
   scope :active, where(:active => true)
@@ -24,7 +25,13 @@ class Promotion < ActiveRecord::Base
   end
 
   def simulate cart
-    promotion_action.simulate cart, self.action_parameter.action_params
+    if cart && cart.items.size > 0
+      promotion_action.simulate cart, self.action_parameter.action_params
+    else
+      if rule_parameters.blank?
+        promotion_action.simulate_for_value(AVG_PRICE_OF_PRODUCTS, self.action_parameter.action_params)
+      end
+    end
   end
 
   def use_rule_parameters
@@ -102,16 +109,18 @@ class Promotion < ActiveRecord::Base
     end
 
     def self.best_promotion_for(cart, promotions_to_apply = [])
-      if cart && cart.items.any? && promotions_to_apply.any?
-        best_promotion = calculate(promotions_to_apply, cart).sort_by { |promotion| promotion[:total_discount] }.last
-        best_promotion[:promotion]
-      end
+      promotions_totals = calculate(promotions_to_apply, cart)
+      best_promotion = promotions_totals.sort_by { |promotion| promotion[:total_discount] }.last
+      best_promotion[:promotion]
     end
 
     def self.calculate(promotions_to_apply, cart)
       promotions = []
       promotions_to_apply.map do |promotion|
-        promotions << { promotion: promotion, total_discount: promotion.total_discount_for(cart) }
+        promotions << {
+          promotion: promotion,
+          total_discount: promotion.simulate(cart)
+        }
       end
       promotions
     end
