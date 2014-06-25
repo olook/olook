@@ -15,6 +15,10 @@ class MinorPriceAdjustment < PromotionAction
     "#{quantity} #{"produto".pluralize(quantity)} de graça"
   end
 
+  def calculate_value(value, filters)
+    0
+  end
+
   def calculate(cart_items, filters)
     _filters = filters.dup
     quantity = _filters[ 'param' ]

@@ -15,6 +15,11 @@ class ValueAdjustment < PromotionAction
     "R$ #{value.to_i}"
   end
 
+  def calculate_value(value, filters)
+    discount = BigDecimal(filters['param'])
+    value - discount
+  end
+
   def calculate(cart_items, filters)
     _filters = filters.dup
     value = BigDecimal(_filters['param'])
