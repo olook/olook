@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'bigdecimal'
 module FreightCalculator
   VALID_SHIPPING_SERVICES_ID_LIST = /^(\d+,?)*$/
 
@@ -34,21 +35,17 @@ module FreightCalculator
     result
   end
 
-  def self.execute(zip_code, amount_value)
-    Freight::TransportShippingManager.execute
+  private
+  def self.check_free_freight_policy(result, zip_code, order_value)
+    if Freight::FreeCostPolicy.apply?( ShippingPolicy.with_zip(zip_code), order_value)
+      result[:default_shipping][:price] = '0.0'.to_d
+    end
+    result
   end
 
-   private
-   def self.check_free_freight_policy(result, zip_code, order_value)
-     if Freight::FreeCostPolicy.apply?( ShippingPolicy.with_zip(zip_code), order_value)
-       result[:default_shipping][:price] = '0.0'.to_d
-     end
-     result
-   end
-
-   def self.prepare_shipping_query(zip_code, shipping_ids=nil)
+  def self.prepare_shipping_query(zip_code, shipping_ids=nil)
     shipping_query = Shipping.with_zip(zip_code)
     shipping_query = shipping_query.with_shipping_service(shipping_ids) if shipping_ids
     shipping_query
-   end
+  end
 end
