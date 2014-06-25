@@ -5,13 +5,15 @@ module FreightCalculator
   DEFAULT_FREIGHT_PRICE   = BigDecimal.new('0.0')
   DEFAULT_FREIGHT_COST    = BigDecimal.new('0.0')
   DEFAULT_INVENTORY_TIME  = 1
+  DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME = DEFAULT_INVENTORY_TIME = 4
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
+
 
   DEFAULT_FREIGHT = {
     default_shipping: {
       price: DEFAULT_FREIGHT_PRICE,
       cost: DEFAULT_FREIGHT_COST,
-      delivery_time: DEFAULT_INVENTORY_TIME + 4,
+      delivery_time: DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME,
       shipping_service_id: DEFAULT_FREIGHT_SERVICE
     }
   }
@@ -30,6 +32,10 @@ module FreightCalculator
       result = {default_shipping: selected_result}
     end
     result
+  end
+
+  def self.execute(zip_code, amount_value)
+    Freight::TransportShippingManager.execute
   end
 
    private

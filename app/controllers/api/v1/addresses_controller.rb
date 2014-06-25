@@ -35,8 +35,7 @@ module Api
         render json: address.to_json, status: :ok
       rescue ActiveRecord::RecordNotFound
         head :not_found, content_type: :json
-      end        
-
+      end
 
       def address_url(address)
         api_v1_address_path(address)
