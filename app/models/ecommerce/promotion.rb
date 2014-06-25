@@ -47,7 +47,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def calculate_for_product product, opt
-    cart = opt[:cart]
+    cart = opt[:cart] || Cart.new
     if product.is_visible? && product.master_variant
       cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
       adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
