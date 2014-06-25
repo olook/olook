@@ -15,7 +15,7 @@ class Promotion < ActiveRecord::Base
   accepts_nested_attributes_for :rule_parameters, allow_destroy: true, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
-  validates_presence_of :rule_parameters, :action_parameter
+  validates_presence_of :action_parameter
   mount_uploader :checkout_banner, ImageUploader
 
   def apply cart
