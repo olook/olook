@@ -17,7 +17,8 @@ class ShowroomPresenter
     @products_limit = args[:products_limit] || 22
     @looks_limit = args[:looks_limit] || 4
     @products = []
-    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
+    @cart = args[:cart]
+    @promotion = Promotion.select_promotion_for(@cart)
   end
 
   def products
@@ -32,6 +33,11 @@ class ShowroomPresenter
 
   def look(opts={})
     @look ||= looks({limit:1, brand: WHITELISTED_BRANDS}.merge(opts)).first
+  end
+
+  def retail_price_with_discount(product)
+    psd = ProductDiscountService.new(product, cart: @cart, coupon: @cart.coupon, promotion: @promotion)
+    psd.final_price
   end
 
   private

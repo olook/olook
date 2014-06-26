@@ -12,7 +12,7 @@
       - @showroom_presenter.products.each do |product|
         %li{data: {id: product.id}}
           =link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_path(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
-          %span= number_to_currency(product.retail_price)
+          %span= number_to_currency(@showroom_presenter.retail_price_with_discount(product))
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
   = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
 :javascript
