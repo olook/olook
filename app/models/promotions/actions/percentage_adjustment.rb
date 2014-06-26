@@ -34,11 +34,7 @@ class PercentageAdjustment < PromotionAction
       adjustment = sub_total * BigDecimal("#{percent.to_i / 100.0}")
       if _filters['full_price'] == '2'
         markdown_discount = cart_item.quantity * ( cart_item.price - cart_item.retail_price )
-        if markdown_discount > adjustment
-          next
-        else
-          adjustment -= markdown_discount
-        end
+        next if markdown_discount > adjustment
       end
       calculated_values << {
         id: cart_item.id,
