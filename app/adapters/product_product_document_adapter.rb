@@ -36,7 +36,7 @@ class ProductProductDocumentAdapter
       product_doc.brand = product.brand
       product_doc.price = product.price
       product_doc.retail_price = product_retail_price_with_discount(product)
-      STDOUT.puts( "%d%%" % ( product_doc.retail_price.to_f / product_doc.price.to_f * 100 ).to_i)
+      STDOUT.puts( "%d %% - #{product_doc.product_id} - #{product_doc.is_visible}" % ( product_doc.retail_price.to_f / product_doc.price.to_f * 100 ).to_i)
       product_doc.calculate_discount
       product_doc.in_promotion = product.liquidation? 
       product_doc.visibility = product.visibility
