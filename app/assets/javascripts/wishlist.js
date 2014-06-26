@@ -1,6 +1,17 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 //= require plugins/change_picture_onhover
+//= require modules/wishlist/add_to_wishlist
+//= require modules/wishlist/add_to_wishlist_error_message
+//= require modules/wishlist/add_to_wishlist_success_message
+//= require modules/wishlist/remove_from_wishlist
+//= require modules/wishlist/remove_from_wishlist_success_message
+new AddToWishlist().config();
+new AddToWishlistErrorMessage().config();
+new AddToWishlistSuccessMessage().config();
+new RemoveFromWishlist().config();
+new RemoveFromWishlistSuccessMessage().config();
+
 $(function() {
   olook.changePictureOnhover('.async');
   new ImageLoader().load('async');
