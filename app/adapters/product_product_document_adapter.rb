@@ -79,11 +79,11 @@ class ProductProductDocumentAdapter
     end
 
     def format_variant_descriptions variants
-      variants.map{|b| format_variant_description(b)}
+      variants.map{|b| format_variant_description(b).downcase}
     end
 
     def format_variant_description variant
-      string_empty?(variant.description) ? variant.description + variant.product.category_humanize[0].downcase : variant.description
+      string_empty?(variant.description) ? variant.description + variant.product.category_humanize[0] : variant.description
     end
 
     def string_empty? str
