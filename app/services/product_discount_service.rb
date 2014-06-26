@@ -20,6 +20,10 @@ class ProductDiscountService
 
   def final_price
     @final_price ||= calculate
+    if @final_price > @product.retail_price
+      @final_price = @product.retail_price
+    end
+    @final_price
   end
 
   def discount
