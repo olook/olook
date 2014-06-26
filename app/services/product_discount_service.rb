@@ -42,8 +42,8 @@ class ProductDiscountService
   # Define qual é o desconto que deve ser aplicado no produto
   # e em qual ordem.
   def best_discount
-    return @coupon if eligible_coupon?
     return @promotion if eligible_promotion?
+    return @coupon if eligible_coupon?
     return NoDiscount.new
   end
 
