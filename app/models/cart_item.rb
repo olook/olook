@@ -29,13 +29,11 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price(options={})
-    _value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-    if options[:avoid_ajustment]
-      _value = _value
+    if options[:avoid_ajustment] || adjustment_value <= 0
+      product.retail_price
     else
-      _value = _value - ( adjustment_value / quantity.to_f )
+      product.price - ( adjustment_value / quantity.to_f )
     end
-    _value
   end
 
   def discount_service

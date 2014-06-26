@@ -36,7 +36,7 @@ class ShowroomPresenter
   end
 
   def retail_price_with_discount(product)
-    psd = ProductDiscountService.new(product, cart: @cart, coupon: @cart.coupon, promotion: @promotion)
+    psd = ProductDiscountService.new(product, cart: @cart, coupon: @cart.try(:coupon), promotion: @promotion)
     psd.final_price
   end
 
