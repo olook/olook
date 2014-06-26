@@ -9,9 +9,9 @@ if( $(".motoboy").size() > 0 && $('.shipping_service_radio:last').is(':checked')
 $('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id %>);
 
 <% if @has_two_shipping_services %>
-  $(".expresso").show();
+  $(".expresso,.motoboy").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
-  $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
+  $(".expresso,.motoboy").find("p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
   _gaq.push(['_trackEvent', 'ExpressFreight', 'ShowExpressDeliveryBox','<%= @zip_code %>', , true]);
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
@@ -42,7 +42,7 @@ $('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:first').attr("checked",true);
-  $(".expresso").hide();
+  $(".expresso,.motoboy").hide();
   $("#motoboy_info").remove();
 <% end %>
 

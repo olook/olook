@@ -158,9 +158,9 @@ function freightCalc(){
     retrieve_freight_price_for_checkout(zip_code,"",false);
   }
 
-  $("#checkout_address_street").on("focus", function(){
+  $("#checkout_address_zip_code").on("blur", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_checkout(zip_code,"",false);
+    retrieve_freight_price_for_checkout(zip_code,"",false, true);
   });
 }
 
