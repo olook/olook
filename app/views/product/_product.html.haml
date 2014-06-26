@@ -7,7 +7,7 @@
         %li= image_tag("#{picture.image_url(:thumb).to_s}", data: {full: picture.image_url(:main).to_s, zoom: picture.image_url(:zoom_out).to_s })
       - unless @product.youtube_token.blank?
         %li= image_tag("product/bt-modal-video.jpg", class: "js-video-modal", onclick: "#{track_event("Product", "ClickVideo", @product.id.to_s)};javascript:olook.videoModalBuild(olook.youtubePlayer(olook.youtubeParser('#{@product.youtube_token}')));", data: {videoId: @product.youtube_token})
-    .big_pic.js-image-zoom= image_tag(@product.pictures.order(:display_on).first.try(:image_url, :main), data: {zoom: @product.pictures.order(:display_on).first.try(:image_url, :zoom_out)}, :class => "full", itemprop: "image")
+    .big_pic.js-image-zoom= @product.pictures.any? ? image_tag(@product.pictures.order(:display_on).first.try(:image_url, :main), data: {zoom: @product.pictures.order(:display_on).first.try(:image_url, :zoom_out)}, :class => "full", itemprop: "image") : ""
     .social-media
       %ul.social-list
         - if !@product.sold_out?
