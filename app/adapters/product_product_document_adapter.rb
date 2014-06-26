@@ -5,6 +5,7 @@ class ProductProductDocumentAdapter
   def initialize
     @log = []
     @ranking_calculator = RankingCalculator.new
+    @promotion = Promotion.select_promotion_for(nil)
   end
 
   def adapt(product, type)
@@ -35,6 +36,7 @@ class ProductProductDocumentAdapter
       product_doc.brand = product.brand
       product_doc.price = product.price
       product_doc.retail_price = product_retail_price_with_discount(product)
+      STDOUT.puts( "%d%%" % ( product_doc.retail_price.to_f / product_doc.price.to_f * 100 ).to_i)
       product_doc.calculate_discount
       product_doc.in_promotion = product.liquidation? 
       product_doc.visibility = product.visibility
@@ -45,9 +47,8 @@ class ProductProductDocumentAdapter
     end
 
     def product_retail_price_with_discount(product)
-      product_discount_service = ProductDiscountService.new(product, promotion: Promotion.select_promotion_for(nil))
-      product_discount_service.calculate
-      product.retail_price
+      product_discount_service = ProductDiscountService.new(product, promotion: @promotion)
+      product_discount_service.final_price
     end
 
     def populate_keywords_field(product, product_doc)

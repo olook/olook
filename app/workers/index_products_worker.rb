@@ -4,7 +4,7 @@ class IndexProductsWorker
   
   def self.perform
     d0 = Time.now.to_i
-    indexer = ProductIndexer.new(Product.pluck(:id), ProductProductDocumentAdapter.new)
+    indexer = ProductIndexer.new(Product.pluck(:id).sort { |a,b| b<=>a }, ProductProductDocumentAdapter.new)
     indexer.index
     d1 = Time.now.to_i
 
