@@ -29,11 +29,12 @@ class ProductProductDocumentAdapter
     def populate_simple_fields(product, product_doc)
       product_doc.lang = 'pt'
 
+
       product_doc.product_id = product.id
       product_doc.is_visible = product.is_visible
       product_doc.brand = product.brand
       product_doc.price = product.price
-      product_doc.retail_price = product.retail_price
+      product_doc.retail_price = product_retail_price_with_discount(product)
       product_doc.calculate_discount
       product_doc.in_promotion = product.liquidation? 
       product_doc.visibility = product.visibility
@@ -41,6 +42,12 @@ class ProductProductDocumentAdapter
       product_doc.age = product.time_in_stock
 
       product_doc
+    end
+
+    def product_retail_price_with_discount(product)
+      product_discount_service = ProductDiscountService.new(product, promotion: Promotion.select_promotion_for(nil))
+      product_discount_service.calculate
+      product.retail_price
     end
 
     def populate_keywords_field(product, product_doc)
