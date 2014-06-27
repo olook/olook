@@ -14,16 +14,14 @@ module Api
 
       private
         def get_zip_code
-          if !params[:zip_code].present? || !params[:amount_value].present?          
-            raise(ArgumentError, "Missing params")
-          else
-            zip_code = ZipCode::SanitizeService.clean(params[:zip_code])
+          zip_code = ZipCode::SanitizeService.clean(params[:zip_code])
 
-            if ZipCode::ValidService.apply?(zip_code)
-              zip_code
-            else
-              raise(ArgumentError, "wrong zipcode")
-            end
+          if zip_code.blank? || params[:amount_value].blank?
+            raise(ArgumentError, "Missing params")
+          elsif !ZipCode::ValidService.apply?(zip_code)
+            raise(ArgumentError, "wrong zipcode")
+          else
+            zip_code
           end
         end
     end
