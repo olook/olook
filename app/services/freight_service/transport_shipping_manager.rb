@@ -1,18 +1,18 @@
 class FreightService::TransportShippingManager
   def default_shipping
-    Struct.new('DefaultShipping').new(
-      income: @freight_calculator::DEFAULT_FREIGHT_PRICE,
-      cost: @freight_calculator::DEFAULT_FREIGHT_COST,
-      delivery_time: @freight_calculator::DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME,
-      shipping_service_id: @freight_calculator::DEFAULT_FREIGHT_SERVICE
+    Struct.new('DefaultShipping', :income, :cost, :delivery_time, :shipping_service_id).new(
+      @freight_calculator::DEFAULT_FREIGHT_PRICE,
+      @freight_calculator::DEFAULT_FREIGHT_COST,
+      @freight_calculator::DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME,
+      @freight_calculator::DEFAULT_FREIGHT_SERVICE
     )
   end
 
   def initialize(zip_code, amount_value, transport_shippings, opts={})
     @zip_code = zip_code
     @amount_value = amount_value
-    @transport_shippings = transport_shippings.to_a.empty? ? default_shipping : transport_shippings
     @freight_calculator = opts[:freight_calculator] || FreightCalculator
+    @transport_shippings = transport_shippings.to_a.empty? ? [default_shipping] : transport_shippings
   end
 
   def default

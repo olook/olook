@@ -3,18 +3,21 @@ describe FreightService::TransportShippingManager do
   subject { described_class.new("08730810", "79.9", @shippings, freight_calculator: FR) }
   before do
     stub_const('FR::DEFAULT_INVENTORY_TIME', 2)
+    stub_const('FR::DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME', 4)
+    stub_const('FR::DEFAULT_FREIGHT_PRICE', 20)
+    stub_const('FR::DEFAULT_FREIGHT_COST', 15)
+    stub_const('FR::DEFAULT_FREIGHT_SERVICE', 2)
+    @shippings = [double('Shipping', cost: 10, income: 15, delivery_time: 2, shipping_service_id: 1)]
   end
   context "When there isn't shippings" do
     it "return default info" do
       @shippings = []
-      subject.should_receive(:default_freight).and_return(:default_freight)
-      expect(subject.default).to eql(:default_freight)
+      expect(subject.default).to eql({:price=>20, :cost=>15, :delivery_time=>6, :shipping_service_id=>2})
     end
   end
   context "When there shipping" do
     context "with one" do
       it "return shipping" do
-        @shippings = [double('Shipping', cost: 10, income: 15, delivery_time: 2, shipping_service_id: 1)]
         ship = { price: 15, cost: 10, :delivery_time => 4, :shipping_service_id => 1 }
         expect(subject.default).to eql(ship)
       end
