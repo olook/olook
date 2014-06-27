@@ -16,12 +16,18 @@ class FreightService::TransportShippingManager
   end
 
   def default
-    chosen = choose_by_cost
-    chosen = check_free_freight_policy(chosen)
-    chosen
+    return @default if @default
+    @default = choose_by_cost
+    @default = check_free_freight_policy(@default)
+    @default
   end
 
   def fast
+    return @fast if @fast
+    @fast = choose_by_delivery_time
+    @fast = nil if @fast && @fast[:delivery_time] >= default[:delivery_time]
+    @fast = nil if @fast && @fast[:price] <= default[:price]
+    @fast
   end
 
   def to_json
@@ -39,6 +45,10 @@ class FreightService::TransportShippingManager
       delivery_time: shipping.delivery_time.to_i + @freight_calculator::DEFAULT_INVENTORY_TIME,
       shipping_service_id: shipping.shipping_service_id || @freight_calculator::DEFAULT_FREIGHT_SERVICE
     }
+  end
+
+  def choose_by_delivery_time
+    @transport_shippings.map { |s| parse_info(s) }.sort {|a,b| a[:delivery_time] <=> b[:delivery_time] }.first
   end
 
   def choose_by_cost
