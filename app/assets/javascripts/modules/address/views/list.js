@@ -1,31 +1,16 @@
-var AddressView = Backbone.View.extend({
-  model: Address,
-  template: _.template($("#template").html()),
-  
-  initialize: function() {
-    this.model.on('destroy', this.remove, this);
-  },
-
-  render: function() {
-    var dict = this.model.toJSON();
-    var html = this.template(dict);
-    this.$el.html(html);
-  },
-
-  remove: function() {
-    this.$el.remove();
-  }
-});
-
-
-var AddressListView = Backbone.View.extend({
+app.views.List = Backbone.View.extend({
   tagName: 'ul',
+
+  events: {
+    'click .zip': 'remove',
+    'click .js-changeAddress': 'teste'
+  },  
   initialize: function() {
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
   },
   addOne: function(address) {
-    var addressView = new AddressView({model: address});
+    var addressView = new app.views.Address({model: address});
     addressView.render();
     this.$el.append(addressView.el);
   },
@@ -42,9 +27,9 @@ var AddressListView = Backbone.View.extend({
     this.collection.remove(modelToDestroy);
   },
 
-  events: {
-    'click .zip': 'remove'
-  },  
+  teste: function(a, b) {
+    alert('oeeee');
+  },
 
 
 })

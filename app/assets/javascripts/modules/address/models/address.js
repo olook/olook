@@ -1,7 +1,11 @@
 /**
  * Represents an Address
  */
-var Address = Backbone.Model.extend({
+app.models.Address = Backbone.Model.extend({
+
+  defaults: {
+    state: 'BRA'
+  },
 
   /**
    * Cidade e cep sao obrigatorios
@@ -19,25 +23,6 @@ var Address = Backbone.Model.extend({
       errors.push({name: 'zip_code', message: 'CEP é obrigatório'});
     }
 
-
     return errors.length > 0 ? errors : false;
   }
-});
-
-
-
-var AddressList = Backbone.Collection.extend({
-  model: Address,
-  url: '/api/v1/addresses',
-
-  initialize: function() {
-    this.bind('remove', this.onModelRemoved, this);
-  },
-
-  onModelRemoved: function (model, collection, options) {
-    console.log("[remove] options = ", options);
-    model.destroy();
-  }
-
-
 });

@@ -1,28 +1,33 @@
-var App = App || {}
-
-App.AddressFormView = Backbone.View.extend({
-  el: $(".form"),
+app.views.Form = Backbone.View.extend({
   className: 'addressForm',
-  tagName: 'form',
   template: _.template($("#form_template").html()),
 
   initialize: function() {
-    this.model.on('invalid', this.showErrors, this);
-    this.render();
+    this.model = new app.models.Address();
 
-    _.bindAll(this, 'fetchAddress');
+    this.model.on('invalid', this.showErrors, this);
+
+    this.render();
   },
 
   events: {
     'click #save-btn': 'addNew',
+    'submit': 'addNew',
     'blur #zip_code': 'fetchAddress',
-    'click .js-addAddress': 'showForm'
+    'click .js-addAddress': 'showForm',
   },
+  
   addNew: function(e) {
     e.preventDefault();
+    this.updateModel();
+    if (this.model.isValid()) {
+      this.collection.create(this.model.toJSON(), {wait: true});
+      this.hideForm();
+      this.trigger("saved"); 
+    }
+  },
 
-    var me = this;
-
+  updateModel: function() {
     var values = {
       city: this.$('#city').val(),
       zip_code: this.$('#zip_code').val(),
@@ -34,13 +39,9 @@ App.AddressFormView = Backbone.View.extend({
       telephone: this.$('#telephone').val(),
     };
 
-    addr = new Address(values);
-    if (addr.isValid()) {
-      this.collection.create(addr.toJSON(), {wait: true});
-      this.hideForm();
-    }
+    this.model.set(values);
   },
-  
+
   showErrors: function(model, errors) { 
     _.each(errors, function (error) {
       var controlGroup = this.$('.' + error.name);
@@ -63,6 +64,7 @@ App.AddressFormView = Backbone.View.extend({
     var html = this.template({});
     this.$el.html(html);
   },
+
   fetchAddress: function() {
     $.get("/get_address_by_zipcode", {zipcode: this.$('#zip_code').val()} , function(data) {
       $('#city').val(data.city);

@@ -75,14 +75,21 @@ describe Api::V1::AddressesController do
         put :update, address: address.attributes, id: address.id
         JSON.parse(response.body).should_not be_empty
       end
-    end        
+    end
+
+    context "when the address id isn't valid" do
+      it "returns file not found status (404)" do
+        get :show, id: -1
+        response.status.should eq(404)
+      end
+    end            
 
   end
 
   describe "#destroy" do
-
+    let(:address) { FactoryGirl.create(:address, :user => user) }
+    
     context "when the address is valid" do
-      let(:address) { FactoryGirl.create(:address, :user => user) }
 
       it "returns success status (201)" do
         delete :destroy, id: address.id
@@ -99,6 +106,14 @@ describe Api::V1::AddressesController do
         Address.where(address.attributes).should be_empty
       end
     end
+
+    context "when the address id isn't valid" do
+      it "returns file not found status (404)" do
+        get :show, id: -1
+        response.status.should eq(404)
+      end
+    end
+
   end
 
   describe "#index" do
@@ -148,12 +163,12 @@ describe Api::V1::AddressesController do
       end
     end
 
-    context "when the address isn't valid" do
+    context "when the address id isn't valid" do
       it "returns file not found status (404)" do
         get :show, id: -1
         response.status.should eq(404)
       end
-    end    
+    end
 
   end
 
