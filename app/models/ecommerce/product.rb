@@ -552,7 +552,14 @@ class Product < ActiveRecord::Base
     (look_products(admin).size > 1 && inventory > 0) || admin
   end
 
-
+  def detail_by_token token
+    if details.loaded?
+      detail = details.to_a.select { |d| d.translation_token == token }.last
+    else
+      detail = details.where(:translation_token => token).last
+    end
+    detail.description if detail
+  end
 
   private
 
@@ -594,15 +601,6 @@ class Product < ActiveRecord::Base
 
     def set_launch_date
       self.launch_date = Time.zone.now.to_date
-    end
-
-    def detail_by_token token
-      if details.loaded?
-        detail = details.to_a.select { |d| d.translation_token == token }.last
-      else
-        detail = details.where(:translation_token => token).last
-      end
-      detail.description if detail
     end
 
     def has_related_products?

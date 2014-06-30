@@ -250,6 +250,8 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
+    resources :integrations
+
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
