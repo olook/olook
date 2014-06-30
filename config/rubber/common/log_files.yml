@@ -1,9 +1,0 @@
-<%
-  @path = "/etc/log_files.yml"
-%>
-files: 
-  - /mnt/olook-production/shared/log/*.log
-
-destination:
-  host: logs.papertrailapp.com
-  port: 63468 # NOTE: change to your Papertrail port
