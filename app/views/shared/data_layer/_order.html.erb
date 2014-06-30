@@ -17,6 +17,7 @@
       "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>],
     'orderNumber': '<%= raw @order.number %>',
     'orderTotal': '<%= raw number_with_precision(@order.amount_paid, separator: ".", precision: 2) %>',
+    'orderTotalWithoutFreight': '<%= raw number_with_precision(@order.subtotal, separator: ".", precision: 2).gsub(".", "") %>',
     'orderTotalWithoutDot': '<%= raw number_with_precision(@order.amount_paid, separator: ".", precision: 2).gsub(".", "") %>'
   });
   <% if @order.tracking && @order.tracking.utm_source.to_s.match(/sociomantic.*/) %>
