@@ -55,7 +55,7 @@ class ProductProductDocumentAdapter
       color = product.details.find{|d| d.translation_token == "Cor filtro" }.try(:description)
       material = product.details.find{|d| d.translation_token == "material" }.try(:description)
       
-      keywords = [product.category_humanize, product.subcategory, product.brand, color, material]
+      keywords = [product.category_humanize, product.subcategory, product.brand, color, material, product.name]
             
       product_doc.keywords = keywords.compact.join(" ")
     end
