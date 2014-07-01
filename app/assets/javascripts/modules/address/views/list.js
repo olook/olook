@@ -3,11 +3,12 @@ app.views.List = Backbone.View.extend({
 
   events: {
     'click .zip': 'remove',
-    'click .js-changeAddress': 'teste'
+    'click .js-changeAddress': 'changeAddress'
   },  
   initialize: function() {
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
+    this.collection.on('change', this.update, this);
   },
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});
@@ -17,7 +18,13 @@ app.views.List = Backbone.View.extend({
   addAll: function() {
     this.collection.forEach(this.addOne, this);
   },
+  update: function(){
+    this.collection.fetch();
+    this.render();
+  },
   render: function(){
+    this.$('.js-addAddress').empty();
+    // this.$el.$("ul").empty();
     this.addAll();
   },
 
@@ -27,8 +34,8 @@ app.views.List = Backbone.View.extend({
     this.collection.remove(modelToDestroy);
   },
 
-  teste: function(a, b) {
-    alert('oeeee');
+  changeAddress: function(e) {
+    app.views.form().showForm(e,true);
   },
 
 

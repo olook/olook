@@ -26,6 +26,10 @@ class Address < ActiveRecord::Base
     self.country = 'BRA'
   end
 
+  def deactivate
+    self.update_attribute(:active, false)
+  end
+
   def identification
     "#{first_name} #{last_name}"
   end

@@ -1,3 +1,7 @@
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g
+};
+
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
   template: _.template($("#form_template").html()),
@@ -5,7 +9,13 @@ app.views.Form = Backbone.View.extend({
   initialize: function() {
     this.model = new app.models.Address();
 
+    this.model.on('change', this.render, this);
+
     this.model.on('invalid', this.showErrors, this);
+
+    this.on("saved", function() {
+      app.addresses.fetch();
+    });          
 
     this.render();
   },
@@ -21,8 +31,9 @@ app.views.Form = Backbone.View.extend({
     e.preventDefault();
     this.updateModel();
     if (this.model.isValid()) {
-      this.collection.create(this.model.toJSON(), {wait: true});
+      this.collection.create(this.model.attributes, {wait: true});
       this.hideForm();
+      this.model = new app.models.Address();
       this.trigger("saved"); 
     }
   },
@@ -50,7 +61,15 @@ app.views.Form = Backbone.View.extend({
     }, this);
   },
 
-  showForm: function(e) {
+  displayAddressData: function(modelId){
+    this.model.set('id', modelId );
+    this.model.fetch();
+  },
+
+  showForm: function(e, editing) {
+    if(editing){
+      this.displayAddressData(e.target.id);
+    }
     this.$('.js-address_form').show();
     this.$('.js-addAddress').hide();
   },
@@ -60,9 +79,13 @@ app.views.Form = Backbone.View.extend({
     this.$('.js-addAddress').show();
   },
 
-  render: function() {
-    var html = this.template({});
+  render: function(obj) {
+    debugger;
+    var html = this.template(this.model.attributes);
     this.$el.html(html);
+    if(obj){
+      this.showForm();
+    }
   },
 
   fetchAddress: function() {

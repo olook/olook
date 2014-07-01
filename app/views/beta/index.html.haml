@@ -3,11 +3,13 @@
 
 #main
 
+#addressList
+
 #addressApp
 
 #addressForm
 
-%script{:type => "text/template", :id => "address-template"}
+%script{type: "text/template", id: "address-template"}
   %fieldset
     %input{type: 'radio', value: '{{ id }}'}
     %ul
@@ -18,37 +20,38 @@
       %li= link_to 'Alterar', '#', class: 'js-changeAddress', id: '{{id}}'
       %li <a href="#" id='{{id}}' class='zip'>Remover</a>
 
-
-%script{id: "template-old", type: "text/html"}
-  <div class='address'>
-  <strong><%= zip_code %></strong>
-  <span><%= city %></span>
-  <a href="#" id='<%= id %>' class='zip'>Remover</a>
-  </div>      
-
-%script{id: "form_template", type: "text/html"}
-  <a href="#" class='js-addAddress'>Adicionar endereco</a>
-  <div class='js-address_form' style='display: none'>
-  <form>
-  <div class='control-group zip_code'>
-  <p>Cep: <input type='text' id='zip_code' name='zip_code'></p>
-  <span class='help-inline'></span>
-  </div>
-  <p>Rua: <input type='text' id='street' name='street'></p>
-  <p>Estado: <input type='text' id='state' name='state'></p>
-  <p>Numero: <input type='text' id='number' name='number'></p>
-  <p>Bairro: <input type='text' id='neighborhood' name='neighborhood'></p>
-  
-  <div class='control-group city'>
-  <p>Cidade: <input type='text' id='city' name='city'></p>
-  <span class='help-inline'></span>
-  </div>  
-  
-  <p>Telefone: <input type='text' id='telephone' name='telephone'></p>
-
-  <p><input type='button' id='save-btn' value='Cadastrar' name='save-btn' value='Cadastrar'></p>
-  <p><input type='submit' id='submit' value='Enviar' name='submit' value='Enviar'></p>
-  </form>
-  </div>
+%script{id: "form_template", type: "text/template"}
+  =link_to 'Adicionar endereco', '#', class: 'js-addAddress'
+  .js-address_form{style:'display: none'}
+    %form
+      .control-group.zip_code
+        %p
+          Cep:
+          %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
+        %span.help-inline
+      %p
+        Rua: 
+        %input{type:'text', id:'street', name:'street', value:'{{street}}'}
+      %p
+        Estado:
+        %input#state{name: "state", type: "text", value:'{{state}}'}
+      %p
+        Numero:
+        %input#number{name: "number", type: "text", value: '{{number}}'}
+      %p
+        Bairro:
+        %input#neighborhood{name: "neighborhood", type: "text", value: '{{neighborhood}}'}
+      .control-group.city
+        %p
+          Cidade:
+          %input#city{name: "city", type: "text", value: '{{city}}'}
+        %span.help-inline
+      %p
+        Telefone:
+        %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
+      %p
+        %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
+      %p
+        %input#submit{name: "submit", type: "submit", value: "Enviar"}
 
 =javascript_include_tag "beta.js"

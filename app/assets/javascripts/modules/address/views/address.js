@@ -1,13 +1,5 @@
 app.views.Address = Backbone.View.extend({
   model: app.models.Address,
-  // events: {
-  //   'click js-changeAddress': 'test'
-  // },
-
-  // test: function(e) {
-  //   alert('oeee');
-  // },
-  
   initialize: function() {
     /*
       To use {{ variable }} on the templates

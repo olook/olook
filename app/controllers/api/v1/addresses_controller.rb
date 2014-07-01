@@ -24,7 +24,8 @@ module Api
 
       def update
         address = selected_address(params[:id])
-        address.assign_attributes(params[:address])
+        params[:address].delete(:id)
+        address.update_attributes(params[:address])
         response_for address
       rescue ActiveRecord::RecordNotFound
         head :not_found, content_type: :json
