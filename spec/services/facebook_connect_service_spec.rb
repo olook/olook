@@ -4,6 +4,8 @@ describe FacebookConnectService do
   describe "#get_facebook_data" do
     before(:each) do
       @access_token = 'HEHEHE'
+      subject.stub(:facebook_config).and_return({'app_id' => '123', 'app_secret' => '123abc'})
+      subject.stub(:send_event)
     end
     subject { described_class.new({'accessToken' => @access_token}) }
     it "should call fb_api with '/me' and @access_token" do
@@ -15,6 +17,10 @@ describe FacebookConnectService do
   describe "#connect!" do
     before(:each) do
       subject.stub(:get_facebook_data).and_return({"id" => '123', 'email' => 'teste@teste.com'})
+      subject.stub(:facebook_config).and_return({'app_id' => '123', 'app_secret' => '123abc'})
+      subject.stub(:send_event)
+      subject.stub(:get_facebook_likes).and_return([])
+      subject.stub(:logger).and_return(mock(info: '', debug: '', error: '', warn: ''))
     end
 
     subject { described_class.new({ 'accessToken' => 'HEHEHE' }) }
