@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ProductInterest < ActiveRecord::Base
   attr_accessible :campaign_email_id, :product_id, :color, :subcategory
 
@@ -20,9 +21,9 @@ class ProductInterest < ActiveRecord::Base
 
   def self.as_csv
     CSV.generate do |csv|
-      csv << column_names
+      csv << ["Email", "Id do produto", "Criado em", "Subcategoria", "Cor"]
       all.each do |item|
-        csv << item.attributes.values_at(*column_names)
+        csv << [item.campaign_email.email,item.product_id, I18n.l(item.created_at, format: "%d/%m/%Y"), item.subcategory, item.color]
       end
     end
   end
