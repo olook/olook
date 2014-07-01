@@ -25,7 +25,7 @@ class Freight::TransportShippingChooserService
   end
 
   def choose_by_delivery_time(cheaper_shipping)
-    faster = @shippings.select{|ship| ship.delivery_time < cheaper_shipping[:default_shipping][:delivery_time] && ship.shipping_service_id != cheaper_shipping[:default_shipping][:shipping_service_id]}.sort {|x,y| x.delivery_time <=> y.delivery_time }.first
+    faster = @shippings.select{|ship| (ship.delivery_time+FreightCalculator::DEFAULT_INVENTORY_TIME) < cheaper_shipping[:default_shipping][:delivery_time] && ship.shipping_service_id != cheaper_shipping[:default_shipping][:shipping_service_id]}.sort {|x,y| x.delivery_time <=> y.delivery_time }.first
     return {} if faster.blank?
     formated_hash(faster, 'fast_shipping')
   end
