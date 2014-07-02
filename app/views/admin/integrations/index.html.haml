@@ -1,2 +1,12 @@
-%h1 Admin::Integrations#index
-%p Find me in app/views/admin/integrations/index.html.haml
+%h1 Integração com a Kanui
+
+=form_tag(admin_integration_path(1), method: :put) do
+  %fieldset
+    %p
+      =label :product_ids, 'Ids dos produtos separados por virgula (ex: 1234,5678,etc.)'
+      =text_area_tag :product_ids, @kanui.product_ids.join(","), rows: 10, cols: 80
+    %p
+      =label_tag :active, "Ativo?"
+      =check_box_tag :active, 1, @kanui.enabled?
+    %p
+      =submit_tag

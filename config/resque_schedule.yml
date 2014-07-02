@@ -1,3 +1,9 @@
+kanui_integration:
+  cron: "0 4,14 * * *"
+  class: KanuiIntegrationWorker
+  queue: low
+  description: "Gera o CSV fr produtos e envia o email para a kanui"
+
 regenerate_html_sitemap:
   cron: "0 */6 * * *"
   class: SitemapWorker
