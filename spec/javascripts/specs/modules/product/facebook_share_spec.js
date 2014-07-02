@@ -10,7 +10,7 @@ describe("FacebookShare", function() {
     it("should call subscribe in channel product:twitter_share", function(){
       var ts = new FacebookShare(jQuery);
       ts.config();
-      expect(olookApp.subscribe).toHaveBeenCalledWith("product:facebook_share", ts.facade, {}, ts);
+      expect(olookApp.subscribe).toHaveBeenCalledWith("product:facebook_share", ts.facade, {}, ts, "FacebookShare");
     });
   });
 
