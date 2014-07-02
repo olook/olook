@@ -7,7 +7,13 @@ class KanuiIntegration
 
   def initialize(options={})
     @redis = options.delete(:redis) || Redis.connect(url: ENV['REDIS_LEADERBOARD'])
-    @redis.rpush(LIST_KEY, options[:list]) unless options[:list].nil?
+
+    if options[:list]
+      @redis.del(LIST_KEY)
+      @redis.rpush(LIST_KEY, options[:list]) 
+    end
+
+    @redis.set(ACTIVE_KEY, options[:active]) unless options[:active].nil?
   end
 
   def run
@@ -23,6 +29,14 @@ class KanuiIntegration
 
   def disable
     @redis.set(ACTIVE_KEY, false)
+  end
+
+  def product_ids
+    @redis.lrange(LIST_KEY, 0, -1)
+  end
+
+  def enabled?
+    @redis.get(ACTIVE_KEY) == "true"
   end
 
   private
