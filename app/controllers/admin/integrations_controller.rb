@@ -9,7 +9,10 @@ class Admin::IntegrationsController < Admin::BaseController
   	product_ids = params[:product_ids].split(",")
     active = params[:active] == "1"
 
-  	KanuiIntegration.new(list: product_ids, active: active)
+  	kanui_integration = KanuiIntegration.new(list: product_ids, active: active)
+    if params[:send_email] == "1"
+      kanui_integration.send_products_email
+    end
     
     redirect_to admin_integrations_path
   end

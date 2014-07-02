@@ -9,4 +9,8 @@
       =label_tag :active, "Ativo?"
       =check_box_tag :active, 1, @kanui.enabled?
     %p
+      =label_tag :send_email, "Enviar email de produtos para kanui?"
+      =check_box_tag :send_email, 1
+    %p    
       =submit_tag
+
