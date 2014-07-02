@@ -1,5 +1,5 @@
 kanui_integration:
-  cron: "0 4,14 * * *"
+  cron: "0 8,14,19 * * *"
   class: KanuiIntegrationWorker
   queue: low
   description: "Gera o CSV fr produtos e envia o email para a kanui"
