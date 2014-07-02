@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Checkout::AddressesController < Checkout::BaseController
-  respond_to :html, :js
+  respond_to :html, :js, :json
   before_filter :authenticate_user!
   before_filter :check_order
   before_filter :retrieve_address, only: [:edit, :update, :destroy]

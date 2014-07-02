@@ -11,6 +11,7 @@ Olook::Application.routes.draw do
       resources :product_interest, only: [:create]
       resources :freights, only: [:show]
       resources :addresses
+      resources :zip_code,only: [:show]
     end 
   end
 

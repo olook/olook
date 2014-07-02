@@ -40,7 +40,6 @@ module Seo
 
     def choose_meta_tag
       meta_tag = search_meta_tag
-
       title = meta_tag[:title] || fallback_title || DEFAULT_PAGE_TITLE
       description = meta_tag[:description] || fallback_description || DEFAULT_PAGE_DESCRIPTION
       full_title = title
@@ -52,7 +51,7 @@ module Seo
 
     def search_meta_tag
       _url = url.dup
-      _url = _url.gsub("-#{brand.downcase}", "") if brand
+      _url = _url.gsub("-#{brand.downcase}", "") unless brand.blank?
       header = find_parent_meta_tag(_url)
       {title: header.try(:page_title), description: header.try(:page_description)}
     end

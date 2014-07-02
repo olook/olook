@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :cep do
-    cep "MyString"
-    endereco "MyString"
-    bairro "MyString"
-    cidade "MyString"
-    estado "MyString"
-    nome_estado "MyString"
+    cep "12345678"
+    endereco "Rua Teste"
+    bairro "Bairro Teste"
+    cidade "Cidade Teste"
+    estado "TP"
+    nome_estado "BRA"
   end
 end

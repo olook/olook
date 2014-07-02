@@ -6,29 +6,30 @@ module Api
       before_filter :authenticate_user!
 
       def index
-        render json: current_user.addresses.to_json
+        render json: addresses.to_json
       end
 
       def destroy
-        selected_address(params[:id]).destroy
+        selected_address(params[:id]).deactivate
         head :ok, content_type: :json
+      rescue ActiveRecord::RecordNotFound
+        head :not_found, content_type: :json
       end
 
       def create
-        params[:address][:country] = 'BRA' if params[:address]    
-        address = current_user.addresses.create(params[:address])
-
-        respond_with address
+        params[:address][:country] = 'BRA' if params[:address]
+        address = current_user.addresses.new(params[:address])
+        response_for address
       end
 
       def update
         address = selected_address(params[:id])
-        if address.update_attributes(params[:address])
-          render json: address.to_json, status: :ok
-        else  
-          render json: address.errors.to_json, status: :unprocessable_entity
-        end
-      end  
+        params[:address].delete(:id)
+        address.update_attributes(params[:address])
+        response_for address
+      rescue ActiveRecord::RecordNotFound
+        head :not_found, content_type: :json
+      end
 
       def show
         address = selected_address(params[:id])
@@ -43,8 +44,20 @@ module Api
 
       private
 
+      def addresses
+        current_user.addresses.active
+      end
+
       def selected_address id
-        current_user.addresses.active.find(params[:id])
+        addresses.find(params[:id])
+      end
+
+      def response_for address
+        if address.save
+          render json: address.to_json, status: :ok
+        else
+          render json: address.errors.to_json, status: :unprocessable_entity
+        end
       end
 
     end

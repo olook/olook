@@ -1,41 +1,70 @@
 =javascript_include_tag "lib/underscore"
 =javascript_include_tag "lib/backbone"
 
-#appView
+#main
+
+#addressList
 
 #addressApp
 
-.form
+#addressForm
 
-%script{id: "template", type: "text/html"}
-  <div class='address'>
-  <strong><%= zip_code %></strong>
-  <span><%= city %></span>
-  <a href="#" id='<%= id %>' class='zip'>Remover</a>
-  </div>
+%script{type: "text/template", id: "address-template"}
+  %fieldset
+    %input{type: 'radio', value: '{{ id }}'}
+    %ul
+      %li 
+      %li {{ street }}, {{ number }}
+      %li {{ neighborhood }} - {{ zip_code }}
+      %li {{ city }},  {{state}} 
+      %li= link_to 'Alterar', '#', class: 'js-changeAddress', id: '{{id}}'
+      %li <a href="#" id='{{id}}' class='zip'>Remover</a>
 
-%script{id: "form_template", type: "text/html"}
-  <a href="#" class='js-addAddress'>Adicionar endereco</a>
-  <div class='js-address_form' style='display: none'>
-  <div class='control-group zip_code'>
-  <p>Cep: <input type='text' id='zip_code'></p>
-  <span class='help-inline'></span>
-  </div>
-  <p>Rua: <input type='text' id='street'></p>
-  <p>Estado: <input type='text' id='state'></p>
-  <p>Pais: <input type='text' id='country'></p>
-  <p>Numero: <input type='text' id='number'></p>
-  <p>Bairro: <input type='text' id='neighborhood'></p>
-  
-  <div class='control-group city'>
-  <p>Cidade: <input type='text' id='city'></p>
-  <span class='help-inline'></span>
-  </div>  
-  
-  <p>Telefone: <input type='text' id='telephone'></p>
+%script{id: "form_template", type: "text/template"}
+  =link_to 'Adicionar endereco', '#', class: 'js-addAddress'
+  .js-address_form{style:'display: none'}
+    %form
+      .control-group.zip_code
+        %p
+          Cep:
+          %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
+        %span.help-inline
+      .control-group.street        
+        %p
+          Rua: 
+          %input{type:'text', id:'street', name:'street', value:'{{street}}'}
+        %span.help-inline
+      .control-group.state
+        %p
+          Estado:
+          %input#state{name: "state", type: "text", value:'{{state}}'}
+        %span.help-inline
 
-  <p><input type='button' id='save-btn' value='Cadastrar'></p>
-  </div>
+      .control-group.number
+        %p
+          Numero:
+          %input#number{name: "number", type: "text", value: '{{number}}'}
+        %span.help-inline
 
+      .control-group.neighborhood
+        %p
+          Bairro:
+          %input#neighborhood{name: "neighborhood", type: "text", value: '{{neighborhood}}'}
+        %span.help-inline
 
-=javascript_include_tag "beta.js"  
+      .control-group.city
+        %p
+          Cidade:
+          %input#city{name: "city", type: "text", value: '{{city}}'}
+        %span.help-inline
+
+      .control-group.telephone
+        %p
+          Telefone:
+          %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
+        %span.help-inline      
+
+      %p
+        %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
+
+=javascript_include_tag "beta.js"

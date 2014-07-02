@@ -1,7 +1,0 @@
-# Sets up memcached server and client as dalli
-
-gems: [dalli]
-
-roles:
-  memcached:
-    packages: [memcached, libcache-memcached-perl]
