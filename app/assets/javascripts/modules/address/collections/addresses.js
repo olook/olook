@@ -1,6 +1,6 @@
 app.collections.Addresses = Backbone.Collection.extend({
   model: app.models.Address,
-  url: '/api/v1/addresses',
+  url: app.server_api_prefix + '/addresses',
 
   initialize: function() {
     this.on('remove', this.onModelRemoved, this);

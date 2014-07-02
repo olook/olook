@@ -205,7 +205,7 @@ describe PromotionAction do
       context "with cart_item that has collection_theme" do
         before do
           @cart_items = [
-            mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, name: 'casual')]))
+            mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, slug: 'casual')]))
           ]
           @filters = {'collection_theme' => 'casual,trabalho'}
         end
@@ -215,8 +215,8 @@ describe PromotionAction do
       context "intersect with other filters" do
         before do
           @cart_items = [
-            @olook = mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, name: 'casual')], brand: 'olook')),
-            @tng = mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, name: 'casual')], brand: 'tng')),
+            @olook = mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, slug: 'casual')], brand: 'olook')),
+            @tng = mock_model(CartItem, product: mock_model(Product, collection_themes: [mock_model(CollectionTheme, slug: 'casual')], brand: 'tng')),
           ]
           @filters = {'collection_theme' => 'casual', 'brand' => 'olook'}
         end

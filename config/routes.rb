@@ -9,6 +9,7 @@ Olook::Application.routes.draw do
     namespace :v1 do
       resources :newsletter, only: [:create]
       resources :product_interest, only: [:create]
+      resources :freights, only: [:show]
       resources :addresses
       resources :zip_code,only: [:show]
     end 
@@ -197,10 +198,6 @@ Olook::Application.routes.draw do
   get "/produto/:id" => "product#show", :as => "product"
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
-
-  # get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
-  get "/quero_ganhar/:encrypted_id/:id" => "product#product_valentines_day"
-
 
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'

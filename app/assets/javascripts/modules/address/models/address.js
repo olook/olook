@@ -2,7 +2,7 @@
  * Represents an Address
  */
 app.models.Address = Backbone.Model.extend({
-  urlRoot: '/api/v1/addresses',
+  urlRoot: app.server_api_prefix + '/addresses',
   defaults: {
     country: 'BRA',
     zip_code: '',

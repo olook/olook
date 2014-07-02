@@ -27,13 +27,6 @@ describe FirstBuy do
       end
     end
 
-    context "when user's discount is expired" do
-      it "doesn't match" do
-        user.created_at = user.created_at - 10.days
-        subject.matches?(cart).should be_false
-      end
-    end
-
     context "when user has authorized orders" do
 
       it "doesn't match" do

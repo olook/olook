@@ -37,10 +37,9 @@ describe Promotion do
     context "when there's promotion and cart to apply" do
 
       before :each do
-        promo.stub(:total_discount_for).and_return(10.5)
-        another_promo.stub(:total_discount_for).and_return(5.5)
+        promo.stub(:simulate).and_return(10.5)
+        another_promo.stub(:simulate).and_return(5.5)
         described_class.stub(:matched_promotions_for).and_return([promo, another_promo])
-        cart.items.should_receive(:any?).and_return(true)
       end
 
       it "retuns best promotion" do

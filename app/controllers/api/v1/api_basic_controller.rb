@@ -7,14 +7,14 @@ module Api
       before_filter :restrict_access, if: -> {Rails.env.production?}
       respond_to :json
 
-      private
-        def restrict_access
-          authenticate_or_request_with_http_token do |token, options|
-            api_key = ApiKey.find_by_access_token(token)
-            params[:api_client_name] = api_key.name if api_key
-            api_key
-          end
+      protected
+      def restrict_access
+        authenticate_or_request_with_http_token do |token, options|
+          api_key = ApiKey.find_by_access_token(token)
+          params[:api_client_name] = api_key.name if api_key
+          api_key
         end
+      end
     
     end
   end

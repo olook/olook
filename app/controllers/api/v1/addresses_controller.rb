@@ -38,7 +38,6 @@ module Api
         head :not_found, content_type: :json
       end
 
-
       def address_url(address)
         api_v1_address_path(address)
       end
