@@ -17,7 +17,7 @@ describe MktXmlBuilder do
       <produto>
       <codigo>#{product.id}</codigo>
       <categoria>12</categoria>
-      <link><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=ilove_ecommerce]]></link>
+      <link><![CDATA[#{product.product_url(:utm_source => "ilove_ecommerce", :utm_campaign => "produtos")}]]></link>
       <imagem></imagem>
       <nome_titulo><![CDATA[#{product.name}]]></nome_titulo>
       <descricao><![CDATA[#{product.description}]]></descricao>
