@@ -20,36 +20,6 @@ describe Gift::RecipientsController do
       get 'edit', :id => id
       assigns(:gift_recipient).should == recipient
     end
-
-    context "when a gift recipient is found" do
-      before do
-        GiftRecipient.stub(:find).and_return(recipient)
-      end
-
-      context "and profile_id param is not present" do
-        it "gets all ranked profile ids from gift_recipient" do
-          pending
-          GiftRecipient.any_instance.should_receive(:ranked_profiles).with(nil).and_return(profiles)
-          get 'edit', :id => id
-        end
-      end
-
-      context "and profile_id param is present" do
-        it "gets all ranked profile ids from gift_recipient passing profile_id" do
-          pending
-          GiftRecipient.any_instance.should_receive(:ranked_profiles).with("3").and_return(profiles)
-          get 'edit', :id => id, :gift_recipient => { :profile_id => "3" }
-        end
-
-        it "assigns @main_profile to the first profile " do
-          pending
-          GiftRecipient.any_instance.stub(:ranked_profiles).with("3").and_return(profiles)
-          get 'edit', :id => id, :gift_recipient => { :profile_id => "3" }
-          assigns(:main_profile).should == profiles.first
-        end
-      end
-
-    end
   end
 
   describe "POST 'update'" do

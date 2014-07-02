@@ -77,11 +77,11 @@ class FacebookConnectService
   end
 
   def extend_fb_token
-    fb_api('/oauth/access_token', @access_token, {
-      grant_type: 'fb_exchange_token',
+    data = { grant_type: 'fb_exchange_token',
       client_id: facebook_config['app_id'],
       client_secret: facebook_config['app_secret'],
-      fb_exchange_token: @access_token })  do |response|
+      fb_exchange_token: @access_token }
+    fb_api('/oauth/access_token', @access_token, data)  do |response|
       /access_token=(?<long_lived_access_token>[^&]+)&expires=(?<long_lived_expires>.+)/ =~ response.read_body
       @access_token = long_lived_access_token
       @expires = long_lived_expires

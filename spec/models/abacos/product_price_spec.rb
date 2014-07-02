@@ -22,12 +22,9 @@ describe Abacos::ProductPrice do
       mock_product.stub(:master_variant).and_return(mv)
       mock_product.should_receive(:'price=').with(subject.price)
       mock_product.should_receive(:'retail_price=').with(subject.retail_price)
-      mock_product.should_receive(:'save!').and_return(true)
+      mv.should_receive(:'save!').and_return(true)
       ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
-      CatalogService.should_receive(:save_product).with(mock_product, :update_price => true)
-
       subject.should_receive(:confirm_price)
-      
       subject.integrate
     end
 
@@ -38,13 +35,10 @@ describe Abacos::ProductPrice do
       mock_product.stub(:master_variant).and_return(mv)
       mock_product.should_receive(:'price=').with(subject.price)
       mock_product.should_receive(:'retail_price=').with(subject.retail_price)
-      mock_product.should_receive(:'save!').and_return(true)
+      mv.should_receive(:'save!').and_return(true)
       mock_product.should_receive(:is_kit).and_return(true)
       ::Product.should_receive(:find_by_model_number).with(subject.model_number).and_return(mock_product)
-      CatalogService.should_receive(:save_product).with(mock_product, :update_price => true)
-
       subject.should_receive(:update_kit_variant_price)
-      
       subject.integrate
     end
   end

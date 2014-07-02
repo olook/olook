@@ -39,12 +39,14 @@ describe FacebookConnectService do
 
       it "should create an User" do
         subject.should_receive(:create_user).once
+        subject.should_receive(:extend_fb_token)
         subject.connect!
       end
 
       it "should set user" do
         @user = double('user')
         subject.stub!(:create_user).and_return(@user)
+        subject.should_receive(:extend_fb_token)
         subject.connect!
         expect(subject.user).to eq(@user)
       end
@@ -59,11 +61,13 @@ describe FacebookConnectService do
       it "should update an User" do
         subject.should_not_receive(:create_user)
         subject.should_receive(:update_user)
+        subject.should_receive(:extend_fb_token)
         subject.connect!
       end
 
       it "should set user" do
         subject.stub(:update_user).and_return(@user)
+        subject.should_receive(:extend_fb_token)
         subject.connect!
         expect(subject.user).to eq(@user)
       end

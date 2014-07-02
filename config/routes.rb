@@ -199,10 +199,6 @@ Olook::Application.routes.draw do
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
-  # get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
-  get "/quero_ganhar/:encrypted_id/:id" => "product#product_valentines_day"
-
-
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"

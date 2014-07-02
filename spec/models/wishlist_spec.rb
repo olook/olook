@@ -73,15 +73,13 @@ describe Wishlist do
       let(:wished_product) {OpenStruct.new({product_id: '123', variant_number: '123-P', is_visible?: true})}
       let(:already_added_variant) {double('Variant', id: 1230, number: '123-P', product_id: '123', retail_price: 100, valid?: true, product: double(is_visible?: true))}
       let(:new_variant) {double('Variant', id: 1231, number: '123-G', product_id: '123', retail_price: 100, valid?: true, product: double(is_visible?: true))}
-
-      before(:each) do
-        wishlist.stub(:wished_products).and_return([wished_product])
-      end
+      subject(:wishlist) { Wishlist.create }
 
       describe "when adding another variant of the same product" do
         it "should increase wished_products list" do
-          wishlist.add new_variant
-          expect(wishlist).to have(2).wished_products
+          expect {
+            wishlist.add new_variant
+          }.to change {wishlist.wished_products.count}.by(1)
         end
 
         it "return true" do
@@ -90,9 +88,11 @@ describe Wishlist do
       end
 
       describe "when adding an already added variant" do
-        it "should not increase wished_products list" do
+        before do
           wishlist.add already_added_variant
-          expect(wishlist).to have(1).wished_products
+        end
+        it "should not increase wished_products list" do
+          expect{ wishlist.add already_added_variant }.to_not change{wishlist.wished_products.count}
         end
 
         it "return false" do
