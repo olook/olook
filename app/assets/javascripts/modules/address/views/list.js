@@ -18,13 +18,7 @@ app.views.List = Backbone.View.extend({
   addAll: function() {
     this.collection.forEach(this.addOne, this);
   },
-  update: function(){
-    this.collection.fetch();
-    this.render();
-  },
   render: function(){
-    this.$('.js-addAddress').empty();
-    // this.$el.$("ul").empty();
     this.addAll();
   },
 
@@ -35,7 +29,8 @@ app.views.List = Backbone.View.extend({
   },
 
   changeAddress: function(e) {
-    app.views.form().showForm(e,true);
+    var id = e.target.id; 
+    app.views.form().displayUpdateForm(id);
   },
 
 

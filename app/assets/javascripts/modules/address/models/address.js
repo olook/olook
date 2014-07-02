@@ -22,11 +22,11 @@ app.models.Address = Backbone.Model.extend({
   validate: function(attr) {
     errors = [];
 
-    if (!attr.city) {
+    if (StringUtils.isEmpty(attr.city)) {
       errors.push({name: 'city', message: 'Cidade é obrigatória'});
     }
     
-    if (!attr.zip_code) {
+    if (StringUtils.isEmpty(attr.zip_code)) {
       errors.push({name: 'zip_code', message: 'CEP é obrigatório'});
     }
 

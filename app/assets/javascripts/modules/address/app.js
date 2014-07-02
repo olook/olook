@@ -24,7 +24,7 @@ var app = (function() {
       api: api,
       list: function() {
         if(!this.listView) {
-          this.listView = new api.views.List({collection: api.addresses,el: $("#main")});
+          this.listView = new api.views.List({collection: api.addresses,el: $("#addressList")});
         }
         return this.listView;
       },
@@ -49,7 +49,6 @@ var app = (function() {
   //         "": "list"
   //     },
   //     list: function(archive) {
-  //       debugger;
   //       var view = api.views.list();
   //       api.changeContent(view.$el);
   //       view.render();

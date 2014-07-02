@@ -13,6 +13,7 @@ app.views.Address = Backbone.View.extend({
       Events
      */
     this.model.on('destroy', this.remove, this);
+    this.model.on('change', this.render, this);
   },
 
   render: function() {

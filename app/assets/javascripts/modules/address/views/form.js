@@ -9,13 +9,9 @@ app.views.Form = Backbone.View.extend({
   initialize: function() {
     this.model = new app.models.Address();
 
-    this.model.on('change', this.render, this);
-
-    this.model.on('invalid', this.showErrors, this);
-
     this.on("saved", function() {
-      app.addresses.fetch();
-    });          
+      app.addresses.fetch({async:false});
+    });       
 
     this.render();
   },
@@ -24,17 +20,23 @@ app.views.Form = Backbone.View.extend({
     'click #save-btn': 'addNew',
     'submit': 'addNew',
     'blur #zip_code': 'fetchAddress',
-    'click .js-addAddress': 'showForm',
+    'click .js-addAddress': 'displayCreateForm',
   },
   
   addNew: function(e) {
     e.preventDefault();
     this.updateModel();
     if (this.model.isValid()) {
-      this.collection.create(this.model.attributes, {wait: true});
+      if(this.model.id === undefined ){
+        this.collection.create(this.model.attributes, {wait: true});
+      } else {
+        this.model.save();
+        this.collection.set(this.model.attributes,{remove: false, wait: true, validate: true});        
+      }
+      this.trigger("saved");
       this.hideForm();
-      this.model = new app.models.Address();
-      this.trigger("saved"); 
+    } else {
+      this.showErrors();
     }
   },
 
@@ -49,27 +51,31 @@ app.views.Form = Backbone.View.extend({
       neighborhood: this.$('#neighborhood').val(),
       telephone: this.$('#telephone').val(),
     };
-
     this.model.set(values);
   },
 
-  showErrors: function(model, errors) { 
-    _.each(errors, function (error) {
+  showErrors: function() {
+    _.each(this.model.validationError, function (error) {
       var controlGroup = this.$('.' + error.name);
       controlGroup.addClass('error');
       controlGroup.find('.help-inline').text(error.message);
     }, this);
   },
 
-  displayAddressData: function(modelId){
+  displayUpdateForm: function(modelId){
     this.model.set('id', modelId );
-    this.model.fetch();
+    this.model.fetch({async: false});
+    this.render();
+    this.showForm();
   },
 
-  showForm: function(e, editing) {
-    if(editing){
-      this.displayAddressData(e.target.id);
-    }
+  displayCreateForm: function(modelId){
+    this.model = new app.models.Address();
+    this.render();
+    this.showForm();
+  },  
+
+  showForm: function(e) {
     this.$('.js-address_form').show();
     this.$('.js-addAddress').hide();
   },
@@ -80,16 +86,12 @@ app.views.Form = Backbone.View.extend({
   },
 
   render: function(obj) {
-    debugger;
     var html = this.template(this.model.attributes);
     this.$el.html(html);
-    if(obj){
-      this.showForm();
-    }
   },
 
   fetchAddress: function() {
-    $.get("/get_address_by_zipcode", {zipcode: this.$('#zip_code').val()} , function(data) {
+    $.get("/api/v1/zip_code/"+this.$('#zip_code').val()+".json", {} , function(data) {
       $('#city').val(data.city);
       $('#state').val(data.state);
       $('#street').val(data.street);
