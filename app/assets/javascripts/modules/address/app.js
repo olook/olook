@@ -1,6 +1,15 @@
+//= require_self
+//= require ./modules/address/models/address
+//= require ./modules/address/models/freight
+//= require ./modules/address/collections/addresses
+//= require ./modules/address/collections/freights
+//= require ./modules/address/views/address
+//= require ./modules/address/views/list
+//= require ./modules/address/views/form
 var app = (function() {
 
   var api = {
+    server_api_prefix: '/api/v1',
     views: {},
     models: {},
     collections: {},
@@ -30,7 +39,7 @@ var app = (function() {
       },
 
       form: function() {
-        if(!this.formView) {        
+        if(!this.formView) {
           this.formView = new api.views.Form({collection: api.addresses,el: $("#main")});
         }
         return this.formView;
