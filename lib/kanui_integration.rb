@@ -76,6 +76,6 @@ class KanuiIntegration
   end
 
   def inventory_line_generator(product, variant)
-    [product.brand, variant.number, variant.inventory]
+    [product.brand, variant.number, variant.inventory / 3]
   end
 end
