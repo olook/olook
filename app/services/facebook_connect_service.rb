@@ -1,8 +1,11 @@
 require 'net/https'
 require 'json'
+require 'logger'
+
 
 class FacebookConnectService
   attr_reader :user, :email
+  attr_writer :facebook_config
 
   def initialize(auth_response_hash)
     @access_token = auth_response_hash['accessToken']
@@ -14,45 +17,70 @@ class FacebookConnectService
     fb_api('/me', @access_token)
   end
 
-  def get_facebook_likes(facebook_token)
+  def get_facebook_likes
+    facebook_token = @user.facebook_token
     # Tem que usar o Koala, pq pela API o nosso facebook_token nao funciona para obter os likes
-    FacebookAdapter.new(facebook_token).adapter.get_connections('me', 'likes').try(:to_a) || []
+    facebook_likes = FacebookAdapter.new(facebook_token).adapter.get_connections('me', 'likes').try(:to_a) || []
+    @user.update_attribute(:facebook_likes, facebook_likes)
   end
 
   def connect!
-    @facebook_data = get_facebook_data   
-    Rails.logger.info("[FACEBOOK] Retrieved data from facebook:#{@facebook_data}")
-    
+    @facebook_data = get_facebook_data
+    logger.info("[FACEBOOK] Retrieved data from facebook:#{@facebook_data}")
+
     if(@facebook_data.respond_to?(:[]) && @facebook_data['error'])
       return false
     end
 
-    Rails.logger.info("[FACEBOOK] extending FB token.")
+    logger.info("[FACEBOOK] extending FB token.")
     extend_fb_token
-    Rails.logger.info("[FACEBOOK] new token got:#{@access_token}")
+    logger.info("[FACEBOOK] new token got:#{@access_token}")
 
     if existing_user
-      Rails.logger.info("[FACEBOOK] this is existent user. Just update facebook data")
+      logger.info("[FACEBOOK] this is existent user. Just update facebook data")
       @user = update_user
-      @user.add_event(EventType::FACEBOOK_LOGIN)
+      send_event(:login)
     else
-      Rails.logger.info("[FACEBOOK] this is a new user. Storing it in the database")
+      logger.info("[FACEBOOK] this is a new user. Storing it in the database")
       @user = create_user
-      @user.add_event(EventType::FACEBOOK_CONNECT)
+      send_event(:connect)
     end
-
-    facebook_likes = get_facebook_likes(@user.facebook_token)
-    @user.update_attribute(:facebook_likes, facebook_likes)
+    get_facebook_likes
     return true
   end
 
   private
 
+  def send_event(event)
+    event = case event
+    when :login
+      EventType::FACEBOOK_LOGIN
+    when :connect
+      EventType::FACEBOOK_CONNECT
+    end
+    @user.add_event(event)
+  end
+
+  def logger
+    if defined?(Rails)
+      Rails.logger
+    else
+      @logger ||= Logger.new(STDOUT)
+    end
+  end
+
+  def facebook_config
+    return @facebook_config if @facebook_config
+    if(defined? FACEBOOK_CONFIG)
+      @facebook_config = FACEBOOK_CONFIG
+    end
+  end
+
   def extend_fb_token
     fb_api('/oauth/access_token', @access_token, {
       grant_type: 'fb_exchange_token',
-      client_id: FACEBOOK_CONFIG['app_id'],
-      client_secret: FACEBOOK_CONFIG['app_secret'],
+      client_id: facebook_config['app_id'],
+      client_secret: facebook_config['app_secret'],
       fb_exchange_token: @access_token })  do |response|
       /access_token=(?<long_lived_access_token>[^&]+)&expires=(?<long_lived_expires>.+)/ =~ response.read_body
       @access_token = long_lived_access_token
