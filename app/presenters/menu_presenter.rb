@@ -42,7 +42,7 @@ class MenuPresenter < BasePresenter
   end
 
   def invite
-    render_item("Ganhe Créditos", h.member_earn_credits_path, "invite", ["members#invite"])
+    render_item("Ganhe Créditos", h.member_earn_credits_path, "invite", ["members#earn_credits"])
   end
 
   def collection_themes
