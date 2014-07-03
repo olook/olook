@@ -10,9 +10,7 @@ class Admin::IntegrationsController < Admin::BaseController
     active = params[:active] == "1"
 
   	kanui_integration = KanuiIntegration.new(list: product_ids, active: active)
-    if params[:send_email] == "1"
-      kanui_integration.send_products_email
-    end
+    kanui_integration.send_products_email if active
     
     redirect_to admin_integrations_path
   end
