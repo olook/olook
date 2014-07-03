@@ -78,7 +78,7 @@ describe SignupNotificationWorker do
   end
 
   it 'should raise "The welcome message for member X was already sent" when receiving a member to whom we sent a member' do
-    User.stub(:find).with(123).and_return( mock_model(User, :id => 123, :welcome_sent_at => Time.now) )
+    User.stub(:find_by_id).with(123).and_return( mock_model(User, :id => 123, :welcome_sent_at => Time.now) )
     expect {
       described_class.perform(123)
     }.to raise_error(RuntimeError, "The welcome message for member 123 was already sent")

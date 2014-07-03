@@ -82,18 +82,6 @@ describe Gift::SuggestionsController do
   end
 
   context "GET 'select_gift'" do
-    it "finds product with variant id" do
-      pending("suggestions controller soon to be axed")
-      Variant.should_receive(:find).with("123").and_return(product.variants.last)
-      xhr :get, 'select_gift', :variant => {:id => "123"}
-    end
-    
-    it "assigns @variant when variant_id is send" do
-      pending('suggestions controller soon to be axed')
-      xhr :get, 'select_gift', :variant => {:id => product.variants.last.id}
-      assigns(:variant).should == product.variants.last
-    end
-
     it "assigns @variant when product_id is send" do
       xhr :get, 'select_gift', :product_id => product.id, :recipient_id => recipient.id
       assigns(:variant).should == product.variants.last

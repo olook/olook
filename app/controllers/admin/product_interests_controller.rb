@@ -4,9 +4,11 @@ class Admin::ProductInterestsController < Admin::BaseController
   respond_to :html, :csv
   def index
     @search = ProductInterest.search(params[:search])
-    @product_interests = @search.relation.page(params[:page]).per_page(50)
+    @product_interests = @search.relation
     respond_to do |format|
-      format.html
+      format.html {
+        @product_interests = @product_interests.page(params[:page]).per_page(50)
+      }
       format.csv { send_data @product_interests.as_csv }
     end
   end

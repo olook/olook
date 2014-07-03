@@ -5,7 +5,7 @@ describe MemberMailer do
   let(:product) { FactoryGirl.create(:shoe) }
 
   describe "#send_share_message_for" do
-    informations = { name_from: "User name", email_from: "user@email.com" }
+    informations = { name_from: "User name", email_from: "user@email.com", email_body: "A Olook é linda cara!" }
     email_receiver = "user_friend@email.com"
 
     let!(:mail) { ShareProductMailer.send_share_message_for(product, informations, email_receiver) }
@@ -21,10 +21,14 @@ describe MemberMailer do
     it "sets 'to' attribute to passed member's email" do
       mail.to.should include(email_receiver)
     end
+    context "on mail subject" do
+      it "include user name" do
+        expect(mail.subject).to include(informations[:name_from].capitalize)
+      end
 
-    it "sets 'title' attribute welcoming the new member" do
-      mail.subject.should eq "#{ informations[:name_from].upcase } viu o #{ product.category_humanize } #{ product.name } no site da olook e lembrou de você"
+      it "include category" do
+        expect(mail.subject).to include("um #{product.category_humanize.downcase}")
+      end
     end
-
   end
 end

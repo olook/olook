@@ -19,12 +19,6 @@ class ProductController < ApplicationController
     render layout: "lite_application"
   end
 
-  def product_valentines_day
-    @uid = params[:encrypted_id]
-    # girlfriend = User.find_by_id(IntegerEncoder.decode(params[:encrypted_id]))
-    # @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
-  end
-
   def spy
     @hide_shipping = params[:from] == 'cart'
     render layout: nil
@@ -36,6 +30,8 @@ class ProductController < ApplicationController
     @product.share_by_email(name_and_emails)
     #redirect_to(:back, notice: "Emails enviados com sucesso!")
   end
+
+  private
 
   def load_product_discount_service
     coupon = @cart.try(:coupon) 
@@ -96,11 +92,9 @@ class ProductController < ApplicationController
     modify_meta_description(@product.try(:description), @product.try(:product_color))
   end
 
-  private
-
-    def assign_valentines_day_parameters
-      params[:coupon_code] = Setting.valentines_day_coupon_code
-      params[:modal] = Setting.valentines_day_show_modal
-    end
+  def assign_valentines_day_parameters
+    params[:coupon_code] = Setting.valentines_day_coupon_code
+    params[:modal] = Setting.valentines_day_show_modal
+  end
 
 end

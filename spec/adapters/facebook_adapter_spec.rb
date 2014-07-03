@@ -7,21 +7,6 @@ describe FacebookAdapter do
   let(:formated_friend_list) { [OpenStruct.new(:uid => "2", :name => "User name 2")] }
   let(:fields) { "name, gender, birthday, first_name" }
 
-  context "cached friend list" do
-    it "should not get the friend list from cache when invalid" do
-      pending "Not working on CI"
-      Rails.cache.clear
-      subject.adapter.should_receive(:get_connections).with("me", "friends", :fields => fields).and_return(friend_list)
-      subject.facebook_friends
-    end
-
-    it "should get the friend list from cache when valid" do
-      pending "Not working on CI"
-      subject.adapter.should_not_receive(:get_connections).with("me", "friends", :fields => fields).and_return(friend_list)
-      subject.facebook_friends
-    end
-  end
-
   it "should get the friends ids list" do
     subject.stub(:facebook_friends).and_return(formated_friend_list)
     subject.facebook_friends_ids.should == ["2"]

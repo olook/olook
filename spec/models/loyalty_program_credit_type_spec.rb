@@ -4,7 +4,7 @@ describe LoyaltyProgramCreditType do
 
   before :each do
     Delorean.back_to_the_present
-    Credit.destroy_all
+    Credit.delete_all
   end
 
   let(:user) { FactoryGirl.create(:member) }
@@ -21,7 +21,7 @@ describe LoyaltyProgramCreditType do
       context "when user creates a credit" do
         it "should add credits" do
           user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
-          user.user_credits_for(:loyalty_program).total(DateTime.now + 1.month).should == amount
+          user.user_credits_for(:loyalty_program).total(1.day.from_now).should == amount
         end
       end
     end
@@ -59,7 +59,7 @@ describe LoyaltyProgramCreditType do
         it "should remove credits when there's more than 1 credit" do
           3.times { user.user_credits_for(:loyalty_program).add(credits_attrs.dup) }
 
-          Delorean.jump 1.month
+          Delorean.jump 1.day
 
           expect{
             user.user_credits_for(:loyalty_program).remove(credits_attrs.merge(:amount => BigDecimal.new("99")))
@@ -71,7 +71,7 @@ describe LoyaltyProgramCreditType do
         it "should remove credits when credits is greater than debits" do
           user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
           
-          Delorean.jump 1.month
+          Delorean.jump 1.day
 
           expect{
             user.user_credits_for(:loyalty_program).remove(credits_attrs.merge(:amount => BigDecimal.new("31.33")))
@@ -87,7 +87,7 @@ describe LoyaltyProgramCreditType do
           loyalty_program.add(credits_attrs.dup)
 
           loyalty_program.remove(credits_attrs.dup.merge(:amount => amount*2)).should == false
-          loyalty_program.total(DateTime.now + 1.month).should == amount
+          loyalty_program.total(1.day.from_now).should == amount
         end
       end      
     end
@@ -119,10 +119,9 @@ describe LoyaltyProgramCreditType do
           user.user_credits_for(:loyalty_program).add({amount: 52.3, order: order})
 
           Delorean.time_travel_to(DateTime.now + 5.days)
-
           user.user_credits_for(:loyalty_program).add(credits_attrs.dup)            
 
-          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program), DateTime.now + 1.month).should == amount
+          LoyaltyProgramCreditType.credit_amount_to_expire(user.user_credits_for(:loyalty_program), Time.now.at_midnight + LoyaltyProgramCreditType::DAYS_TO_EXPIRE).should == amount
         end
       end      
 

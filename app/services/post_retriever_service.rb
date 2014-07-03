@@ -11,9 +11,8 @@ class PostRetrieverService
       JSON.parse(@redis.get("sn-post-data"))["data"]
     else
       post_data = retrieve_post_data
-      if retrieve_post_data.any?
-        @redis.set("sn-post-data", {data: post_data}.to_json)
-        @redis.expire("sn-post-data", 1.hour)
+      if post_data.any?
+        @redis.setex("sn-post-data", 1.hour, {data: post_data}.to_json)
       end
       post_data
     end
@@ -23,8 +22,7 @@ class PostRetrieverService
 
   def gather_posts
     post_data = retrieve_post_data
-    @redis.set("sn-post-data", {data: post_data}.to_json)
-    @redis.expire("sn-post-data", 1.hour)
+    @redis.setex("sn-post-data", 1.hour, {data: post_data}.to_json)
   end
 
   private
