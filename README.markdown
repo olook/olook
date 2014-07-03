@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreapp.com/api/v1/projects/7933c159-9369-4e93-bbe6-5240d75860a6/178759/shields_badge.png)](https://semaphoreapp.com/nelsonmhjr/olook)
+[![Build Status](https://semaphoreapp.com/api/v1/projects/f88fbe4e-5dd7-4735-9059-18471df2c8f9/206679/shields_badge.png)](https://semaphoreapp.com/nelsonmhjr/olook)
 [![Code Climate](https://codeclimate.com/repos/515c7412f3ea006350000d2a/badges/bc2841a8d520f0ae47dc/gpa.png)](https://codeclimate.com/repos/515c7412f3ea006350000d2a/feed)
 [![Coverage](https://codeclimate.com/repos/515c7412f3ea006350000d2a/badges/bc2841a8d520f0ae47dc/coverage.png)](https://codeclimate.com/repos/515c7412f3ea006350000d2a/feed)
 
