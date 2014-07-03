@@ -19,6 +19,7 @@ class FreightService::TransportShippingManager
     return @default if @default
     @default = choose_by_cost
     @default = check_free_freight_policy(@default)
+    @default[:kind] = 'default'
     @default
   end
 
@@ -27,14 +28,12 @@ class FreightService::TransportShippingManager
     @fast = choose_by_delivery_time
     @fast = nil if @fast && @fast[:delivery_time] >= default[:delivery_time]
     @fast = nil if @fast && @fast[:price] <= default[:price]
+    @fast[:kind] = 'fast' if @fast
     @fast
   end
 
   def to_json
-    {
-      default_shipping: default,
-      fast_shipping: fast
-    }
+    [ default, fast ].compact
   end
 
   private

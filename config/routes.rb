@@ -9,7 +9,7 @@ Olook::Application.routes.draw do
     namespace :v1 do
       resources :newsletter, only: [:create]
       resources :product_interest, only: [:create]
-      resources :freights, only: [:show]
+      resources :freights, only: [:index]
       resources :addresses
       resources :zip_code,only: [:show]
     end 

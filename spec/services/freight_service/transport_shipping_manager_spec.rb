@@ -14,12 +14,12 @@ describe FreightService::TransportShippingManager do
     before do
       @shippings = []
     end
-    it { expect(subject.default).to eql({:price=>20, :cost=>15, :delivery_time=>6, :shipping_service_id=>2}) }
+    it { expect(subject.default).to eql({ kind: 'default', price: 20, cost: 15, delivery_time: 6, shipping_service_id: 2}) }
     it { expect(subject.fast).to eql(nil) }
   end
 
   context "when there is one shipping" do
-    it { expect(subject.default).to eql({ price: 15, cost: 10, :delivery_time => 9, :shipping_service_id => 1 }) }
+    it { expect(subject.default).to eql({ kind: 'default', price: 15, cost: 10, :delivery_time => 9, :shipping_service_id => 1 }) }
     it { expect(subject.fast).to eql(nil) }
   end
 
@@ -28,7 +28,7 @@ describe FreightService::TransportShippingManager do
       it "should return cheaper shipping" do
         cheaper = double('Shipping', cost: 5, income: 15, delivery_time: 5, shipping_service_id: 1)
         @shippings.push cheaper
-        expect(subject.default).to eql({ price: cheaper.income, cost: cheaper.cost, :delivery_time => 7, :shipping_service_id=>1})
+        expect(subject.default).to eql({ kind: 'default', price: cheaper.income, cost: cheaper.cost, :delivery_time => 7, :shipping_service_id=>1})
       end
     end
 
@@ -42,7 +42,7 @@ describe FreightService::TransportShippingManager do
       it "should return faster shipping" do
         faster = double('Shipping', cost: 15, income: 25, delivery_time: 2, shipping_service_id: 1)
         @shippings.push faster
-        expect(subject.fast).to eql({price: faster.income, cost: faster.cost, delivery_time: 4, shipping_service_id: 1})
+        expect(subject.fast).to eql({kind: 'fast', price: faster.income, cost: faster.cost, delivery_time: 4, shipping_service_id: 1})
       end
     end
   end
