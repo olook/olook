@@ -32,10 +32,25 @@ class CatalogsController < ApplicationController
   end
 
   def index
+
+    default_params = {
+      category: params[:category],
+    }
+    
+    # Se nao houver ordenacao, roda o teste A/B
+    if params[:por].blank? || params[:por] == "0"
+      variation = ab_test("catalog_sorting_test", "default", "by_discount")
+      if variation == 'by_discount'
+        default_params[:sort] = "-desconto" 
+      end
+    end
+
+
     @campaign = add_campaign(params)
     @url_builder = SeoUrl.new(path: request.fullpath,
                       path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
-                      params: { category: params[:category] })
+                      params: default_params)
+
     search_params = @url_builder.parse_params
     @search = add_search_result(search_params, params)
     @url_builder.set_search(@search)
