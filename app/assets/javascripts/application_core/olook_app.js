@@ -1,4 +1,4 @@
-//= require mediator
+//= require lib/mediator
 //= require_self
 //= require application_core/scroll_events
 //= require string_utils
