@@ -12,7 +12,6 @@ class KanuiIntegration
     @redis = options.delete(:redis) || Redis.connect(url: ENV['REDIS_LEADERBOARD'])
 
     if options[:list]
-      @redis.del(LIST_KEY)
       @redis.rpush(LIST_KEY, options[:list]) 
     end
 
@@ -28,6 +27,10 @@ class KanuiIntegration
       csv = generate_csv(:inventory_line_generator)
       send_email_with(csv).deliver
     end
+  end
+
+  def clear
+    @redis.del(LIST_KEY)
   end
 
   def enable

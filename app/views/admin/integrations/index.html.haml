@@ -4,7 +4,9 @@
   %fieldset
     %p
       =label :product_ids, 'Ids dos produtos separados por virgula (ex: 1234,5678,etc.)'
-      =text_area_tag :product_ids, @kanui.product_ids.join(","), rows: 10, cols: 80
+    %span
+      %b Atenção apague e coloque os novos produtos.
+    =text_area_tag :product_ids, @kanui.product_ids.join(","), rows: 10, cols: 80
     %p
       =label_tag :active, "Ativo?"
       =check_box_tag :active, 1, @kanui.enabled?
