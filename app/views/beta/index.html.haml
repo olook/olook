@@ -1,5 +1,3 @@
-=javascript_include_tag "underscore"
-=javascript_include_tag "backbone"
 
 #main
 
@@ -8,6 +6,10 @@
 #addressApp
 
 #addressForm
+
+%script{type: "text/template", id: "tpl-freight"}
+  %p {{ delivery_time }}
+  %p {{ price }}
 
 %script{type: "text/template", id: "address-template"}
   %fieldset
@@ -67,4 +69,4 @@
       %p
         %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
 
-=javascript_include_tag "beta.js"
+=javascript_include_tag "beta"

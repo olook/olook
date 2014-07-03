@@ -1,12 +1,12 @@
 app.views.Address = Backbone.View.extend({
   model: app.models.Address,
+  events: {
+    'click input[type=radio]': 'selectAddress'
+  },
   initialize: function() {
     /*
       To use {{ variable }} on the templates
      */
-    _.templateSettings = {
-      interpolate: /\{\{(.+?)\}\}/g
-    };
     this.template = _.template($("#address-template").html());
 
     /*
@@ -24,5 +24,9 @@ app.views.Address = Backbone.View.extend({
 
   remove: function() {
     this.$el.remove();
+  },
+
+  selectAddress: function() {
+    olookApp.publish('address:selected', this.model);
   }
 });

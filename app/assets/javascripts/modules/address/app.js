@@ -1,11 +1,18 @@
+//= require underscore
+//= require backbone
 //= require_self
 //= require modules/address/models/address
 //= require modules/address/models/freight
 //= require modules/address/collections/addresses
 //= require modules/address/collections/freights
 //= require modules/address/views/address
+//= require modules/address/views/freight
+//= require modules/address/views/freights
 //= require modules/address/views/list
 //= require modules/address/views/form
+_.templateSettings = {
+  interpolate: /\{\{(.+?)\}\}/g
+};
 var app = (function() {
 
   var api = {
