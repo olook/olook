@@ -27,6 +27,6 @@ app.views.Address = Backbone.View.extend({
   },
 
   selectAddress: function() {
-    olookApp.publish('address:selected', this.model);
+    olookApp.publish('address:selected', this.model.attributes);
   }
 });
