@@ -59,7 +59,7 @@
     <script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
   </head>
 
-  <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= @current_campaign.background if @current_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= @current_campaign.background if @current_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
     <%= render "shared/facebook_js", member: current_user, facebook_app_id: @facebook_app_id  %>
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
