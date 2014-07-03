@@ -121,6 +121,6 @@ gem 'open4'
 
 gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
-  gem 'webmock'
+  gem 'webmock', require: false
 end
 gem 'passenger', require: false

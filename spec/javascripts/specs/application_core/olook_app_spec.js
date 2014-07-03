@@ -29,11 +29,11 @@ describe("Olook APP", function() {
 
   describe("#subscribe", function() {
     it("returns an exception when channel is null", function() {
-      expect(app.subscribe.bind(null)).toThrow("channel name is required");
+      expect(function(){ app.subscribe() }).toThrow("channel name is required");
     });
 
     it("returns an exception when channel name is null", function() {
-      expect(app.subscribe.bind(null, "a")).toThrow("channel facade method is required");
+      expect(function(){ app.subscribe("a") }).toThrow("channel facade method is required");
     });
 
     it("calls the mediator subscribe method when the channel name and callback method are being passed properly", function() {
@@ -47,7 +47,7 @@ describe("Olook APP", function() {
       var hash = { name: 'acasafd' };
       app.subscribe("a", a, hash);
       expect(mockMediator.subscribe).toHaveBeenCalledWith("a", a, hash, null);
-    });                        
+    });
   });
 
 });
