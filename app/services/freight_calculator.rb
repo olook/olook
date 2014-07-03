@@ -4,7 +4,7 @@ module FreightCalculator
 
   DEFAULT_FREIGHT_PRICE   = BigDecimal.new('0.0')
   DEFAULT_FREIGHT_COST    = BigDecimal.new('0.0')
-  DEFAULT_INVENTORY_TIME  = 1
+  DEFAULT_INVENTORY_TIME  = 2
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
 
   DEFAULT_FREIGHT = {
