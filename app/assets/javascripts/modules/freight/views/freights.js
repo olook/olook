@@ -1,4 +1,5 @@
 app.views.Freights = Backbone.View.extend({
+  className: 'freights',
   initialize: function() {
     olookApp.subscribe('address:change', this.empty, {}, this);
     olookApp.subscribe('address:remove', this.empty, {}, this);

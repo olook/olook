@@ -1,6 +1,7 @@
 app.views.Address = Backbone.View.extend({
   tagName: 'li',
   model: app.models.Address,
+  template: _.template($("#tpl-address").html()),
   events: {
     'click input[type=radio]': 'selectAddress',
     'click ul': 'selectAddress',
@@ -8,10 +9,8 @@ app.views.Address = Backbone.View.extend({
     'click .js-removeAddress': 'removeAddress',
   },
   initialize: function() {
-    this.template = _.template($("#tpl-address").html());
-
     /*
-      Events
+      Events on model callbacks
      */
     this.model.on('destroy', this.remove, this);
     this.model.on('change', this.render, this);

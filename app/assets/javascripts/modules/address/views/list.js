@@ -2,8 +2,9 @@ app.views.List = Backbone.View.extend({
   events: {
     'click .js-addAddress': 'addAddress'
   },
+  template: _.template($('#tpl-address-list').html()),
+
   initialize: function() {
-    this.template = _.template($('#tpl-address-list').html());
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
     this.collection.on('change', this.update, this);
@@ -24,4 +25,4 @@ app.views.List = Backbone.View.extend({
   addAddress: function() {
     olookApp.publish('address:add');
   }
-})
+});
