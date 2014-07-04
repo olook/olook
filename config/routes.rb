@@ -200,7 +200,6 @@ Olook::Application.routes.draw do
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
-  get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
@@ -251,6 +250,8 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
+    resources :integrations
+
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"
 

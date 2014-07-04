@@ -2,7 +2,7 @@ desc "Create Permissions for Controllers"
 namespace :olook do
   task :create_permissions => :environment do
     controllers = Dir.new("#{Rails.root}/app/controllers/admin").entries
-    specific_controllers = ["newest_reports_controller.rb","billet_reports_controller.rb","visibility_batch_controller.rb"]
+    specific_controllers = ["newest_reports_controller.rb","billet_reports_controller.rb","visibility_batch_controller.rb","integrations_controller.rb"]
     models_rb_files = File.join("#{Rails.root}/app/models/**", "*.rb")
     models = Dir.glob(models_rb_files)
     models.collect! {|model| model.gsub!(/(\/.*\/)/, "").camelize.gsub!(".rb", "")}

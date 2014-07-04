@@ -53,7 +53,7 @@ class MembersController < ApplicationController
       contacts_adapter = ContactsAdapter.new(nil, nil, oauth_token, oauth_secret, oauth_verifier)
       @contacts = contacts_adapter.contacts(email_provider)
     rescue MultiJson::DecodeError, Net::HTTPFatalError, OAuth::Problem
-      redirect_to(member_invite_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
+      redirect_to(member_earn_credits_path, :notice => "Seus contatos não puderam ser importados agora. Por favor tente novamente mais tarde.")
     end
   end
 
@@ -68,7 +68,7 @@ class MembersController < ApplicationController
   def invite_imported_contacts
     invites = current_user.invites_for(params[:email_address])
     current_user.add_event(EventType::SEND_IMPORTED_CONTACTS, "#{invites.length} invites from imported contacts sent")
-    redirect_to(member_invite_path, :notice => "#{invites.length} Convites enviados com sucesso!")
+    redirect_to(member_earn_credits_path, :notice => "#{invites.length} Convites enviados com sucesso!")
   end
 
   def welcome

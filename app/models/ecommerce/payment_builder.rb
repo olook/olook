@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
-  MOTOBOY = 5
   attr_accessor :cart_service, :payment, :delivery_address, :response, :gateway_strategy
 
   def initialize(opts = { })

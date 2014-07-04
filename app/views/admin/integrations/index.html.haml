@@ -1,0 +1,14 @@
+%h1 Integração com a Kanui - Cadastro de produtos
+
+=form_tag(admin_integration_path(1), method: :put) do
+  %fieldset
+    %p
+      =label :product_ids, 'Codigos filho separados por virgula (ex: 1234,5678,etc.)'
+    %span
+      %b Atenção apague e coloque os novos produtos.
+    =text_area_tag :product_ids, @kanui.product_ids.join(","), rows: 10, cols: 80
+    %p
+      =label_tag :active, "Ativo?"
+      =check_box_tag :active, 1, @kanui.enabled?
+    %p    
+      =submit_tag 'Enviar email'

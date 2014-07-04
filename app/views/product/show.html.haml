@@ -51,6 +51,8 @@
 = product_breadcrumbs_for(@product)
 = render 'product'
 
+- icon_class = ab_test('advantage_icons', 'icon_pb', 'icon_colored')
+
 %br{style: "clear:both"}
 %ul.vantagens
   %li.title
@@ -61,7 +63,7 @@
       TROCA E DEVOLUÇÃO 
       %span.trade
         GRÁTIS
-    %span.icon
+    %span{class: icon_class}
     %p.details_card
       Não ficou como você queria? Troque ou devolva em até 30 dias!
   %li.mini_infos
@@ -70,7 +72,7 @@
       %br
       %span
         6 VEZES 
-    %span.icon.card
+    %span.card{class: icon_class}
     %p.details_card
       Parcela mínima de R$30
       %br
@@ -81,7 +83,7 @@
       %br
       %span
         CRÉDITOS
-    %span.icon.money
+    %span.money{class: icon_class}
     %p.details
       Ganhe 15% do valor do pedido em crédito para sua próxima compra acima de R$100
   %li.mini_infos.last
@@ -89,7 +91,7 @@
       ENTREGA SEGURA E 
       %span.trade
         RÁPIDA
-    %span.icon.shipping
+    %span.shipping{class: icon_class}
     %form#shipping{:action => "", :method => "post"}
       %input#ship-field.ship-field{:name => "ship-field", :type => "text", :value => "", :placeholder => "Digite seu cep"}
       %button#search.search{:type => "button"} OK

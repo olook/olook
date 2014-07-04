@@ -430,13 +430,40 @@
         }
       }
     }
-    span.icon{
+    // span.icon{
+    //   background:image-url('product/info_icon.png') no-repeat 0 3px;
+    //   display: block;
+    //   width: 50px;
+    //   height: 40px;
+    //   margin: 0 auto;
+    // }
+    // .card{
+    //   background-position: 0 -49px !important;
+    // }
+    // .money{
+    //   background-position: 0 -100px !important;
+    // }
+    // .shipping{
+    //   background-position: 0 -150px !important;
+    //   width: 93px !important;
+    // }
+
+    span.icon_pb{
       background:image-url('product/info_icon.png') no-repeat 0 3px;
       display: block;
       width: 50px;
       height: 40px;
       margin: 0 auto;
     }
+
+    span.icon_colored{
+      background:image-url('product/info_icon-colored.png') no-repeat 0 3px;
+      display: block;
+      width: 50px;
+      height: 40px;
+      margin: 0 auto;
+    }
+
     .card{
       background-position: 0 -49px !important;
     }
@@ -447,6 +474,8 @@
       background-position: 0 -150px !important;
       width: 93px !important;
     }
+
+
 
     #shipping{
       input[type="text"]{

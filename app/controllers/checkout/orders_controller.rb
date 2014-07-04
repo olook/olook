@@ -19,6 +19,11 @@ class Checkout::OrdersController < Checkout::BaseController
 
     @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
     @criteo = @order.tracking && @order.tracking.utm_source.to_s.match(/criteo.*/) ? 1 : 0
+
+    # teste a/b de ordenacao do catalogo
+    finished("catalog_sorting_test")
+    # teste a/b para cores dos icones na pagina de produto
+    finished("advantage_icons")
   end
 
 end
