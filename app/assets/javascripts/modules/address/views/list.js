@@ -1,10 +1,9 @@
 app.views.List = Backbone.View.extend({
   tagName: 'ul',
-
   events: {
     'click .zip': 'remove',
-    'click .js-changeAddress': 'changeAddress'
-  },  
+    'click .js-addAddress': 'addAddress'
+  },
   initialize: function() {
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
@@ -22,17 +21,7 @@ app.views.List = Backbone.View.extend({
   render: function(){
     this.addAll();
   },
-
-  remove: function(e) {
-    var id = e.target.id;
-    var modelToDestroy = this.collection.get(id);
-    this.collection.remove(modelToDestroy);
-  },
-
-  changeAddress: function(e) {
-    var id = e.target.id; 
-    app.views.form().displayUpdateForm(id);
-  },
-
-
+  addAddress: function() {
+    olookApp.publish('address:add');
+  }
 })

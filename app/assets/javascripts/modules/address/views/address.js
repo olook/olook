@@ -1,7 +1,9 @@
 app.views.Address = Backbone.View.extend({
   model: app.models.Address,
   events: {
-    'click input[type=radio]': 'selectAddress'
+    'click input[type=radio]': 'selectAddress',
+    'click ul': 'selectAddress',
+    'click .js-changeAddress': 'changeAddress'
   },
   initialize: function() {
     /*
@@ -26,7 +28,12 @@ app.views.Address = Backbone.View.extend({
     this.$el.remove();
   },
 
+  changeAddress: function() {
+    olookApp.publish('address:change', this.model);
+  },
+
   selectAddress: function() {
+    this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
     olookApp.publish('address:selected', this.model.attributes);
   }
 });
