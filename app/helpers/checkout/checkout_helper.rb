@@ -12,7 +12,8 @@ module Checkout::CheckoutHelper
   end
 
   def show_motoboy_freight?
-    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && work_time?
+    is_motoboy_shipping = @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID
+    Setting.superfast_shipping_enabled && is_motoboy_shipping && work_time?
   end
 
   def error_class_if_needed(object, field)
