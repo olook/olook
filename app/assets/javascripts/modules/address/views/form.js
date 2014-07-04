@@ -3,12 +3,12 @@ app.views.Form = Backbone.View.extend({
   template: _.template($("#form_template").html()),
 
   initialize: function() {
+    olookApp.subscribe('address:change', this.changeAddress, {}, this);
+    olookApp.subscribe('address:add', this.addAddress, {}, this);
     if(!this.model) this.model = new app.models.Address();
     this.on("saved", function() {
       this.collection.fetch({reset: true});
     });
-
-    this.render();
   },
 
   events: {
@@ -57,32 +57,28 @@ app.views.Form = Backbone.View.extend({
     }, this);
   },
 
-  displayUpdateForm: function(modelId){
-    this.model.set('id', modelId );
-    this.model.fetch({async: false});
-    this.render();
-    this.showForm();
-  },
-
-  displayCreateForm: function(modelId){
-    this.model = new app.models.Address();
-    this.render();
-    this.showForm();
-  },  
-
-  showForm: function(e) {
-    this.$('.js-address_form').show();
-    this.$('.js-addAddress').hide();
-  },
-  
-  hideForm: function(e) {
-    this.$('.js-address_form').hide();
-    this.$('.js-addAddress').show();
-  },
-
   render: function(obj) {
     var html = this.template(this.model.attributes);
     this.$el.html(html);
+  },
+
+  showForm: function(e) {
+    this.$el.find('.js-address_form').show();
+  },
+
+  hideForm: function(e) {
+    this.$el.find('.js-address_form').hide();
+  },
+
+  changeAddress: function(model) {
+    this.model = model;
+    this.render();
+    this.showForm();
+  },
+
+  addAddress: function() {
+    this.render();
+    this.showForm();
   },
 
   fetchAddress: function() {
@@ -92,5 +88,5 @@ app.views.Form = Backbone.View.extend({
       $('#street').val(data.street);
       $('#neighborhood').val(data.neighborhood);
     },"json");
-  }  
+  }
 });

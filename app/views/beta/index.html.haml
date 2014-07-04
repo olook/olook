@@ -9,18 +9,18 @@
 
 %script{type: "text/template", id: "address-template"}
   %fieldset
-    %input{type: 'radio', value: '{{ id }}'}
+    = radio_button_tag 'address', value: '{{ id }}'
     %ul
       %li
       %li {{ street }}, {{ number }}
       %li {{ neighborhood }} - {{ zip_code }}
       %li {{ city }},  {{state}}
-      %li= link_to 'Alterar', '#', class: 'js-changeAddress', id: '{{id}}'
-      %li= link_to 'Remover', "#", id: '{{id}}', class: 'zip'
+    %p= link_to 'Alterar', '#', class: 'js-changeAddress', data: { id: '{{id}}' }
+    %p= link_to 'Remover', "#", id: '{{id}}', class: 'js-removeAddress'
+  =link_to 'Adicionar endereco', '#', class: 'js-addAddress'
 
 %script{id: "form_template", type: "text/template"}
-  =link_to 'Adicionar endereco', '#', class: 'js-addAddress'
-  .js-address_form{style:'display: none'}
+  .js-addressForm{style:'display: none'}
     %form
       .control-group.zip_code
         %p
