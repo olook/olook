@@ -34,6 +34,19 @@ class Address < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def as_json options
+    super(:methods => [:name], :except => [:first_name, :last_name])
+  end
+
+  def name= name
+    self.first_name = name.split(" ")[0].to_s
+    self.last_name = name.split(" ").drop(1).join(' ').to_s    
+  end
+
+  def name
+    [self.first_name, self.last_name].join(" ")
+  end
+
   private
   def normalize_street
     self.street = "Rua #{ self.street }" if (self.street && self.street.length == 1)
