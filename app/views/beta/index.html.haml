@@ -1,11 +1,7 @@
+- content_for :footer do
+  = javascript_include_tag "beta"
 
 #main
-
-#addressList
-
-#addressApp
-
-#addressForm
 
 %script{type: "text/template", id: "tpl-freight"}
   %p {{ delivery_time }}
@@ -15,12 +11,12 @@
   %fieldset
     %input{type: 'radio', value: '{{ id }}'}
     %ul
-      %li 
+      %li
       %li {{ street }}, {{ number }}
       %li {{ neighborhood }} - {{ zip_code }}
-      %li {{ city }},  {{state}} 
+      %li {{ city }},  {{state}}
       %li= link_to 'Alterar', '#', class: 'js-changeAddress', id: '{{id}}'
-      %li <a href="#" id='{{id}}' class='zip'>Remover</a>
+      %li= link_to 'Remover', "#", id: '{{id}}', class: 'zip'
 
 %script{id: "form_template", type: "text/template"}
   =link_to 'Adicionar endereco', '#', class: 'js-addAddress'
@@ -31,9 +27,9 @@
           Cep:
           %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
         %span.help-inline
-      .control-group.street        
+      .control-group.street
         %p
-          Rua: 
+          Rua:
           %input{type:'text', id:'street', name:'street', value:'{{street}}'}
         %span.help-inline
       .control-group.state
@@ -69,4 +65,3 @@
       %p
         %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
 
-=javascript_include_tag "beta"

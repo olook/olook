@@ -1,17 +1,12 @@
-_.templateSettings = {
-  interpolate: /\{\{(.+?)\}\}/g
-};
-
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
   template: _.template($("#form_template").html()),
 
   initialize: function() {
-    this.model = new app.models.Address();
-
+    if(!this.model) this.model = new app.models.Address();
     this.on("saved", function() {
-      app.addresses.fetch({async:false});
-    });       
+      this.collection.fetch({reset: true});
+    });
 
     this.render();
   },
@@ -22,7 +17,7 @@ app.views.Form = Backbone.View.extend({
     'blur #zip_code': 'fetchAddress',
     'click .js-addAddress': 'displayCreateForm',
   },
-  
+
   addNew: function(e) {
     e.preventDefault();
     this.updateModel();
@@ -31,7 +26,7 @@ app.views.Form = Backbone.View.extend({
         this.collection.create(this.model.attributes, {wait: true});
       } else {
         this.model.save();
-        this.collection.set(this.model.attributes,{remove: false, wait: true, validate: true});        
+        this.collection.set(this.model.attributes,{remove: false, wait: true, validate: true});
       }
       this.trigger("saved");
       this.hideForm();

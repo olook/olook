@@ -19,3 +19,7 @@ var FreightController = (function(){
 
   return FreightController;
 })();
+
+olookApp.subscribe('app:init', function(){
+  new FreightController().config();
+});

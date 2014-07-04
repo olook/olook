@@ -16,6 +16,7 @@ app.views.List = Backbone.View.extend({
     this.$el.append(addressView.el);
   },
   addAll: function() {
+    this.$el.empty();
     this.collection.forEach(this.addOne, this);
   },
   render: function(){

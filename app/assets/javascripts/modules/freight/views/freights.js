@@ -8,6 +8,7 @@ app.views.Freights = Backbone.View.extend({
     this.$el.append(freightView.render().el);
   },
   addAll: function(){
+    this.$el.html('');
     this.collection.forEach(this.addOne, this);
   },
   render: function(){
