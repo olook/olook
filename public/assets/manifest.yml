@@ -421,8 +421,6 @@ common/banner/bg-banner-pink.png: common/banner/bg-banner-pink-fac34191446a3ee22
 common/banner/bg-banner-pink/index.png: common/banner/bg-banner-pink-fac34191446a3ee22110e83ef24f35af.png
 common/banner_educativo_mp.jpg: common/banner_educativo_mp-55e506bdeb8f0ebeedffd044d8962ca8.jpg
 common/banner_educativo_mp/index.jpg: common/banner_educativo_mp-55e506bdeb8f0ebeedffd044d8962ca8.jpg
-common/banner_mgm_B.jpg: common/banner_mgm_B-09f1b2baacb0ce0876656948a336abd1.jpg
-common/banner_mgm_B/index.jpg: common/banner_mgm_B-09f1b2baacb0ce0876656948a336abd1.jpg
 common/bg-content-half-user.jpg: common/bg-content-half-user-c49dc3bc33dc196566f09b07ccd77269.jpg
 common/bg-content-half-user/index.jpg: common/bg-content-half-user-c49dc3bc33dc196566f09b07ccd77269.jpg
 common/bg-day.png: common/bg-day-d6eb1e6c3d962bab8b49e491ec8538b8.png
@@ -539,8 +537,6 @@ common/fb-connect-button.png: common/fb-connect-button-ecda1321e79df3c0574cfee84
 common/fb-connect-button/index.png: common/fb-connect-button-ecda1321e79df3c0574cfee842276aea.png
 common/fb-loggin-button.png: common/fb-loggin-button-a4f5e7a2517c933a4758a166bcdc7ad7.png
 common/fb-loggin-button/index.png: common/fb-loggin-button-a4f5e7a2517c933a4758a166bcdc7ad7.png
-common/fb-post-to-wall.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931d7c.png
-common/fb-post-to-wall/index.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931d7c.png
 common/fidelidade_olook.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
 common/fidelidade_olook/index.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
 common/filtro-de-cores.jpg: common/filtro-de-cores-158858efe1dc12ff8ccbb7fd4069acaf.jpg
@@ -1703,6 +1699,8 @@ product/compre_olook_completo.jpg: product/compre_olook_completo-14f1eb77bef2382
 product/compre_olook_completo/index.jpg: product/compre_olook_completo-14f1eb77bef23821a884716576e990ca.jpg
 product/delivery.gif: product/delivery-d1a056dd4d75e87fa639001bce038a5e.gif
 product/delivery/index.gif: product/delivery-d1a056dd4d75e87fa639001bce038a5e.gif
+product/info_icon-colored.png: product/info_icon-colored-95218708ecd30008383a9d236ab93a48.png
+product/info_icon-colored/index.png: product/info_icon-colored-95218708ecd30008383a9d236ab93a48.png
 product/info_icon.png: product/info_icon-b854975e441371bb7015256326b3dc40.png
 product/info_icon/index.png: product/info_icon-b854975e441371bb7015256326b3dc40.png
 product/new_page_sprite.png: product/new_page_sprite-10f20c8c254aa7e3ec3307c765713f0a.png
@@ -2619,8 +2617,8 @@ new_structure/section/join.css: new_structure/section/join-db1f830440e91eb007727
 new_structure/section/join/index.css: new_structure/section/join-db1f830440e91eb007727517c7db3df7.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-8811d597627cdb990c950e294b2da552.css
 new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-8811d597627cdb990c950e294b2da552.css
-new_structure/section/lite_product.css: new_structure/section/lite_product-865b8413d07b2ac97ea76387a6ba661b.css
-new_structure/section/lite_product/index.css: new_structure/section/lite_product-865b8413d07b2ac97ea76387a6ba661b.css
+new_structure/section/lite_product.css: new_structure/section/lite_product-b46ae2f3512998286220a5cf6ae0515d.css
+new_structure/section/lite_product/index.css: new_structure/section/lite_product-b46ae2f3512998286220a5cf6ae0515d.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-dba72dd0a62b483c99590678fd050390.css
