@@ -49,6 +49,7 @@ app.views.Form = Backbone.View.extend({
       name: this.$('#name').val(),
       complement: this.$('#complement').val()
     };
+    debugger;
     this.model.set(values);
   },
 
