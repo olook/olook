@@ -24,4 +24,4 @@ app.views.List = Backbone.View.extend({
   addAddress: function() {
     olookApp.publish('address:add');
   }
-})
+});
