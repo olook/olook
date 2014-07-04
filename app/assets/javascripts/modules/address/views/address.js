@@ -8,7 +8,7 @@ app.views.Address = Backbone.View.extend({
     'click .js-removeAddress': 'removeAddress',
   },
   initialize: function() {
-    this.template = _.template($("#address-template").html());
+    this.template = _.template($("#tpl-address").html());
 
     /*
       Events

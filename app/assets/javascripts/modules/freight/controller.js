@@ -10,11 +10,11 @@ var FreightController = (function(){
 
   FreightController.prototype.config = function(){
     olookApp.subscribe('address:selected', this.selectAddress, {}, this);
+    this.freightsView.$el.appendTo(app.content);
   };
 
   FreightController.prototype.selectAddress = function(data) {
-    $('#main').html(this.freightsView.el);
-    this.freights.fetch({data: {zip_code: data['zip_code'], amount_value: '99.9'}});
+    this.freights.fetch({reset: true, data: {zip_code: data['zip_code'], amount_value: '99.9'}});
   };
 
   return FreightController;

@@ -1,10 +1,11 @@
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
-  template: _.template($("#form_template").html()),
+  template: _.template($("#tpl-address-form").html()),
 
   initialize: function() {
     olookApp.subscribe('address:change', this.changeAddress, {}, this);
     olookApp.subscribe('address:add', this.addAddress, {}, this);
+    olookApp.subscribe('address:selected', this.hideForm, {}, this);
     if(!this.model) this.model = new app.models.Address();
     this.on("saved", function() {
       this.collection.fetch({reset: true});
@@ -76,7 +77,7 @@ app.views.Form = Backbone.View.extend({
   },
 
   addAddress: function() {
-    this.mdel = new app.models.Address();
+    this.model = new app.models.Address();
     this.render();
     this.showForm();
   },

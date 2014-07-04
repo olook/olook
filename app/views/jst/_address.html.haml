@@ -1,0 +1,59 @@
+%script{type: "text/template", id: "tpl-address-list"}
+  %ul#address-list
+  %p= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
+
+%script{type: "text/template", id: "tpl-address"}
+  = radio_button_tag 'address', value: '{{ id }}'
+  %ul
+    %li
+    %li {{ street }}, {{ number }}
+    %li {{ neighborhood }} - {{ zip_code }}
+    %li {{ city }},  {{state}}
+  %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
+  %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+
+%script{id: "tpl-address-form", type: "text/template"}
+  .js-addressForm{style:'display: none'}
+    %form
+      .control-group.zip_code
+        %p
+          Cep:
+          %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
+        %span.help-inline
+      .control-group.street
+        %p
+          Rua:
+          %input{type:'text', id:'street', name:'street', value:'{{street}}'}
+        %span.help-inline
+      .control-group.state
+        %p
+          Estado:
+          %input#state{name: "state", type: "text", value:'{{state}}'}
+        %span.help-inline
+
+      .control-group.number
+        %p
+          Numero:
+          %input#number{name: "number", type: "text", value: '{{number}}'}
+        %span.help-inline
+
+      .control-group.neighborhood
+        %p
+          Bairro:
+          %input#neighborhood{name: "neighborhood", type: "text", value: '{{neighborhood}}'}
+        %span.help-inline
+
+      .control-group.city
+        %p
+          Cidade:
+          %input#city{name: "city", type: "text", value: '{{city}}'}
+        %span.help-inline
+
+      .control-group.telephone
+        %p
+          Telefone:
+          %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
+        %span.help-inline      
+
+      %p
+        %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
