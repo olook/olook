@@ -4,7 +4,8 @@ app.views.Address = Backbone.View.extend({
   events: {
     'click input[type=radio]': 'selectAddress',
     'click ul': 'selectAddress',
-    'click .js-changeAddress': 'changeAddress'
+    'click .js-changeAddress': 'changeAddress',
+    'click .js-removeAddress': 'removeAddress',
   },
   initialize: function() {
     this.template = _.template($("#address-template").html());
@@ -28,6 +29,10 @@ app.views.Address = Backbone.View.extend({
 
   changeAddress: function() {
     olookApp.publish('address:change', this.model);
+  },
+
+  removeAddress: function() {
+    this.model.destroy();
   },
 
   selectAddress: function() {

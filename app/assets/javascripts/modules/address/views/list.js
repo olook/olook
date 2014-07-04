@@ -11,10 +11,10 @@ app.views.List = Backbone.View.extend({
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});
     addressView.render();
-    this.$el.find('ul').append(addressView.el);
+    this.$el.find('ul#address-list').append(addressView.el);
   },
   addAll: function() {
-    this.$el.find('ul').empty();
+    this.$el.find('ul#address-list').empty();
     this.collection.forEach(this.addOne, this);
   },
   render: function(){

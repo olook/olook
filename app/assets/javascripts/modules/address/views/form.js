@@ -26,7 +26,6 @@ app.views.Form = Backbone.View.extend({
         this.collection.create(this.model.attributes, {wait: true});
       } else {
         this.model.save();
-        this.collection.set(this.model.attributes,{remove: false, wait: true, validate: true});
       }
       this.trigger("saved");
       this.hideForm();
@@ -77,6 +76,7 @@ app.views.Form = Backbone.View.extend({
   },
 
   addAddress: function() {
+    this.mdel = new app.models.Address();
     this.render();
     this.showForm();
   },

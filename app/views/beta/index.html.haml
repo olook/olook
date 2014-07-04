@@ -8,8 +8,8 @@
   %p {{ price }}
 
 %script{type: "text/template", id: "tpl-address-list"}
-  %ul
-  %p= link_to 'Adicionar Endereço', '#', class: 'js-addAddress'
+  %ul#address-list
+  %p= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
 
 %script{type: "text/template", id: "address-template"}
   = radio_button_tag 'address', value: '{{ id }}'
@@ -18,8 +18,8 @@
     %li {{ street }}, {{ number }}
     %li {{ neighborhood }} - {{ zip_code }}
     %li {{ city }},  {{state}}
-  %p= link_to 'Alterar', '#', class: 'js-changeAddress', data: { id: '{{id}}' }
-  %p= link_to 'Remover', "#", id: '{{id}}', class: 'js-removeAddress'
+  %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
+  %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
 
 %script{id: "form_template", type: "text/template"}
   .js-addressForm{style:'display: none'}

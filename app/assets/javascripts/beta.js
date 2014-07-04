@@ -16,10 +16,6 @@ var app = (function() {
     models: {},
     collections: {},
     content: null,
-    changeContent: function(el) {
-        this.content.html(el);
-        return this;
-    },
     init: function() {
       this.content = $("#main");
       olookApp.publish('app:init');
