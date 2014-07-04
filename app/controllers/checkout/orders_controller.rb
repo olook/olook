@@ -22,6 +22,8 @@ class Checkout::OrdersController < Checkout::BaseController
 
     # teste a/b de ordenacao do catalogo
     finished("catalog_sorting_test")
+    # teste a/b para cores dos icones na pagina de produto
+    finished("advantage_icons")
   end
 
 end
