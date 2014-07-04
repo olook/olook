@@ -1,10 +1,9 @@
 app.views.List = Backbone.View.extend({
-  tagName: 'ul',
   events: {
-    'click .zip': 'remove',
     'click .js-addAddress': 'addAddress'
   },
   initialize: function() {
+    this.template = _.template($('#tpl-address-list').html());
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
     this.collection.on('change', this.update, this);
@@ -12,13 +11,14 @@ app.views.List = Backbone.View.extend({
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});
     addressView.render();
-    this.$el.append(addressView.el);
+    this.$el.find('ul').append(addressView.el);
   },
   addAll: function() {
-    this.$el.empty();
+    this.$el.find('ul').empty();
     this.collection.forEach(this.addOne, this);
   },
   render: function(){
+    this.$el.html(this.template({}));
     this.addAll();
   },
   addAddress: function() {

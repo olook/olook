@@ -63,11 +63,11 @@ app.views.Form = Backbone.View.extend({
   },
 
   showForm: function(e) {
-    this.$el.find('.js-address_form').show();
+    this.$el.find('.js-addressForm').show();
   },
 
   hideForm: function(e) {
-    this.$el.find('.js-address_form').hide();
+    this.$el.find('.js-addressForm').hide();
   },
 
   changeAddress: function(model) {

@@ -11,6 +11,7 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.config = function() {
+    this.listView.render();
     this.listView.$el.appendTo(app.content);
     this.formView.$el.appendTo(app.content);
     this.fetchAddress();

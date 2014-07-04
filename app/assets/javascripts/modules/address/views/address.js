@@ -1,4 +1,5 @@
 app.views.Address = Backbone.View.extend({
+  tagName: 'li',
   model: app.models.Address,
   events: {
     'click input[type=radio]': 'selectAddress',
@@ -6,9 +7,6 @@ app.views.Address = Backbone.View.extend({
     'click .js-changeAddress': 'changeAddress'
   },
   initialize: function() {
-    /*
-      To use {{ variable }} on the templates
-     */
     this.template = _.template($("#address-template").html());
 
     /*
