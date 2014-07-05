@@ -17,12 +17,11 @@ module Api
       end
 
       def create
-        params[:address][:country] = 'BRA' if params[:address]
         address = current_user.addresses.new(params[:address])
         response_for address
       end
 
-      def update
+      def update        
         address = selected_address(params[:id])
         params[:address].delete(:id)
         address.update_attributes(params[:address])

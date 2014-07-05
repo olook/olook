@@ -6,7 +6,7 @@
   = radio_button_tag 'address', value: '{{ id }}'
   %ul
     %li
-    %li {{ name }}
+    %li {{ full_name }}
     %li {{ street }}, {{ number }} {{complement}}
     %li {{ neighborhood }} - {{ zip_code }}
     %li Tel.: {{ telephone }}
@@ -20,7 +20,7 @@
     %form
       %p
         Nome:
-        %input{type:'text', id:'name', name:'name', value:'{{name}}'}
+        %input{type:'text', id:'full_name', name:'full_name', value:'{{full_name}}'}
       %span.help-inline
       .control-group.zip_code      
         %p

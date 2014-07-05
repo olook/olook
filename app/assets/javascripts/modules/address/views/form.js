@@ -46,10 +46,9 @@ app.views.Form = Backbone.View.extend({
       neighborhood: this.$('#neighborhood').val(),
       telephone: this.$('#telephone').val(),
       mobile: this.$('#mobile').val(),
-      name: this.$('#name').val(),
+      full_name: this.$('#full_name').val(),
       complement: this.$('#complement').val()
     };
-    debugger;
     this.model.set(values);
   },
 

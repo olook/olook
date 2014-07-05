@@ -13,7 +13,7 @@ app.models.Address = Backbone.Model.extend({
     neighborhood: '',
     telephone: '',
     complement: '',
-    name: ''
+    full_name: ''
   },
 
   /**

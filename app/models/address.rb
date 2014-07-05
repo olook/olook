@@ -3,6 +3,7 @@ class Address < ActiveRecord::Base
   has_many :freights
   has_many :carts
   attr_accessor :require_telephone
+  attr_accessible :full_name, :city, :state, :country, :street, :complement, :number, :neighborhood, :zip_code, :telephone, :mobile, :active
   scope :active, -> {where(active: true)}
 
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
@@ -35,17 +36,15 @@ class Address < ActiveRecord::Base
   end
 
   def as_json options
-    super(:methods => [:name], :except => [:first_name, :last_name])
+    super(:methods => [:full_name], :except => [:first_name, :last_name])
   end
 
-  def name= name
+  def full_name= name
     self.first_name = name.split(" ")[0].to_s
     self.last_name = name.split(" ").drop(1).join(' ').to_s    
   end
 
-  def name
-    [self.first_name, self.last_name].join(" ")
-  end
+  alias :full_name :identification
 
   private
   def normalize_street
