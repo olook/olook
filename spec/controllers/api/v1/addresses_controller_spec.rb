@@ -20,7 +20,10 @@ describe Api::V1::AddressesController do
 
       it "returns the address JSON" do
         post :create, address: address.attributes
-        address.attributes.reject{|k,v| k == "id"}.should eq(JSON.parse(response.body).reject{|k,v| k == "id"})
+        json = JSON.parse(response.body)
+        address.attributes.reject { |k, v| k.to_s == 'id' }.each do |k, v|
+          expect(json[k.to_s]).to eq(v)
+        end
       end
     end
 
@@ -57,7 +60,7 @@ describe Api::V1::AddressesController do
 
       it "returns the updated address JSON" do
         post :update, address: address.attributes, id: address.id
-        address.attributes.should eq(JSON.parse(response.body))
+        address.to_json.should eq(response.body)
       end
     end
 
@@ -159,7 +162,7 @@ describe Api::V1::AddressesController do
 
       it "returns the address JSON" do
         get :show, address: address.attributes, id: address.id
-        address.attributes.should eq(JSON.parse(response.body))
+        address.to_json.should eq(response.body)
       end
     end
 

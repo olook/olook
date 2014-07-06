@@ -35,8 +35,8 @@ class Address < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def as_json options
-    super(:methods => [:full_name], :except => [:first_name, :last_name])
+  def as_json options={}
+    super({:methods => [:full_name], :except => [:first_name, :last_name]}.merge(options))
   end
 
   def full_name= name
