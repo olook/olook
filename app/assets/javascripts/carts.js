@@ -91,6 +91,18 @@ $(function() {
     $("#credits_last_order").submit();
   });
 
+  // ABOUT CREDITS MODAL
+  $(".more_credits").click(function(e){
+    e.preventDefault();
+    $("#overlay-campaign").show();
+    $("#about_credits").fadeIn();
+  });
+
+  $("#about_credits button").click(function(){
+    $("#about_credits").fadeOut();
+    $("#overlay-campaign").hide();
+  });
+
   if($("div#carousel").size() > 0) {
     $("div#carousel ul.products_list").carouFredSel({
       auto: false,

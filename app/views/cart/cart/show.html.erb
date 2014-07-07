@@ -84,7 +84,7 @@ _gaq.push(['_addTrans',
 
   <div class="chaordic shoppingcart"></div>
 
-  <table cellpadding="0" cellspacing="0" class="check gift">
+  <table cellpadding="0" cellspacing="0" class="check_table gift">
     <tbody>
       <tr>
         <td class="icon-gift"></td>
@@ -107,7 +107,7 @@ _gaq.push(['_addTrans',
   </table>
 
   <% if @user && @user.current_credit > 0 %>
-    <table cellpadding="0" cellspacing="0" class="check credits">
+    <table cellpadding="0" cellspacing="0" class="check_table credits">
       <tbody>
         <tr>
           <td class="icon-credits"></td>
@@ -125,6 +125,9 @@ _gaq.push(['_addTrans',
     </table>
   <% end %>
 
+  <div class= 'credits'>
+    <%= render 'shared/credits/info_credits', report: @report %>
+  </div>
 
   <table cellpadding="0" cellspacing="0" id="cart_subtotal">
     <tr>
