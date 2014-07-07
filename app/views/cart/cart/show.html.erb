@@ -112,7 +112,10 @@ _gaq.push(['_addTrans',
         <tr>
           <td class="icon-credits"></td>
           <td class="check_column">
-            Você pode utilizar seus créditos na etapa de pagamento 
+            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "use_credit_form" }) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.gift_wrap) %>
+              Utilizar meus créditos <a href="#" target="_blank" class="more_credits">Mais sobre créditos</a>
+            <% end %>
           </td>
           <td class="value" id="total_user_credits">
             <%= number_to_currency(total_user_credits) %>
