@@ -1,4 +1,4 @@
-class Freight::TransportShippingChooserService
+class FreightService::TransportShippingChooserService
   def initialize(shippings)
     @shippings = shippings
   end
