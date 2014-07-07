@@ -26,7 +26,7 @@ module FreightCalculator
     freights = prepare_shipping_query(_zip_code)
     selected_freight = freights.find { |s| s.shipping_service_id.to_s == shipping_service_ids.to_s }
     return DEFAULT_FREIGHT if freights.blank?
-    result = Freight::TransportShippingChooserService.new(freights).perform
+    result = FreightService::TransportShippingChooserService.new(freights).perform
     result = check_free_freight_policy(result, _zip_code, order_value)
 
     if selected_freight

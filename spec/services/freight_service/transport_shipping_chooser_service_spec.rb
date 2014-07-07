@@ -1,4 +1,5 @@
-describe Freight::TransportShippingChooserService do
+require 'spec_helper'
+describe FreightService::TransportShippingChooserService do
   before do
     @shipping = FactoryGirl.build(:shipping)
   end
