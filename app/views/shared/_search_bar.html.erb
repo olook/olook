@@ -1,6 +1,7 @@
 <div class="search_box" >
  <%= form_tag(search_path, method: :get, class: "search_form") do  %>
-   <%= text_field_tag "q", nil, class: "search_product", value: "O que você procura?" %>
+   <%= text_field_tag "q", nil, class: "search_product", placeholder: "O que você procura?" %>
+   <%= hidden_field_tag "cat", "search" %>
    <%= submit_tag "Buscar", class: "default" %>
  <% end %>
 </div>
