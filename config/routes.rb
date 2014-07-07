@@ -3,10 +3,15 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "beta/index"
+
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :newsletter, only: [:create]
       resources :product_interest, only: [:create]
+      resources :freights, only: [:index]
+      resources :addresses
+      resources :zip_code,only: [:show]
     end 
   end
 

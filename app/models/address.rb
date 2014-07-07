@@ -3,13 +3,14 @@ class Address < ActiveRecord::Base
   has_many :freights
   has_many :carts
   attr_accessor :require_telephone
+  attr_accessible :full_name, :city, :state, :country, :street, :complement, :number, :neighborhood, :zip_code, :telephone, :mobile, :active, :first_name, :last_name
   scope :active, -> {where(active: true)}
 
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
   ZipCodeFormat = /^[0-9]{5}-[0-9]{3}$/
-  PhoneFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
-  MobileFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
+  PhoneFormat = /(?:\(\d{2}\)9?[2-9]\d{3}-\d{4})/
+  MobileFormat = /(?:\(\d{2}\)9?[2-9]\d{3}-\d{4})/
   StateFormat = /^[A-Z]{2}$/
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood
@@ -26,9 +27,24 @@ class Address < ActiveRecord::Base
     self.country = 'BRA'
   end
 
+  def deactivate
+    self.update_attribute(:active, false)
+  end
+
   def identification
     "#{first_name} #{last_name}"
   end
+
+  def as_json options={}
+    super({:methods => [:full_name], :except => [:first_name, :last_name]}.merge(options))
+  end
+
+  def full_name= name
+    self.first_name = name.split(" ")[0].to_s
+    self.last_name = name.split(" ").drop(1).join(' ').to_s    
+  end
+
+  alias :full_name :identification
 
   private
   def normalize_street

@@ -1,0 +1,4 @@
+%script{type: "text/template", id: "tpl-freight"}
+  = radio_button_tag('freight', value: "{{shipping_service_id}}")
+  {{pretty_kind}} ({{ delivery_time }})
+  %span.price {{ price }}
