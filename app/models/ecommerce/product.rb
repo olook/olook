@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
 
+  NOT_AVAILABLE = "Não informado"
+
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
   UNAVAILABLE_ITEMS = :unavailable_items
@@ -454,7 +456,7 @@ class Product < ActiveRecord::Base
 
   def filter_color
     color = details.find_by_translation_token("Cor filtro").try(:description)
-    color.blank? ? "Não informado" : color
+    color.blank? ? NOT_AVAILABLE : color
   end
 
   def self.clothes_for_profile profile

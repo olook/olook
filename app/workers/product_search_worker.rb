@@ -6,6 +6,10 @@ class ProductSearchWorker
     clean_indexed_terms
     index_products
 
+    # no futuro, carregar isso de um arquivo
+    terms_to_add = ["onça","oncinha","calça jeans","plus size","calça flare", "salto alto", "vestido longo"]
+    terms_to_add.each{|term| ProductSearch.index_term(term)}
+
     mail = DevAlertMailer.notify_about_products_search_worker
     mail.deliver
   end
@@ -19,13 +23,24 @@ class ProductSearchWorker
     end
 
     def self.index_products
-      Product.where(is_visible: true).each do |product|
-        index product if product.inventory && product.price > 0
-      end
+      values = Product.find_by_sql("select distinct d_sub.description as subcategory, d.description as filter_color from products p join details d on p.id = d.product_id and d.translation_token='Cor filtro' join details d_sub on p.id = d_sub.product_id and d_sub.translation_token = 'Categoria' WHERE p.price > 0 and p.is_visible = 1")
+
+      d1 = DateTime.now.to_i
+      values.each {|value| index value}
+      d2 = DateTime.now.to_i
+      puts "#{d2-d1} segundos"
     end
 
     def self.index product
-      ProductSearch.index_term(product.formatted_name(100))
-      product.name.split.each { |t| ProductSearch.index_term(t) }
+      
+      # binding.pry if product[:subcategory].downcase == 'scarpin'
+
+      suggestion = Suggestion.new(product)
+      term = suggestion.get
+      
+      if term
+        ProductSearch.index_term(term)
+        term.split.each { |t| ProductSearch.index_term(term) }
+      end
     end
 end
