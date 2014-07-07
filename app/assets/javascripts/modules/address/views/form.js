@@ -36,19 +36,27 @@ app.views.Form = Backbone.View.extend({
   },
 
   updateModel: function() {
-    var values = {
-      city: this.$('#city').val(),
-      zip_code: this.$('#zip_code').val(),
-      street: this.$('#street').val(),
-      state: this.$('#state').val(),
-      country: this.$('#country').val(),
-      number: this.$('#number').val(),
-      neighborhood: this.$('#neighborhood').val(),
-      telephone: this.$('#telephone').val(),
-      mobile: this.$('#mobile').val(),
-      full_name: this.$('#full_name').val(),
-      complement: this.$('#complement').val()
-    };
+
+
+    var formValues = $('.js-addressForm form').serializeArray();
+    var values = _.object(_.map(formValues, function(item) {
+       return [item.name, item.value]
+    }));
+
+    // var values = {
+    //   city: this.$('#city').val(),
+    //   zip_code: this.$('#zip_code').val(),
+    //   street: this.$('#street').val(),
+    //   state: this.$('#state').val(),
+    //   country: this.$('#country').val(),
+    //   number: this.$('#number').val(),
+    //   neighborhood: this.$('#neighborhood').val(),
+    //   telephone: this.$('#telephone').val(),
+    //   mobile: this.$('#mobile').val(),
+    //   full_name: this.$('#full_name').val(),
+    //   complement: this.$('#complement').val()
+    // };
+    
     this.model.set(values);
   },
 
