@@ -32,7 +32,7 @@ class CartItem < ActiveRecord::Base
     if options[:avoid_ajustment] || adjustment_value <= 0
       product.retail_price
     else
-      product.price - ( adjustment_value / quantity.to_f )
+      product.retail_price - ( adjustment_value / quantity.to_f )
     end
   end
 
