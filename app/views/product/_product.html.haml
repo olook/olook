@@ -125,3 +125,9 @@
               -else
                 %b= print_detail_name_for @product, @product_detail_info
                 %p= print_detail_value @product_detail_info
+        -if @product.tips
+          %li
+            = radio_button_tag("tabs", "dicas")
+            %label{:for => "tabs_dicas"}Dicas
+            #tab-content3.tab-content
+              =@product.tips
