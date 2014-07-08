@@ -7,7 +7,10 @@ class ProductSearchWorker
     index_products
 
     # no futuro, carregar isso de um arquivo
-    terms_to_add = ["onça","oncinha","calça jeans","plus size","calça flare", "salto alto", "vestido longo"]
+    terms_to_add = ["onça","oncinha","calça jeans",
+      "plus size","calça flare", "salto alto", "vestido longo",
+      "bolsa", "sapato", "grunge"]
+
     terms_to_add.each{|term| ProductSearch.index_term(term)}
 
     mail = DevAlertMailer.notify_about_products_search_worker
