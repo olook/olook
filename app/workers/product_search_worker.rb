@@ -23,7 +23,7 @@ class ProductSearchWorker
     end
 
     def self.index_products
-      values = Product.find_by_sql("select distinct d_sub.description as subcategory, d.description as filter_color from products p join details d on p.id = d.product_id and d.translation_token='Cor filtro' join details d_sub on p.id = d_sub.product_id and d_sub.translation_token = 'Categoria' WHERE p.price > 0 and p.is_visible = 1")
+      values = Product.find_by_sql("select d_sub.description as subcategory, d.description as filter_color from products p join details d on p.id = d.product_id and d.translation_token='Cor filtro' join details d_sub on p.id = d_sub.product_id and d_sub.translation_token = 'Categoria' WHERE p.price > 0 and p.is_visible = 1")
 
       d1 = DateTime.now.to_i
       values.each {|value| index value}
@@ -31,10 +31,7 @@ class ProductSearchWorker
       puts "#{d2-d1} segundos"
     end
 
-    def self.index product
-      
-      # binding.pry if product[:subcategory].downcase == 'scarpin'
-
+    def self.index product     
       suggestion = Suggestion.new(product)
       term = suggestion.get
       
