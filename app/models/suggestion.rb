@@ -3,31 +3,40 @@ class Suggestion
 
   COLOR_WHITELIST = SeoUrl.whitelisted_colors.map(&:downcase)
 
+  def self.for values
+    subcategory, color = extract(values)
 
-  def initialize values
-    @subcategory=values[:subcategory].try(:downcase)
-    @color=values[:filter_color].try(:downcase)
+    return nil if (invalid_color?(color) || invalid_subcategory?(subcategory))
+
+    suggestion_term_for(subcategory, color)
   end
 
-  def get
-    if !COLOR_WHITELIST.include?(@color)
-      return nil
-    end
+  private
 
-    if @color == Product::NOT_AVAILABLE.downcase || @color.nil? || @subcategory.nil?
-      return nil
-    end
-
-    color = sanitize_color(@color)
-
-    if is_female?(@subcategory)
-      color = to_female(color)
-    end
-
-    "#{@subcategory} #{color}".titleize
+  def self.extract(values)
+    [values[:subcategory].try(:downcase), values[:filter_color].try(:downcase)]
   end
 
-  def is_female? subcategory
+  def self.invalid_color?(color)
+    color.blank? || !COLOR_WHITELIST.include?(color)
+  end
+
+  def self.invalid_subcategory?(subcategory)
+    subcategory.blank?
+  end
+
+  def self.suggestion_term_for subcategory, color
+
+    sanitized_color = sanitize_color(color)
+
+    if is_female?(subcategory)
+      color = to_female(sanitized_color)
+    end
+
+    "#{subcategory} #{color}".titleize
+  end
+
+  def self.is_female? subcategory
     is_bag = subcategory =~ /bolsa/ 
     female_word = subcategory.end_with?('a')
     is_exception = ['clutch', 'ankle boot'].include?(subcategory)
@@ -35,7 +44,7 @@ class Suggestion
     is_bag || female_word || is_exception
   end
 
-  def to_female color
+  def self.to_female color
     {
       vermelho: 'vermelha', 
       branco: 'branca', 
@@ -48,9 +57,9 @@ class Suggestion
     }.fetch(color.to_sym, color)
   end
 
-  def sanitize_color(color)
+  def self.sanitize_color(color)
     {
-      terrosos: 'tons terrosos',
+      terrosos: 'em tons terrosos',
       metalizados: 'metalizado'
     }.fetch(color.to_sym, color)
   end
