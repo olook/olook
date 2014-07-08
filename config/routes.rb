@@ -245,6 +245,7 @@ Olook::Application.routes.draw do
   resources :ping, :only => [:index]
   resources :shippings, :only => [:show]
   get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
+  get '/display_free_shipping/:cep' => 'shippings#display_free_shipping'
 
   #ADMIN
   devise_for :admins
