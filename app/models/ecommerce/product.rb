@@ -1,7 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
 
+  NOT_AVAILABLE = "Não informado"
+
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
+  TIP_TOKEN = "Dicas"
+  KEYWORDS_TOKEN = "Keywords"
+
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
   UNAVAILABLE_ITEMS = :unavailable_items
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
@@ -342,6 +347,14 @@ class Product < ActiveRecord::Base
     subcategory_name
   end
 
+  def tips
+    detail_by_token TIP_TOKEN
+  end
+
+  def keywords
+    detail_by_token KEYWORDS_TOKEN
+  end
+
   def subcategory_name
     detail_by_token SUBCATEGORY_TOKEN
   end
@@ -454,7 +467,7 @@ class Product < ActiveRecord::Base
 
   def filter_color
     color = details.find_by_translation_token("Cor filtro").try(:description)
-    color.blank? ? "Não informado" : color
+    color.blank? ? NOT_AVAILABLE : color
   end
 
   def self.clothes_for_profile profile

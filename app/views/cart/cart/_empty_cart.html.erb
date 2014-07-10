@@ -5,10 +5,7 @@ Navegue no site e mude isso já!</h2>
 <p class="txt-suggestions">ALGUMAS SUGESTÕES:</p>
 <ul class="link-suggestions">
 
-<% if @user && @user.full_user? %>
-  <li><%= link_to "Confira sua vitrine do mês", "/membro/vitrine" %></li>
-<% end %>
-
+<li><%= link_to "Confira nossas novidades!", newest_path if @user %></li>
 <li><%= link_to "Sapatos hot: Veja todos na seção sapatos", catalog_path(category: 'sapato') %></li>
 <li><%= link_to "Looks desejo: novidades e últimas tendências", catalog_path(category: 'roupa') %></li>
 <li><%= link_to "Acessórios incríveis: Eles valorizam qualquer look", catalog_path(category: 'acessorio') %></li>
