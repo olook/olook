@@ -36,4 +36,8 @@ module CartHelper
     #! promotion.matches?(@cart)
     return Setting.show_checkout_banner
   end
+
+  def loyalty_credits_treshold
+    100
+  end
 end

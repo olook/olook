@@ -107,13 +107,13 @@ _gaq.push(['_addTrans',
   </table>
 
   <% if @user && @user.current_credit > 0 %>
-    <table cellpadding="0" cellspacing="0" class="check_table credits">
+    <table cellpadding="0" cellspacing="0" class="check credits" style="display: <%= (@cart_calculator.items_total >= loyalty_credits_treshold) ? 'block' : 'none' %>">
       <tbody>
         <tr>
           <td class="icon-credits"></td>
           <td class="check_column">
-            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "use_credit_form" }) do |f| %>
-              <%= f.check_box('use_credits', :checked => @cart.gift_wrap) %>
+            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "use_credit_form"}) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
               Utilizar meus créditos <a href="#" target="_blank" class="more_credits">Mais sobre créditos</a>
             <% end %>
           </td>
