@@ -84,7 +84,7 @@ _gaq.push(['_addTrans',
 
   <div class="chaordic shoppingcart"></div>
 
-  <table cellpadding="0" cellspacing="0" class="check_table gift">
+  <table cellpadding="0" cellspacing="0" class="check gift">
     <tbody>
       <tr>
         <td class="icon-gift"></td>
@@ -194,7 +194,7 @@ _gaq.push(['_addTrans',
         <tr>
           <td class="buy-link">
             <div class="js-shipping_calculation">
-              calcular frete:
+              <label>calcular frete:</label>
                 <%= form_tag "#" do %>
                 <%= text_field_tag 'zip_code' %>
                 <%= button_tag 'Enviar', id: 'submit_zip_code' %>
@@ -213,7 +213,7 @@ _gaq.push(['_addTrans',
               você ter <span class="red_message">frete grátis!</span><br/>
               aproveite! ;)
             </div>
-            <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
+            
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>
@@ -228,6 +228,7 @@ _gaq.push(['_addTrans',
         </tr>
       </tbody>
     </table>
+    <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
   <% else %>
     <%= render 'empty_cart' %>
   <% end %>
