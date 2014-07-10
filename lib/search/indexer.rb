@@ -15,7 +15,17 @@ module Search
     end
 
     def sdf_entries(entities, type)
-      entities.map { |entity| create_sdf_entry_for(entity, type) }.compact
+      entities.map do |entity| 
+        begin
+          create_sdf_entry_for(entity, type) 
+        rescue => e
+          Airbrake.notify(e,
+            :error_class   => "Indexer",
+            :error_message => "sdf entry é nulo",
+            :backtrace => nil
+          )          
+        end
+      end.compact
     end
 
     def add_documents

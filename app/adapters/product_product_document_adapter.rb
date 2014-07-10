@@ -14,6 +14,12 @@ class ProductProductDocumentAdapter
     product_doc
   rescue => e
     Rails.logger.error("Failed to generate sdf of product: #{product.inspect}. Error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
+    Airbrake.notify(e,
+      :error_class   => self,
+      :error_message => e.message,
+      :backtrace => e.backtrace
+    )  
+
     nil
   end
 
@@ -69,7 +75,7 @@ class ProductProductDocumentAdapter
       product_doc.image = product.catalog_picture
       product_doc.backside_image = product.backside_picture
       product_doc.size = size_array_for(product)
-      product_doc.collection = product.collection.start_date
+      product_doc.collection = product.collection.start_date if product.collection
       product_doc.collection_theme = collection_theme_slugs_for(product)
       product_doc
     end
