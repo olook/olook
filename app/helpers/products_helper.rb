@@ -15,7 +15,7 @@ module ProductsHelper
             classes << "selected"
         end
       else
-        classes << "selected" if variant.description.to_s == shoe_size.to_s || variant.description.to_s.parameterize == "unico"
+        classes << "selected" if variant.description.to_s == shoe_size.to_s || variant_only_contains_unique_size(variant)
       end
     end
     classes.join(" ")
@@ -93,6 +93,12 @@ module ProductsHelper
   def pictures_for product      
     limit = product.youtube_token.blank? ? 7 : 6
     product.pictures.order(:display_on).first(limit)
+  end
+
+  private
+
+  def variant_only_contains_unique_size variant
+    variant.description.to_s.parameterize == "unico"
   end
 
 end
