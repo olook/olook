@@ -20,6 +20,6 @@ class Ability
   end
 
   def controllers_without_model
-    ["VisibilityBatch", "NewestReport", "BilletReport", "HtmlGenerator"]
+    ["VisibilityBatch", "NewestReport", "BilletReport", "HtmlGenerator", "Integration"]
   end
 end
