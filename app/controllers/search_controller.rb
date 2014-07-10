@@ -20,6 +20,8 @@ class SearchController < ApplicationController
       @url_builder.set_search @search
     end
 
+    store_search_data_for_report
+
     @recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback) || [Profile.default])
   end
 
@@ -28,11 +30,21 @@ class SearchController < ApplicationController
   end
 
   private
-    def catalogs_pages
-      %w[roupa acessorio sapato bolsa]
+
+  def catalogs_pages
+    %w[roupa acessorio sapato bolsa]
+  end
+
+  def canonical_link
+    "http://#{request.host_with_port}/busca"
+  end
+
+  def store_search_data_for_report
+    if params[:cat] == 'search'
+      searchboard = Searchboard.new
+      searchboard.add(@q, @search.products.size)
     end
 
-    def canonical_link
-      "http://#{request.host_with_port}/busca"
-    end
+  end
+
 end
