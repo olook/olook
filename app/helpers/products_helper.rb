@@ -15,7 +15,7 @@ module ProductsHelper
             classes << "selected"
         end
       else
-        classes << "selected" if variant.description.to_s == shoe_size.to_s
+        classes << "selected" if variant.description.to_s == shoe_size.to_s || variant.description.to_s.parameterize == "unico"
       end
     end
     classes.join(" ")
