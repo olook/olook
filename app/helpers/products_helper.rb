@@ -98,7 +98,7 @@ module ProductsHelper
   private
 
   def variant_only_contains_unique_size variant
-    variant.description.to_s.parameterize == "unico"
+    variant.description.to_s.parameterize.include?("unico")
   end
 
 end
