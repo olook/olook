@@ -103,9 +103,9 @@ class PromotionAction < ActiveRecord::Base
 
   def apply_filter_full_price(cis, filters)
     if filters['full_price'] == '1'
-      cis.select! { |item| item.product.price == item.product.retail_price }
+      cis.select! { |item| item.variant.price == item.variant.retail_price }
     elsif filters['full_price'] == '0'
-      cis.select! { |item| item.product.price != item.product.retail_price }
+      cis.select! { |item| item.variant.price != item.variant.retail_price }
     end
   end
 

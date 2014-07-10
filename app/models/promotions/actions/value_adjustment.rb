@@ -20,18 +20,20 @@ class ValueAdjustment < PromotionAction
     value = BigDecimal(_filters['param'])
     calculated_values = []
     eligible_items = filter_items(cart_items, _filters)
-    if _filters['full_price'] == '2'
-      if !eligible_items.find { |item| item.variant.retail_price == item.variant.price }
-        markdown_discount = eligible_items.inject(0) { |sum, item| sum + item.variant.price - item.variant.retail_price }
-        eligible_items.reject! { |item| item.product.price != item.product.retail_price } if markdown_discount > value
+    cart_total = eligible_items.inject(0) {|total, item| total += item.variant.retail_price * item.quantity}
+
+    eligible_items.sort{|a,b| a.variant.retail_price <=> b.variant.retail_price}.each do |item|
+      adjustment = calculate_adjustment_value_for(value, cart_total, item.variant.retail_price * item.quantity)
+      if _filters['full_price'] == '2'
+        subtotal = (item.variant.retail_price * item.quantity)
+        markdown_discount = ( item.variant.price - item.variant.retail_price ) * item.quantity
+        if adjustment < markdown_discount
+          adjustment = 0
+          cart_total -= subtotal
+        else
+          adjustment = subtotal - (item.variant.price * item.quantity - adjustment)
+        end
       end
-    end
-    
-    cart_total = eligible_items.inject(0) {|total, item| total += item.retail_price * item.quantity}
-
-
-    eligible_items.each do |item|
-      adjustment = calculate_adjustment_value_for(value, cart_total, item.retail_price * item.quantity)
       calculated_values << {
         id: item.id,
         product_id: item.product.id,

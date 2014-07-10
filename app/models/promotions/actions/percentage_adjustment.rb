@@ -30,12 +30,13 @@ class PercentageAdjustment < PromotionAction
     eligible_items = filter_items(cart_items, _filters)
 
     eligible_items.each do |cart_item|
-      sub_total = cart_item.quantity * cart_item.price
-      adjustment = sub_total * BigDecimal("#{percent.to_i / 100.0}")
+      base_price = cart_item.variant.retail_price
       if _filters['full_price'] == '2'
-        markdown_discount = cart_item.quantity * ( cart_item.price - cart_item.retail_price )
-        next if markdown_discount > adjustment
+        base_price = cart_item.variant.price
       end
+      adjustment = calculate_adjustment(cart_item, base_price, percent)
+      adjustment = 0 if adjustment < 0
+
       calculated_values << {
         id: cart_item.id,
         product_id: cart_item.product.id,
@@ -43,6 +44,14 @@ class PercentageAdjustment < PromotionAction
       }
     end
     calculated_values
+  end
+
+  private
+
+  def calculate_adjustment(cart_item, base_price, percent)
+    sub_total = cart_item.quantity * base_price
+    discounted_price = sub_total * BigDecimal("#{(100 - percent.to_f)/100}")
+    cart_item.variant.retail_price - discounted_price
   end
 end
 
