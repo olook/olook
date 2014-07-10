@@ -121,7 +121,7 @@ class ProductProductDocumentAdapter
       product_doc.r_age = ranking_calculator.calculate_ranking_age(product_doc)
       product_doc.r_brand_regulator = ranking_calculator.brand_regulator(product_doc.brand)
       proportion = ranking_calculator.calculate_proportion_for_ranking_fields(product)
-      product_doc.r_inventory = calculate_r_inventory(proportion) rescue 0
+      product_doc.r_inventory = ranking_calculator.calculate_r_inventory(proportion) rescue 0
 
       add_log_line(product_doc, product) if product_doc.inventory > 0 && product_doc.age < RankingCalculator::DAYS_TO_CONSIDER_OLD
 
