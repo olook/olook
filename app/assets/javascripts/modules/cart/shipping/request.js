@@ -12,9 +12,10 @@ var ShippingRequest = (function(){
   };
 
   ShippingRequest.prototype.facade = function(cep){
-    $.get("/display_free_shipping/"+cep+".json", {}).done(function(data){
-      olookApp.publish("shipping:display_info", data);
-    }).fail(function() {      
+    var value = $('#total_value').text().replace("R$ ", "")
+    $.get("/api/v1/freights?zip_code="+cep+"&amount_value="+value, {}).done(function(data){
+      olookApp.publish("shipping:display_info", data[0]);
+    }).fail(function() {
     });
   };
   return ShippingRequest;

@@ -9,10 +9,11 @@ module Api
       end
 
       def index
+        zip_code = get_zip_code
         transport_shippings = FreightService::TransportShippingManager.new(
-          params[:zip_code],
+          zip_code,
           params[:amount_value],
-          Shipping.with_zip(get_zip_code))
+          Shipping.with_zip(zip_code))
         render json: transport_shippings.to_json, status: :ok
       end
 
