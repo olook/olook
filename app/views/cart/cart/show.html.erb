@@ -165,10 +165,10 @@ _gaq.push(['_addTrans',
           </tbody>
         </table>
       </td>
-      <td class="title_subtotal">Subtotal</td>
+      <td class="title_subtotal">Subtotal<br />Descontos</td>
       <td class="value_subtotal">
         <div id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></div>
-        <div id="js-coupon-discount-value"><%= number_to_currency( -1 * (@cart.items.inject(0.0){|sum,i| sum+i.adjustment_value.to_f}) ) if @cart.coupon %></div>
+        <div id="js-discount-value"><%= number_to_currency(@cart_calculator.items_discount) %></div>
       </td>
     </tr>
     <tr>

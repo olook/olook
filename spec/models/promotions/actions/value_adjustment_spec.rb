@@ -67,6 +67,16 @@ describe ValueAdjustment do
             {id: ci3.id, product_id: ci3.product.id, adjustment: 20}
         ])
       end
+
+      it "should distribute discount taking full_price in consideration" do
+        ci =  cart_item(price: 20)
+        ci2 =  cart_item(price: 100, retail_price: 50)
+        expect(subject.calculate([ ci, ci2 ], {'param' => '14', 'full_price' => '2'})).
+          to eq([
+            {id: ci.id, product_id: ci.product.id, adjustment: 14},
+            {id: ci2.id, product_id: ci2.product.id, adjustment: 0}
+        ])
+      end
     end
 
     context "with full_price = -1" do

@@ -4,7 +4,7 @@
 <% end %>
 cartUpdateData = {};
 cartUpdateData.total = "<%= number_to_currency(@cart_calculator.items_total) %>";
-
+cartUpdateData.discount = "<%= number_to_currency(@cart_calculator.items_discount) %>";
 cartUpdateData.subtotal = "<%= number_to_currency(@cart_calculator.items_subtotal) %>";
 
 if ($('#cart_gift_wrap').is(':checked')){
@@ -51,9 +51,6 @@ $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 
 $("#coupon a#show_coupon_field").show();
 $("#coupon a#show_coupon_field").siblings("form").hide();
-
-// update overall total
-$('table#total tr.total span').text('<%= number_to_currency(@cart_calculator.items_total) %>');
 
 // update item rows discounts and subtotals
 // usually when using coupons on cart show
