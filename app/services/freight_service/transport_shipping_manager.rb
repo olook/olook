@@ -13,6 +13,7 @@ class FreightService::TransportShippingManager
     @amount_value = amount_value
     @freight_calculator = opts[:freight_calculator] || FreightCalculator
     @transport_shippings = transport_shippings.to_a.empty? ? [default_shipping] : transport_shippings
+    @shipping_policies = find_policies_for_zip(@zip_code)
   end
 
   def default
@@ -42,7 +43,8 @@ class FreightService::TransportShippingManager
       price: shipping.income || @freight_calculator::DEFAULT_FREIGHT_PRICE,
       cost: shipping.cost || @freight_calculator::DEFAULT_FREIGHT_COST,
       delivery_time: shipping.delivery_time.to_i + @freight_calculator::DEFAULT_INVENTORY_TIME,
-      shipping_service_id: shipping.shipping_service_id || @freight_calculator::DEFAULT_FREIGHT_SERVICE
+      shipping_service_id: shipping.shipping_service_id || @freight_calculator::DEFAULT_FREIGHT_SERVICE,
+      free_shipping_value: @shipping_policies.first.free_shipping
     }
   end
 
@@ -63,5 +65,9 @@ class FreightService::TransportShippingManager
       chosen[:price] = '0.0'.to_d
     end
     chosen
+  end
+
+  def find_policies_for_zip zip_code
+    ShippingPolicy.with_zip(zip_code)
   end
 end

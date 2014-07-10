@@ -19,15 +19,6 @@ class ShippingsController < ApplicationController
     end
   end
 
-  def display_free_shipping
-    @zip_code = params[:cep]
-    response = FreightCalculator.freight_for_zip(
-      @zip_code,
-      @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE
-    )
-    render json: response[:default_shipping].to_json, status: :ok
-  end
-
   private
 
   def shipping_freights(prevent_policy)

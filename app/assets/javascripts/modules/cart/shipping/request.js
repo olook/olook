@@ -14,7 +14,13 @@ var ShippingRequest = (function(){
   ShippingRequest.prototype.facade = function(cep){
     var value = $('#total_value').text().replace("R$ ", "")
     $.get("/api/v1/freights?zip_code="+cep+"&amount_value="+value, {}).done(function(data){
-      olookApp.publish("shipping:display_info", data[0]);
+      var defaultShipping = null;
+      $(data).each(function(index,shipping){
+        if(shipping.kind == "default"){
+          defaultShipping = shipping;
+        }
+      });
+      olookApp.publish("shipping:display_info", defaultShipping, value);
     }).fail(function() {
     });
   };

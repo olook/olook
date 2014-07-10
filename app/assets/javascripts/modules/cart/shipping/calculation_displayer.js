@@ -11,6 +11,7 @@ var ShippingCalculationDisplayer = (function(){
   };
 
   ShippingCalculationDisplayer.prototype.facade = function(data){
+    $("#zip_code").val("");
     $(".js-shipping_info").hide();
     $(".js-remaining_amount").hide();
     $(".js-shipping_calculation").show();
