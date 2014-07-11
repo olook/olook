@@ -6,6 +6,8 @@ cartUpdateData = {};
 cartUpdateData.total = "<%= number_to_currency(@cart_calculator.items_total) %>";
 cartUpdateData.discount = "<%= number_to_currency(@cart_calculator.items_discount) %>";
 cartUpdateData.subtotal = "<%= number_to_currency(@cart_calculator.items_subtotal) %>";
+cartUpdateData.usedCredits = "<%= number_to_currency(@cart_calculator.used_credits_value) %>";
+cartUpdateData.loyaltyUserCredits = "<%= number_to_currency(@cart_calculator.total_loyalty_user_credits_value) %>";
 
 if ($('#cart_gift_wrap').is(':checked')){
   if($('#embrulho_presente').length == 0) $('#subtotal_parcial').after("<div id='embrulho_presente'></div>");
@@ -14,24 +16,6 @@ if ($('#cart_gift_wrap').is(':checked')){
 }else{
   $('#embrulho_presente').remove();
 }
-
-if ($('#cart_use_credits').is(':checked') && "<%= total_user_credits %>" != "0.0"){
-  if($('#credito_fidelidade').length == 0) $('#subtotal_parcial').after("<div id='credito_fidelidade'></div>");
-  var span_target = $('#credito_fidelidade');
-  span_target.html("-<%= number_to_currency(total_user_credits) %>");
-}else{
-  $('#credito_fidelidade').remove();
-}
-
-<% if total_user_credits > 0 %>
-  $(".credits").fadeIn();
-  // $("#credito_fidelidade").fadeIn();
-  $(".js-credits #total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
-  $(".js-credits #total_user_credits").fadeIn();
-<% else %>
-$(".js-credits").fadeOut();
-  $("#credito_fidelidade").fadeOut();
-<% end %>
 
 
 <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>

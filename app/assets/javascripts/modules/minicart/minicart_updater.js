@@ -28,7 +28,6 @@ var MinicartUpdater  = (function(){
 
 
   MinicartUpdater.prototype.facade = function(){
-    console.log("getting the json for sacola");
     $.get("/sacola.json").done(function(data){
       clearMinicart();
       applyCoupon(data);
