@@ -1,4 +1,4 @@
-production:
+development:
   adapter: mysql2
   database: olook_development
   username: root
@@ -6,7 +6,7 @@ production:
   encoding: utf8
   timeout: 5000
   host: localhost
-development:
+production:
   adapter: mysql2
   database: olook_production
   username: olook
