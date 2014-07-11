@@ -35,7 +35,7 @@ class ProductSearchWorker
     end
 
     def self.index product     
-      suggestion = Suggestion.new(product)
+      suggestion = Suggestion.for(product)
       term = suggestion.get
       
       if term
