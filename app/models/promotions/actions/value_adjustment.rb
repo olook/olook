@@ -22,7 +22,10 @@ class ValueAdjustment < PromotionAction
     eligible_items = filter_items(cart_items, _filters)
     cart_total = eligible_items.inject(0) {|total, item| total += item.variant.retail_price * item.quantity}
 
-    eligible_items.sort{|a,b| a.variant.retail_price <=> b.variant.retail_price}.each do |item|
+    eligible_items.sort! do |a,b|
+      b.variant.price - b.variant.retail_price <=> a.variant.price - a.variant.retail_price
+    end
+    eligible_items.each do |item|
       adjustment = calculate_adjustment_value_for(value, cart_total, item.variant.retail_price * item.quantity)
       if _filters['full_price'] == '2'
         subtotal = (item.variant.retail_price * item.quantity)

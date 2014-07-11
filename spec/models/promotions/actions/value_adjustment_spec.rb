@@ -30,9 +30,9 @@ describe ValueAdjustment do
         ci3 = cart_item(price: 30)
         expect(subject.calculate([ ci, ci2, ci3 ], {'param' => "200"})).
           to eq([
-            {id: ci3.id, product_id: ci3.product.id, adjustment: 30},
+            {id: ci.id, product_id: ci.product.id, adjustment: 90},
             {id: ci2.id, product_id: ci2.product.id, adjustment: 70},
-            {id: ci.id, product_id: ci.product.id, adjustment: 90} ])
+            {id: ci3.id, product_id: ci3.product.id, adjustment: 30} ])
 
       end
     end
@@ -73,8 +73,8 @@ describe ValueAdjustment do
         ci2 =  cart_item(price: 100, retail_price: 50)
         expect(subject.calculate([ ci, ci2 ], {'param' => '14', 'full_price' => '2'})).
           to eq([
-            {id: ci.id, product_id: ci.product.id, adjustment: 14},
-            {id: ci2.id, product_id: ci2.product.id, adjustment: 0}
+            {id: ci2.id, product_id: ci2.product.id, adjustment: 0},
+            {id: ci.id, product_id: ci.product.id, adjustment: 14}
         ])
       end
     end

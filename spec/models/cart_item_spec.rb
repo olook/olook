@@ -50,7 +50,7 @@ describe CartItem do
       context "cart_item with adjustment" do
         it "returns value calculated" do
           cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
-          cart_item.product.stub(:retail_price).and_return(BigDecimal("0"))
+          cart_item.product.stub(:retail_price).and_return(BigDecimal("59.99"))
           cart_item.stub(:adjustment_value).and_return(BigDecimal("9.99"))
           cart_item.retail_price.to_s.should eq("50.0")
         end
