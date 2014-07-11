@@ -17,7 +17,11 @@ module Search
     def sdf_entries(entities, type)
       entities.map do |entity| 
         begin
-          create_sdf_entry_for(entity, type) 
+          d1 = Time.zone.now
+          entry = create_sdf_entry_for(entity, type) 
+          d2 = Time.zone.now
+          Rails.logger.info "Tempo: #{(d2 - d1) * 1000}s"
+          entry
         rescue => e
           Airbrake.notify(e,
             :error_class   => "Indexer",
@@ -30,8 +34,10 @@ module Search
 
     def add_documents
       entities.each_slice(500).with_index do |slice, index|
+        Rails.logger.info("[INDEXER] index:#{index}")
         documents = sdf_entries(entities_to_index(slice), 'add')
         save(documents, index)
+        Rails.logger.info("[INDEXER] sdf file sent to amazon")
       end
     end
 

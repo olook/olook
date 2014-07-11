@@ -52,7 +52,8 @@ $(".js-credits").fadeOut();
 olookApp.publish('cart:update', {
   totalItens: "(<%= pluralize(@cart.items_total, 'item', 'itens') %>)",
   total: '<%= number_to_currency(@cart_calculator.items_total) %>',
-  subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>'
+  subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>',
+  discount: '<%= number_to_currency(@cart_calculator.items_discount) %>'
 });
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');

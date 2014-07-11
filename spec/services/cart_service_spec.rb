@@ -416,7 +416,7 @@ describe CartService do
       end
 
       it "should return promotion price" do
-        @cart_item.variant.product.update_attribute(:price, 19)
+        @cart_item.should_receive(:retail_price).and_return(17)
         cart_service.item_retail_price(@cart_item).should eq(17)
       end
     end

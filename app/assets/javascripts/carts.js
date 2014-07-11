@@ -2,46 +2,7 @@
 //= require plugins/check_freebie
 //= require modules/cart/float_total_scroll_manager
 //= require modules/cart/shipping/load
-
-function CartUpdater() {
-  this.developer = 'Nelson Haraguchi';
-};
-
-CartUpdater.prototype = {
-  changeView: function(data) {
-    if(data.total) {
-      $("#total_value").html(data.total);
-      $("#float_total_value").html(data.total);
-    }
-    if (data.totalItens) {
-      //update items quantity on cart summary header
-      $("#cart_items").text(data.totalItens);
-
-      //update items total on cart title
-      $(".js-total-itens").html(data.totalItens);
-    }
-    if(typeof data.usingCoupon !== 'undefined') {
-      if(data.usingCoupon) {
-        $("#coupon_discount").html(data.couponCode);
-        $('#js-coupon-discount-value').text(data.couponDiscountValue);
-        $("#coupon_info").show();
-        $("#coupon").hide();
-      } else {
-        $("#coupon_discount").html("");
-        $('#js-coupon-discount-value').text('');
-        $("#coupon_info").hide();
-        $("#coupon").show();
-      }
-      olookApp.publish('minicart:update');
-    }
-    if(data.subtotal) {
-      $('#subtotal_parcial').html(data.subtotal);
-    }
-  },
-  config: function() {
-    olookApp.mediator.subscribe('cart:update', this.changeView, {}, this);
-  }
-};
+//= require modules/cart/updater
 
 $(function() {
   new FloatTotalScrollManager().config();

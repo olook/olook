@@ -125,6 +125,7 @@ aside{
     cursor:pointer;
     &.close{ background-position:0 -25px !important; }
   }
+
   a{
     display:inline-block;
     height:15px;
@@ -139,6 +140,12 @@ aside{
     &.selected{ background-position:0 -86px !important;}
     &.clean{background: image-url('collections/sprite.png') -269px -116px no-repeat !important;}
   }
+
+  .banner a{
+    padding-left: 0px;
+    background: none;
+  }
+
   .clean_filter a{
     font-size:11px;
     text-decoration:underline;

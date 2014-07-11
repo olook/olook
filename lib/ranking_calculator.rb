@@ -1,7 +1,7 @@
 class RankingCalculator
 
   RANKING_POWER = 1000
-  DAYS_TO_CONSIDER_OLD = 120
+  DAYS_TO_CONSIDER_OLD = 150
   PERCENT_OLOOK_TO_REGULATOR = 100
 
   attr_reader :age_weight, :max_age_rating, :inventory_weight 
@@ -12,7 +12,6 @@ class RankingCalculator
     @inventory_weight ||= Setting[:inventory_weight].to_i
   end
 
-
   def calculate_proportion_for_ranking_fields product
     product.inventory.to_f / third_quartile_inventory_for_category(product.category)
   end
@@ -21,25 +20,17 @@ class RankingCalculator
     (/olook/i =~ brand) ? 250 : 0
   end
 
-
   def calculate_ranking_age product_doc
-    result = ( RANKING_POWER * age_weight ).to_i
-    result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < newest
-    result
-  end
-
-  def calculate_proportion_for_ranking_age product_doc
     diff_age = product_doc.age.to_i - newest.to_i
+    diff_age = 0 if diff_age < 0
     proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
-    # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
     proportion = 1 if proportion > 1
-    ( 1 - proportion ).to_i
+    ( ( 1 - proportion ).to_f * RANKING_POWER * age_weight ).to_i
   end
 
   def calculate_r_inventory proportion
-    ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * inventory_weight ).to_i 
+    ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * inventory_weight ).to_i
   end
-
 
   def newest
     return @newest if @newest
@@ -78,7 +69,7 @@ class RankingCalculator
 
     def initialize_third_quartile_inventory
       count = valid_products_count 
-      initialize_newest(third_quartile(count))
+      initialize_newest(first_quartile(count))
       @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
         category, count = aux
     
@@ -88,6 +79,10 @@ class RankingCalculator
           first['sum_inventory']
         hash
       end        
+    end
+
+    def first_quartile count
+      ( count * 0.25 ).round
     end
 
     def third_quartile count
@@ -104,8 +99,8 @@ class RankingCalculator
       Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").first['qty']      
     end
 
-    def initialize_newest third_quartile
-      @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").first['age']      
+    def initialize_newest offset
+      @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{offset}").first['age']      
     end
 
     def drop_existent_temporary_table

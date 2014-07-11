@@ -16,11 +16,12 @@ class Searchboard
     @redis.incrby([PREFIX, term, 'results'].join(':'), amount)
     @redis.incr([PREFIX, term, 'requests'].join(':'))
 
-    @redis.rpush([PREFIX, "keys"].join(':'), term)
+    @redis.sadd([PREFIX, "terms"].join(':'), term)
+
   end
 
   def get_report
-    terms = @redis.lrange("#{PREFIX}:keys", 0, -1)
+    terms = @redis.smembers("#{PREFIX}:terms")
 
     terms.map {|term| 
        [

@@ -44,7 +44,7 @@ describe PromotionAction do
       context "when is 0" do
         before do
           @cart_items = [
-            mock_model(CartItem, product: mock_model(Product, price: 10, retail_price: 10))
+            mock_model(CartItem, variant: mock_model(Variant, price: 10, retail_price: 10))
           ]
           @filters = {'full_price' => '0'}
         end
@@ -54,7 +54,7 @@ describe PromotionAction do
       context "when is 1" do
         before do
           @cart_items = [
-            mock_model(CartItem, product: mock_model(Product, price: 20, retail_price: 10))
+            mock_model(CartItem, variant: mock_model(Variant, price: 20, retail_price: 10))
           ]
           @filters = {'full_price' => '1'}
         end
@@ -64,7 +64,7 @@ describe PromotionAction do
       context "when is -1" do
         before do
           @cart_items = [
-            mock_model(CartItem, product: mock_model(Product, price: 20, retail_price: 10))
+            mock_model(CartItem, variant: mock_model(Variant, price: 20, retail_price: 10))
           ]
           @filters = {'full_price' => '-1'}
         end

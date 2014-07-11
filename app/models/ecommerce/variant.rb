@@ -70,16 +70,6 @@ class Variant < ActiveRecord::Base
     inventory - quantity >= 0
   end
 
-  def copy_master_variant
-    return if self.is_master?
-    self.width      = master_variant.width
-    self.height     = master_variant.height
-    self.length     = master_variant.length
-    self.weight     = master_variant.weight
-    self.price      = master_variant.price
-    self.inventory  = 0 if self.inventory.nil?
-  end
-
   def replicate_master_changes
     # I don't know why, but self.product.variants doesn't work
     master_product = Product.find(self.product_id)
@@ -88,10 +78,14 @@ class Variant < ActiveRecord::Base
     end
     master_product.save_from_master_variant = true
     master_product.save!
-    master_product.variants.each do |child_variant|
-      child_variant.copy_master_variant
-      child_variant.save!
-    end
+    Variant.where(is_master: false).where(product_id: self.product_id).update_all({
+      price: price,
+      retail_price: retail_price,
+      width: width,
+      height: height,
+      length: length,
+      weight: weight
+    })
   end
 
   def retail_price
