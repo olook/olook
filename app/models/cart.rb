@@ -138,7 +138,11 @@ class Cart < ActiveRecord::Base
   end
 
   def uncheck_credit_usage_if_unallowed
-    self.update_attribute(:use_credits, self.use_credits && self.allow_credit_payment?)
+    self.update_attribute(:use_credits, can_use_credits?)
+  end
+
+  def can_use_credits?
+    self.use_credits && self.allow_credit_payment?
   end
 
   private

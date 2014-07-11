@@ -17,7 +17,7 @@ var CartUpdater = (function(){
       }
       if(data.usedCredits && data.loyaltyUserCredits) {
         $('#js-credit-value').text(data.usedCredits);
-        if(data.subtotal && parseFloat(data.subtotal.replace("R$ ","").replace(",",".")) > 100) {
+        if(data.subtotal && parseFloat(data.subtotal.replace("R$ ","").replace(",",".")) > 100 && parseFloat(data.discount.replace("R$ ","").replace(",",".")) == 0) {
           $('.js-credits').fadeIn();
           $('#total_user_credits').text(data.loyaltyUserCredits);
         } else {
