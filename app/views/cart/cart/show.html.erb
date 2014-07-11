@@ -107,7 +107,7 @@ _gaq.push(['_addTrans',
   </table>
 
   <% if @user && @user.current_credit > 0 %>
-    <table cellpadding="0" cellspacing="0" class="check credits" style="display: <%= (@cart_calculator.items_total >= loyalty_credits_treshold) ? 'block' : 'none' %>">
+    <table cellpadding="0" cellspacing="0" class="check credits js-credits" style="display: <%= (total_user_credits > 0 ) ? 'block' : 'none' %>">
       <tbody>
         <tr>
           <td class="icon-credits"></td>

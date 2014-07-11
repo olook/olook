@@ -14,6 +14,7 @@ if ($('#cart_gift_wrap').is(':checked')){
 }else{
   $('#embrulho_presente').remove();
 }
+
 if ($('#cart_use_credits').is(':checked') && "<%= total_user_credits %>" != "0.0"){
   if($('#credito_fidelidade').length == 0) $('#subtotal_parcial').after("<div id='credito_fidelidade'></div>");
   var span_target = $('#credito_fidelidade');
@@ -21,6 +22,17 @@ if ($('#cart_use_credits').is(':checked') && "<%= total_user_credits %>" != "0.0
 }else{
   $('#credito_fidelidade').remove();
 }
+
+<% if total_user_credits > 0 %>
+  $(".credits").fadeIn();
+  // $("#credito_fidelidade").fadeIn();
+  $(".js-credits #total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
+  $(".js-credits #total_user_credits").fadeIn();
+<% else %>
+$(".js-credits").fadeOut();
+  $("#credito_fidelidade").fadeOut();
+<% end %>
+
 
 <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
@@ -76,7 +88,6 @@ $("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escap
 
 //$('section#cart table.check.gift').css('border', '0');
 <% end %>
-
 if($("#cart-box").length > 0){
   <% freight_value = params[:freight_price] ? BigDecimal.new(params[:freight_price].gsub('R$ ', '').gsub('.', '').gsub(',', '.')) : 0 %>
   $("#cart-box #credits_used").text('-<%= number_to_currency(@cart_service.total_credits_discount) %>');
