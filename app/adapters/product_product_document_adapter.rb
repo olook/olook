@@ -67,7 +67,7 @@ class ProductProductDocumentAdapter
         keywords += product.keywords.split(",")
       end
       
-      product_doc.keywords = keywords.join(" ")
+      product_doc.keywords = keywords.to_a.join(" ")
     end
 
 
