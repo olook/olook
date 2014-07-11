@@ -51,8 +51,7 @@ olookApp.publish('cart:update', {
 
 <% if @cart_calculator.items_total < loyalty_credits_treshold %>
   $(".credits").fadeOut();
-  $("#credito_fidelidade").fadeOut();
-  $("#total_user_credits").fadeOut();
+  $("#credito_fidelidade").remove();
 <% else %>
   $(".credits").fadeIn();
   $("#credito_fidelidade").fadeIn();
