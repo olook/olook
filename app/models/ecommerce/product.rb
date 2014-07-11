@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   NOT_AVAILABLE = "Não informado"
 
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
-  TIP_TOKEN = "Dicas"
+  TIP_TOKEN = "Dica"
   KEYWORDS_TOKEN = "Keywords"
 
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
