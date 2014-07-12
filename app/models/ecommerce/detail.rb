@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Detail < ActiveRecord::Base
+
+  SPECIFIC_TRANSLATIONS = [ Product::TIP_TOKEN, Product::KEYWORDS_TOKEN]
   belongs_to :product
 
   validates :product, :presence => true
@@ -9,9 +11,10 @@ class Detail < ActiveRecord::Base
   has_enumeration_for :display_on, :with => DisplayDetailOn, :required => true
 
   scope :only_invisible     , where(:display_on => DisplayDetailOn::INVISIBLE)
-  scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION).where("translation_token not like 'Cor%'")
+  scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION)
   scope :with_valid_values  , where("description <> '_'")
   scope :only_how_to        , where(:display_on => DisplayDetailOn::HOW_TO)
+  scope :without_specific_translations, -> {where("translation_token not like 'Cor%' and translation_token not in ('#{SPECIFIC_TRANSLATIONS.join("','")}')") }
 
   def self.colors(product_category)
     product_category = product_category.blank? ? Category.list.join(',') : product_category
