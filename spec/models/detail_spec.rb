@@ -39,5 +39,15 @@ describe Detail do
         described_class.only_how_to.all.should == [how_to_detail]
       end
     end
+    describe "without_specific_translations" do
+      let!(:tip) { FactoryGirl.create(:tip) }
+      let!(:keywords) { FactoryGirl.create(:keywords) }
+      it "don't return tip translation_token" do
+        expect(described_class.without_specific_translations.all).to_not include(tip)
+      end
+      it "don't return keywords translation_token" do
+        expect(described_class.without_specific_translations.all).to_not include(keywords)
+      end
+    end
   end
 end
