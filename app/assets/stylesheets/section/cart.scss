@@ -865,6 +865,23 @@ section#cart {
     .buy-link {
       width:520px !important;
       padding-top:0px !important;
+      .shipping_info {
+        font-size: 12px;
+        float:left;
+        padding-top:19px;
+      }
+      .remaining_amount {
+        float:right;
+        width:40%;
+        padding:2%;
+        background:#f1f1f1;
+        text-align: center;
+        font-size: 13px;
+        .red_message {
+          font-weight: bold;
+          color:#ef3742;
+        }
+      }
       label {
         float:left;
         display: block;

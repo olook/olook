@@ -43,7 +43,6 @@ class Variant < ActiveRecord::Base
 
   def product_id=(param_id)
     result = super(param_id)
-    copy_master_variant
     result
   end
 
@@ -79,12 +78,12 @@ class Variant < ActiveRecord::Base
     master_product.save_from_master_variant = true
     master_product.save!
     Variant.where(is_master: false).where(product_id: self.product_id).update_all({
-      price: price,
-      retail_price: retail_price,
-      width: width,
-      height: height,
-      length: length,
-      weight: weight
+      price: self[:price],
+      retail_price: self[:retail_price],
+      width: self[:width],
+      height: self[:height],
+      length: self[:length],
+      weight: self[:weight]
     })
   end
 
