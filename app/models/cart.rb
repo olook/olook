@@ -137,6 +137,14 @@ class Cart < ActiveRecord::Base
       :only => [:coupon, :items, :items_total])
   end
 
+  def uncheck_credit_usage_if_unallowed
+    self.update_attribute(:use_credits, can_use_credits?)
+  end
+
+  def can_use_credits?
+    self.use_credits && self.allow_credit_payment?
+  end
+
   private
 
     def update_coupon
@@ -166,4 +174,5 @@ class Cart < ActiveRecord::Base
     def has_empty_adjustments?
       items.select { |item| item.has_adjustment? }.empty?
     end
+
 end

@@ -30,25 +30,21 @@ if ($('#cart_gift_wrap').is(':checked')){
 }else{
   $('#embrulho_presente').remove();
 }
-if ($('#cart_use_credits').is(':checked')){
-  $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
-  var span_target = $('#credito_fidelidade');
-  span_target.html($("#total_user_credits").text().trim());
-}else{
-  $('#credito_fidelidade').remove();
-}
 
 olookApp.publish('cart:update', {
   totalItens: "(<%= pluralize(@cart.items_total, 'item', 'itens') %>)",
   total: '<%= number_to_currency(@cart_calculator.items_total) %>',
   subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>',
-  discount: '<%= number_to_currency(@cart_calculator.items_discount) %>'
-});
+  discount: '<%= number_to_currency(@cart_calculator.items_discount) %>',
+  usedCredits: '<%= number_to_currency(@cart_calculator.used_credits_value) %>',
+  loyaltyUserCredits: '<%= number_to_currency(@cart_calculator.total_loyalty_user_credits_value) %>'
 
+});
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
   if(olook.attachFreebieActions) olook.attachFreebieActions();
 <% end %>
 
+olookApp.publish('shipping:display_calculation');
 olookApp.publish('minicart:update');
 

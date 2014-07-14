@@ -1,8 +1,8 @@
 //= require ./partials/_credits_info
 //= require plugins/check_freebie
 //= require modules/cart/float_total_scroll_manager
+//= require modules/cart/shipping/load
 //= require modules/cart/updater
-
 
 $(function() {
   new FloatTotalScrollManager().config();
@@ -16,14 +16,7 @@ $(function() {
   }else{
     $('#embrulho_presente').remove();
   }
-  if ($('#cart_use_credits').is(':checked') && $(".cupom").filter(":visible").length > 0){
-    $('#subtotal_parcial').after("<div id='credito_fidelidade'></div>");
-    var span_target = $('#credito_fidelidade');
-    span_target.html("-"+$("#total_user_credits").text().trim());
-  }else{
-    $('#credito_fidelidade').remove();
-  }
-
+  
   $("form#coupon input").focus(function() {
     _gaq.push(['_trackEvent', 'Checkout', 'FillCupom', '', , true]);
   });
@@ -51,6 +44,18 @@ $(function() {
 
   $("#credits_credits_last_order").change(function() {
     $("#credits_last_order").submit();
+  });
+
+  // ABOUT CREDITS MODAL
+  $(".more_credits").click(function(e){
+    e.preventDefault();
+    $("#overlay-campaign").show();
+    $("#about_credits").fadeIn();
+  });
+
+  $("#about_credits button").click(function(){
+    $("#about_credits").fadeOut();
+    $("#overlay-campaign").hide();
   });
 
   if($("div#carousel").size() > 0) {

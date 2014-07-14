@@ -16,6 +16,8 @@ class Cart::ItemsController < ApplicationController
       @cart.items.reload
       @cart_calculator = CartProfit::CartCalculator.new(@cart)
       @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+      @cart.uncheck_credit_usage_if_unallowed
+      
       respond_with { |format| format.js {  } }
     else
       render :error, :locals => { :notice => "Houve um problema ao atualizar a quantidade do item do cart" }

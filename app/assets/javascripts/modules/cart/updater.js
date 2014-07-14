@@ -15,6 +15,16 @@ var CartUpdater = (function(){
       if(data.discount) {
         $('#js-discount-value').text(data.discount);
       }
+      if(data.usedCredits && data.loyaltyUserCredits) {
+        $('#js-credit-value').text(data.usedCredits);
+        if(data.subtotal && parseFloat(data.subtotal.replace("R$ ","").replace(",",".")) > 100 && parseFloat(data.discount.replace("R$ ","").replace(",",".")) == 0) {
+          $('.js-credits').fadeIn();
+          $('#total_user_credits').text(data.loyaltyUserCredits);
+        } else {
+          $('.js-credits').fadeOut();
+          $("#cart_use_credits").prop('checked', false);
+        }
+      }      
       if (data.totalItens) {
         //update items quantity on cart summary header
         $("#cart_items").text(data.totalItens);

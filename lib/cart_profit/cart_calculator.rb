@@ -17,9 +17,13 @@ module CartProfit
       final_price - items_subtotal
     end
 
-    def user_credits_value
-      (cart.use_credits && cart.allow_credit_payment?) ? cart.user.user_credits_for(:loyalty_program).total : BigDecimal.new(0)
+    def used_credits_value
+      (cart.use_credits && cart.allow_credit_payment?) ? total_loyalty_user_credits_value : BigDecimal.new(0)
     end
+
+    def total_loyalty_user_credits_value
+      cart.user.user_credits_for(:loyalty_program).total
+    end    
 
     def cart_addings
       gift_price
@@ -28,7 +32,7 @@ module CartProfit
     def items_total
       return 0 if cart.nil? || (cart && cart.items.nil?)
       subtotal = items_subtotal + items_discount
-      subtotal += gift_price - user_credits_value
+      subtotal += gift_price - used_credits_value
     end
 
     private

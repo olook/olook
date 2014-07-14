@@ -1,5 +1,5 @@
   <% content_for :head do %>
-    <%= stylesheet_link_tag "section/checkout" %>
+    <%= stylesheet_link_tag "section/cart" %>
     <meta name="chaordic:source" content="cart">
     <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
     <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
@@ -107,12 +107,15 @@ _gaq.push(['_addTrans',
   </table>
 
   <% if @user && @user.current_credit > 0 %>
-    <table cellpadding="0" cellspacing="0" class="check credits">
+    <table cellpadding="0" cellspacing="0" class="check credits js-credits" style="display: <%= (total_user_credits > 0 ) ? 'block' : 'none' %>">
       <tbody>
         <tr>
           <td class="icon-credits"></td>
           <td class="check_column">
-            Você pode utilizar seus créditos na etapa de pagamento 
+            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "use_credit_form"}) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
+              Utilizar meus créditos <a href="#" target="_blank" class="more_credits">Mais sobre créditos</a>
+            <% end %>
           </td>
           <td class="value" id="total_user_credits">
             <%= number_to_currency(total_user_credits) %>
@@ -120,8 +123,10 @@ _gaq.push(['_addTrans',
         </tr>
       </tbody>
     </table>
+    <div class= 'credits'>
+      <%= render 'shared/credits/info_credits', report: @report %>
+    </div>    
   <% end %>
-
 
   <table cellpadding="0" cellspacing="0" id="cart_subtotal">
     <tr>
@@ -165,10 +170,11 @@ _gaq.push(['_addTrans',
           </tbody>
         </table>
       </td>
-      <td class="title_subtotal">Subtotal<br />Descontos</td>
+      <td class="title_subtotal">Subtotal<br />Descontos<br />Créditos</td>
       <td class="value_subtotal">
         <div id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></div>
         <div id="js-discount-value"><%= number_to_currency(@cart_calculator.items_discount) %></div>
+        <div id="js-credit-value"><%= number_to_currency(@cart_calculator.used_credits_value) %></div>
       </td>
     </tr>
     <tr>
@@ -188,7 +194,24 @@ _gaq.push(['_addTrans',
       <tbody>
         <tr>
           <td class="buy-link">
-            <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
+            <div class="js-shipping_calculation">
+              <label>calcular frete:</label>
+                <%= form_tag "#" do %>
+                <%= text_field_tag 'zip_code' %>
+                <%= button_tag 'Calcular', id: 'submit_zip_code' %>
+              <% end %>
+            </div>
+            <div class="js-shipping_info shipping_info">
+              Entrega em até <span class="js-shipping_info_delivery_time"></span> dias úteis
+              <span class="js-shipping_info_price"></span> 
+              <%= link_to "Recalcular", "#", class: "js-display_calculation" %>
+            </div>
+            <div class="js-remaining_amount remaining_amount">
+              <span class="red_message">Aproveite! </span>
+              Faltam só <span class="js-remaining_amount_text"></span> para
+              você ter <span class="red_message">frete grátis!</span>
+            </div>
+            
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>
@@ -203,6 +226,7 @@ _gaq.push(['_addTrans',
         </tr>
       </tbody>
     </table>
+    <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
   <% else %>
     <%= render 'empty_cart' %>
   <% end %>

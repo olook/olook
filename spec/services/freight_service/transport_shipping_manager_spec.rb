@@ -1,34 +1,35 @@
 require File.expand_path(File.join(File.dirname(__FILE__), '../../../app/services/freight_service/transport_shipping_manager'))
 describe FreightService::TransportShippingManager do
   subject { described_class.new("08730810", "79.9", @shippings, freight_calculator: FR) }
-  before do
+  before :each do
     stub_const('FR::DEFAULT_INVENTORY_TIME', 2)
     stub_const('FR::DEFAULT_INVENTORY_TIME_WITH_EXTRA_TIME', 4)
     stub_const('FR::DEFAULT_FREIGHT_PRICE', 20)
     stub_const('FR::DEFAULT_FREIGHT_COST', 15)
     stub_const('FR::DEFAULT_FREIGHT_SERVICE', 2)
     @shippings = [double('Shipping', cost: 10, income: 15, delivery_time: 7, shipping_service_id: 1)]
+    ShippingPolicy.stub(:with_zip).with("08730810").and_return([double('ShippingPolicy', free_shipping: 99)])
   end
 
   context "when there isn't shippings" do
-    before do
+    before :each do
       @shippings = []
     end
-    it { expect(subject.default).to eql({ kind: 'default', price: 20, cost: 15, delivery_time: 6, shipping_service_id: 2}) }
+    it { expect(subject.default).to eql({ kind: 'default', price: 20, cost: 15, delivery_time: 6, free_shipping_value: 99, shipping_service_id: 2}) }
     it { expect(subject.fast).to eql(nil) }
   end
 
   context "when there is one shipping" do
-    it { expect(subject.default).to eql({ kind: 'default', price: 15, cost: 10, :delivery_time => 9, :shipping_service_id => 1 }) }
+    it { expect(subject.default).to eql({ kind: 'default', price: 15, cost: 10, :delivery_time => 9, free_shipping_value: 99, :shipping_service_id => 1 }) }
     it { expect(subject.fast).to eql(nil) }
   end
 
   context "when two or more shippings" do
     context "#default" do
       it "should return cheaper shipping" do
-        cheaper = double('Shipping', cost: 5, income: 15, delivery_time: 5, shipping_service_id: 1)
+        cheaper = double('Shipping', cost: 5, income: 15, delivery_time: 5, free_shipping_value: nil, shipping_service_id: 1)
         @shippings.push cheaper
-        expect(subject.default).to eql({ kind: 'default', price: cheaper.income, cost: cheaper.cost, :delivery_time => 7, :shipping_service_id=>1})
+        expect(subject.default).to eql({ kind: 'default', price: cheaper.income, cost: cheaper.cost, :delivery_time => 7, free_shipping_value: 99, :shipping_service_id=>1})
       end
     end
 
