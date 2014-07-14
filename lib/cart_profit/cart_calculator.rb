@@ -22,7 +22,7 @@ module CartProfit
     end
 
     def total_loyalty_user_credits_value
-      cart.user.user_credits_for(:loyalty_program).total
+      cart.user.user_credits_for(:loyalty_program).total if cart.user
     end    
 
     def cart_addings
