@@ -66,7 +66,7 @@ class ProductController < ApplicationController
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
 
     create_cart if @product.related_products.any?
-    @details = @product.details.only_specification.with_valid_values.to_a.select do |d|
+    @details = @product.details.only_specification.without_specific_translations.with_valid_values.to_a.select do |d|
       if d.translation_token == "Detalhes"
         @product_detail_info ||= d
         false
