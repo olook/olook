@@ -868,7 +868,6 @@ section#cart {
       .shipping_info {
         font-size: 12px;
         float:left;
-        padding-top:19px;
       }
       .remaining_amount {
         float:right;
@@ -881,6 +880,11 @@ section#cart {
           font-weight: bold;
           color:#ef3742;
         }
+      }
+      .js-shipping_info_price {
+        display: block;
+        font-size: 22px;
+        text-transform: uppercase;
       }
       label {
         float:left;
