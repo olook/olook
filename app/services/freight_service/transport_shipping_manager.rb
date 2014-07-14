@@ -17,9 +17,11 @@ class FreightService::TransportShippingManager
 
   def default
     return @default if @default
+    policies = find_policies_for_zip
     @default = choose_by_cost
-    @default = check_free_freight_policy(@default)
+    @default = check_free_freight_policy(@default,policies)
     @default[:kind] = 'default'
+    @default[:free_shipping_value] = policies.try(:first).try(:free_shipping)
     @default
   end
 
@@ -54,14 +56,18 @@ class FreightService::TransportShippingManager
     @transport_shippings.map { |s| parse_info(s) }.sort {|a,b| a[:cost] <=> b[:cost] }.first
   end
 
-  def is_free_cost?
-    Freight::FreeCostPolicy.apply?( ShippingPolicy.with_zip(@zip_code), @amount_value)
+  def is_free_cost?(policies)
+    Freight::FreeCostPolicy.apply?(policies, @amount_value)
   end
 
-  def check_free_freight_policy(chosen)
-    if is_free_cost?
+  def check_free_freight_policy(chosen,policies)
+    if is_free_cost?(policies)
       chosen[:price] = '0.0'.to_d
     end
     chosen
+  end
+
+  def find_policies_for_zip
+    ShippingPolicy.with_zip(@zip_code)
   end
 end

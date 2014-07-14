@@ -174,7 +174,7 @@ table.check {
           width: 120px;
         }
         form#use_credit_form {
-          padding-left:26px;
+          /*padding-left:26px;*/
           position: relative;
           top:-4px;
         }
@@ -525,6 +525,7 @@ section#cart {
 
   table.items_list {
     margin: 0 0 10px 0;
+    border-top:1px solid #d1d1d1;
     thead tr td {
       text-align: center;
       padding:5px 0;
@@ -861,8 +862,80 @@ section#cart {
       width: 989px;
       margin: 0 0 20px 0;
     }
+    .buy-link {
+      width:520px !important;
+      padding-top:0px !important;
+      .shipping_info {
+        font-size: 12px;
+        float:left;
+      }
+      .remaining_amount {
+        float:right;
+        width:40%;
+        padding:2%;
+        background:#f1f1f1;
+        text-align: center;
+        font-size: 13px;
+        .red_message {
+          font-weight: bold;
+          color:#ef3742;
+        }
+      }
+      .js-shipping_info_price {
+        display: block;
+        font-size: 22px;
+        text-transform: uppercase;
+      }
+      label {
+        float:left;
+        display: block;
+        width: 110px;
+        text-align: right;
+        padding-right: 5px;
+        font-family: 'Trebuchet Ms';
+        font-size: 12px;
+        padding-top:6px;
+        text-transform: uppercase;
+        color:#666;
+      }
+      form {
+        float:left;
+        input[type="text"] {
+          padding: 6px;
+          border:1px solid #d1d1d1;
+          background:#f3f3f3;
+          font-family: 'Trebuchet Ms';
+        }
+        button[type="submit"] {
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
+          width:100px;
+          border:0px;
+          padding:10px 0;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 11px;
+          position:relative;
+          top:-1px;
+          margin-left:12px;
+        }
+
+      }
+      .remaining_amount, .shipping_info {
+        font-family: 'Trebuchet Ms';
+      }
+      div:nth-child(2),
+      div:nth-child(3) {
+        br {
+          display: none;
+        }
+      }
+    }
+    .buttons {
+      padding-top:20px !important;
+    }
   }
 
+  #facebook_share_discount {display:none !important;}
 
   table#total {
     margin: 0;
@@ -965,7 +1038,7 @@ section#cart {
           line-height: 55px;
         }
         form {
-          margin: 15px 0 0 0;
+          margin: -3px 0 0 0;
           input[type="text"] {
             background: image-url('cart/bg-input-coupon.jpg') top right no-repeat;
             color: $third-color;
@@ -1060,15 +1133,16 @@ section#cart {
 
   a.continue {
     @include bt_color($primary_bt_color, $primary_bt_color_hover);
-    width: 268px;
+    width: 208px;
     height: 42px;
     display: block;
     float: right;
     text-decoration: none;
     text-align: center;
     letter-spacing: 2px;
-    font-size: 17px;
+    font-size: 14px;
     padding-top: 21px;
+    margin-right:11px;
   }
 
   section {
@@ -1917,7 +1991,7 @@ section#payment {
 /******** NEW CHECKOUT ********/
 /******************************/
 .icon-credits {width:50px; height:20px;background: image-url('cart/sprite.png') no-repeat -739px -88px;position: relative;left:22px;}
-.credits{float:left;padding-left:5px;padding:10px;
+.credits{float:left;padding-left:0px;padding-top:10px;padding-bottom:10px;
   label{color:#000;font-weight: bold;font-size: 13px;}
 
   p{line-height: 16px;
@@ -2659,4 +2733,9 @@ p.important {
   background:#faffd4;
   margin-top: 8px
 
+}
+
+/* NOVO CODIGO DA CALCULADORA DE FRETE NA SACOLA */
+.remaining_amount, .shipping_info{
+  display: none;
 }

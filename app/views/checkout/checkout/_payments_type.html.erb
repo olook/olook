@@ -6,50 +6,7 @@
     <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> em créditos que podem ser utilizados nesta compra.
        <a href="#" class="more_credits" onclick="<%= track_event("CheckoutPayment","clickUserCreditsInformation") %>">Mais sobre seus créditos</a>
     </p>
-  </div>
-  <div id="about_credits">
-    <button type="button">Fechar</button>
-    <table cellpadding="0" cellspacing="0" class="check">
-      <tbody>
-        <tr>
-          <td class="check_column">
-             <div class="content">
-              <h2>SOBRE OS SEUS CRÉDITOS</h2>
-               <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
-               <p><span>//</span> Você acumulou <%= number_to_currency @report.available_credits %> créditos que podem ser utilizados nesta compra.</p>
-               <p><span>//</span> O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.</p>
-               <h2>ENTENDA</h2>
-
-                  <p>- Você só pode usar seus créditos em pedidos acima de 100 reais</p>
-                  <p>- Você só pode usar seus créditos se pelo menos um dos itens do pedido não estiver com desconto.</p>
-                  <p>- Créditos por reembolso não possuem restrição de uso</p>
-                  <p>- Se o valor do seu saldo for superior ao valor do pedido, você receberá a diferença em créditos.</p>
-                  <p>- Se o valor do seu pedido for o mesmo que o seu saldo, você pagará apenas o custo de envio (dependendo da localidade)</p>
-                  <p>- Se o valor do seu pedido for superior ao seu saldo, você deverá pagar a diferença</p>
-
-               <h2>SALDO</h2>
-               <table cellspacing="0" cellspading="0">
-                <tr class="loyalty_credit">
-                  <td><span>//</span> Créditos por compras realizadas .......................................................</td>
-                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></td>
-                  <td></td>
-                </tr>
-                <tr class="mgm_credit">
-                  <td><span>//</span> Créditos por indicação ..................................................................</td>
-                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><span>//</span> Reembolso via Central de Atendimento ..............................................</td>
-                  <td><%= number_to_currency @report.amount_of_redeem_credits %></td>
-                  <td></td>
-                </tr>
-               </table>
-              </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <%= render 'shared/credits/info_credits', report: @report %>
   </div>
   <% end %>
 <% end %>

@@ -57,6 +57,8 @@ class Cart::CartController < ApplicationController
   end
 
   def update
+    format_params
+    
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
       @notice_message = @cart.errors[:coupon_code].first
@@ -77,6 +79,12 @@ class Cart::CartController < ApplicationController
   def i_want_freebie
     Freebie.save_selection_for(@cart.id, params[:i_want_freebie])
     render text: 'OK'
+  end
+
+  private
+
+  def format_params 
+    params[:cart].merge!({use_credits: false}) if params[:cart][:coupon_code].present?
   end
 
 end

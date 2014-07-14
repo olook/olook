@@ -20,7 +20,7 @@ describe FreightCalculator do
           ShippingPolicy.should_receive(:with_zip).with('08730810').and_return([@policy])
         end
         it "return cheaper shipping" do
-          ship = {default_shipping: { price: '0.00'.to_d, cost: @shipping.cost, :delivery_time=> @shipping.delivery_time + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id=>@shipping.shipping_service_id}}
+          ship = {default_shipping: { price: '0.00'.to_d, cost: @shipping.cost, delivery_time: @shipping.delivery_time + FreightCalculator::DEFAULT_INVENTORY_TIME, shipping_service_id: @shipping.shipping_service_id, free_shipping_value: @policy.free_shipping}}
           expect(described_class.freight_for_zip('08730-810', '159.9'.to_d)).to eql(ship)
         end
       end

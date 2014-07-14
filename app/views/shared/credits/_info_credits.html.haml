@@ -1,0 +1,42 @@
+#about_credits
+  %button{:type => "button"} Fechar
+  %table.check{:cellpadding => "0", :cellspacing => "0"}
+    %tbody
+      %tr
+        %td.check_column
+          .content
+            %h2 SOBRE OS SEUS CRÉDITOS
+            - style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited'
+            %p
+              %span //
+              Você acumulou #{number_to_currency report.available_credits} créditos que podem ser utilizados nesta compra.
+            %p
+              %span //
+              O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.
+            %h2 ENTENDA
+            %p - Você só pode usar seus créditos em pedidos acima de 100 reais
+            %p - Você só pode usar seus créditos se pelo menos um dos itens do pedido não estiver com desconto.
+            %p - Créditos por reembolso não possuem restrição de uso
+            %p - Se o valor do seu saldo for superior ao valor do pedido, você receberá a diferença em créditos.
+            %p - Se o valor do seu pedido for o mesmo que o seu saldo, você pagará apenas o custo de envio (dependendo da localidade)
+            %p - Se o valor do seu pedido for superior ao seu saldo, você deverá pagar a diferença
+            %h2 SALDO
+            %table{:cellspacing => "0", :cellspading => "0"}
+              %tr.loyalty_credit
+                %td
+                  %span //
+                  Créditos por compras realizadas .......................................................
+                %td{:class => "value #{style}"}= number_to_currency report.amount_of_loyalty_credits
+                %td
+              %tr.mgm_credit
+                %td
+                  %span //
+                  Créditos por indicação ..................................................................
+                %td{:class => "value #{style}"}= number_to_currency report.amount_of_invite_credits
+                %td
+              %tr
+                %td
+                  %span //
+                  Reembolso via Central de Atendimento ..............................................
+                %td= number_to_currency report.amount_of_redeem_credits
+                %td
