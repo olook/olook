@@ -3,6 +3,17 @@ FactoryGirl.define do
   factory :detail do
     association :product, :factory => [:shoe, :casual]
 
+
+    factory :tip do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token "Dica"
+      description "Loren ipsun"
+    end
+    factory :keywords do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token "Keywords"
+      description "Loren ipsun"
+    end
     factory :supplier_color_detail do
       display_on DisplayDetailOn::SPECIFICATION
       translation_token "Cor fornecedor"

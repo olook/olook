@@ -62,7 +62,7 @@ class RankingCalculator
   end  
 
   def generate_log_line(product_doc, product)
-    [age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
+    [product.id, age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
   end  
 
   private
