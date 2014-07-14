@@ -123,58 +123,6 @@ describe Variant do
     subject.master_variant.should == subject.product.master_variant
   end
 
-  describe "#copy_master_variant" do
-    context "should call the method when a product_id is assigned" do
-      it 'on build' do
-        subject # load the subject before setting the expectation to avoid duplicate calls
-        described_class.any_instance.should_receive(:copy_master_variant)
-        new_variant = subject.product.variants.build
-      end
-      it 'when attributing product_id' do
-        new_variant = FactoryGirl.create(:variant, :product => subject.product)
-        new_variant.should_receive(:copy_master_variant)
-        new_variant.product_id = subject.product.id
-      end
-    end
-
-    describe 'when executing' do
-      let(:new_variant) { subject.product.variants.build }
-
-      it "should copy the master_variant attributes" do
-        new_variant.copy_master_variant
-
-        new_variant.width.should      == new_variant.master_variant.width
-        new_variant.height.should     == new_variant.master_variant.height
-        new_variant.length.should     == new_variant.master_variant.length
-        new_variant.weight.should     == new_variant.master_variant.weight
-        new_variant.price.should      == new_variant.master_variant.price
-
-        new_variant.inventory.should  == 0
-      end
-
-      it "should not override the inventory" do
-        new_variant.master_variant.stub(:inventory).and_return(123)
-        new_variant.inventory = 456
-        new_variant.copy_master_variant
-        new_variant.inventory.should == 456
-      end
-
-      it "should return without doing anything if the variant being changed is the master itself" do
-        subject.stub(:'is_master?').and_return(true)
-        subject.should_not_receive(:'width=')
-        subject.copy_master_variant
-      end
-    end
-
-    it "should be called on the child variants when the master is updated" do
-      subject.weight.should_not == 42
-      subject.master_variant.weight = 42
-      subject.master_variant.save
-      subject.reload
-      subject.weight.should == 42
-    end
-  end
-
   describe "delegated methods" do
     describe "#main_picture" do
       it "should return the product's main picture" do

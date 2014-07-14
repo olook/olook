@@ -43,7 +43,6 @@ class Variant < ActiveRecord::Base
 
   def product_id=(param_id)
     result = super(param_id)
-    copy_master_variant
     result
   end
 
