@@ -51,6 +51,8 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   def update
     @cart_service.cart.update_attribute(:use_credits, params[:cart][:use_credits])
+    @cart_service.cart.reload
+
     signal = @cart_service.total_credits_discount > 0 ? "-" : ""
     render json: {
       'credits_discount' => "#{signal}#{@cart_service.total_credits_discount}",
