@@ -354,6 +354,7 @@ section#cart {
     clear:both;
     float:left;
     margin:10px 0 25px;
+    line-height: 28px;
   }
 
   .warning-msg{margin-bottom:20px;width: 520px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;font-family: $tahoma;
@@ -443,6 +444,7 @@ section#cart {
       text-transform: uppercase;
       font-size: 10px;
       text-decoration: none;
+      text-align: center;
       &:hover{text-decoration:underline};
     }
   }
@@ -868,6 +870,7 @@ section#cart {
       .shipping_info {
         font-size: 12px;
         float:left;
+        background: image-url('new_checkout/carrinhos_frete.png') no-repeat 75px 21px;
       }
       .remaining_amount {
         float:right;
@@ -883,8 +886,11 @@ section#cart {
       }
       .js-shipping_info_price {
         display: block;
-        font-size: 22px;
+        font-size: 16px;
         text-transform: uppercase;
+        font-family: $bt_font;
+        font-weight: bold;
+        line-height: 21px;
       }
       label {
         float:left;
@@ -903,7 +909,7 @@ section#cart {
         input[type="text"] {
           padding: 6px;
           border:1px solid #d1d1d1;
-          background:#f3f3f3;
+          background:#fff;
           font-family: 'Trebuchet Ms';
         }
         button[type="submit"] {
@@ -1027,7 +1033,7 @@ section#cart {
     width:550px;
     position: relative;
     top:20px;
-    left:110px;
+    left:10px;
     tr {
       td {
 
@@ -1237,6 +1243,7 @@ section#address_new {
             clear: both;
             &.zip_code {
               clear: none;
+              background: #fff !important;
             }
             &:focus {
               outline: none;

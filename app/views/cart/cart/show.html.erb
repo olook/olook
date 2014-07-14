@@ -155,6 +155,7 @@ _gaq.push(['_addTrans',
           </tr>
           </tbody>
         </table>
+
         <table cellpadding="0" cellspacing="0" id="total" class="aplicarCupom">
           <tbody>
           <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
@@ -195,7 +196,7 @@ _gaq.push(['_addTrans',
         <tr>
           <td class="buy-link">
             <div class="js-shipping_calculation">
-              <label>calcular frete:</label>
+              <label>calcule o frete:</label>
                 <%= form_tag "#" do %>
                 <%= text_field_tag 'zip_code' %>
                 <%= button_tag 'Calcular', id: 'submit_zip_code' %>
@@ -211,7 +212,6 @@ _gaq.push(['_addTrans',
               Faltam só <span class="js-remaining_amount_text"></span> para
               você ter <span class="red_message">frete grátis!</span>
             </div>
-            
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>
