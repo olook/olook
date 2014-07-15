@@ -10,6 +10,7 @@ Olook::Application.routes.draw do
       resources :newsletter, only: [:create]
       resources :product_interest, only: [:create]
       resources :freights, only: [:index]
+      resources :payment_types, only: [:index]
       resources :addresses
       resources :zip_code,only: [:show]
     end 
