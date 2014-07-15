@@ -8,6 +8,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :check_cpf
 
   def new
+    binding.pry
     @addresses = @user.addresses.active
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
