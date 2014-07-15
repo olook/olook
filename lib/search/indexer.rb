@@ -5,6 +5,14 @@ module Search
     def index
       add_documents
       remove_documents
+      
+      csv_content = CSV.generate(col_sep: ';') do |csv|
+        csv << ['id', 'category', 'age', 'inventory', 'brand', 'exp']
+        @adapter.log.each {|log_line| csv << log_line}  
+      end     
+
+      File.open("ranking.csv", "w") {|f| f << csv_content}
+      
     end
 
     protected
@@ -64,16 +72,16 @@ module Search
     end
 
     def upload_sdf_file file_name
-      docs_domain = @config["docs_domain"]
-      api_version = @config["api_version"]
-      result = `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/"#{api_version}"/documents/batch --header "Content-Type:application/json"`
+      # docs_domain = @config["docs_domain"]
+      # api_version = @config["api_version"]
+      # result = `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/"#{api_version}"/documents/batch --header "Content-Type:application/json"`
 
-      errors = JSON.parse(result)['errors']
-      if errors
-        Rails.logger.info("Erro no arquivo #{file_name}: #{errors.map{|a| a.values.first.split(/\(near/).first}.uniq}")
-        raise "Erros no arquivo #{file_name} #{errors.inspect}" unless Rails.env.production?
-      end
-      result
+      # errors = JSON.parse(result)['errors']
+      # if errors
+      #   Rails.logger.info("Erro no arquivo #{file_name}: #{errors.map{|a| a.values.first.split(/\(near/).first}.uniq}")
+      #   raise "Erros no arquivo #{file_name} #{errors.inspect}" unless Rails.env.production?
+      # end
+      # result
     end
 
     def send_failure_mail e

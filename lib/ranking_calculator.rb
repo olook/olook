@@ -4,6 +4,17 @@ class RankingCalculator
   DAYS_TO_CONSIDER_OLD = 150
   PERCENT_OLOOK_TO_REGULATOR = 100
 
+  AGE_OFFSET = 30
+  INVENTORY_OFFSET = {
+    Category::SHOE => 40,
+    Category::BAG => 10,
+    Category::ACCESSORY => 6,
+    Category::CLOTH => 15,
+    Category::CURVES => 15,
+    Category::LINGERIE => 15,
+    Category::BEACHWEAR => 15   
+  }
+
   attr_reader :age_weight, :max_age_rating, :inventory_weight 
 
   def initialize
@@ -13,7 +24,8 @@ class RankingCalculator
   end
 
   def calculate_proportion_for_ranking_fields product
-    product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+    inventory = INVENTORY_OFFSET.fetch(product.category, 10)
+    product.inventory.to_f / inventory
   end
 
   def brand_regulator brand
@@ -21,7 +33,7 @@ class RankingCalculator
   end
 
   def calculate_ranking_age product_doc
-    diff_age = product_doc.age.to_i - newest.to_i
+    diff_age = product_doc.age.to_i - newest
     diff_age = 0 if diff_age < 0
     proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
     proportion = 1 if proportion > 1
@@ -33,16 +45,9 @@ class RankingCalculator
   end
 
   def newest
-    return @newest if @newest
-    save_temporary_table_vars
-    @newest
+    AGE_OFFSET
   end
 
-  def third_quartile_inventory_for_category category
-    return @third_quartile_inventory[category] if @third_quartile_inventory
-    save_temporary_table_vars
-    @third_quartile_inventory[category]
-  end
 
   def save_temporary_table_vars
     create_temporary_products_with_inventory_table do
@@ -62,7 +67,7 @@ class RankingCalculator
   end  
 
   def generate_log_line(product_doc, product)
-    [product.id, age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
+    [product.id, product.category, age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)]
   end  
 
   private
@@ -120,14 +125,16 @@ class RankingCalculator
     end
 
     def inventory_log product_doc, product
-      "inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
+      inventory = INVENTORY_OFFSET[product.category]
+      "#{product_doc.inventory}/#{inventory} - #{product_doc.r_inventory.to_i}"
     end
 
     def brand_log product_doc
-      "brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i}"
+      "#{product_doc.brand} - #{product_doc.r_brand_regulator.to_i}"
     end
 
     def exp_log product_doc
-      "exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
+      normalized_value = ( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i #f / (age_weight + inventory_weight)
+      "#{normalized_value.to_i}"
     end    
 end

@@ -26,10 +26,11 @@ class DevAlertMailer < ActionMailer::Base
     mail(to: "rafael.manoel@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
   end
 
-  def notify_about_products_index(execution_time, log='')
+  def notify_about_products_index(execution_time, log=nil)
+    attachments['ranking.csv'] = {:mime_type => 'text/csv', :content => log }
     mail(to: %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, tiago.almeida@olook.com.br],
          subject: "IndexProductsWorker executado com sucesso!",
-         body: "Levou #{'%ds' % execution_time.to_i }\n#{log}")
+         body: "Levou #{'%ds' % execution_time.to_i }")
   end
 
   def notify(opts={})

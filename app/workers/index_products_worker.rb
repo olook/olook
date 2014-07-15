@@ -10,7 +10,12 @@ class IndexProductsWorker
 
     puts "Total time = #{d1-d0}"
 
-    mail = DevAlertMailer.notify_about_products_index(d1-d0, indexer.adapter.log.join("\n"))
+    csv_content = CSV.generate(col_sep: ';') do |csv|
+      csv << ['id', 'category', 'age', 'inventory', 'brand', 'exp']
+      indexer.adapter.log.each {|log_line| csv << log_line}  
+    end     
+
+    mail = DevAlertMailer.notify_about_products_index(d1-d0, csv_content)
     mail.deliver
   end
 
