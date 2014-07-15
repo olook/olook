@@ -1,26 +1,25 @@
+require 'spec_helper.rb'
+
 describe Api::PaymentTypes do
 
-  it "returns hash with payment info" do
-    expect(described_class.types).to include("types")
-  end
-  context "types key" do
+  context "type keys" do
     it "return credit card info" do
-      expect(described_class.types["types"]).to include("credit_card")
+      expect(described_class.types.map{|a| a["type"]}).to include("CreditCard")
     end
     it "return debit info" do
-      expect(described_class.types["types"]).to include("debit")
+      expect(described_class.types.map{|a| a["type"]}).to include("Debit")
     end
     it "return billet info" do
-      expect(described_class.types["types"]).to include("billet")
+      expect(described_class.types.map{|a| a["type"]}).to include("Billet")
     end
     it "return mercado pago info" do
-      expect(described_class.types["types"]).to include("mercado_pago")
+      expect(described_class.types.map{|a| a["type"]}).to include("MercadoPago")
     end
   end
   context "payment keys" do
     it "specific payment value" do
-      described_class.types["types"].values.each do |value|
-        expect(value.keys).to include("name", "percentage", "description")
+      described_class.types.each do |value|
+        expect(value.keys).to include("name", "percentage", "description", "type")
       end
     end
   end
