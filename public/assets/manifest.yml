@@ -2583,8 +2583,8 @@ desktop.css: desktop-9329cdf64e039c071f378ed9056d2d42.css
 desktop/index.css: desktop-9329cdf64e039c071f378ed9056d2d42.css
 jquery.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
 jquery/index.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
-new_structure/lite_application.css: new_structure/lite_application-aa913651b3efb1173ef37bb30cf6913b.css
-new_structure/lite_application/index.css: new_structure/lite_application-aa913651b3efb1173ef37bb30cf6913b.css
+new_structure/lite_application.css: new_structure/lite_application-10a9c3660e691c2a8b39544930b8b7f8.css
+new_structure/lite_application/index.css: new_structure/lite_application-10a9c3660e691c2a8b39544930b8b7f8.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-05937b5aae79feb158bad9437b44031d.css
@@ -2653,8 +2653,8 @@ section/avc-campaign.css: section/avc-campaign-f5140b952ee97eb3bec5c76469d6b30c.
 section/avc-campaign/index.css: section/avc-campaign-f5140b952ee97eb3bec5c76469d6b30c.css
 section/box_invite.css: section/box_invite-5e49549099e4ce7842aaafee75c5e40a.css
 section/box_invite/index.css: section/box_invite-5e49549099e4ce7842aaafee75c5e40a.css
-section/cart.css: section/cart-2c7d11ac326a5d5c06a69d8763fe2024.css
-section/cart/index.css: section/cart-2c7d11ac326a5d5c06a69d8763fe2024.css
+section/cart.css: section/cart-91473bda88d2256476ce1be0e502e71a.css
+section/cart/index.css: section/cart-91473bda88d2256476ce1be0e502e71a.css
 section/checkout.css: section/checkout-678574904299723a496b227fdd206c84.css
 section/checkout/index.css: section/checkout-678574904299723a496b227fdd206c84.css
 section/collections.css: section/collections-a5c72c7bd1a974b75411a9f3bf62ba6a.css
