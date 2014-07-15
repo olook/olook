@@ -10,7 +10,6 @@
   .facebook_produtcs,
   #filters,
   .hot_products,
-  .social-media,
   .quiz_login,
   .mail,
   .other-products,
@@ -19,7 +18,8 @@
   #products_categories,
   .warn_discount,
   .open_loyalty_lightbox,
-  .size-guide  {
+  .size-guide,
+  .banner {
 		display: none !important;
 	}
 
@@ -55,6 +55,11 @@
 					color:#FFF;
 					font-family: "Trebuchet Ms";
 				}
+        .wishlist {
+          position: absolute;
+          top:0px;
+          left:0px;
+        }
 				div.user {
 					width: 100%;
 					height: 47px;
@@ -125,9 +130,30 @@
         }
 			}
 			.olook_logo,
-			.box_bottom {
+			.search {
 				display: none !important;
 			}
+      .wishlist {
+        width:100%;
+        a {
+          text-indent: 5000px;
+          width: 13px;
+          border-left: 1px dotted #d1d1d1;
+          position:absolute;
+          top:5px;
+          right:40px;
+
+        }
+        a.selecionado {
+          border:none !important;
+          border-left:1px dotted #d1d1d1 !important;
+          background-color: none !important;
+          margin-top:1px;
+        }
+        .sub {
+          display: none !important;
+        }
+      }
 		}
 	}
 
@@ -357,12 +383,22 @@
       display: none !important;
     }
 		#home, #banner, .column {display: block !important;}
+    #wishlist {
+      margin-top:20px;
+      h1 {
+        margin-left:10px;
+      }
+    }
     #product {
       margin-bottom:0px;
       .pics_social {
         margin:0px;
         padding:0px;
         width:100%;
+        .social-list {
+          margin-top:0px;
+          margin-left:11px !important;
+        }
         .thumbs {
           margin-right:0px;
           position: absolute;
@@ -377,7 +413,7 @@
           width:100%;
           position: relative;
           z-index: 1;
-          top:-14px;
+          top:0px;
           height:auto;
           img {
             width:100%;
@@ -389,6 +425,11 @@
         width:96%; 
         input[type="submit"].add_product {
           width:100%;
+        }
+        .tabs {
+          li {
+            width:100%;
+          }
         }
         .tabs .tab-content {
           width:95%;
@@ -454,7 +495,7 @@
 			display: block !important;
 			.mylook {
 				height:193px !important;
-				min-height:193px !important;
+				min-height:143px !important;
 			}
 			h3 {
 				background: #000 !important;
@@ -462,11 +503,12 @@
 			}
 			h3 a {display: none !important;}
 			.look {
-				width:33.3% !important;
+				width:25% !important;
 				float:left;
 				margin:0px !important;
 				img {
 					width:100% !important;
+          height:100%;
 				}
 			}
       #see_too {
@@ -503,8 +545,9 @@
       width:100% !important;
     }
 
-    #search_result, #products{
-      li.product {
+    #search_result, #products {
+      li.product,
+      div.product {
         margin:0px;
         width:45% !important;
         padding:0px;
@@ -546,6 +589,32 @@
         }
         .txt-pink {
           font-size: 11px !important;
+        }
+      } 
+    }
+    #wishlist {
+      height:auto !important;
+      height:400px;
+      min-height:400px;
+      span {
+        font-size: 11px;
+      }
+      div.product {
+        width:42%;
+        height:310px;
+        float:left;
+        padding:3px;
+        .img {
+          clear:both;
+          height:215px;
+          .async {
+            top:0px;
+            width:100%;
+            height:225px;
+            img {
+              bottom:0px;
+            }
+          }
         }
       }
     }
