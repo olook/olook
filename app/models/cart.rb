@@ -5,6 +5,7 @@ class Cart < ActiveRecord::Base
   belongs_to :user
   belongs_to :coupon
   belongs_to :address
+  belongs_to :shipping_service
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
 
@@ -14,6 +15,29 @@ class Cart < ActiveRecord::Base
 
   before_validation :update_coupon
   after_update :notify_listener
+
+  def self.find_saved_for_user(user, attrs)
+    cart = nil
+    if user
+      id = attrs[:params] || attrs[:session]
+      sql = self.where(user_id: user.id)
+      cart = sql.find_by_id(id) if id
+      cart ||= sql.last
+    end
+    cart = Cart.find_by_id(attrs[:session]) if attrs[:session]
+    cart
+  end
+
+  def api_hash
+    {
+      items_count: items.count,
+      items: items.map { |item| item.api_hash },
+      address: address.try(:api_hash),
+      shipping_service_id: shipping_service_id,
+      payment_method: payment_method,
+      payment_data: payment_data,
+    }
+  end
 
   def allow_credit_payment?
     has_empty_adjustments? && has_any_full_price_item? && self.sub_total >= 100
@@ -130,7 +154,7 @@ class Cart < ActiveRecord::Base
         :coupon => {:only => [:is_percentage, :value]}, 
         :items => 
         {
-          :methods => [:formatted_product_name, :thumb_picture,:retail_price, :description, :name],
+          :methods => [:formatted_product_name, :thumb_picture, :retail_price, :description, :name],
           :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description, :id, :name]
         }
       }, :methods => [:items_total],

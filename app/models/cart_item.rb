@@ -19,6 +19,19 @@ class CartItem < ActiveRecord::Base
   after_destroy :notify
   attr_reader :discount_service
 
+  def api_hash
+    {
+      quantity: quantity,
+      formatted_product_name: formatted_product_name,
+      brand: brand,
+      size: variant.description,
+      color: color_name,
+      thumb_picture: thumb_picture,
+      price: price,
+      retail_price: retail_price
+    }
+  end
+
   def product_quantity
     deafult_quantity = [1]
     is_suggested_product? ? suggested_product_quantity : deafult_quantity

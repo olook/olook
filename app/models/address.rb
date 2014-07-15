@@ -27,6 +27,22 @@ class Address < ActiveRecord::Base
     self.country = 'BRA'
   end
 
+  def api_hash
+    {
+      full_name: full_name,
+      city: city,
+      state: state,
+      country: country,
+      street: street,
+      complement: complement,
+      number: number,
+      neighborhood: neighborhood,
+      zip_code: zip_code,
+      telephone: telephone,
+      mobile: mobile
+    }
+  end
+
   def deactivate
     self.update_attribute(:active, false)
   end
