@@ -12,7 +12,7 @@ header.primary { height: 49px; color: #333; background-color: #fff; position: re
 header.primary .icon { font-family: "Trebuchet Ms", Tahoma; z-index: 22; position: absolute; top: 0; left: 0; height: 50px; width: 40px; font-size: 12px; line-height: 49px; text-align: center; color: #333;background:image-url("common/threelines.png") no-repeat center left; background-size: 100%;border-right:1px dotted #d1d1d1;}
 header.primary .side { left: auto; right: 0; }
 header.primary hgroup { text-align: center }
-header.primary hgroup h1 {z-index: 20; position: absolute; top: 0; left: 50%; color:#333; margin: 0; line-height: 49px; margin: 0; font-size: 20px; background:image-url("common/nav/sprite_header.png") no-repeat 35px -41px;display: block;width: 200px;height: 50px;/* background-size: 100%; */margin-left: -100px;background-size: 180%;}
+header.primary hgroup h1 {z-index: 20; position: absolute; top: 4px; left: 15px; color:#333; margin: 0; line-height: 49px; margin: 0; font-size: 20px; background:image-url("common/nav/sprite_header.png") no-repeat 35px -41px;display: block;width: 200px;height: 50px;margin-left: 0px;background-size: 170%;}
 header.primary .box_right {float:right;}
 
 /*	Navigation
