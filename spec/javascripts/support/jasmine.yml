@@ -13,16 +13,19 @@
 src_files:
   # - spec/javascripts/helpers/jasmine-jquery.js
   - spec/javascripts/helpers/jquery-1.9.1.min.js
-  - vendor/assets/javascripts/backbone.js
   - vendor/assets/javascripts/underscore.js
+  - vendor/assets/javascripts/backbone.js
   - app/assets/javascripts/string_utils.js
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
   - app/assets/javascripts/plugins/admin/countdown.js
   - app/assets/javascripts/admin/catalog_landing_page.js
-  - vendor/assets/javascripts/mediator.js
+  - app/assets/javascripts/lib/mediator.js
   - app/assets/javascripts/application_core/olook_app.js
+  - app/assets/javascripts/beta.js
   - app/assets/javascripts/modules/**/*.js
+  - app/assets/javascripts/modules/payment/*.js
+  - app/assets/javascripts/modules/payment/**/*.js
   - '!app/assets/javascripts/modules/**/load.js'
   - '!app/assets/javascripts/modules/address/*'
   # - assets/javascripts/*.js
