@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140613174319) do
+ActiveRecord::Schema.define(:version => 20140715135832) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -214,6 +214,9 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
     t.integer  "coupon_id"
     t.integer  "address_id"
     t.boolean  "facebook_share_discount"
+    t.integer  "shipping_service_id"
+    t.string   "payment_method"
+    t.text     "payment_data"
   end
 
   add_index "carts", ["address_id"], :name => "index_carts_on_address_id"
