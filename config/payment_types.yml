@@ -1,17 +1,17 @@
 types:
   credit_card:
     name: 'Cartão de crédito'
-    percent: 0
+    percentage: 0
     description: "TPPPPPPPP"
   debit:
     name: 'Débito'
-    percent: 0
+    percentage: 0
     description: "TPPPPPPPP"
   billet:
     name: 'Boleto'
-    percent: 2
+    percentage: 2
     description: "TPPPPPPPP"
   mercado_pago:
     name: 'Mercado Pago'
-    percent: 2
+    percentage: 2
     description: "TPPPPPPPP"

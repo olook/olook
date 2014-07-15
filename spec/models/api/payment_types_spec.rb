@@ -20,7 +20,7 @@ describe Api::PaymentTypes do
   context "payment keys" do
     it "specific payment value" do
       described_class.types["types"].values.each do |value|
-        expect(value.keys).to include("name", "percent", "description")
+        expect(value.keys).to include("name", "percentage", "description")
       end
     end
   end
