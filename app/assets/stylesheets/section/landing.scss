@@ -37,6 +37,8 @@
     text-transform: uppercase;
     font-family: $bt_font;
     padding-top: 15px;
+    margin-top: 40px;
+    margin-left: 125px;
     @include bt_color($primary_bt_color, $primary_bt_color_hover);
   }
   .registration-form{
