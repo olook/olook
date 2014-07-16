@@ -199,6 +199,16 @@ a.selecionado:hover {color:$pink !important;}
     left: 381px;
   }
 }
+.promo_modal {
+  background: image-url('common/lightbox.jpg') no-repeat center center;
+  .modal_newsletter{
+    width: 407px;
+    background: none !important;
+    margin-left: 350px;
+    margin-top:20px;
+    height: 470px
+  }
+}
 
 section.banner {
   margin-bottom:10px !important;
