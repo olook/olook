@@ -32,6 +32,10 @@ class CartItem < ActiveRecord::Base
     }
   end
 
+  def adjustment
+    cart_item_adjustment || create_adjustment
+  end
+
   def product_quantity
     deafult_quantity = [1]
     is_suggested_product? ? suggested_product_quantity : deafult_quantity

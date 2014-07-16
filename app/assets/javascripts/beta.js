@@ -1,13 +1,15 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
+//= require application_core/olook_app
+//= require mask
 //= require underscore
 //= require backbone
 //= require_self
 //= require ./modules/address/controller
 //= require ./modules/freight/controller
 //= require ./modules/cart_resume/controller
-//= require mask
+//= require ./modules/checkout/controller
 
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
