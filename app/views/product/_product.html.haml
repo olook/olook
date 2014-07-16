@@ -33,6 +33,7 @@
     %h2{itemprop: 'brand', itemscope: true, itemtype: "http://schema.org/Brand"}
       %span{itemprop: 'name'}
         = link_to @product.brand, brand_path(@product.brand.downcase)
+
     - if @product.sold_out?
       %p.out PRODUTO ESGOTADO
       %p.notice_success_message.js-product_available_notice_success 
@@ -44,6 +45,10 @@
       %p.notice_error_message.js-product_available_notice_error e-mail inválido
       = render 'colors'
     - else
+      - if @product.running_out_of_stock?
+        %p.remaining= "Últimas peças"
+
+
       .cost{itemprop: 'offers', itemscope: true, itemtype: 'http://schema.org/Offer'}
         - if @product_discount_service.discount > 0
           %p.price-retail.price 
