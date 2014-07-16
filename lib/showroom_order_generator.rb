@@ -47,7 +47,7 @@ class ShowroomOrderGenerator
 
     puts "concluido."
     puts order.number
-
+    order.number
   end
 
 
