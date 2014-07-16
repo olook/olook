@@ -6,6 +6,17 @@ module Api
         render json: (@cart ? @cart.api_hash : {})
       end
 
+      def update
+        @cart = current_cart || Cart.new
+        @cart.attributes = params[:cart]
+        if @cart.save
+          render json: @cart.api_hash
+        else
+          render json: { errors: @cart.errors }, status: :unprocessable_entity
+        end
+
+      end
+
       private
 
       def current_cart
