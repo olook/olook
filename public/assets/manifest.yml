@@ -593,6 +593,8 @@ common/isabela_modal_email2.jpg: common/isabela_modal_email2-1b24a81b323df6f052d
 common/isabela_modal_email2/index.jpg: common/isabela_modal_email2-1b24a81b323df6f052df711a25aa5ab6.jpg
 common/kombi.jpg: common/kombi-8ad5be50dd6fcbd025a3fde278d05b22.jpg
 common/kombi/index.jpg: common/kombi-8ad5be50dd6fcbd025a3fde278d05b22.jpg
+common/lightbox.jpg: common/lightbox-50e362ddb7a8d75582f4d8d91958fabe.jpg
+common/lightbox/index.jpg: common/lightbox-50e362ddb7a8d75582f4d8d91958fabe.jpg
 common/logo-christmas.png: common/logo-christmas-c3647e09b841b54ace9ff1a03da0d8d4.png
 common/logo-christmas/index.png: common/logo-christmas-c3647e09b841b54ace9ff1a03da0d8d4.png
 common/logo.jpg: common/logo-8371dea02f1bf69ad035daed19e5d768.jpg
@@ -2579,8 +2581,8 @@ desktop.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 desktop/index.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-a1741601fb08964ef4df962ef9dc8162.css
-new_structure/lite_application/index.css: new_structure/lite_application-a1741601fb08964ef4df962ef9dc8162.css
+new_structure/lite_application.css: new_structure/lite_application-612198359b7b8cf373615c391fe5a620.css
+new_structure/lite_application/index.css: new_structure/lite_application-612198359b7b8cf373615c391fe5a620.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-158f50e75b73503aef22e86e0704b15b.css
