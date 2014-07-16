@@ -1,0 +1,50 @@
+!!!
+%html{:dir => "ltr", :lang => "pt", "xmlns:fb" => "http://www.facebook.com/2008/fbml", "xmlns:og" => "http://opengraphprotocol.org/schema/"}
+  %head
+    = render :partial => "shared/errorception"
+    = javascript_include_tag "jquery"
+    = javascript_include_tag "//d22zjnmu4464ds.cloudfront.net/statistics-39960abf724be88d95e604b175729d68.js"
+    :javascript
+      $skip_log_event=true;
+    = javascript_include_tag "control.js"
+    %meta{:charset => "UTF-8"}/
+    %meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/
+    %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %title= title_text
+    = apply_canonical_link
+    = favicon_link_tag 'olook_favicon.ico'
+    - error = nil unless error
+    - if params[:share]
+      = render 'shared/meta_tags'
+    - else
+      %meta{:content => meta_description, :name => "description"}/
+    = csrf_meta_tags
+    / VWO
+    = render :partial => "shared/metrics/vwo/tracking_code"
+    = render :partial => "shared/metrics/header_tags"
+    = yield :head
+    /[if IE]
+      <haml_loud> javascript_include_tag &quot;html5.js&quot; </haml_loud>
+    :javascript
+      dataLayer = [];
+    = render 'shared/data_layer/master'
+    = yield :data_layer
+    = render 'shared/tag/soasta'
+    :javascript
+      var _sf_startpt=(new Date()).getTime()
+  %body
+    = render :partial => "shared/tag/google_tag_manager"
+    %header
+      %h1 Olook
+    %section#container
+      #error-messages
+        %p.notice= notice
+        %p.alert= alert
+        = yield :errors
+      %section#content
+        = yield
+      - if content_for? :footer
+        = yield :footer
+      = render :partial => "shared/metrics/master_tags"
+    %footer
+      %h2 (11) 2626-3489
