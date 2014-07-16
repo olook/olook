@@ -1,4 +1,5 @@
 app.views.List = Backbone.View.extend({
+  id: 'address',
   events: {
     'click .js-addAddress': 'addAddress'
   },

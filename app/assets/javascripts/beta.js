@@ -7,6 +7,8 @@
 //= require ./modules/address/controller
 //= require ./modules/freight/controller
 //= require ./modules/cart_resume/controller
+//= require mask
+
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
