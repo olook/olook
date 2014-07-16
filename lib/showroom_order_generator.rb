@@ -1,7 +1,7 @@
 class ShowroomOrderGenerator
+  include Abacos::Helpers
 
-
-  def run filename='/home/rafael/teste.csv'
+  def run opts={}, filename='/home/rafael/teste.csv'
 
     u = User.find_by_email "rafael.manoel@olook.com.br"
 
@@ -18,7 +18,7 @@ class ShowroomOrderGenerator
     end
 
     cs = CartService.new(cart: cart)
-    cs.prefered_shipping_services =  '3'
+    cs.prefered_shipping_services =  '1'
 
     begin
       order = cs.generate_order!(1)
@@ -31,8 +31,14 @@ class ShowroomOrderGenerator
         cart_id: cart.id})
 
       pedido = Abacos::Pedido.new order
+
+      # altera os valores do pedido
+      pedido.instance_variable_set "@codigo_cliente", opts[:customer]
+      pedido.instance_variable_set "@cpf", parse_cnpj(opts[:document])
+      pedido.instance_variable_set "@nome", opts[:name]
+      pedido.instance_variable_set "@email", opts[:email]
+
       # necessario
-      pedido.instance_variable_set "@cpf", u.cpf
       Abacos::OrderAPI.insert_order pedido
     rescue => e
       puts "nao deu certo: #{e}"
