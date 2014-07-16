@@ -45,9 +45,6 @@
       %p.notice_error_message.js-product_available_notice_error e-mail inválido
       = render 'colors'
     - else
-
-      / Aqui Thai o/
-      / =============
       - if @product.running_out_of_stock?
         %p.remaining= "Últimas peças"
 
