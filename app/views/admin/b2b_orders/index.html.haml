@@ -1,20 +1,22 @@
-Pedido de venda
+.b2b
+  %p
+    Pedido de venda
 
-%fieldset
-  =form_tag(admin_b2b_orders_path, method: :post, multipart: true) do
-    = label_tag "b2b_order[order_items_file]", "CSV com os items do pedido (codigo_pai; codigo_filho; quantidade; valor)"
-    = file_field_tag "b2b_order[order_items_file]"
+  %fieldset
+    =form_tag(admin_b2b_orders_path, method: :post, multipart: true) do
+      = label_tag "b2b_order[order_items_file]", "CSV com os items do pedido (codigo_pai; codigo_filho; quantidade; valor)"
+      = file_field_tag "b2b_order[order_items_file]"
 
-    = label_tag "b2b_order[customer]", "Código cliente"
-    = text_field_tag "b2b_order[customer]", nil, :placeholder => "digite aqui"
+      = label_tag "b2b_order[customer]", "Código cliente"
+      = text_field_tag "b2b_order[customer]", nil, :placeholder => "digite aqui"
 
-    = label_tag "b2b_order[name]", "Nome do cliente"
-    = text_field_tag "b2b_order[name]", nil, :placeholder => "digite aqui"
+      = label_tag "b2b_order[name]", "Nome do cliente"
+      = text_field_tag "b2b_order[name]", nil, :placeholder => "digite aqui"
 
-    = label_tag "b2b_order[document]", "CNPJ"
-    = text_field_tag "b2b_order[document]", nil, :placeholder => "digite aqui"
+      = label_tag "b2b_order[document]", "CNPJ"
+      = text_field_tag "b2b_order[document]", nil, :placeholder => "digite aqui"
 
-    = label_tag "b2b_order[email]", "E-mail"
-    = text_field_tag "b2b_order[email]", nil, :placeholder => "digite aqui"
+      = label_tag "b2b_order[email]", "E-mail"
+      = text_field_tag "b2b_order[email]", nil, :placeholder => "digite aqui", :class => "mail"
 
-    = submit_tag "Enviar"
+      = submit_tag "Enviar"
