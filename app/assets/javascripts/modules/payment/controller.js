@@ -14,7 +14,7 @@ var PaymentController = (function(){
     this.paymentsView.$el.appendTo(app.content);
     this.creditCardFormView.$el.appendTo(app.content);
     this.paymentsView.render();
-    this.payments.fetch();    
+    this.payments.fetch();
   };
   return PaymentController;
 })();
@@ -25,5 +25,22 @@ olookApp.subscribe('app:init', function(){
 
 olookApp.subscribe('payment:selected', function(model) {
   alert("Você selecionou o Pagamento " +model.attributes.name);
-  olookApp.publish('payment:creditcard');
+  olookApp.publish('payment:creditcard:hide');
+  olookApp.publish('payment:debit:hide');
+  olookApp.publish('payment:billet:hide');
+  olookApp.publish('payment:mercadopago:hide');
+  switch(model.get('type')){
+    case 'CreditCard':
+      olookApp.publish('payment:creditcard:show');
+      break;
+    case 'Debit':
+      olookApp.publish('payment:debit:show');
+      break;
+    case 'Billet':
+      olookApp.publish('payment:billet:show');
+      break;
+    case 'MercadoPago':
+      olookApp.publish('payment:mercadopago:show');
+      break;
+  }
 });
