@@ -37,31 +37,74 @@
 		border-left: 1px solid #d1d1d1;
 		margin-bottom: 30px;
 		padding-left: 20px;
+
 		h4 {
 			padding-bottom:10px;
 			text-transform: uppercase;
 		}
 		div {
-			padding:6px 0;
 		}
-		input {
-			float:right;
-			padding:2px 0;
-			margin-bottom:5px;
-			border: 1px solid #d1d1d1;
-			padding: 4px 2px;
-			font-family: 'Trebuchet Ms';
-			width:220px;
+		.control-group {
+			position:relative;
+			height:30px;
+			label {
+				display:block;
+				float:left;
+				width:100px;
+				text-align: right !important;
+				margin:0px;
+				text-align: 'Trebuchet Ms';
+				color:#666;
+				text-transform: uppercase;
+				font-size: 11px;
+				letter-spacing: 1px;
+				padding-top:2px;
+				margin-right:8px;
+			}
+			input {
+				float:left;
+				padding:2px 0;
+				margin-bottom:5px;
+				border: 1px solid #d1d1d1;
+				padding: 4px 2px;
+				font-family: 'Trebuchet Ms';
+				width:180px;
+				border-radius:6px;
+				background:#f4f4f4;
+			}
+			input#zip_code,
+			input#number,
+			input#telephone,
+			input#mobile {
+				width:80px;
+			}
+			input#state {
+				width:40px;
+			}
+			input#save-btn {
+				width:225px;
+				background: #ef3742;
+				padding:15px 0;
+				font-family: 'trebuchet ms';
+				font-size: 14px;
+				text-transform: uppercase;
+				color:#FFF;
+				letter-spacing: 2px;
+			}
+			.help-inline {
+				position: absolute;
+				width:310px;
+				font-size: 11px;
+				padding:2px;
+				margin-left:5px;
+				border-radius:3px;
+				color:#ef3742;
+			}
 		}
-		input#save-btn {
-			width:225px;
-			background: #ef3742;
-			padding:15px 0;
-			font-family: 'trebuchet ms';
-			font-size: 14px;
-			text-transform: uppercase;
-			color:#FFF;
-			letter-spacing: 2px;
+		.error {
+			input {
+				border:1px solid #ef3742;
+			}
 		}
 	}
 }

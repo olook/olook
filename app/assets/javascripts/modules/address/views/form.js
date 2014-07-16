@@ -71,6 +71,7 @@ app.views.Form = Backbone.View.extend({
   render: function(obj) {
     var html = this.template(this.model.attributes);
     this.$el.html(html);
+    this.initMask();
   },
 
   showForm: function(e) {
@@ -100,5 +101,21 @@ app.views.Form = Backbone.View.extend({
       $('#street').val(data.street);
       $('#neighborhood').val(data.neighborhood);
     },"json");
+  },
+
+  initMask: function() {
+    $(":input").inputmask();
+  },
+
+  updateMask: function() {
+    var tel = "#mobile";
+    dig9 = $(tel).val().substring(4, 5);
+    ddd  = $(tel).val().substring(1, 3);
+    if(dig9 == "9" && ddd.match(/11|12|13|14|15|16|17|18|19|21|22|24|27|28/)){
+      // $(tel).inputmask({mask:"(99)99999-9999"});
+    } else {
+      // $(tel).inputmask({mask:"(99)9999-9999"});
+    }    
+    // console.log(this.model.attributes.mobile);
   }
 });
