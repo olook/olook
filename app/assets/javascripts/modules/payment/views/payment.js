@@ -1,6 +1,6 @@
 app.views.Payment = Backbone.View.extend({
   tagName: 'p',
-  template: _.template($('#tpl-payment').html()),
+  template: _.template($('#tpl-payment').html() || ""),
   events: {
     'click': 'selectPayment'
   },

@@ -2,7 +2,7 @@ app.views.List = Backbone.View.extend({
   events: {
     'click .js-addAddress': 'addAddress'
   },
-  template: _.template($('#tpl-address-list').html()),
+  template: _.template($('#tpl-address-list').html() || ""),
 
   initialize: function() {
     this.collection.on('add', this.addOne, this);

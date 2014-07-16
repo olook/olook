@@ -1,6 +1,6 @@
 app.views.Freight = Backbone.View.extend({
   tagName: 'p',
-  template: _.template($('#tpl-freight').html()),
+  template: _.template($('#tpl-freight').html() || ""),
   events: {
     'click': 'selectFreight'
   },

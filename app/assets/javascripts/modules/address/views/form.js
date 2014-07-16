@@ -1,6 +1,6 @@
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
-  template: _.template($("#tpl-address-form").html()),
+  template: _.template($("#tpl-address-form").html() || ""),
 
   initialize: function() {
     olookApp.subscribe('address:change', this.changeAddress, {}, this);

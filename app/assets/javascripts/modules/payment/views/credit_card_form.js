@@ -1,6 +1,6 @@
 app.views.CreditCardForm = Backbone.View.extend({
   className: 'creditCardForm',
-  template: _.template($("#tpl-credit-card-form").html()),
+  template: _.template($("#tpl-credit-card-form").html() || ""),
 
   initialize: function() {
     olookApp.subscribe('payment:creditcard:show', this.render, {}, this);
@@ -10,7 +10,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   events: {
   },
 
-  render: function(model) {
+  render: function() {
     var html = this.template();
     this.$el.html(html);
     this.$el.show();
