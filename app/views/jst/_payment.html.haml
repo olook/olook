@@ -5,7 +5,7 @@
   {{name}} - ({{ percentage }}%)
 
 %script{type: "text/template", id: "tpl-credit-card-form"}
-  %form
+  %form.js-creditCardForm
     .control-group.name
       %p
         Nome:
@@ -41,3 +41,5 @@
 
 %script{type: "text/template", id: "tpl-mercadopago"}
   mercado pago
+
+= button_tag "ENVIAR", id: "submit", name: "submit"
