@@ -1,0 +1,43 @@
+%script{type: "text/template", id: "tpl-cart-resume"}
+  .current_address
+    %p
+      Endereço de Entrega
+      %span {{full_address}}
+  .current_freight
+    %p
+      Frete:
+      %span {{ freight_kind }}
+      %span Entrega em até {{ freight_due }} após a confirmação de pagamento.
+  .current_cart
+    %p
+      Resumo do Pedido:
+      %span {{ items_count }}
+      %a.js-see-cart-items{href: 'javascript:void'} Veja aqui os itens selecionados
+  .current_payment
+    %p
+      Tipo de Pagamento:
+      %span {{ payment_method }} Cartão de Crédito
+  .cart_resume
+    %table
+      %tr
+        %td Produtos
+        %td R$ 170,90
+      %tr
+        %td Frete
+        %td R$ 10,00
+      %tr
+        %td Embalagem
+        %td R$ 5,00
+      %tr.subtotal
+        %td Subtotal
+        %td R$ 185,90
+      %tr
+        %td Descontos
+        %td R$ 55,90
+      %tr
+        %td Créditos
+        %td R$ 12,00
+      %tr.total
+        %td Total
+        %td R$ 118,00
+  %button.js-finalize-order
