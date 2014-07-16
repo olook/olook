@@ -6,6 +6,7 @@
 //= require_self
 //= require ./modules/address/controller
 //= require ./modules/freight/controller
+//= require ./modules/cart_resume/controller
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
