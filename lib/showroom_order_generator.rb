@@ -40,14 +40,11 @@ class ShowroomOrderGenerator
 
       # necessario
       Abacos::OrderAPI.insert_order pedido
+      {order: order.number}
     rescue => e
-      puts "nao deu certo: #{e}"
-      puts e.backtrace
+      msg = e.message.match(/Msg = (.*)\n/).captures.first
+      {order: order.number, error: msg}
     end
-
-    puts "concluido."
-    puts order.number
-    order.number
   end
 
 
