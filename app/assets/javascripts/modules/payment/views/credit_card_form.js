@@ -23,7 +23,7 @@ app.views.CreditCardForm = Backbone.View.extend({
     this.$el.hide();
   },
 
-  updateModel: function() {
+  updateModel: function(e) {
     var formValues = $('.js-creditCardForm').serializeArray();
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
@@ -31,10 +31,12 @@ app.views.CreditCardForm = Backbone.View.extend({
     
     this.model.set(values);
 
-    if (this.model.isValid()) {
-    } else {
-      this.updateErrors();
-    }
+    olookApp.publish('checkout:payment:credit_card:update', this.model.attributes)
+
+    // if (this.model.isValid()) {
+    // } else {
+    //   this.updateErrors();
+    // }
 
     console.log(this.model.attributes);
   },
