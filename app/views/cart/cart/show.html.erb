@@ -80,8 +80,6 @@ _gaq.push(['_addTrans',
     </table>
     <%= render 'freebie/item', freebie: @freebie if @freebie && @freebie.available? %>
 
-    <!-- <%= render "checkout_banner" %> -->
-
   <div class="chaordic shoppingcart"></div>
 
   <table cellpadding="0" cellspacing="0" class="check gift">
@@ -226,6 +224,9 @@ _gaq.push(['_addTrans',
         </tr>
       </tbody>
     </table>
+
+    <%= render "checkout_banner" %>
+
     <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
   <% else %>
     <%= render 'empty_cart' %>
