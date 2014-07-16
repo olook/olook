@@ -10,7 +10,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   events: {
   },
 
-  render: function() {
+  render: function(model) {
     var html = this.template();
     this.$el.html(html);
     this.$el.show();
