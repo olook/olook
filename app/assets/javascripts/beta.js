@@ -73,4 +73,24 @@ var app = (function() {
 
 window.onload = function() {
   app.init();
+
+
+  /** Usar backbone para isso */
+  $('.js-submit').click(
+    function(e) {
+      e.preventDefault();
+
+      var values = _.object(_.map($('.js-registrationForm').serializeArray(), function(item) {
+        return [item.name, item.value]
+      }));
+
+      $.post('/api/v1/users', values).done(function(data) {
+          window.location = '/beta/index';
+      }).fail(function(data){
+        alert('TODO: exibir os erros');
+      });
+
+    }
+  );
+
 };

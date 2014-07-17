@@ -13,6 +13,7 @@ Olook::Application.routes.draw do
       resources :freights, only: [:index]
       resources :payment_types, only: [:index]
       resources :addresses
+      resources :users, only: [:create]
       resource :current_cart, only: [:show, :update]
       resources :zip_code,only: [:show]
     end 
