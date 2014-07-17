@@ -1,0 +1,20 @@
+-
+  type: 'CreditCard'
+  name: 'Cartão de crédito'
+  percentage: 0
+  description: "TPPPPPPPP"
+-
+  type: 'Debit'
+  name: 'Débito'
+  percentage: 0
+  description: "TPPPPPPPP"
+-
+  type: 'Billet'
+  name: 'Boleto'
+  percentage: 2
+  description: "TPPPPPPPP"
+-
+  type: 'MercadoPago'
+  name: 'Mercado Pago'
+  percentage: 2
+  description: "TPPPPPPPP"

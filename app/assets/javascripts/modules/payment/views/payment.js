@@ -1,23 +1,23 @@
-app.views.Freight = Backbone.View.extend({
+app.views.Payment = Backbone.View.extend({
   tagName: 'p',
-  template: _.template($('#tpl-freight').html() || ""),
+  template: _.template($('#tpl-payment').html() || ""),
   events: {
-    'click': 'selectFreight'
+    'click': 'selectPayment'
   },
   render: function() {
     this.$el.removeClass().addClass(this.classNameFromModel());
-    var html = this.template(this.model.toTpl());
+    var html = this.template(this.model.attributes);
     this.$el.html(html);
     return this;
   },
 
   classNameFromModel: function() {
-    return this.model.get('kind');
+    return this.model.get('type');
   },
 
-  selectFreight: function() {
+  selectPayment: function() {
     this.$el.find('input[type=radio]').attr('checked', 'checked');
-    olookApp.publish('freight:selected', this.model);
+    olookApp.publish('payment:selected', this.model);
   },
 
   remove: function() {

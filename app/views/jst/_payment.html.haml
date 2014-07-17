@@ -1,0 +1,43 @@
+%script{type: "text/template", id: "tpl-payment-list"}
+
+%script{type: "text/template", id: "tpl-payment"}
+  = radio_button_tag('payment_method', value: "{{type}}")
+  {{name}} - ({{ percentage }}%)
+
+%script{type: "text/template", id: "tpl-credit-card-form"}
+  %form
+    .control-group.name
+      %p
+        Nome:
+        %input{type:'text', id:'full_name', name:'full_name', value:''}
+      %span.help-inline
+    .control-group.number
+      %p
+        Número do Cartão:
+        %input{type:'text', id:'number', name:'number', value:''}
+      %span.help-inline
+    .control-group.expiration_date
+      %p
+        Validade (mm/aa):
+        %input{type:'text', id:'expiration_date', name:'expiration_date', value:''}
+      %span.help-inline
+    .control-group.security_code
+      %p
+        Cód. de Segurança:
+        %input{type:'text', id:'security_code', name:'security_code', value:''}
+      %span.help-inline
+    .control-group.cpf
+      %p
+        CPF:
+        %input{type:'text', id:'cpf', name:'cpf', value:''}
+      %span.help-inline
+
+
+%script{type: "text/template", id: "tpl-debit"}
+  debit
+
+%script{type: "text/template", id: "tpl-billet"}
+  billet
+
+%script{type: "text/template", id: "tpl-mercadopago"}
+  mercado pago

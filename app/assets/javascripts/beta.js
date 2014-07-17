@@ -8,6 +8,7 @@
 //= require_self
 //= require ./modules/address/controller
 //= require ./modules/freight/controller
+//= require ./modules/payment/controller
 //= require ./modules/cart_resume/controller
 //= require ./modules/checkout/controller
 
