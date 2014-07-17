@@ -6,6 +6,10 @@ ul, ul li {
 
 body {
 	font-family: 'Trebuchet Ms';
+	#container {
+		margin-bottom:50px;
+		br {clear:both;}
+	}
 	header {
 		width:990px;
 		margin: 0 auto;
@@ -21,7 +25,7 @@ body {
 			height: 46px;
 			background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0 -71px;
 			background-size: 240%;
-			text-indent: 5000px;
+			text-indent: -5000px;
 		}
 		ul {
 			float:right;
@@ -129,4 +133,100 @@ body {
 			}
 		}
 	}
+	.cart_resume {
+		width:350px;
+		float:right;
+		padding-left:20px;
+		border-left:1px solid #d1d1d1;
+		p { 
+			text-transform: uppercase;
+			color:#000;
+			letter-spacing: 1px;
+			font-size: 11px;
+			font-weight: bold;
+			span {
+				display: block;
+				letter-spacing: 0px;
+				text-transform: none;
+				font-size: 11px;
+				font-weight: normal;
+			}
+		}
+		.current_freight,
+		.current_cart,
+		.current_payment {
+			p {
+				span:first-child {
+					text-transform:uppercase;
+					font-weight: bold;
+					color:#f03844;
+					display: inline;
+				}
+				a {
+					display: block;
+					text-transform: none;
+					color:#000;
+					font-weight: normal;
+				}
+			}
+		}
+	}
+	table {
+		width:100%;
+		margin-top:10px;
+		border-top:1px solid #d1d1d1;
+		tr {
+			td {
+				padding:2px 0;
+				letter-spacing:1px;
+			}
+			td:first-child {
+				text-transform: uppercase;
+				font-weight: bold;
+				font-size: 11px;
+			}
+			td:last-child {
+				text-align: right;
+			}
+		}
+		tr.subtotal {
+			td {
+				
+			}
+		}
+		tr:first-child {
+			td {
+				padding-top:10px;
+			}
+		}
+	}
+	table:nth-child(3) {
+		tr {
+			td:last-child {
+				font-size:13px;
+				font-weight: bold;
+			}
+		}
+	}
+	footer {
+		width:100%;
+		display: block;
+		clear:both;
+		background: #f1f1f1;
+		text-align: center;
+		height:100px;
+		div {
+			background:image-url('common/footer_checkout.jpg') no-repeat center 22px;
+			width: 990px;
+			margin: 0 auto;
+			height: 90px;
+		}
+	}
+}
+
+/* TEMPORARY */
+
+.payments,
+#submit {
+	display: none;
 }

@@ -17,10 +17,18 @@
  			}
  			ul {
  				margin-left:20px;
+ 				li {
+ 					color:#888;
+ 					font-size: 11px;
+ 					margin-bottom:2px;
+ 				}
  				li:first-child { 
  					font-weight: bold;
+ 					font-size: 12px;
+ 					color:#000;
  					text-transform: uppercase;
  				}
+
  			}
  		}
  	}
@@ -119,10 +127,12 @@
 	font-size:12px;
 	p {
 		display: block;
+		margin:0px;
 	}
 	h4 {
 		text-transform: uppercase;
-		padding-bottom:10px;	
+		padding-bottom:10px;
+		margin:0px;
 	}
 	.price {
 		font-weight: bold;
