@@ -18,10 +18,4 @@ class Admin::B2bOrdersController < Admin::BaseController
     render :index
   end
 
-  private
-    def any_missing_parameter?
-      blanks = [:document, :customer, :name, :email].select{|key| params[:b2b_order][key].blank?}
-      blanks.any?
-    end
-
 end
