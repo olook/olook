@@ -3,5 +3,4 @@ app.models.Payment = Backbone.Model.extend({
     name: null,
     percentage: null,
     description: null
-  }
 });
