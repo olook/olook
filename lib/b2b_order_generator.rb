@@ -1,18 +1,26 @@
-class ShowroomOrderGenerator
+class B2bOrderGenerator
   include Abacos::Helpers
 
-  def run opts={}, filename='/home/rafael/teste.csv'
-
-    u = User.find_by_email "rafael.manoel@olook.com.br"
-
-    variants = load_csv(filename)
-
-    cart = Cart.new
-    cart.user = u
-    cart.address = u.addresses.first
-
-    cart.save
+  def validate_parameters(opts, file_path)
+    blanks = [:document, :customer, :name, :email].select{|key| opts[key].blank?}
     
+    if (blanks.any? || file_path.nil?)
+      {error: 'Todos os parâmetros são obrigatórios'}
+    else
+      {}
+    end
+  end
+
+
+  def run(opts={}, file_path=nil)
+
+    errors = validate_parameters(opts, file_path)
+    return errors if errors.any?
+
+
+    cart = create_cart
+    
+    variants = load_csv(file_path)
     variants.each do |values|
       add_items(cart, values)
     end
@@ -27,7 +35,7 @@ class ShowroomOrderGenerator
         receipt: Payment::RECEIPT, 
         total_paid: order.subtotal, 
         order: order, 
-        user_id: u.id, 
+        user_id: cart.user.id, 
         cart_id: cart.id})
 
       pedido = Abacos::Pedido.new order
@@ -42,6 +50,7 @@ class ShowroomOrderGenerator
       Abacos::OrderAPI.insert_order pedido
       {order: order.number}
     rescue => e
+      Rails.logger.error(e)
       msg = e.message.match(/Msg = (.*)\n/).captures.first
       {order: order.number, error: msg}
     end
@@ -55,6 +64,15 @@ class ShowroomOrderGenerator
     end
     values
   end  
+
+  def create_cart
+    cart = Cart.new
+    user = User.find_by_email "rafael.manoel@olook.com.br"
+    cart.user = user
+    cart.address = user.addresses.first
+    cart.save
+    cart
+  end
 
   def add_items cart, values
 

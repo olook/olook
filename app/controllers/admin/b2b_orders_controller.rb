@@ -8,15 +8,11 @@ class Admin::B2bOrdersController < Admin::BaseController
   def create
     csv = params[:b2b_order].delete(:order_items_file)
 
-    if csv.nil? || any_missing_parameter?
-      flash[:error] = "Por favor, preencha todos os campos."
+    result = B2bOrderGenerator.new.run(params[:b2b_order], csv.try(:path))
+    if result[:error].present?
+      flash[:error] = "#{result[:error]}"
     else
-      result = ShowroomOrderGenerator.new.run(params[:b2b_order])
-      if result[:error].present?
-        flash[:error] = "#{result[:error]}"
-      else
-        flash[:notice] = "Pedido #{result[:order]} criado com sucesso. Confira no abacos"
-      end
+      flash[:notice] = "Pedido #{result[:order]} criado com sucesso. Confira no abacos"
     end
 
     render :index
