@@ -5,7 +5,6 @@ app.models.CreditCard = Backbone.Model.extend({
     expiration_date: '',
     security_code: '',
     cpf: '',
-    flag: '',
     installment_number: ''
   },
 
@@ -19,7 +18,7 @@ app.models.CreditCard = Backbone.Model.extend({
     if (StringUtils.isEmpty(attr.number)) {
       errors.push({name: 'number', message: 'Precisamos do seu número'});
     } else {
-      luhn = this.validate_cardnumber2(attr.number)
+      luhn = this.validate_cardnumber(attr.number)
       if(luhn == false){
         errors.push({name: 'number', message: 'Seu número está estranho'});
       }
@@ -49,13 +48,7 @@ app.models.CreditCard = Backbone.Model.extend({
     return errors.length > 0 ? errors : false;
   },
 
-  validate_cardnumber: function(a,b,c,d,e) {
-      for(d = +a[b = a.length-1], e=0; b--;)
-      c = +a[b], d += ++e % 2 ? 2 * c % 10 + (c > 4) : c;
-      return !(d%10);
-  },
-
-  validate_cardnumber2: function(cardnumber) {
+  validate_cardnumber: function(cardnumber) {
     if (!/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/g.test(cardnumber.replace(/[ ,-]/g, ""))) return false;
     return this.luhn(cardnumber);
   },
