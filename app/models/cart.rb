@@ -43,6 +43,12 @@ class Cart < ActiveRecord::Base
     }
   end
 
+  def subtotal
+    items.inject(0) do |value, item|
+      value += item.retail_price
+    end
+  end
+
   def allow_credit_payment?
     has_empty_adjustments? && has_any_full_price_item? && self.sub_total >= 100
   end

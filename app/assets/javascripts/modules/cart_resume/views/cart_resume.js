@@ -1,46 +1,58 @@
 app.views.CartResume = Backbone.View.extend({
   className: 'cart_resume',
   template: _.template($("#tpl-cart-resume").html() || ""),
-  // tagName: 'li',
-  // model: app.models.Address,
-  // events: {
-  //   'click input[type=radio]': 'selectAddress',
-  //   'click ul': 'selectAddress',
-  //   'click .js-changeAddress': 'changeAddress',
-  //   'click .js-removeAddress': 'removeAddress',
-  // },
-  // initialize: function() {
-  //   /*
-  //     Events on model callbacks
-  //    */
-  //   this.model.on('destroy', this.remove, this);
-  //   this.model.on('change', this.render, this);
-  // },
-
-  render: function() {
-    this.$el.html(this.template({
-      full_address: "Rua Tanquinho, 64 - Tatuapé, São Paulo - SP 03080-040",
-      freight_kind: "A Jato",
-      freight_due: "3 horas",
-      items_count: "3 itens",
-      payment_method: "Cartão de Crédito",
-    }));
+  events: {
+    "click .js-see-cart-items": "seeCartItems",
+    "click .js-close-modal": "hideCartItems",
+  },
+  initialize: function() {
+    this.overlay = $('<div id="overlay-modal-items"></div>');
+    this.overlay.on('click', $.proxy(this.hideCartItems, this));
+    this.model.on('change', this.render, this);
   },
 
-  // remove: function() {
-  //   this.$el.remove();
-  // },
+  toTemplate: function() {
+    return $.extend({}, this.model.attributes, {
+      full_address: this.model.fullAddress(),
+      items_count: this.model.itemsCount(),
+      freight_kind: "A Jato",
+      freight_due: "3 horas",
+      payment_method: "Cartão de Crédito",
+    });
+  },
 
-  // changeAddress: function() {
-  //   olookApp.publish('address:change', this.model);
-  // },
+  render: function() {
+    this.$el.html(this.template(this.toTemplate()));
+    this.addAllItems();
+  },
 
-  // removeAddress: function() {
-  //   this.model.destroy();
-  // },
+  seeCartItems: function() {
+    this.overlay.hide().prependTo("body").fadeIn();
+    this.$el.find('.modal-items').fadeIn();
+  },
 
-  // selectAddress: function() {
-  //   this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
-  //   olookApp.publish('address:selected', this.model.attributes);
-  // }
+  hideCartItems: function() {
+    var over = this.overlay;
+    over.fadeOut(function(){
+      over.detach().show();
+    });
+    this.$el.find('.modal-items').fadeOut();
+  },
+
+  emptyItems: function() {
+    this.$el.find('.modal-items table').empty();
+  },
+
+  addAllItems: function() {
+    this.emptyItems();
+    _.each(this.model.get('items'), this.addOneItem, this);
+  },
+
+  addOneItem: function(item_attr) {
+    var item = new app.models.CartItem(item_attr);
+    var view = new app.views.CartItem({model: item});
+    view.render()
+    view.$el.appendTo(this.$el.find('.modal-items table'));
+  },
+
 });

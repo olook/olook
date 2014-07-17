@@ -26,7 +26,16 @@ var app = (function() {
       this.content = $("#main");
       olookApp.publish('app:init');
       return this;
-    }
+    },
+
+    formatted_currency: function(value) {
+      var intvalue = parseInt(value);
+      var centsvalue = Math.round(( value - intvalue ) * 100);
+      if(centsvalue < 10) {
+        centsvalue = "0" + centsvalue;
+      }
+      return "R$ " + intvalue + "," + centsvalue;
+    },
   };
 
   // /* definir o router aqui */
