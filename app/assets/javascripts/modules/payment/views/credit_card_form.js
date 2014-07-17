@@ -14,8 +14,8 @@ app.views.CreditCardForm = Backbone.View.extend({
     "keyup #number" : "chooseFlag"
   },
 
-  render: function() {
-    var html = this.template(this.model);
+  render: function(_model) {
+    var html = this.template(_model.attributes);
     this.$el.html(html);
     this.$el.show();
   },

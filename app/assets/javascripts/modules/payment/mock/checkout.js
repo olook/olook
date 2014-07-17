@@ -7,8 +7,8 @@ var MockCheckout = (function(){
   };
 
   MockCheckout.prototype.update = function(model){
-    console.log("updating checkout:");
     console.log(model.attributes);
+    console.log("o desconto para "+model.attributes.name+" é de "+model.attributes.percentage+"%");
   };  
   return MockCheckout;
 })();
