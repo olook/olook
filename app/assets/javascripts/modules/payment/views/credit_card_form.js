@@ -35,28 +35,26 @@ app.views.CreditCardForm = Backbone.View.extend({
 
     if (this.model.isValid()) {
     } else {
-      this.updateErrors();
+      this.updateError(e.currentTarget);
     }
-
-    console.log(this.model.attributes);
   },
   
-  updateErrors: function() {
-    this.clearErrors();
-    this.showErrors();
+  updateError: function(el) {
+    this.clearError(el.id);
+    this.showError(el.id);
   },
 
-  clearErrors: function() {
-    this.$('.control-group .help-inline').each(function () {
-      $(this).text('');
-    });
+  clearError: function(element_id) {
+    $(".control-group."+element_id).find('.help-inline').text('');
   },
 
-  showErrors: function() {
+  showError: function(field) {
     _.each(this.model.validationError, function (error) {
-      var controlGroup = this.$('.' + error.name);
-      controlGroup.addClass('error');
-      controlGroup.find('.help-inline').text(error.message);
+      if(error.name === field){
+        var controlGroup = this.$('.' + error.name);
+        controlGroup.addClass('error');
+        controlGroup.find('.help-inline').text(error.message);        
+      }
     }, this);
   },
 
