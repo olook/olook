@@ -18,7 +18,7 @@ $secondary_bt_color: #48b012;
 $secondary_bt_color_hover: #327f11;
 $terciary_bt_color: #b1b1b1;
 $terciary_bt_color_hover: #8c8c8c;
-$bt_font: "Trebuchet Ms" !important;
+$bt_font: "Trebuchet Ms", verdana, arial, tahoma !important;
 $bt_font_color: #fff !important;
 
 @mixin gradient_bg($color1, $color2){
