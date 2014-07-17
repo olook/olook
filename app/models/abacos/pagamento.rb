@@ -30,6 +30,8 @@ module Abacos
         'BOLETO' 
       elsif order.erp_payment.is_a?(MercadoPagoPayment)
         'MERCADO PAGO'
+      elsif order.erp_payment.is_a?(B2bPayment)
+        'LIBERACAO MANUAL'
       else
        order.erp_payment.bank.upcase
      end
