@@ -225,7 +225,9 @@ _gaq.push(['_addTrans',
       </tbody>
     </table>
 
-    <%= render "checkout_banner" %>
+    <% if Setting.show_checkout_banner %>
+      <%= render "checkout_banner" %>
+    <% end %>
 
     <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
   <% else %>
