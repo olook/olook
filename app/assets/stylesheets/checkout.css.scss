@@ -230,3 +230,12 @@ body {
 #submit {
 	display: none;
 }*/
+
+.flags{
+	span {
+		opacity:0.5;
+	}
+	.enabled{
+		opacity:1;
+	}
+}

@@ -10,7 +10,8 @@ app.views.CreditCardForm = Backbone.View.extend({
   },
 
   events: {
-    "blur #full_name, #number, #expiration_date, #security_code, #cpf" : "updateModel"
+    "blur #full_name, #number, #expiration_date, #security_code, #cpf" : "updateModel",
+    "keyup #number" : "chooseFlag"
   },
 
   render: function() {
@@ -57,5 +58,25 @@ app.views.CreditCardForm = Backbone.View.extend({
       }
     }, this);
   },
+
+  chooseFlag: function(number_element){
+    var number = $(number_element.currentTarget).val();
+    var flagClass = this.matchFlag(number)
+    this.$('.flags span').removeClass('enabled');
+    if(flagClass != null){
+      this.$('.flags span.'+flagClass).addClass('enabled');
+    }
+  },
+
+  matchFlag: function(number){
+    if(/^4/.test(number)){
+      return 'visa';
+    } else if(/^5[1-5]/.test(number)){
+      return 'mastercard';
+    } else if(/^3(?:0[0-5]|[68][0-9])/.test(number)) {
+      return 'diners';
+    }
+    return null;
+  }
 
 });
