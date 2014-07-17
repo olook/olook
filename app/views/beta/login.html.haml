@@ -3,33 +3,32 @@
 - content_for :footer do
   = javascript_include_tag "beta"
 
-%h1 Formulario de login!!!
-
-
 .login
-  %p{class: 'title-box'} 
-    JÁ TENHO CADASTRO 
-    %br
-    %span Então é só entrar ;)
-  = render partial: "shared/errors", locals: { object: @user }
-  = render partial: "users/sessions/form_user", locals: { checkout_login: true}
+  .login_fb
+    %p
+      FAÇA SEU LOGIN NA OLOOK USANDO SUA CONTA DO FACEBOOK
+  .login_user
+    %p
+      JÁ POSSUI CADASTRO?
+      %span
+        É SÓ LOGAR!
+    = render partial: "shared/errors", locals: { object: @user }
+    = render partial: "users/sessions/form_user", locals: { checkout_login: true}
 
-.register
-  %p.title-box 
-    QUERO ME CADASTRAR
-    %br
-    %span Faça aqui o seu cadastro.
-    %br
-    %span É rápido e simples.
+  .register
+    %p
+      AINDA NÃO TEM CONTA NA OLOOK?
+      %span
+        CADASTRE-SE AQUI!
 
-= form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
-  %fieldset
-    = f.label :name, "Nome completo"
-    = f.text_field :name, class: "fields"
-  %fieldset
-    = f.label :email, "E-mail"
-    = f.email_field :email, class: "fields"
-  %fieldset
-    = f.label :password, "Senha"
-    = f.password_field :password, class: "fields"
-  = f.submit "Cadastrar"
+    = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+      %fieldset
+        = f.label :name, "Nome completo"
+        = f.text_field :name, class: "fields"
+      %fieldset
+        = f.label :email, "E-mail"
+        = f.email_field :email, class: "fields"
+      %fieldset
+        = f.label :password, "Senha"
+        = f.password_field :password, class: "fields"
+      = f.submit "Cadastrar"

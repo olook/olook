@@ -9,6 +9,12 @@
       %span {{ freight_kind }}
       %span Entrega em até {{ freight_due }} após a confirmação de pagamento.
   .current_cart
+    .modal-items
+      %span.close-modal.js-close-modal X
+      %p
+        Resumo do Pedido:
+        %span {{ items_count }}
+      %table
     %p
       Resumo do Pedido:
       %span {{ items_count }}
@@ -16,7 +22,7 @@
   .current_payment
     %p
       Tipo de Pagamento:
-      %span {{ payment_method }} Cartão de Crédito
+      %span {{ payment_method }}
   .cart_resume
     %table
       %tr
@@ -42,4 +48,24 @@
       %tr.total
         %td Total
         %td R$ 118,00
-    
+  %button#js-finalize-order Finalizar Compra
+
+%script{type: "text/template", id: "tpl-cart-item"}
+  %td
+    %img{src: "{{thumb_picture}}"}
+  %td
+    %p {{formatted_product_name}}
+    %p {{brand}}
+    %p
+      Tamanho:
+      %span {{size}}
+      Cor:
+      %span{ class: "{{color}}"}
+  %td x{{quantity}}
+  %td
+    %p {{price_declaration}}
+%script{type: "text/template", id: "tpl-cart-item-price-promotion"}
+  De: {{price}}
+  Por: {{retail_price}}
+
+
