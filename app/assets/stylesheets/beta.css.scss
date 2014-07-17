@@ -279,3 +279,41 @@
 }
 
 /*********** AREA DE LOGIN *********/
+#overlay-modal-items {
+  background: #000;
+  opacity: 0.7;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.current_cart {
+  position: relative;
+  .modal-items {
+    display: none;
+    position: absolute;
+    top: -11px;
+    left: -10px;
+    background: #fff;
+    width: 100%;
+    z-index: 101;
+    padding: 0 10px;
+    .close-modal {
+      position: absolute;
+      color: #fff;
+      background-color: #000;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      top: -10px;
+      right: -10px;
+      cursor: pointer;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+    }
+  }
+}
