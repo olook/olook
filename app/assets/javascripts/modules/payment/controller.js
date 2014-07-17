@@ -1,4 +1,5 @@
 //= require modules/payment/models/payment
+//= require modules/payment/models/credit_card
 //= require modules/payment/collections/payments
 //= require modules/payment/views/payment
 //= require modules/payment/views/payments
@@ -26,6 +27,10 @@ var PaymentController = (function(){
     this.mercadoPagoView.$el.appendTo(app.content);
     this.paymentsView.render();
     this.payments.fetch();
+
+    $("#submit").click(function(){
+      console.log("clicked");
+    });
   };
   return PaymentController;
 })();
