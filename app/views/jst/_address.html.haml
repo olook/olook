@@ -11,8 +11,10 @@
     %li Tel.: {{ telephone }}
     %li Cel.: {{ mobile }}
     %li {{ city }},  {{state}}
-  %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
-  %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+    %li
+      %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
+      %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+  %br
 
 %script{id: "tpl-address-form", type: "text/template"}
   .js-addressForm{style:'display: none'}

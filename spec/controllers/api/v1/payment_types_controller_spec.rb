@@ -15,7 +15,7 @@ describe Api::V1::PaymentTypesController do
     end
     it "returns the payment types hash response" do
       post :index
-      expect(response.body).to eql Api::PaymentTypes.types.to_json
+      expect(response.body).to eql Api::V1::PaymentType.all.to_json
     end    
   end
 end

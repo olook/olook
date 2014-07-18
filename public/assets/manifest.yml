@@ -1683,6 +1683,8 @@ product/info_icon.png: product/info_icon-b854975e441371bb7015256326b3dc40.png
 product/info_icon/index.png: product/info_icon-b854975e441371bb7015256326b3dc40.png
 product/new_page_sprite.png: product/new_page_sprite-10f20c8c254aa7e3ec3307c765713f0a.png
 product/new_page_sprite/index.png: product/new_page_sprite-10f20c8c254aa7e3ec3307c765713f0a.png
+product/remaining.png: product/remaining-60f20549f680066ea5b93a0de73346f5.png
+product/remaining/index.png: product/remaining-60f20549f680066ea5b93a0de73346f5.png
 product/teste_look_completo.png: product/teste_look_completo-d46b23122789901fad8e70406a81040f.png
 product/teste_look_completo/index.png: product/teste_look_completo-d46b23122789901fad8e70406a81040f.png
 product/vantagens-spy.png: product/vantagens-spy-3607ff284fe774700c871fb3b1ebe88e.png
@@ -2463,10 +2465,10 @@ about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/style.css: about/style-d17ded1703713c07c9cc1407a102e312.css
 about/style/index.css: about/style-d17ded1703713c07c9cc1407a102e312.css
-admin.css: admin-d9f440fc1648a67b528a718dcc92aada.css
-admin/index.css: admin-d9f440fc1648a67b528a718dcc92aada.css
-admin/base.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
-admin/base/index.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
+admin.css: admin-adbe4d4f02ab9fcd4f433ba8a801588c.css
+admin/index.css: admin-adbe4d4f02ab9fcd4f433ba8a801588c.css
+admin/base.css: admin/base-73e4c63384c5f7a6f4acd71d7d4f1323.css
+admin/base/index.css: admin/base-73e4c63384c5f7a6f4acd71d7d4f1323.css
 admin/bootstrap.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/bootstrap/index.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/braspag_authorize_responses.css: admin/braspag_authorize_responses-1b13569e9620782f423d4cd3ce931750.css
@@ -2583,8 +2585,8 @@ desktop.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 desktop/index.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-612198359b7b8cf373615c391fe5a620.css
-new_structure/lite_application/index.css: new_structure/lite_application-612198359b7b8cf373615c391fe5a620.css
+new_structure/lite_application.css: new_structure/lite_application-a2740cabf666ab01152af7e97981fc75.css
+new_structure/lite_application/index.css: new_structure/lite_application-a2740cabf666ab01152af7e97981fc75.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-158f50e75b73503aef22e86e0704b15b.css
@@ -2627,8 +2629,8 @@ new_structure/section/join.css: new_structure/section/join-db1f830440e91eb007727
 new_structure/section/join/index.css: new_structure/section/join-db1f830440e91eb007727517c7db3df7.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-eab72b69b87d68ca9317df9802a54760.css
 new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-eab72b69b87d68ca9317df9802a54760.css
-new_structure/section/lite_product.css: new_structure/section/lite_product-f59be1708ba32701d1933eff34e77374.css
-new_structure/section/lite_product/index.css: new_structure/section/lite_product-f59be1708ba32701d1933eff34e77374.css
+new_structure/section/lite_product.css: new_structure/section/lite_product-f4de3735b12e1718b10016182e2f53ea.css
+new_structure/section/lite_product/index.css: new_structure/section/lite_product-f4de3735b12e1718b10016182e2f53ea.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-dba72dd0a62b483c99590678fd050390.css
