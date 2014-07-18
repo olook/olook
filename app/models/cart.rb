@@ -30,6 +30,7 @@ class Cart < ActiveRecord::Base
 
   def api_hash
     {
+      id: id,
       gift_wrap: gift_wrap,
       use_credits: use_credits,
       facebook_share_discount: facebook_share_discount,

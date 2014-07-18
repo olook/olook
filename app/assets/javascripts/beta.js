@@ -11,6 +11,7 @@
 //= require ./modules/payment/controller
 //= require ./modules/cart_resume/controller
 //= require ./modules/checkout/controller
+//= require ./modules/credit/controller
 
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g

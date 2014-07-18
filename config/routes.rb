@@ -12,7 +12,8 @@ Olook::Application.routes.draw do
       resources :freights, only: [:index]
       resources :payment_types, only: [:index]
       resources :addresses
-      resource :current_cart, only: [:show, :update]
+      resource :current_cart, only: [:show]
+      put '/current_cart/:id', to: "current_carts#update"
       resources :zip_code,only: [:show]
     end 
   end
