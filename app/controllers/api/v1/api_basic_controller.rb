@@ -2,8 +2,6 @@
 module Api
   module V1
     class ApiBasicController < ActionController::Base
-      protect_from_forgery
-
       before_filter :restrict_access
       respond_to :json
 

@@ -28,7 +28,7 @@ app.models.Address = Backbone.Model.extend({
     if (StringUtils.isEmpty(attr.city)) {
       errors.push({name: 'city', message: 'Qual é o nome da cidade, mesmo?'});
     }
-    
+
     if (StringUtils.isEmpty(attr.zip_code)) {
       errors.push({name: 'zip_code', message: 'Precisamos do seu CEP'});
     }
