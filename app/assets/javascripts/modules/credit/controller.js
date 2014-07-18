@@ -16,7 +16,3 @@ var CreditsController = (function(){
 
   return CreditsController;
 })();
-
-olookApp.subscribe('app:init', function() {
-  new CreditsController().config();
-});
