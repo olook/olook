@@ -79,12 +79,16 @@ app.views.Form = Backbone.View.extend({
   },
 
   fetchAddress: function() {
-    $.get("/api/v1/zip_code/"+this.$('#zip_code').val()+".json", {} , function(data) {
+    $.ajax({
+      url: "/api/v1/zip_code/"+this.$('#zip_code').val()+".json",
+      dataType: "json",
+      headers: { "Authorization": window.token }
+    }).success(function(data) {
       $('#city').val(data.city);
       $('#state').val(data.state);
       $('#street').val(data.street);
       $('#neighborhood').val(data.neighborhood);
-    },"json");
+    });
   },
 
   initMask: function() {
