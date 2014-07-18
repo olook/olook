@@ -3,7 +3,8 @@
 //= require modules/freight/views/freight
 //= require modules/freight/views/freights
 var FreightController = (function(){
-  function FreightController(){
+  function FreightController(attr){
+    this.cart = attr['cart'];
     this.freights = new app.collections.Freights();
     this.freightsView = new app.views.Freights({collection: this.freights});
   };
@@ -13,8 +14,8 @@ var FreightController = (function(){
     this.freightsView.$el.appendTo(app.content);
   };
 
-  FreightController.prototype.selectAddress = function(data) {
-    this.freights.fetch({reset: true, data: {zip_code: data['zip_code'], amount_value: '99.9'}});
+  FreightController.prototype.selectAddress = function(model) {
+    this.freights.fetch({reset: true, data: {zip_code: model.get('zip_code'), amount_value: this.cart.get('subtotal')}});
   };
 
   return FreightController;

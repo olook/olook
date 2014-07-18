@@ -12,8 +12,8 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     Backbone.history.start();
   },
   addressStep: function() {
-    console.log("address");
     this.cart.set("step", "address");
+    this.controller = new AddressController({cart: this.cart}).config();
   },
   paymentStep: function() {
     console.log("payment");
