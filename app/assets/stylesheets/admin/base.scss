@@ -510,3 +510,33 @@ fieldset legend {font-size:140%;}
 .removing-column{
   float:right;
 }
+
+.b2b{
+  p{
+    font-size: 14px !important;
+    font-weight: bold !important;
+    font-family: "Trebuchet Ms" !important;
+  }
+  fieldset{
+    label{
+      font-size: 12px;
+      font-weight: bold;
+      font-family: "Trebuchet Ms" !important;
+      display: block;
+      margin-top: 15px;
+      padding-bottom: 3px;
+    }
+    input[type=text]{
+      width: 200px;
+      height: 25px;
+      border: none;
+      padding-left: 10px;
+      background: #e0e0e0;
+      color: #565656;
+      display: block;
+    }
+    .mail{
+      margin-bottom: 20px;
+    }
+  }
+}
