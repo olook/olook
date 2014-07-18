@@ -13,7 +13,8 @@ Olook::Application.routes.draw do
       resources :freights, only: [:index]
       resources :payment_types, only: [:index]
       resources :addresses
-      resource :current_cart, only: [:show, :update]
+      resource :current_cart, only: [:show]
+      put '/current_cart/:id', to: "current_carts#update"
       resources :zip_code,only: [:show]
     end 
   end
@@ -254,6 +255,7 @@ Olook::Application.routes.draw do
 
   namespace :admin do
     resources :integrations
+    resources :b2b_orders, only: [:index, :create]
 
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"

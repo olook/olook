@@ -1,6 +1,7 @@
 module Api
   module V1
     class CurrentCartsController < ApiBasicController
+      skip_before_filter  :verify_authenticity_token
       def show
         @cart = current_cart
         render json: (@cart ? @cart.api_hash : {})
@@ -8,6 +9,9 @@ module Api
 
       def update
         @cart = current_cart || Cart.new
+        if params[:current_cart]
+          @cart.use_credits = params[:current_cart][:use_credits]
+        end
         @cart.attributes = params[:cart]
         if @cart.save
           render json: @cart.api_hash
