@@ -90,8 +90,8 @@
               %span Comercial
               %ul
                 %li= link_to("Gerar pdf de produtos", admin_html_generators_path) if can?(:index, :html_generator)
-                %li= link_to("Integração Kanui", admin_integrations_path) if can?(:index, :integration)                
-                %li= link_to("Pedidos de showroom", admin_b2b_orders_path) if can?(:index, :integration)
+                %li= link_to("Integração Kanui", admin_integrations_path) if can?(:index, :html_generator)                
+                %li= link_to("Pedidos de showroom", admin_b2b_orders_path) if can?(:index, :html_generator)
                 
 
       #wrapper.wat-cf
