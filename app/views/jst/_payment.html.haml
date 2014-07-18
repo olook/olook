@@ -5,6 +5,7 @@
   {{name}} - ({{ percentage }}%)
 
 %script{type: "text/template", id: "tpl-credit-card-form"}
+  {{name}} - ({{ percentage }}%)
   %form.js-creditCardForm
 
     .flags
@@ -43,12 +44,12 @@
 
 
 %script{type: "text/template", id: "tpl-debit"}
-  debit
+  {{name}} - ({{ percentage }}%)
 
 %script{type: "text/template", id: "tpl-billet"}
-  billet
+  {{name}} - ({{ percentage }}%)
 
 %script{type: "text/template", id: "tpl-mercadopago"}
-  mercado pago
+  {{name}} - ({{ percentage }}%)
 
 = button_tag "ENVIAR", id: "submit", name: "submit"

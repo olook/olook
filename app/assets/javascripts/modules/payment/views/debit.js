@@ -11,7 +11,7 @@ app.views.Debit = Backbone.View.extend({
   },
 
   render: function(model) {
-    var html = this.template();
+    var html = this.template(model.attributes);
     this.$el.html(html);
     this.$el.show();
   },
