@@ -1,0 +1,29 @@
+%script{type: "text/template", id: "tpl-login"}
+  .login_fb
+    %p
+      FAÇA SEU LOGIN NA OLOOK USANDO SUA CONTA DO FACEBOOK
+  .login_user
+    %p
+      JÁ POSSUI CADASTRO?
+      %span
+        É SÓ LOGAR!
+    = render partial: "shared/errors", locals: { object: @user }
+    = render partial: "users/sessions/form_user", locals: { checkout_login: true}
+
+  .register
+    %p
+      AINDA NÃO TEM CONTA NA OLOOK?
+      %span
+        CADASTRE-SE AQUI!
+
+    = form_tag("#", class: 'js-registrationForm') do
+      %fieldset
+        = label_tag 'name', "Nome completo"
+        = text_field_tag 'name', "", class: "fields"
+      %fieldset
+        = label_tag 'email', "E-mail"
+        = email_field_tag 'email', "", class: "fields"
+      %fieldset
+        = label_tag 'password', "Senha"
+        = password_field_tag 'password', "", class: "fields"
+      = button_tag "Cadastrar", class: 'js-submit'

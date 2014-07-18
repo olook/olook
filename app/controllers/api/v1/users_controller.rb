@@ -6,7 +6,7 @@ module Api
     	include Devise::Controllers::Rememberable
 
       def create    
-
+binding.pry
         name = params[:user].delete(:name)
         values = name.split(" ")
 

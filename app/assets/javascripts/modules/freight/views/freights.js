@@ -1,5 +1,5 @@
 app.views.Freights = Backbone.View.extend({
-  template: _.template($('#tpl-freights').html()),
+  template: _.template($('#tpl-freights').html() || ""),
   className: 'freights',
   initialize: function() {
     olookApp.subscribe('address:change', this.empty, {}, this);

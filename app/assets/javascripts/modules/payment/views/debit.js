@@ -1,6 +1,6 @@
 app.views.Debit = Backbone.View.extend({
   className: 'debit',
-  template: _.template($("#tpl-debit").html()),
+  template: _.template($("#tpl-debit").html() || ""),
 
   initialize: function() {
     olookApp.subscribe('payment:debit:show', this.render, {}, this);

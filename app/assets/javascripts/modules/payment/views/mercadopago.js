@@ -1,6 +1,6 @@
 app.views.MercadoPago = Backbone.View.extend({
   className: 'billet',
-  template: _.template($("#tpl-mercadopago").html()),
+  template: _.template($("#tpl-mercadopago").html() || ""),
 
   initialize: function() {
     olookApp.subscribe('payment:mercadopago:show', this.render, {}, this);

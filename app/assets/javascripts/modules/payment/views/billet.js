@@ -1,6 +1,6 @@
 app.views.Billet = Backbone.View.extend({
   className: 'billet',
-  template: _.template($("#tpl-billet").html()),
+  template: _.template($("#tpl-billet").html() || ""),
 
   initialize: function() {
     olookApp.subscribe('payment:billet:show', this.render, {}, this);
