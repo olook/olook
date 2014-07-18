@@ -11,10 +11,11 @@
   .current_cart
     .modal-items
       %span.close-modal.js-close-modal X
-      %p
-        Resumo do Pedido:
-        %span {{ items_count }}
-      %table
+      .scroll
+        %p
+          Resumo do Pedido:
+          %span {{ items_count }}
+        %table
     %p
       Resumo do Pedido:
       %span {{ items_count }}

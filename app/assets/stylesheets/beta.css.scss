@@ -58,20 +58,6 @@
  		font-size: 11px;
  		padding:2px;
  	}
- 	.js-addAddress {
- 		@include bt_color($primary_bt_color, $primary_bt_color_hover);
- 		width:100%;
- 		display: block;
- 		text-align: center;
- 		padding: 8px 0;
-		text-transform: uppercase;
-		letter-spacing: 2px;
-		font-weight: bold;
-		padding: 8px 0;
-		text-transform: uppercase;
-		letter-spacing: 2px;
-		font-weight: bold;
- 	}
 }
 
 .addressForm {
@@ -328,12 +314,80 @@
   .modal-items {
     display: none;
     position: absolute;
-    top: -11px;
+    top: -10px;
     left: -10px;
     background: #fff;
-    width: 100%;
+    width: 102%;
     z-index: 101;
-    padding: 0 10px;
+    padding: 0 0 0 10px;
+    .scroll {
+    	height: auto !important;
+    	height:204px;
+    	min-height:90px;
+    	max-height:204px;
+    	overflow-y:auto;
+    }
+    table {
+    	border-top:0px;
+    	tr.cart-item {
+    		td, p {
+    			font-weight: normal !important;
+    			text-transform: none !important;
+    			vertical-align: top;
+    		}
+    		p {
+    			margin:0px 0 5px 0;
+    		}
+    		p:nth-child(2) {
+    			font-weight: bold !important;;
+    			text-transform: uppercase !important;
+    		}
+    		p:nth-child(3) {
+    			span:first-child {
+	    			padding:1px 3px;
+						background: #000;
+						color: #FFF
+					}
+					span:last-child {
+						width: 14px;
+						height: 14px;
+						background: image-url("common/filtro-de-cores.jpg") no-repeat 0 36px;
+						display: inline-block;
+					}
+					.amarelo, .Amarelo {background: #fff673 !important;;}
+					.azul, .Azul {background: #312c90 !important;;}
+					.branco, .Branco {background: white;border:1px solid #f1f1f1 !important;;}
+					.laranja, .Laranja {background: #f26526 !important;;}
+					.cinza, .Cinza {background: #959595 !important;;}
+					.roxo, .Roxo {background: #ab1ec9 !important;;}
+					.verde, .Verde {background: #00a757 !important;;}
+					.vermelho, .Vermelho {background: #ff0000 !important;;}
+					.preto, .Preto {background: #000 !important;;}
+					.rosa, .Rosa {background: #f3c1d4 !important;;}
+					.terrosos, .Terrosos {background: #603916 !important;;}
+					.bege, .Bege {background: #e7dbd9 !important;;}
+					.onca, .Onca {background-position: -4px -4px !important;}
+					.animal-print, .Animal-print {background-position: -4px -4px !important;}
+					.xadrez, .Xadrez {background-position: -114px -4px !important;}
+					.prateado, .Prateado {background-position: -143px -4px !important;}
+					.listras, .Listras {background-position: -60px -4px !important}
+					.floral, .Floral {background-position: -86px -4px !important;}
+					.estampado, .Estampado {background-position: -32px -4px !important;}
+					.metalizados, .Metalizados {background-position: -142px -4px !important;}
+					span {
+						vertical-align: middle;
+					}
+    		}
+    		td {
+    			border-top:1px dotted #d1d1d1;
+    			padding-top:10px;
+    		}
+    	}
+    }
+    p {
+    	margin:10px 0 0 0;
+    	padding:0px;
+    }
     .close-modal {
       position: absolute;
       color: #fff;
@@ -350,4 +404,29 @@
       border-radius: 10px;
     }
   }
+}
+
+.js-addAddress,
+#js-finalize-order {
+	@include bt_color($primary_bt_color, $primary_bt_color_hover);
+	width:100%;
+	display: block;
+	text-align: center;
+	padding: 8px 0 !important;;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: bold;
+	padding: 8px 0;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: bold;
+	border:0px;
+
+}
+
+#js-finalize-order {
+	position:relative;
+	top:20px;
+	z-index:200;
+	cursor: pointer;
 }
