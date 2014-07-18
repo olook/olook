@@ -3,8 +3,6 @@ module Api
     class AddressesController < ApiBasicController
       respond_to :json
 
-      before_filter :authenticate_user!
-
       def index
         render json: addresses.to_json
       end

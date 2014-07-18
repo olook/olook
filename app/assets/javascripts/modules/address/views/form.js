@@ -36,8 +36,6 @@ app.views.Form = Backbone.View.extend({
   },
 
   updateModel: function() {
-
-
     var formValues = $('.js-addressForm form').serializeArray();
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
@@ -101,7 +99,6 @@ app.views.Form = Backbone.View.extend({
       // $(tel).inputmask({mask:"(99)99999-9999"});
     } else {
       // $(tel).inputmask({mask:"(99)9999-9999"});
-    }    
-    // console.log(this.model.attributes.mobile);
+    }
   }
 });
