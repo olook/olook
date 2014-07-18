@@ -111,6 +111,16 @@ class Product < ActiveRecord::Base
     @discount_price = pd.best_discount.calculate_for_product(self, cart: cart)
   end
 
+  def running_out_of_stock?
+
+    if !shoe?
+      inventory <= 5 && !sold_out?
+    else
+      false
+    end
+
+  end
+
   def seo_path
     formatted_name.to_s.parameterize + "-" + id.to_s
   end
