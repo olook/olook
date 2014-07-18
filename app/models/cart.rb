@@ -32,6 +32,7 @@ class Cart < ActiveRecord::Base
     {
       id: id,
       gift_wrap: gift_wrap,
+      address_id: address_id,
       use_credits: use_credits,
       facebook_share_discount: facebook_share_discount,
       coupon_code: coupon.try(:code),

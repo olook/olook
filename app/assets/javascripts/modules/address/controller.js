@@ -8,7 +8,7 @@ var AddressController = (function(){
   function AddressController(attr) {
     this.cart = attr['cart'];
     this.addresses = new app.collections.Addresses();
-    this.listView = new app.views.List({collection: this.addresses});
+    this.listView = new app.views.List({collection: this.addresses, cart: this.cart});
     this.formView = new app.views.Form({collection: this.addresses});
     this.freight = new FreightController({cart: this.cart});
   };
@@ -19,11 +19,11 @@ var AddressController = (function(){
     this.formView.$el.appendTo(app.content);
     this.fetchAddress();
     this.freight.config()
-    olookApp.subscribe("address:select", this.setAddress, {}, this);
+    olookApp.subscribe("address:selected", this.setAddress, {}, this);
   };
 
   AddressController.prototype.setAddress = function(model){
-    this.cart.set("address_id", model.get('id'));
+    this.cart.save("address_id", model.get('id'));
   };
 
   AddressController.prototype.fetchAddress = function(){

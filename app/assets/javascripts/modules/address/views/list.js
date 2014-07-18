@@ -5,10 +5,18 @@ app.views.List = Backbone.View.extend({
   },
   template: _.template($('#tpl-address-list').html() || ""),
 
-  initialize: function() {
+  initialize: function(attr) {
+    this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
     this.collection.on('change', this.update, this);
+    this.cart.on("change", this.setSelected, this);
+  },
+  setSelected: function() {
+    var addressId = this.cart.get('address_id');
+    this.collection.forEach(function(address){
+      if(addressId == address.id) address.set('selected', true);
+    })
   },
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});

@@ -17,9 +17,11 @@ app.views.Address = Backbone.View.extend({
   },
 
   render: function() {
-    var dict = this.model.toJSON();
-    var html = this.template(dict);
+    var html = this.template(this.model.attributes);
     this.$el.html(html);
+    if(this.model.get('selected')) {
+      this.selectAddress();
+    }
   },
 
   remove: function() {
