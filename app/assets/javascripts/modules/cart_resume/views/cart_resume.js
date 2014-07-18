@@ -4,6 +4,7 @@ app.views.CartResume = Backbone.View.extend({
   events: {
     "click .js-see-cart-items": "seeCartItems",
     "click .js-close-modal": "hideCartItems",
+    "click button": "goToNextStep",
   },
   initialize: function() {
     this.overlay = $('<div id="overlay-modal-items"></div>');
@@ -13,11 +14,13 @@ app.views.CartResume = Backbone.View.extend({
 
   toTemplate: function() {
     return $.extend({}, this.model.attributes, {
+      subtotal: app.formatted_currency(this.model.get('subtotal')),
       full_address: this.model.fullAddress(),
       items_count: this.model.itemsCount(),
       freight_kind: "A Jato",
       freight_due: "3 horas",
       payment_method: "Cartão de Crédito",
+      step_label: this.model.stepLabel(),
     });
   },
 
@@ -53,6 +56,10 @@ app.views.CartResume = Backbone.View.extend({
     var view = new app.views.CartItem({model: item});
     view.render()
     view.$el.appendTo(this.$el.find('.modal-items table'));
+  },
+
+  goToNextStep: function() {
+    olookApp.publish("app:next_step");
   },
 
 });

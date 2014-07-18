@@ -12,6 +12,17 @@ app.models.CurrentCart = Backbone.Model.extend({
     address['state'], "."];
     return fullAddress.join('');
   },
+  stepLabel: function() {
+    var step = this.get('step');
+    switch(step) {
+      case "payment":
+        return "Finalizar Compra";
+      case "confirmation":
+        return "OK";
+      default:
+        return "Ir para pagamento";
+    }
+  },
   itemsCount: function() {
     var dt = this.get('items_count');
     if(dt == 1) {

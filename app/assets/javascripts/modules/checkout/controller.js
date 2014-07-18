@@ -18,6 +18,13 @@ var CheckoutController = (function() {
     this.steps.render();
     this.router.start();
     this.cartResume.config();
+    olookApp.subscribe("app:next_step", this.nextStep, {}, this);
+  };
+
+  CheckoutController.prototype.nextStep = function() {
+    var nextStep = this.steps.checkNextStep();
+    var url = this.router.translateStep(this.steps.checkNextStep());
+    this.router.navigate(url, {trigger: true});
   };
 
   return CheckoutController;

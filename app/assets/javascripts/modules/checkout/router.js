@@ -2,6 +2,11 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   initialize: function(opts) {
     this.cart = opts['cart'];
   },
+  stepsTranslation: {
+    address: "endereco",
+    payment: "pagamento",
+    confirmation: "confirmacao",
+  },
   routes: {
     "": "addressStep",
     "endereco": "addressStep",
@@ -11,16 +16,20 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   start: function() {
     Backbone.history.start();
   },
+  translateStep: function(step) {
+    return this.stepsTranslation[step] || "";
+  },
   addressStep: function() {
     this.cart.set("step", "address");
-    this.controller = new AddressController({cart: this.cart}).config();
+    if(!this.addressController){
+      this.addressController = new AddressController({cart: this.cart});
+      this.addressController.config();
+    }
   },
   paymentStep: function() {
-    console.log("payment");
     this.cart.set("step", "payment");
   },
   confirmationStep: function() {
-    console.log("confirmation");
     this.cart.set("step", "confirmation");
   }
 });
