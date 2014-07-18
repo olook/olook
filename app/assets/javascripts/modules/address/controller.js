@@ -24,7 +24,3 @@ var AddressController = (function(){
 
   return AddressController;
 })();
-
-olookApp.subscribe('app:init', function(){
-  new AddressController().config();
-});

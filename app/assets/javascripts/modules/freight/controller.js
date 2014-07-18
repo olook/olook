@@ -19,19 +19,3 @@ var FreightController = (function(){
 
   return FreightController;
 })();
-
-olookApp.subscribe('app:init', function(){
-  new FreightController().config();
-});
-
-olookApp.subscribe('freight:selected', function(model) {
-  alert(
-    "Você selecionou o FRETE " +
-    model.pretty_kind() +
-    " no valor de " +
-    model.formatted_price() +
-    " e com prazo de " +
-    model.formatted_delivery_time() +
-    "."
-  );
-});

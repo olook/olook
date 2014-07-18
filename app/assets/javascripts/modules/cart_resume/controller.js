@@ -15,7 +15,3 @@ var CartResumeController = (function(){
 
   return CartResumeController;
 })();
-
-olookApp.subscribe('app:init', function() {
-  new CartResumeController().config();
-});

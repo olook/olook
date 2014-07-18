@@ -6,12 +6,7 @@
 //= require underscore
 //= require backbone
 //= require_self
-//= require ./modules/address/controller
-//= require ./modules/freight/controller
-//= require ./modules/payment/controller
-//= require ./modules/cart_resume/controller
 //= require ./modules/checkout/controller
-//= require ./modules/credit/controller
 
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
@@ -46,36 +41,6 @@ var app = (function() {
       return "R$ " + intvalue + "," + centsvalue;
     },
   };
-
-  // /* definir o router aqui */
-  // var Router = Backbone.Router.extend({
-  //     api: api,
-  //     routes: {
-  //         "new": "newAddress",
-  //         "edit/:index": "editAddress",
-  //         "delete/:index": "deleteAddress",
-  //         "": "list"
-  //     },
-  //     list: function(archive) {
-  //       var view = api.views.list();
-  //       api.changeContent(view.$el);
-  //       view.render();
-  //       console.log("listing");
-  //     },
-  //     newAddress: function() {
-  //       console.log("new");
-  //     },
-  //     editAddress: function(index) {
-  //       console.log("editing");
-  //     },
-  //     deleteAddress: function(index) {
-  //       console.log("excluding");
-  //     }
-  // });
-
-  // api.router = new Router();
-
-  // Backbone.history.start();
 
   return api;
 })();

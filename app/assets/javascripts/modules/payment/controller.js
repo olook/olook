@@ -34,11 +34,6 @@ var PaymentController = (function(){
   };
   return PaymentController;
 })();
-
-olookApp.subscribe('app:init', function(){
-  new PaymentController().config();
-});
-
 olookApp.subscribe('payment:selected', function(model) {
   olookApp.publish('payment:creditcard:hide');
   olookApp.publish('payment:debit:hide');
