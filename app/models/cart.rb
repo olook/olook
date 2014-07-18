@@ -36,6 +36,7 @@ class Cart < ActiveRecord::Base
       facebook_share_discount: facebook_share_discount,
       coupon_code: coupon.try(:code),
       items_count: items.count,
+      subtotal: subtotal,
       items: items.map { |item| item.api_hash },
       address: address.try(:api_hash),
       shipping_service_id: shipping_service_id,

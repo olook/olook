@@ -6,6 +6,7 @@ app.views.CartItem = Backbone.View.extend({
   toTemplate: function() {
     return $.extend({}, this.model.attributes, {
       price_declaration: this.priceDeclaration(),
+      color: this.model.colorClass(),
     });
   },
 

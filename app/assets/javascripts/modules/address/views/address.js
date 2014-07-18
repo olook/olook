@@ -36,6 +36,6 @@ app.views.Address = Backbone.View.extend({
 
   selectAddress: function() {
     this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
-    olookApp.publish('address:selected', this.model.attributes);
+    olookApp.publish('address:selected', this.model);
   }
 });

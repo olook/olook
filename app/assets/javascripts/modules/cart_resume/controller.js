@@ -3,8 +3,8 @@
 //= require modules/cart_resume/views/cart_resume
 //= require modules/cart_resume/views/cart_item
 var CartResumeController = (function(){
-  function CartResumeController() {
-    this.current_cart = new app.models.CurrentCart();
+  function CartResumeController(attr) {
+    this.current_cart = attr['cart'];
     this.cart_resume = new app.views.CartResume({model: this.current_cart});
   };
 
@@ -15,7 +15,3 @@ var CartResumeController = (function(){
 
   return CartResumeController;
 })();
-
-olookApp.subscribe('app:init', function() {
-  new CartResumeController().config();
-});
