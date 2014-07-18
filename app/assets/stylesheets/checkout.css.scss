@@ -127,7 +127,7 @@ body {
 						background: image-url('common/sprite_checkout.png') no-repeat -28px -226px;
 					}
 				}
-				li:nth-child(2), 
+				 
 				li.selected {
 					background-color:#f03844;
 					color:#FFF;
@@ -231,10 +231,10 @@ body {
 
 /* TEMPORARY */
 
-/*.payments,
+.payments,
 #submit {
 	display: none;
-}*/
+}
 
 .flags{
 	span {

@@ -13,15 +13,34 @@
  	float:left;
  	#address-list {
  		li {
+ 			display: block;
  			input {
  				float:left;
+ 				position:relative;
+ 				top:-3px;
  			}
  			ul {
  				margin-left:20px;
+ 				margin-bottom:20px;
+ 				br {
+ 					clear:both;
+ 				}
  				li {
- 					color:#888;
+ 					color:#444;
  					font-size: 11px;
  					margin-bottom:2px;
+ 					a {
+ 						float: left;
+						font-size: 11px;
+						padding: 2px;
+						padding: 0px;
+						color: #555;
+						text-transform: lowercase;
+						font-size: 10px;
+						font-family: tahoma;
+						padding-right: 5px;
+					}
+
  				}
  				li:first-child { 
  					font-weight: bold;
@@ -37,6 +56,20 @@
  		float:left;
  		font-size: 11px;
  		padding:2px;
+ 	}
+ 	.js-addAddress {
+ 		@include bt_color($primary_bt_color, $primary_bt_color_hover);
+ 		width:100%;
+ 		display: block;
+ 		text-align: center;
+ 		padding: 8px 0;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-weight: bold;
+		padding: 8px 0;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-weight: bold;
  	}
 }
 
