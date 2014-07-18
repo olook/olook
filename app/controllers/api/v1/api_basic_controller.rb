@@ -4,7 +4,7 @@ module Api
     class ApiBasicController < ActionController::Base
       protect_from_forgery
 
-      before_filter :restrict_access
+      before_filter :restrict_access, if: -> {Rails.env.production?}
       respond_to :json
 
       protected
