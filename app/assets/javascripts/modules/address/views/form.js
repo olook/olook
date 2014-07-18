@@ -36,8 +36,6 @@ app.views.Form = Backbone.View.extend({
   },
 
   updateModel: function() {
-
-
     var formValues = $('.js-addressForm form').serializeArray();
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
@@ -81,12 +79,16 @@ app.views.Form = Backbone.View.extend({
   },
 
   fetchAddress: function() {
-    $.get("/api/v1/zip_code/"+this.$('#zip_code').val()+".json", {} , function(data) {
+    $.ajax({
+      url: "/api/v1/zip_code/"+this.$('#zip_code').val()+".json",
+      dataType: "json",
+      headers: { "Authorization": window.token }
+    }).success(function(data) {
       $('#city').val(data.city);
       $('#state').val(data.state);
       $('#street').val(data.street);
       $('#neighborhood').val(data.neighborhood);
-    },"json");
+    });
   },
 
   initMask: function() {
@@ -101,7 +103,6 @@ app.views.Form = Backbone.View.extend({
       // $(tel).inputmask({mask:"(99)99999-9999"});
     } else {
       // $(tel).inputmask({mask:"(99)9999-9999"});
-    }    
-    // console.log(this.model.attributes.mobile);
+    }
   }
 });
