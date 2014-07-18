@@ -15,6 +15,13 @@
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
+
+var originalSync = Backbone.sync;
+Backbone.sync = function(method, model, options) {
+    options.headers = options.headers || {};
+    _.extend(options.headers, { 'Authorization': "Token token=f1eafc9f32b55abfba38cc8f487ba489" });
+    originalSync.call(model, method, model, options);
+}
 var app = (function() {
   var api = {
     server_api_prefix: '/api/v1',
