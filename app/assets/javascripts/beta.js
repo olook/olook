@@ -23,6 +23,7 @@ var app = (function() {
   var api = {
     server_api_prefix: '/api/v1',
     views: {},
+    routers: {},
     models: {},
     collections: {},
     content: null,
