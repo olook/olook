@@ -5,14 +5,7 @@ module Api
 
     	include Devise::Controllers::Rememberable
 
-      def create    
-binding.pry
-        name = params[:user].delete(:name)
-        values = name.split(" ")
-
-        params[:user][:first_name] = values.shift
-        params[:user][:last_name] = values.join(" ")
-
+      def create
         user = User.create(params[:user])
         sign_in user
         respond_with user

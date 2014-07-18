@@ -5,11 +5,7 @@ app.views.loginForm = Backbone.View.extend({
   model: app.models.User,
 
   initialize: function() {
-
-    this.on('invalid', function(model, error){
-      debugger;
-    });
-
+    this.model = new app.models.User();
   },
 
   events: {
@@ -23,19 +19,21 @@ app.views.loginForm = Backbone.View.extend({
       return [item.name, item.value]
     }));
 
-    this.model = new app.models.User(values);
-    if (this.model.isValid()) {
-      this.model.save();
-    } else {
-      console.log('show errors');
-    }
+    this.model.set(values);
+    this.model.save({}, {
+      error: function(model, response) {
 
+        JSON.parse(response.responseText).errors
+        // TODO: Exibir feedback de erros
 
-    // $.post('/api/v1/users', values).done(function(data) {
-    //     window.location = '/beta/index';
-    // }).fail(function(data){
-    //   alert('TODO: exibir os erros');
-    // });    
+      },
+      success: function(model, response) {
+        window.location = '/beta/index'
+      },
+      
+      wait: true // Add this
+    });
+  
   },
 
   render: function(obj) {
