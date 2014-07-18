@@ -2,7 +2,7 @@
 module Api
   module V1
     class ApiBasicController < ActionController::Base
-      before_filter :restrict_access
+      before_filter :restrict_access, if: lambda { Rails.env.production? }
       respond_to :json
 
       protected
