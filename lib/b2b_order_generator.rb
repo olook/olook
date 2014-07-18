@@ -80,6 +80,9 @@ class B2bOrderGenerator
 
     variant_number = values[0]
     amount = values[1].to_i
+
+    return if amount == 0
+
     price = values[2].to_d
 
     v = Variant.find_by_number(variant_number.to_i)
@@ -91,7 +94,6 @@ class B2bOrderGenerator
       amount = item.nil? ? amount : item.quantity + amount
 
       Cart.skip_callback(:validation, :after, :update_coupon)
-      Cart.skip_callback(:find, :after, :update_coupon_code)
       CartItem.skip_callback(:create, :after, :notify)
       CartItem.skip_callback(:update, :after, :notify)
       CartItem.skip_callback(:destroy, :after, :notify)
@@ -110,7 +112,6 @@ class B2bOrderGenerator
       CartItem.set_callback(:destroy, :after, :notify)    
       CartItem.set_callback(:create, :after, :notify)
       Cart.set_callback(:validation, :after, :update_coupon)
-      Cart.set_callback(:find, :after, :update_coupon_code)
     end
 
     Cart.skip_callback(:update, :after, :notify_listener)
