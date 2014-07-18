@@ -83,9 +83,9 @@ class B2bOrderGenerator
 
     return if amount == 0
 
-    price = values[2].to_d
+    price = values[2].gsub(",",".").to_d
 
-    v = Variant.find_by_number(variant_number.to_i)
+    v = Variant.find_by_number(variant_number)
 
     if v.nil?
       not_found << variant_number
