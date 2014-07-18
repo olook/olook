@@ -1,7 +1,6 @@
 module Api
   module V1
     class CurrentCartsController < ApiBasicController
-      skip_before_filter  :verify_authenticity_token
       def show
         @cart = current_cart
         render json: (@cart ? @cart.api_hash : {})
