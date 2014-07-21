@@ -35,6 +35,15 @@ class Variant < ActiveRecord::Base
   delegate :gift_price, :to => :product
 
 
+  def copy_from_master_variant!     
+    self.width      = master_variant.width
+    self.height     = master_variant.height
+    self.length     = master_variant.length
+    self.weight     = master_variant.weight
+    self.price      = master_variant.price
+    self.inventory  = 0 if self.inventory.nil?
+  end
+
   def update_initial_inventory_if_needed
     if (initial_inventory == 0 || inventory > initial_inventory)
       self.initial_inventory = inventory

@@ -67,6 +67,9 @@ aside{
     }
     li.limparFiltro {
       width:160px;
+      height:auto !important;
+      height:2px;
+      min-height:2px;
       a {width:160px;padding-left:11px !important;}
     }
 

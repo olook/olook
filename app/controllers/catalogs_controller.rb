@@ -36,13 +36,10 @@ class CatalogsController < ApplicationController
     default_params = {
       category: params[:category],
     }
-    
+
     # Se nao houver ordenacao, roda o teste A/B
     if params[:por].blank? || params[:por] == "0"
-      variation = ab_test("catalog_sorting_test", "default", "by_discount")
-      if variation == 'by_discount'
-        default_params[:sort] = "-desconto" 
-      end
+      default_params[:sort] = "-desconto"
     end
 
 

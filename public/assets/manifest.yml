@@ -289,6 +289,8 @@ cart/banner_check_out_inverno_off.gif: cart/banner_check_out_inverno_off-71d1881
 cart/banner_check_out_inverno_off/index.gif: cart/banner_check_out_inverno_off-71d1881c0a494664925e27e923ac4480.gif
 cart/banner_dia_das_maes.jpg: cart/banner_dia_das_maes-6231a06cbe4596dd23e73bafe485a04f.jpg
 cart/banner_dia_das_maes/index.jpg: cart/banner_dia_das_maes-6231a06cbe4596dd23e73bafe485a04f.jpg
+cart/banner_sacola_3x2.jpg: cart/banner_sacola_3x2-b1b050a8470215191b8515faaee89532.jpg
+cart/banner_sacola_3x2/index.jpg: cart/banner_sacola_3x2-b1b050a8470215191b8515faaee89532.jpg
 cart/banner_sacola_80.jpg: cart/banner_sacola_80-781df49af1d53cc5d0e8276e4a79400d.jpg
 cart/banner_sacola_80/index.jpg: cart/banner_sacola_80-781df49af1d53cc5d0e8276e4a79400d.jpg
 cart/banner_sacola_990_120.jpg: cart/banner_sacola_990_120-025052be1705ddd64e0fed2dc07734df.jpg
@@ -2585,8 +2587,8 @@ desktop.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 desktop/index.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-a2740cabf666ab01152af7e97981fc75.css
-new_structure/lite_application/index.css: new_structure/lite_application-a2740cabf666ab01152af7e97981fc75.css
+new_structure/lite_application.css: new_structure/lite_application-007fa823e7f0141f62e7d391c350c629.css
+new_structure/lite_application/index.css: new_structure/lite_application-007fa823e7f0141f62e7d391c350c629.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-158f50e75b73503aef22e86e0704b15b.css
@@ -2627,10 +2629,10 @@ new_structure/section/custom_url.css: new_structure/section/custom_url-417121585
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-4171215852b36dc411b894b9db16f5b4.css
 new_structure/section/join.css: new_structure/section/join-db1f830440e91eb007727517c7db3df7.css
 new_structure/section/join/index.css: new_structure/section/join-db1f830440e91eb007727517c7db3df7.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-eab72b69b87d68ca9317df9802a54760.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-eab72b69b87d68ca9317df9802a54760.css
-new_structure/section/lite_product.css: new_structure/section/lite_product-f4de3735b12e1718b10016182e2f53ea.css
-new_structure/section/lite_product/index.css: new_structure/section/lite_product-f4de3735b12e1718b10016182e2f53ea.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-9583238052d2e4755ccb349d2225fd4f.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-9583238052d2e4755ccb349d2225fd4f.css
+new_structure/section/lite_product.css: new_structure/section/lite_product-85b6d7719d09cfb69827056f9b518d26.css
+new_structure/section/lite_product/index.css: new_structure/section/lite_product-85b6d7719d09cfb69827056f9b518d26.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-dba72dd0a62b483c99590678fd050390.css
@@ -2655,8 +2657,8 @@ section/avc-campaign.css: section/avc-campaign-2d9df46b5022ada9f0a4eea324e531ac.
 section/avc-campaign/index.css: section/avc-campaign-2d9df46b5022ada9f0a4eea324e531ac.css
 section/box_invite.css: section/box_invite-17557b9e5ef813ec887e059be9c54a45.css
 section/box_invite/index.css: section/box_invite-17557b9e5ef813ec887e059be9c54a45.css
-section/cart.css: section/cart-a1c37ed64cdbe3ef84f73586561c26b1.css
-section/cart/index.css: section/cart-a1c37ed64cdbe3ef84f73586561c26b1.css
+section/cart.css: section/cart-d3b9eb0c2ee8db28676e6d6a514f1dd4.css
+section/cart/index.css: section/cart-d3b9eb0c2ee8db28676e6d6a514f1dd4.css
 section/checkout.css: section/checkout-d102ffa08a395642d80ffdb895169faf.css
 section/checkout/index.css: section/checkout-d102ffa08a395642d80ffdb895169faf.css
 section/collections.css: section/collections-537751c48f8c741174560fbfd1064327.css
