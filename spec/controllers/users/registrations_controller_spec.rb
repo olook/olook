@@ -229,7 +229,7 @@ describe Users::RegistrationsController do
 
         it "should redirect to address page" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(new_checkout_url(protocol: 'https'))
+          response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
         end
       end
 
@@ -252,7 +252,7 @@ describe Users::RegistrationsController do
 
         it "should redirect to address page" do
           post :create_half, :user => half_user_attributes
-          response.should redirect_to(new_checkout_url(protocol: 'https'))
+          response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
         end
       end
     end

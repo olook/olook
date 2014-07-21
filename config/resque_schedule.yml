@@ -35,7 +35,7 @@ index_suggested_terms:
   description: "Indexa os termos sugeridos para buscas"
 
 index_products_for_searching:
-  cron: "0 */3 * * *"
+  cron: "0 */1 * * *"
   class: IndexProductsWorker
   queue: low
   description: "Gera a base (arquivo .sdf) para a busca e faz o upload para amazon CloudSearch"

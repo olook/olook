@@ -56,7 +56,7 @@ _gaq.push(['_addTrans',
                   <p class="credits"></p>
                 <% end %>
                 <% if current_user %>
-                  <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: 'https'), :class => "continue"  %>
+                  <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )), :class => "continue"  %>
                 <% else %>
                   <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
                 <% end %>
@@ -79,8 +79,6 @@ _gaq.push(['_addTrans',
       </tbody>
     </table>
     <%= render 'freebie/item', freebie: @freebie if @freebie && @freebie.available? %>
-
-    <!-- <%= render "checkout_banner" %> -->
 
   <div class="chaordic shoppingcart"></div>
 
@@ -218,7 +216,7 @@ _gaq.push(['_addTrans',
               <p class="credits"></p>
             <% end %>
             <% if current_user %>
-              <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: 'https'), :class => "continue"  %>
+              <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )), :class => "continue"  %>
             <% else %>
               <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
             <% end %>
@@ -226,6 +224,11 @@ _gaq.push(['_addTrans',
         </tr>
       </tbody>
     </table>
+
+    <% if Setting.show_checkout_banner %>
+      <%= render "checkout_banner" %>
+    <% end %>
+
     <p class="buying-continue"><%= link_to "<< Continuar comprando", @return_url %></p>
   <% else %>
     <%= render 'empty_cart' %>
