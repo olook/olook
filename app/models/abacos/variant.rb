@@ -27,6 +27,7 @@ module Abacos
       raise RuntimeError.new "O produto pai [#{self.model_number}] não foi encontrado, e com isso a variante #{self.number} nao pode ser integrada" if product.nil?
 
       variant = product.variants.find_by_number(self.number) || product.variants.build
+      variant.copy_from_master_variant! if variant.new_record?
       variant.update_attributes(self.attributes)
 
       variant.save!

@@ -49,6 +49,21 @@ class KanuiIntegration
     @redis.get(ACTIVE_KEY) == "true"
   end
 
+  def images_csv
+    product_ids = @redis.lrange(LIST_KEY, 0, -1)
+    products = Product.where(id: product_ids).includes(:variants)
+
+    CSV.generate(col_sep: ';') do |csv|
+      csv << ['id produto', 'imagem_1', 'imagem_2', 'imagem_3', 'imagem_4']
+      products.each do |product|
+        values = [product.id]
+        values << product.pictures.first(4).map{|pic| "http:#{pic.image_url(:catalog)}"}
+        csv << values
+      end
+    end
+
+  end
+
   private
 
   def generate_csv(line_generator=:product_line_generator)

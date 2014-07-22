@@ -67,12 +67,12 @@ describe Users::SessionsController do
       it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_url(protocol: 'https'))
+        response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
       end
 
       it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_url(protocol: 'https'))
+        response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
       end
     end
 
@@ -91,12 +91,12 @@ describe Users::SessionsController do
       it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_url(protocol: 'https'))
+        response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
       end
 
       it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_url(protocol: 'https'))
+        response.should redirect_to(new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )))
       end
     end
 

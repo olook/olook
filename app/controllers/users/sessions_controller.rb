@@ -55,7 +55,7 @@ class Users::SessionsController < Devise::SessionsController
     @cart.update_attributes(:user_id => resource.id) if @cart
 
     if @cart && @cart.items_total > 0
-      new_checkout_url(protocol: 'https')
+      new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' ))
     else
       path
     end
