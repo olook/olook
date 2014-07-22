@@ -180,16 +180,18 @@
 .login{
 	margin: 0 auto;
 	.login_fb{
-		width: 635px;
+		width: 100%;
 		height: 37px;
-		background: #e1e1e1;
+		background: #f1f1f1;
 		margin: 0 auto;
 		margin-top: 20px;
-		margin-bottom: 45px;
+		margin-bottom: 25px;
+		text-align: center;
 		p{
 			font-family: $bt_font;
 			color: #777;
-			text-align: left;
+			width:100%;
+			text-align: center;
 			text-transform: uppercase;
 			font-size: 12px;
 			padding-top: 12px;
@@ -228,11 +230,12 @@
 			}
 			input[type="text"],input[type="email"],input[type="password"]{
 				width: 185px;
-				height: 30px;
-				background: #e1e1e1;
+				height: 27px;
+				background: #f1f1f1;
 				border: none;
 				padding-left: 5px;
 				float: left;
+				border:1px solid #d1d1d1;
 			}
 		}
 	}
@@ -241,6 +244,7 @@
 		float: left;
 		margin-left: 185px;
 		margin-right: 20px;
+		border-right:1px solid #d1d1d1;
 		fieldset{
 			label{
 				width: 39px;
@@ -281,9 +285,6 @@
 					@include bt_color($primary_bt_color, $primary_bt_color_hover)
 				}
 			}
-		}
-		form{
-			border-right: 1px solid #e1e1e1;
 		}
 	}
 	.register{
