@@ -8,11 +8,8 @@ var LoginController = (function() {
 
   LoginController.prototype.config = function () {
     this.loginForm.render();
+    this.loginForm.$el.appendTo("#main");
   };
 
   return LoginController;
 })();
-
-olookApp.subscribe('app:init', function() {
-  new LoginController().config();
-});

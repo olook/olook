@@ -1,6 +1,5 @@
 app.views.loginForm = Backbone.View.extend({
-
-  el: $(".login"),
+  className: 'login',
   template: _.template($("#tpl-login").html() || ""),
   model: app.models.User,
 

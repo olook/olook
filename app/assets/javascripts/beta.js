@@ -7,8 +7,6 @@
 //= require backbone
 //= require_self
 //= require ./modules/checkout/controller
-//= require ./modules/login/controller
-//= require ./modules/credit/controller
 
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
