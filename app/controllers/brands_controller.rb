@@ -20,6 +20,7 @@ class BrandsController < ApplicationController
 
     @color = @search_params["color"]
     @size = @search_params["size"]
+    expire_fragment(@search.cache_key) if params[:force_cache].to_i == 1
   end
 
   def not_found

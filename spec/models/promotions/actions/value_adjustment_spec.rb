@@ -24,6 +24,11 @@ describe ValueAdjustment do
         subject.calculate([ ci ], {'param' => "200"}).should eq([{id: ci.id, product_id: ci.product.id, adjustment: 100}])
       end
 
+      it "fix on item retail price" do
+        ci = cart_item(price: 100, retail_price: 50)
+        subject.calculate([ ci ], {'param' => "90", 'full_price' => '2'}).should eq([{id: ci.id, product_id: ci.product.id, adjustment: 40}])
+      end
+
       it "three items fix on price" do
         ci = cart_item(price: 90)
         ci2 = cart_item(price: 70)
@@ -63,8 +68,8 @@ describe ValueAdjustment do
         expect(subject.calculate([ ci, ci2, ci3 ], {'param' => '38', 'full_price' => '2'})).
           to eq([
             {id: ci.id, product_id: ci.product.id, adjustment: 0},
-            {id: ci2.id, product_id: ci2.product.id, adjustment: 8},
-            {id: ci3.id, product_id: ci3.product.id, adjustment: 20}
+            {id: ci2.id, product_id: ci2.product.id, adjustment: 9},
+            {id: ci3.id, product_id: ci3.product.id, adjustment: 19}
         ])
       end
 
