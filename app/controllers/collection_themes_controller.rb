@@ -20,7 +20,7 @@ class CollectionThemesController < SearchController
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     @cache_key = "collections#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     redirect_to collection_theme_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
-
+    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
   def not_found
