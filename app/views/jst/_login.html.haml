@@ -7,9 +7,18 @@
       JÁ POSSUI CADASTRO?
       %span
         É SÓ LOGAR!
-    = render partial: "shared/errors", locals: { object: @user }
-    = render partial: "users/sessions/form_user", locals: { checkout_login: true}
-
+    = form_tag("#", class: 'js-LogInForm') do
+      %fieldset
+        = label_tag 'email', "E-mail"
+        = email_field_tag 'email', "", class: "fields"
+      %fieldset
+        = label_tag 'password', "Senha"
+        = password_field_tag 'password', "", class: "fields"
+      %fieldset.buttons
+        = check_box_tag 'remember_me', 'yes', true
+        = label_tag "Lembrar de mim"
+        = link_to "Esqueceu sua senha?", new_password_path(:user)
+        = button_tag "Entrar", class: 'js-submit', id: "login"
   .register
     %p
       AINDA NÃO TEM CONTA NA OLOOK?
