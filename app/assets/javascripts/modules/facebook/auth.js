@@ -13,6 +13,8 @@ var FacebookAuth = (function(){
 
   FacebookAuth.prototype.config = function(){
     olookApp.subscribe('fb:auth:login', this.facade, {}, this);
+    olookApp.subscribe('fb:auth:before', displayBeforeChangeMessage);
+    olookApp.subscribe('fb:auth:complete', displayLoginCompletedMessage);
     new FacebookAuthSuccess().config();
   };
 
@@ -22,7 +24,7 @@ var FacebookAuth = (function(){
     if(this.status !== 'connected') {
       return false;
     }
-    displayBeforeChangeMessage();
+    olookApp.publish("fb:auth:before");
     $.ajax({
       url: '/facebook_connect',
       type: 'POST',
@@ -30,7 +32,7 @@ var FacebookAuth = (function(){
       dataType: 'json',
       data: JSON.stringify({ authResponse: this.authResponse })
     }).complete(function(){
-      displayLoginCompletedMessage();
+      olookApp.publish('fb:auth:complete');
     }).success(function(result){
       olookApp.publish('fb:auth:success', result);
     });

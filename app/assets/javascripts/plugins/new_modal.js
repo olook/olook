@@ -85,7 +85,7 @@ olook.addToCartModal = function(content, a, l, background_color){
     $("button.js-go_to_cart").click(function(){
       olookApp.publish('product:redirect_to_cart');
     });
-  })
+  });
 };
 
 olook.showLoadingScreen = function(){
