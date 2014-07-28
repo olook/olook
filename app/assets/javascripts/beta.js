@@ -7,6 +7,10 @@
 //= require backbone
 //= require_self
 //= require ./modules/checkout/controller
+//= require modules/facebook/events
+//= require_tree ./modules/facebook/auth
+//= require modules/facebook/auth
+//= require modules/stats/facebook_stats_logger
 
 _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g

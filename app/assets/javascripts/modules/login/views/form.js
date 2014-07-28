@@ -38,6 +38,7 @@ app.views.loginForm = Backbone.View.extend({
   render: function(obj) {
     var html = this.template();
     this.$el.html(html);
+    FB.XFBML.parse(this.el);
   }  
 
 

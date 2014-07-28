@@ -2,11 +2,13 @@ var FacebookAuth = (function(){
   function FacebookAuth() { };
 
   var displayBeforeChangeMessage = function(){
-    olook.showLoadingScreen();
+    if(typeof olook == 'object' && olook.showLoadingScreen)
+      olook.showLoadingScreen();
   };
 
   var displayLoginCompletedMessage = function(){
-    olook.hideLoadingScreen();
+    if(typeof olook == 'object' && olook.hideLoadingScreen)
+      olook.hideLoadingScreen();
   };
 
   FacebookAuth.prototype.config = function(){
