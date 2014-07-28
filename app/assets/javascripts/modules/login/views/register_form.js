@@ -1,6 +1,6 @@
-app.views.loginForm = Backbone.View.extend({
-  className: 'login',
-  template: _.template($("#tpl-login").html() || ""),
+app.views.RegisterForm = Backbone.View.extend({
+  className: 'register',
+  template: _.template($("#tpl-register").html() || ""),
   model: app.models.User,
 
   initialize: function() {

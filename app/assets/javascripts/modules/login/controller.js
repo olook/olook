@@ -1,14 +1,14 @@
-//= require modules/login/views/form
+//= require modules/login/views/identify
 //= require modules/login/models/user
 
 var LoginController = (function() {
   function LoginController() {
-    this.loginForm = new app.views.loginForm();
+    this.identify = new app.views.Identify();
   };
 
   LoginController.prototype.config = function () {
-    this.loginForm.render();
-    this.loginForm.$el.appendTo("#main");
+    this.identify.render();
+    this.identify.$el.appendTo("#main");
   };
 
   return LoginController;

@@ -1,39 +1,38 @@
-%script{type: "text/template", id: "tpl-login"}
+%script{type: "text/template", id: "tpl-loginfb"}
   .login_fb
     %p
       FAÇA SEU LOGIN NA OLOOK USANDO SUA CONTA DO FACEBOOK
       %span.fb-login-button{"data-auto-logout-link" => "false", "data-max-rows" => "1", "data-onlogin" => "loginFacebook", "data-scope" => FACEBOOK_CONFIG['login_scope'], "data-show-faces" => "false", "data-size" => "large", :login_text => "Entrar com Facebook"}
-  .login_user
-    %p
-      JÁ POSSUI CADASTRO?
-      %span
-        É SÓ LOGAR!
-    = form_tag("#", class: 'js-LogInForm') do
-      %fieldset
-        = label_tag 'email', "E-mail"
-        = email_field_tag 'email', "", class: "fields"
-      %fieldset
-        = label_tag 'password', "Senha"
-        = password_field_tag 'password', "", class: "fields"
-      %fieldset.buttons
-        = check_box_tag 'remember_me', 'yes', true
-        = label_tag "Lembrar de mim"
-        = link_to "Esqueceu sua senha?", new_password_path(:user)
-        = button_tag "ENTRAR", class: 'js-submit', id: "login"
-  .register
-    %p
-      AINDA NÃO TEM CONTA NA OLOOK?
-      %span
-        CADASTRE-SE AQUI!
+%script{type: "text/template", id: "tpl-login"}
+  %p
+    JÁ POSSUI CADASTRO?
+    %span
+      É SÓ LOGAR!
+  = form_tag("#", class: 'js-LogInForm') do
+    %fieldset
+      = label_tag 'email', "E-mail"
+      = email_field_tag 'email', "", class: "fields"
+    %fieldset
+      = label_tag 'password', "Senha"
+      = password_field_tag 'password', "", class: "fields"
+    %fieldset.buttons
+      = check_box_tag 'remember_me', 'yes', true
+      = label_tag "Lembrar de mim"
+      = link_to "Esqueceu sua senha?", new_password_path(:user)
+      = button_tag "ENTRAR", class: 'js-submit', id: "login"
+%script{type: "text/template", id: "tpl-register"}
+  %p
+    AINDA NÃO TEM CONTA NA OLOOK?
+    %span CADASTRE-SE AQUI!
 
-    = form_tag("#", class: 'js-registrationForm') do
-      %fieldset
-        = label_tag 'name', "Nome completo"
-        = text_field_tag 'name', "", class: "fields"
-      %fieldset
-        = label_tag 'email', "E-mail"
-        = email_field_tag 'email', "", class: "fields"
-      %fieldset
-        = label_tag 'password', "Senha"
-        = password_field_tag 'password', "", class: "fields"
-      = button_tag "Cadastrar", class: 'js-submit'
+  = form_tag("#", class: 'js-registrationForm') do
+    %fieldset
+      = label_tag 'name', "Nome completo"
+      = text_field_tag 'name', "", class: "fields"
+    %fieldset
+      = label_tag 'email', "E-mail"
+      = email_field_tag 'email', "", class: "fields"
+    %fieldset
+      = label_tag 'password', "Senha"
+      = password_field_tag 'password', "", class: "fields"
+    = button_tag "Cadastrar", class: 'js-submit'
