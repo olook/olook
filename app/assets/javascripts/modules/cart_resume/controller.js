@@ -10,6 +10,7 @@ var CartResumeController = (function(){
 
   CartResumeController.prototype.config = function() {
     this.cart_resume.$el.appendTo(app.content);
+    this.cart_resume.render();
     this.current_cart.fetch();
   };
 

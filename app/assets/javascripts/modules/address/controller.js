@@ -20,6 +20,7 @@ var AddressController = (function(){
     this.fetchAddress();
     this.freight.config()
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
+    olookApp.subscribe("address:handle_views", this.handleViews, {}, this);
   };
 
   AddressController.prototype.setAddress = function(model){
@@ -27,7 +28,16 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.fetchAddress = function(){
-    this.addresses.fetch();
+    this.addresses.fetch({ // call fetch() with the following options
+      success: this.handleViews
+    });
+  };
+
+  AddressController.prototype.handleViews = function(collection){
+    if(collection.size() == 0){
+      olookApp.publish('address:add');
+    } else {
+    }
   };
 
   return AddressController;

@@ -1,6 +1,6 @@
 %script{type: "text/template", id: "tpl-address-list"}
   %ul#address-list
-  %p= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
+  %p.js-add_address= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
 
 %script{type: "text/template", id: "tpl-address"}
   = radio_button_tag 'address', value: '{{ id }}'
