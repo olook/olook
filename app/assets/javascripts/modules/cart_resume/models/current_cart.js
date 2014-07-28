@@ -1,5 +1,5 @@
 app.models.CurrentCart = Backbone.Model.extend({
-  urlRoot: app.server_api_prefix + '/current_cart',
+  url: app.server_api_prefix + '/current_cart',
   attributesToServer: ['address_id', 'use_credits', 'facebook_share_discount',
     'shipping_service_id', 'payment_method', 'payment_data'],
   fullAddress: function() {

@@ -13,9 +13,11 @@ Olook::Application.routes.draw do
       resources :freights, only: [:index]
       resources :payment_types, only: [:index]
       resources :addresses
-      resources :users, only: [:create]
-      resource :current_cart, only: [:show]
-      put '/current_cart/:id', to: "current_carts#update"
+      devise_scope :user do
+        resources :users, only: [:create]
+        resource :sessions, only: [:create, :destroy]
+      end
+      resource :current_cart, only: [:show, :update]
       resources :zip_code,only: [:show]
     end 
   end

@@ -1,5 +1,6 @@
 //= require modules/login/views/identify
 //= require modules/login/models/user
+//= require modules/login/models/session
 
 var LoginController = (function() {
   function LoginController() {
