@@ -33,6 +33,7 @@
     :javascript
       var _sf_startpt=(new Date()).getTime()
   %body
+    = render "shared/facebook_js", member: current_user, facebook_app_id: @facebook_app_id
     = render :partial => "shared/tag/google_tag_manager"
     %header
       %h1 Olook

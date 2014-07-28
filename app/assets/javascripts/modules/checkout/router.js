@@ -32,6 +32,8 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   loginStep: function() {
     this.cart.set("step", "login");
     if(!this.loginController){
+      this.facebookAuth = new FacebookAuth();
+      this.facebookAuth.config();
       this.loginController = new LoginController({cart: this.cart});
       this.loginController.config();
     }

@@ -249,6 +249,17 @@
 			label{
 				width: 39px;
 			}
+      #login{
+        					width: 235px;
+					height: 30px;
+					border: none;
+					margin-top: 15px;
+					font-family: $bt_font;
+					font-size: 12px;
+					letter-spacing: 2px;
+					margin-right: 10px;
+					@include bt_color($primary_bt_color, $primary_bt_color_hover)
+      }
 			&.buttons{
 				margin-top: 5px !important;
 				label{
@@ -272,17 +283,6 @@
 					&:hover{
 						color: $base_color;
 					}
-				}
-				input[type="submit"]{
-					width: 235px;
-					height: 30px;
-					border: none;
-					margin-top: 15px;
-					font-family: $bt_font;
-					font-size: 12px;
-					letter-spacing: 2px;
-					margin-right: 10px;
-					@include bt_color($primary_bt_color, $primary_bt_color_hover)
 				}
 			}
 		}

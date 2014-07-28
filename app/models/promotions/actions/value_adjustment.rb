@@ -28,11 +28,14 @@ class ValueAdjustment < PromotionAction
     eligible_items.each do |item|
       adjustment = calculate_adjustment_value_for(value, cart_total, item.variant.retail_price * item.quantity)
       if _filters['full_price'] == '2'
+        cart_total -= item.variant.retail_price * item.quantity
+        cart_total += item.variant.price * item.quantity
+        adjustment = calculate_adjustment_value_for(value, cart_total, item.variant.price * item.quantity)
         subtotal = (item.variant.retail_price * item.quantity)
         markdown_discount = ( item.variant.price - item.variant.retail_price ) * item.quantity
         if adjustment < markdown_discount
           adjustment = 0
-          cart_total -= subtotal
+          cart_total -= item.variant.price * item.quantity
         else
           adjustment = subtotal - (item.variant.price * item.quantity - adjustment)
         end
