@@ -12,5 +12,9 @@ var LoginController = (function() {
     this.identify.$el.appendTo("#main");
   };
 
+  LoginController.prototype.remove = function () {
+    this.identify.remove();
+  };
+
   return LoginController;
 })();

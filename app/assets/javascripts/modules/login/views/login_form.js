@@ -10,11 +10,11 @@ app.views.LoginForm = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
 
-    var values = _.object(_.map(this.$el('.js-loginForm').serializeArray(), function(item) {
+    var values = _.object(_.map(this.$el.find('.js-loginForm').serializeArray(), function(item) {
       return [item.name, item.value]
     }));
 
-    new app.models.Session().create(values, {
+    new app.models.Session().save(values, {
       error: function(model, response) {
         var errors = JSON.parse(response.responseText).errors;
         // TODO: Exibir feedback de erros

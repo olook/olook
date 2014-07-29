@@ -9,7 +9,8 @@
 var CheckoutController = (function() {
   function CheckoutController() {
     this.cart = new app.models.CurrentCart();
-    this.router = new app.routers.CheckoutRouter({cart: this.cart});
+    this.session = new app.models.Session();
+    this.router = new app.routers.CheckoutRouter({session: this.session, cart: this.cart});
     this.steps = new app.views.Steps({model: this.cart});
   };
 

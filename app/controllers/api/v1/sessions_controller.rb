@@ -2,13 +2,23 @@
 module Api
   module V1
     class SessionsController < ApiBasicController
+      prepend_before_filter :require_no_authentication, :only => [ :new, :create ]
+      prepend_before_filter :allow_params_authentication!, :only => :create
       include Devise::Controllers::InternalHelpers
       respond_to :json
 
       def create
-        resource = warden.authenticate!(:scope => "user")
-        sign_in('user', resource)
-        respond_with resource
+        user = User.find_by_email(params[:email])
+        if user && user.valid_password?(params[:password])
+          sign_in('user', user)
+          render json: user.api_json
+        else
+          render json: { error: I18n.t('activerecord.errors.user.authentication')}, status: :unprocessable_entity
+        end
+      end
+
+      def show
+        render json: current_user.try( :api_json )
       end
 
       def destroy

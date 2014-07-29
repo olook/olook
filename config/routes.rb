@@ -15,7 +15,7 @@ Olook::Application.routes.draw do
       resources :addresses
       devise_scope :user do
         resources :users, only: [:create]
-        resource :sessions, only: [:create, :destroy]
+        resource :sessions, only: [:show, :create, :destroy]
       end
       resource :current_cart, only: [:show, :update]
       resources :zip_code,only: [:show]
