@@ -3,4 +3,8 @@ class BetaController < ApplicationController
     render layout: 'lite_checkout'
   end
 
+  def confirmation
+    render layout: 'lite_checkout'
+  end
+
 end

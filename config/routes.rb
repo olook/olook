@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "beta/index"
-  get "beta/login"
+  get "beta/confirmation"
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
