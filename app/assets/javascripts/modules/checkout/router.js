@@ -65,7 +65,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   },
   hideSteps: function() {
     if(this.cartResume) {
-      this.cartResumer.remove();
+      this.cartResume.remove();
       delete this.cartResume;
     }
     if(this.loginController) {

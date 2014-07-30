@@ -14,5 +14,9 @@ var CartResumeController = (function(){
     this.current_cart.fetch();
   };
 
+  CartResumeController.prototype.remove = function() {
+    this.cart_resume.remove();
+  };
+
   return CartResumeController;
 })();
