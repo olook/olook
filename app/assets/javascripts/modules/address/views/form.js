@@ -71,7 +71,7 @@ app.views.Form = Backbone.View.extend({
     this.model = model;
     this.render();
     this.showForm();
-    this.hideAddButton();    
+    this.showAddButton();
   },
 
   addAddress: function() {

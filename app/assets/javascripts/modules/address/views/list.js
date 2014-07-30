@@ -35,6 +35,7 @@ app.views.List = Backbone.View.extend({
   },
   addAddress: function() {
     olookApp.publish('address:add');
+    $("#save-btn").val("Cadastrar Endereço");    
   },
   updateList: function() {
     if(this.collection.size() >= 1){
