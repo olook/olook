@@ -2603,8 +2603,8 @@ admin/themes/default/style.css: admin/themes/default/style-6717ea4a85c2a58f89286
 admin/themes/default/style/index.css: admin/themes/default/style-6717ea4a85c2a58f89286d7530c7709f.css
 application.css: application-a02610b4251b20ac456fed8e1a9189db.css
 application/index.css: application-a02610b4251b20ac456fed8e1a9189db.css
-beta.css: beta-8859aa3c5061bef69b9b550b0c62be4a.css
-beta/index.css: beta-8859aa3c5061bef69b9b550b0c62be4a.css
+beta.css: beta-5613c63286514a41bdb267850cb7cc9e.css
+beta/index.css: beta-5613c63286514a41bdb267850cb7cc9e.css
 campaign_emails.css: campaign_emails-d358ad03752e9ce342f4be955a3c06dc.css
 campaign_emails/index.css: campaign_emails-d358ad03752e9ce342f4be955a3c06dc.css
 common/_border-radius.css: common/_border-radius-37ef150c142a979883d04c9b7bc8f406.css
