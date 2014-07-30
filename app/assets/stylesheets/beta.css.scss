@@ -322,6 +322,20 @@
 			margin-left: 105px;
 			@include bt_color($primary_bt_color, $primary_bt_color_hover)
 		}
+		.error{
+			font-family: $bt_font;
+			color: $base_color;
+			text-align: center;
+			font-size: 9px;
+			display: block;
+			margin-top: 37px;
+			text-transform: uppercase;
+			width: 86%;
+			background: #fcf5eb;
+			padding: 5px 0;
+			font-weight: 600;
+			margin-bottom: 0 !important;
+		}
 	}
 }
 
