@@ -35,8 +35,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     }
   },
   loginStep: function() {
-    $(".cart_resume").remove();
-    $("#address").remove();
+    this.hideSteps();
     this.cart.set("step", "login");
     if(!this.loginController){
       this.facebookAuth = new FacebookAuth();
@@ -46,7 +45,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     }
   },
   addressStep: function() {
-    $(".login").remove();
+    this.hideSteps();
     this.cart.set("step", "address");
     this.initializeCartResume();
     if(!this.addressController){
@@ -55,14 +54,20 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     }
   },
   paymentStep: function() {
+    this.hideSteps();
     this.cart.set("step", "payment");
     this.initializeCartResume();
   },
   confirmationStep: function() {
+    this.hideSteps();
     this.cart.set("step", "confirmation");
     this.initializeCartResume();
   },
   hideSteps: function() {
+    if(this.cartResume) {
+      this.cartResumer.remove();
+      delete this.cartResume;
+    }
     if(this.loginController) {
       this.loginController.remove();
       delete this.loginController;

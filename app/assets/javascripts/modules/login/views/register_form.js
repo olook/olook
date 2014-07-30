@@ -23,7 +23,7 @@ app.views.RegisterForm = Backbone.View.extend({
           it.renderError(JSON.parse(response.responseText));
         },
         success: function(model, response) {
-          window.location = '/beta/index'
+          olookApp.publish('app:next_step');
         },
 
         wait: true // Add this
