@@ -18,15 +18,18 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   },
   start: function() {
     this.session.fetch();
+    Backbone.history.start();
   },
   translateStep: function(step) {
     return this.stepsTranslation[step] || "";
   },
   checkStep: function() {
-    Backbone.history.start();
     var userId = this.session.id;
     if (userId) {
-      this.navigate("endereco", {trigger: true});
+      var currentRoute = this.routes[Backbone.history.fragment];
+      if(!currentRoute) {
+        this.navigate("endereco", {trigger: true});
+      }
     } else {
       this.navigate("login", {trigger: true});
     }
@@ -63,6 +66,10 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     if(this.loginController) {
       this.loginController.remove();
       delete this.loginController;
+    }
+    if(this.addressController) {
+      this.addressController.remove();
+      delete this.addressController;
     }
   },
   initializeCartResume: function() {

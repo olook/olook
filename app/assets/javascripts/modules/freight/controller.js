@@ -14,6 +14,10 @@ var FreightController = (function(){
     this.freightsView.$el.appendTo(app.content);
   };
 
+  FreightController.prototype.hide = function(){
+    this.freightsView.hide();
+  };
+
   FreightController.prototype.selectAddress = function(model) {
     this.freights.fetch({reset: true, data: {zip_code: model.get('zip_code'), amount_value: this.cart.get('subtotal')}});
   };
