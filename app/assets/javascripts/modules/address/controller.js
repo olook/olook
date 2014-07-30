@@ -30,7 +30,7 @@ var AddressController = (function(){
   AddressController.prototype.remove = function(model){
     this.listView.remove();
     this.formView.remove();
-    this.freight.hide();
+    this.freight.remove();
   };
 
   AddressController.prototype.fetchAddress = function(){

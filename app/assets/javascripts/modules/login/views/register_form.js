@@ -1,14 +1,10 @@
 app.views.RegisterForm = Backbone.View.extend({
   className: 'register',
   template: _.template($("#tpl-register").html() || ""),
-  model: app.models.User,
-
-  initialize: function() {
-    this.model = new app.models.User();
-  },
 
   events: {
-    "click .js-submit": "submit"
+    "click .js-submit": "submit",
+    submit: "submit"
   },
 
   submit: function(e) {
@@ -18,8 +14,7 @@ app.views.RegisterForm = Backbone.View.extend({
       return [item.name, item.value]
     }));
 
-    this.model.set(values);
-    this.model.save({}, {
+    new app.models.User().save(values, {
       error: function(model, response) {
 
         JSON.parse(response.responseText).errors

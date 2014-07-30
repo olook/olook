@@ -19,7 +19,7 @@ app.views.LoginForm = Backbone.View.extend({
     new app.models.Session().save(values, {
       error: function(model, response) {
         var error = JSON.parse(response.responseText).error;
-        $('.login_user p').append("<span>"+error+"</span>")
+        _this.$el.find('p').append('<span class="error">'+error+'</span>');
       },
 
       success: function(model, response) {
