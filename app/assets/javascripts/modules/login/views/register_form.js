@@ -14,27 +14,46 @@ app.views.RegisterForm = Backbone.View.extend({
       return [item.name, item.value]
     }));
 
-    new app.models.User().save(values, {
-      error: function(model, response) {
+    this.model = new app.models.User(values);
 
-        JSON.parse(response.responseText).errors
-        // TODO: Exibir feedback de erros
+    var it = this;
+    if(this.model.isValid()){
+      this.model.save(values, {
+        error: function(model, response) {
+          it.renderError(JSON.parse(response.responseText));
+        },
+        success: function(model, response) {
+          olookApp.publish('app:next_step');
+        },
 
-      },
-      success: function(model, response) {
-        window.location = '/beta/index'
-      },
-      
-      wait: true // Add this
+        wait: true // Add this
+      });
+    } else {
+      this.renderError(this.model.errors);
+    }
+
+  },
+
+  renderError: function(errors) {
+    var it = this;
+    _.each(errors, function(error, name) {
+      var msg = error[0];
+      var input = it.$el.find('[name=' + name + ']');
+      if(input.length > 0) {
+        var errorEl = input.next('.error');
+        if(errorEl.length == 0){
+          errorEl = $('<p class="error"></p>').insertAfter(input);
+        }
+        errorEl.html(msg);
+      }
     });
-  
   },
 
   render: function(obj) {
     var html = this.template();
     this.$el.html(html);
     FB.XFBML.parse(this.el);
-  }  
+  }
 
 
 });

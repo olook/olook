@@ -10,31 +10,42 @@ app.models.User = Backbone.Model.extend({
   },
 
   validate: function(attr) {
-    errors = [];
+    this.errors = {};
 
     if (StringUtils.isEmpty(attr.name)) {
-      errors.push({name: 'name', message: 'Precisamos saber o seu nome completo'});
-    }
-    
-    if (StringUtils.isEmpty(attr.email)) {
-      errors.push({name: 'email', message: 'Qual é o seu email, mesmo?'});
-    }
-    
-    if (StringUtils.isEmpty(attr.password)) {
-      errors.push({name: 'password', message: 'Por favor, digite uma senha com 6 dígitos'});
+      this.errors.name = ['Precisamos saber o seu nome completo'];
     }
 
-    return errors.length > 0 ? errors : false;
+    var names = attr.name.split(' ');
+    if(names.length < 2) {
+      this.errors.name = ['Precisamos saber o seu nome completo'];
+    }
+
+    if (StringUtils.isEmpty(attr.email)) {
+      this.errors.email = ['Qual é o seu email, mesmo?'];
+    }
+
+    if (StringUtils.isEmpty(attr.password)) {
+      this.errors.password = ['Por favor, digite uma senha com 6 dígitos'];
+    }
+
+    for (var key in this.errors) {
+      if (hasOwnProperty.call(this.errors, key)) return this.errors;
+    }
+
+    return false;
   },
 
   initialize: function(values) {
     this.on('change:name', this.setFirstAndLastNames);
   },
 
-  setFirstAndLastNames: function(a) {
-    var names = this.get('name').split(" ");
-    this.set('first_name', names.shift());
-    this.set('last_name', names.join(" "));
-  }
+  toJSON: function() {
+    var names = this.get('name').split(' ');
+    return { user: _.extend(_.pick(this.attributes, ['email', 'password']), {
+      first_name: names.shift(),
+      last_name: names.join(' '),
+    }) };
+  },
 
 });
