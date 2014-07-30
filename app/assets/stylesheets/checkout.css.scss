@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 ul, ul li {
 	margin:0px;
 	padding:0px;
@@ -93,7 +94,7 @@ body {
 	#content {
 		width:990px;
 		margin: 0 auto;
-		font-family: 'Trebuchet Ms';
+		font-family: $bt_font;
 		font-size: 12px;
 		nav#steps {
 			width:100%;
@@ -107,13 +108,12 @@ body {
 					display: block;
 					width:25%;
 					float:left;
-					font-size: 12px;
+					font-size: 11px;
 					text-transform: uppercase;
-					font-weight: bold;
 					text-align: center;
-					background: #3d3938;
-					padding:1% 0;
-					color:#a39f9e;
+					background: #000;
+					padding:8px 0;
+					color:#e1e1e1;
 					letter-spacing: 1px;
 					position: relative;
 					span.ico {
