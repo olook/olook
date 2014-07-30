@@ -5,6 +5,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     this.cart = opts['cart'];
   },
   stepsTranslation: {
+    login: "login",
     address: "endereco",
     payment: "pagamento",
     confirmation: "confirmacao",
@@ -22,14 +23,17 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     return this.stepsTranslation[step] || "";
   },
   checkStep: function() {
+    Backbone.history.start();
     var userId = this.session.id;
     if (userId) {
-      Backbone.history.start();
+      this.navigate("endereco", {trigger: true});
     } else {
       this.navigate("login", {trigger: true});
     }
   },
   loginStep: function() {
+    $(".cart_resume").remove();
+    $("#address").remove();
     this.cart.set("step", "login");
     if(!this.loginController){
       this.facebookAuth = new FacebookAuth();
@@ -39,6 +43,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     }
   },
   addressStep: function() {
+    $(".login").remove();
     this.cart.set("step", "address");
     this.initializeCartResume();
     if(!this.addressController){
