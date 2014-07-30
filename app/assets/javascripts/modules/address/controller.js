@@ -14,11 +14,11 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.config = function() {
+    this.fetchAddress();
     this.listView.render();
     this.listView.$el.appendTo(app.content);
     this.formView.$el.appendTo(app.content);
-    this.fetchAddress();
-    this.freight.config()
+    this.freight.config();
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
     olookApp.subscribe("address:handle_views", this.handleViews, {}, this);
   };
@@ -28,7 +28,7 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.fetchAddress = function(){
-    this.addresses.fetch({ // call fetch() with the following options
+    this.addresses.fetch({
       success: this.handleViews
     });
   };

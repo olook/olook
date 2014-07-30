@@ -64,19 +64,30 @@ app.views.Form = Backbone.View.extend({
 
   hideForm: function(e) {
     this.$el.find('.js-addressForm').hide();
+    this.showAddButton();
   },
 
   changeAddress: function(model) {
     this.model = model;
     this.render();
     this.showForm();
+    this.hideAddButton();    
   },
 
   addAddress: function() {
     this.model = new app.models.Address();
     this.render();
     this.showForm();
+    this.hideAddButton();
   },
+
+  hideAddButton: function() {
+    $('.js-add_address').hide();
+  },
+
+  showAddButton: function() {
+    $('.js-add_address').show();
+  },  
 
   fetchAddress: function() {
     $.ajax({
