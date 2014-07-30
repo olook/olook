@@ -16,7 +16,7 @@ app.views.Freights = Backbone.View.extend({
     this.empty();
     this.collection.forEach(this.addOne, this);
   },
-  empty: function() {
+  empty: function(){
     this.$el.find('p').remove();
   },
   render: function(){

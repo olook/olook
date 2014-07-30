@@ -13,7 +13,7 @@ module Api
           sign_in('user', user)
           render json: user.api_json
         else
-          render json: { error: I18n.t('activerecord.errors.user.authentication')}, status: :unprocessable_entity
+          render json: { error: I18n.t("api.session_controller.create.fail")}, status: :unprocessable_entity
         end
       end
 

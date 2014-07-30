@@ -27,6 +27,12 @@ var AddressController = (function(){
     this.cart.save("address_id", model.get('id'));
   };
 
+  AddressController.prototype.remove = function(model){
+    this.listView.remove();
+    this.formView.remove();
+    this.freight.remove();
+  };
+
   AddressController.prototype.fetchAddress = function(){
     this.addresses.fetch({
       success: this.handleViews

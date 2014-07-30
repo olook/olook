@@ -4,13 +4,15 @@ module Api
     class UsersController < ApiBasicController
       respond_to :json
 
-    	include Devise::Controllers::Rememberable
+      include Devise::Controllers::Rememberable
 
       def create
         user = User.create(params[:user])
         sign_in user
         response_for user
       end
+
+      private
 
       def response_for user
         if user.save
