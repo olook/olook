@@ -18,6 +18,10 @@ var FreightController = (function(){
     this.freightsView.hide();
   };
 
+  FreightController.prototype.remove = function(){
+    this.freightsView.remove();
+  };
+
   FreightController.prototype.selectAddress = function(model) {
     this.freights.fetch({reset: true, data: {zip_code: model.get('zip_code'), amount_value: this.cart.get('subtotal')}});
   };
