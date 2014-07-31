@@ -323,8 +323,12 @@ cart/ico-gift.jpg: cart/ico-gift-b6e09d70f62dc66aa7acb0a164237206.jpg
 cart/ico-gift/index.jpg: cart/ico-gift-b6e09d70f62dc66aa7acb0a164237206.jpg
 cart/ico-payments.png: cart/ico-payments-4316b64b4dae3c3c3b17bcbf9870be11.png
 cart/ico-payments/index.png: cart/ico-payments-4316b64b4dae3c3c3b17bcbf9870be11.png
+cart/ico_banner.jpg: cart/ico_banner-98fe64dffd0fca2df235bfb935557bd1.jpg
+cart/ico_banner/index.jpg: cart/ico_banner-98fe64dffd0fca2df235bfb935557bd1.jpg
 cart/ico_frete.jpg: cart/ico_frete-9730ddf4ac1ec519dec2616ab645d5fa.jpg
 cart/ico_frete/index.jpg: cart/ico_frete-9730ddf4ac1ec519dec2616ab645d5fa.jpg
+cart/img_ebit.jpg: cart/img_ebit-7f348b7343045528d18f74396d592f2d.jpg
+cart/img_ebit/index.jpg: cart/img_ebit-7f348b7343045528d18f74396d592f2d.jpg
 cart/img_gratis.jpg: cart/img_gratis-47c3fc0e8496d5850f70bfc53c9654ef.jpg
 cart/img_gratis/index.jpg: cart/img_gratis-47c3fc0e8496d5850f70bfc53c9654ef.jpg
 cart/label_discount2.jpg: cart/label_discount2-e9e5e3bba51b91a8231e2c02f2c5ee8b.jpg
@@ -727,8 +731,8 @@ common/sprite-social-media.png: common/sprite-social-media-51a93821f9388b1e58341
 common/sprite-social-media/index.png: common/sprite-social-media-51a93821f9388b1e583419ab6d92a6d3.png
 common/sprite_checkout.jpg: common/sprite_checkout-d5300f6d9df41bdd4d1951b327e6f628.jpg
 common/sprite_checkout/index.jpg: common/sprite_checkout-d5300f6d9df41bdd4d1951b327e6f628.jpg
-common/sprite_checkout.png: common/sprite_checkout-3cfe08eb5633d3aea89a87672fe3b7ef.png
-common/sprite_checkout/index.png: common/sprite_checkout-3cfe08eb5633d3aea89a87672fe3b7ef.png
+common/sprite_checkout.png: common/sprite_checkout-635482473c9afcba490791c684f6659c.png
+common/sprite_checkout/index.png: common/sprite_checkout-635482473c9afcba490791c684f6659c.png
 common/sprite_mobile.png: common/sprite_mobile-1314e9e4a4b1ed88fd7511a62593fc43.png
 common/sprite_mobile/index.png: common/sprite_mobile-1314e9e4a4b1ed88fd7511a62593fc43.png
 common/sprite_modal_footer.png: common/sprite_modal_footer-913046320568617346ed09121fa76825.png
@@ -2603,8 +2607,8 @@ admin/themes/default/style.css: admin/themes/default/style-6717ea4a85c2a58f89286
 admin/themes/default/style/index.css: admin/themes/default/style-6717ea4a85c2a58f89286d7530c7709f.css
 application.css: application-a02610b4251b20ac456fed8e1a9189db.css
 application/index.css: application-a02610b4251b20ac456fed8e1a9189db.css
-beta.css: beta-5613c63286514a41bdb267850cb7cc9e.css
-beta/index.css: beta-5613c63286514a41bdb267850cb7cc9e.css
+beta.css: beta-707be384c56712f7ec7fbaa5b6bcd43c.css
+beta/index.css: beta-707be384c56712f7ec7fbaa5b6bcd43c.css
 campaign_emails.css: campaign_emails-d358ad03752e9ce342f4be955a3c06dc.css
 campaign_emails/index.css: campaign_emails-d358ad03752e9ce342f4be955a3c06dc.css
 common/_border-radius.css: common/_border-radius-37ef150c142a979883d04c9b7bc8f406.css
