@@ -228,6 +228,99 @@ body {
 			height: 90px;
 		}
 	}
+
+	.confirmation {
+		br {clear:both;}
+		h3 {
+			text-transform: uppercase;
+			font-size: 18px;
+			font-family: verdana;
+		}
+		p {
+			span {
+				font-weight: bold;
+			}
+		}
+		.action {
+			width:100%;
+			border-bottom:1px solid #f1f1f1;
+			padding-top:30px;
+			height:60px;
+			text-align: center;
+			a {
+				@include bt_color($primary_bt_color, $primary_bt_color_hover);
+				padding:15px 40px;
+				text-transform: uppercase;
+				letter-spacing: 2px;
+				font-size: 13px;
+
+			}
+			a:first-child {
+				margin-right:100px;
+			}
+		}
+		.addressDelivery {
+			margin-top:40px;
+			clear: both;
+			p {
+				width:40%;
+			}
+			span {
+				display: block;
+				font-size: 12px;
+				text-transform: uppercase;
+				margin-bottom:5px;
+			}
+		}
+		.cart_products {
+			float:right;
+			max-width: 50%;
+			min-width: 20%;
+			border:1px solid #d1d1d1;
+			text-align: center;
+			span:first-child {
+				background:#FFF;
+				position:relative;
+				top:-7px;
+				width:100px;
+				display: inline;
+				padding:0 6px;
+				font-family: verdana;
+				font-weight: bold;
+				font-size: 12px;
+			}
+		}
+		.banner {
+			border-top:1px solid #f1f1f1;
+			padding-top:30px;
+			.olookGift {
+				background:#edebeb;
+				width:325px;
+				float:left;
+				padding:15px;
+				text-align: center;
+				margin-left:80px;
+				span:first-child {
+					color:#ef3842;
+					font-size: 15px;
+					font-family: 'Trebuchet Ms';
+					text-transform: uppercase;
+					font-weight: bold;
+					letter-spacing: 1px;
+				}
+			}
+			p {
+				line-height: 18px;
+				background:image-url('cart/ico_banner.jpg') no-repeat top center;
+				padding-top:40px;
+			}
+			a {
+				position: relative;
+				left: 30px;
+				top: 41px;
+			}
+		}
+	}
 }
 
 /* TEMPORARY */

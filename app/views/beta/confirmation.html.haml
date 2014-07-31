@@ -4,3 +4,46 @@
   = javascript_include_tag "beta"
 
 .confirmation
+  %h3
+    REcebemos o seu pedido!
+  %p
+    Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
+
+  %p
+    Número do pedido: 
+    %span
+      4834399
+  .action
+    %a.print
+      Imprimir boleto
+    %a.email
+      Enviar Boleto
+  .addressDelivery
+    .cart_products
+      %span
+        Seus produtos
+    %p
+      %span
+        Endereço para entrega
+      Nhatumani, 476
+      Vila Ré - 03663-000
+      São Paulo, SP
+    %p
+      %span
+        Frete
+      Frete a Jato - Entrega em até 3 horas - R$15,00
+    %p
+      %span
+        Forma de Pagamento
+      Boleto bancário
+  %br
+  .banner
+    .olookGift
+      %span
+        Presente OLOOK para você
+      %p
+        Pague seu pedido e ganhe 
+        %span
+          R$14,99 GRÁTIS 
+        em créditos fidelidade para utilizar já em sua próxima compra. Aproveite!
+    =link_to(image_tag('cart/img_ebit.jpg'), 'www.google.com')
