@@ -18,7 +18,7 @@ app.views.RegisterForm = Backbone.View.extend({
 
     var it = this;
     
-    this.$el.find('p.error').remove()
+    this.$el.find('p.error').remove();
     if(this.model.isValid()){
       this.model.save(values, {
         error: function(model, response) {
