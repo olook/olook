@@ -4,10 +4,16 @@ app.views.Freight = Backbone.View.extend({
   events: {
     'click': 'selectFreight'
   },
+  initialize: function() {
+    this.model.on('change:selected', this.selectFreight, this);
+  },
   render: function() {
     this.$el.removeClass().addClass(this.classNameFromModel());
     var html = this.template(this.model.toTpl());
     this.$el.html(html);
+    if(this.model.get('selected')){
+      this.selectFreight();
+    }
     return this;
   },
 

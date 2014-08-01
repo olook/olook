@@ -38,6 +38,13 @@ class FreightService::TransportShippingManager
     [ default, fast ].compact
   end
 
+  def api_hash
+    [ default, fast ].compact.map do |ts|
+      ts.delete(:cost)
+      ts
+    end
+  end
+
   private
   def parse_info shipping
     {

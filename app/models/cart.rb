@@ -41,7 +41,7 @@ class Cart < ActiveRecord::Base
       subtotal: subtotal,
       items: items.map { |item| item.api_hash },
       address: address.try(:api_hash),
-      freights: freights.to_json,
+      freights: freights,
       shipping_service_id: shipping_service_id,
       payment_method: payment_method,
       payment_data: payment_data,
@@ -50,11 +50,13 @@ class Cart < ActiveRecord::Base
 
   def freights
     if address
+      zip_code = address.zip_code.gsub(/\D/, '').to_i
       transport_shippings = FreightService::TransportShippingManager.new(
-        address.zip_code,
-        subtotal,
-        Shipping.with_zip(address.zip_code)
-      )
+        zip_code, subtotal, Shipping.with_zip(zip_code)).api_hash
+      if(shipping_service_id)
+        transport_shippings.select! { |t| t[:shipping_service_id] == shipping_service_id }
+      end
+      transport_shippings
     else
       []
     end

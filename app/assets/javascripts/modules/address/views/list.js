@@ -17,7 +17,7 @@ app.views.List = Backbone.View.extend({
     var addressId = this.cart.get('address_id');
     this.collection.forEach(function(address){
       if(addressId == address.id) address.set('selected', true);
-    })
+    });
   },
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});
@@ -27,6 +27,7 @@ app.views.List = Backbone.View.extend({
   addAll: function() {
     this.$el.find('ul#address-list').empty();
     this.collection.forEach(this.addOne, this);
+    this.setSelected();
   },
   render: function(){
     this.$el.html(this.template({}));
@@ -35,7 +36,7 @@ app.views.List = Backbone.View.extend({
   },
   addAddress: function() {
     olookApp.publish('address:add');
-    $("#save-btn").val("Cadastrar Endereço");    
+    this.$el.find("#save-btn").val("Cadastrar Endereço");
   },
   updateList: function() {
     if(this.collection.size() >= 1){
@@ -44,7 +45,7 @@ app.views.List = Backbone.View.extend({
     } else {
       this.$el.find(".js-no_addresses").show()
       this.$el.find('.js-add_address').hide();
-    }    
+    }
     olookApp.publish("address:handle_views", this.collection);
   }
 });

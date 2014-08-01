@@ -15,7 +15,7 @@ module Api
           params[:amount_value],
           Shipping.with_zip(zip_code)
         )
-        render json: transport_shippings.to_json, status: :ok
+        render json: transport_shippings.api_hash, status: :ok
       end
 
       private
