@@ -29,7 +29,7 @@ app.models.Address = Backbone.Model.extend({
       errors.push({name: 'city', message: 'Qual é o nome da cidade, mesmo?'});
     }
 
-    if (StringUtils.isEmpty(attr.zip_code)) {
+    if (StringUtils.isEmpty(attr.zip_code) || !attr.zip_code.match(/\d{5}-\d{3}/g)) {
       errors.push({name: 'zip_code', message: 'Precisamos do seu CEP'});
     }
 
@@ -49,7 +49,7 @@ app.models.Address = Backbone.Model.extend({
       errors.push({name: 'neighborhood', message: 'Qual é o seu bairro, mesmo?'});
     }
 
-    if (StringUtils.isEmpty(attr.telephone)) {
+    if (StringUtils.isEmpty(attr.telephone) || !attr.telephone.match(/\(\d{2}\)\d{4}-\d{4}/g)) {
       errors.push({name: 'telephone', message: 'É bom termos o seu telefone. Qualquer coisa, ligamos'});
     }
 
