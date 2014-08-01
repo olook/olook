@@ -58,7 +58,7 @@
   %span.iframe_mercadopago.deletar
   
   .addressDelivery
-    .cart_products
+    .cart_products{class: "long_cart" if @has_long_cart}
       %span
         Seus produtos
       %ul.products

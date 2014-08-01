@@ -4,6 +4,7 @@ class BetaController < ApplicationController
   end
 
   def confirmation
+    @has_long_cart = !!params[:lc]
     render layout: 'lite_checkout'
   end
 
