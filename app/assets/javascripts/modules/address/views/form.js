@@ -31,6 +31,8 @@ app.views.Form = Backbone.View.extend({
       this.trigger("saved");
       this.hideForm();
     } else {
+      this.$el.find('.help-inline').text('');
+      this.$el.find('.control-group').removeClass('error');
       this.showErrors();
     }
   },
