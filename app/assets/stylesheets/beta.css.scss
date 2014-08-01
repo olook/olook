@@ -1,5 +1,6 @@
 @import 'new_structure/common/global_stuffs';
 @import 'checkout';
+@import 'new_structure/common/catalog4you';
 
  #main {
  	font-family: $bt_font;
@@ -49,7 +50,6 @@
  					color:#000;
  					text-transform: uppercase;
  				}
-
  			}
  		}
  	}
@@ -84,7 +84,7 @@
 				width:100px;
 				text-align: right !important;
 				margin:0px;
-				color:#666;
+				color:#2e2e2e;
 				text-transform: uppercase;
 				font-size: 11px;
 				letter-spacing: 1px;
@@ -99,7 +99,7 @@
 				padding: 4px 2px;
 				font-family: $bt_font;
 				width:180px;
-				background:#f4f4f4;
+				background:#fff;
 			}
 			input#zip_code,
 			input#number,
@@ -112,7 +112,7 @@
 			}
 			input#save-btn {
 				width:100%;
-				background: #ef3742;
+				background: $base_color;
 				font-family: $bt_font;
 				font-size: 11px;
 				text-transform: uppercase;
@@ -121,6 +121,8 @@
 				@include bt_color($primary_bt_color, $primary_bt_color_hover);
 				padding:7px 0;
 				cursor: pointer;
+				border: none;
+
 			}
 			.help-inline {
 				color:#ef3742;
