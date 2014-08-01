@@ -16,8 +16,7 @@ app.views.Form = Backbone.View.extend({
   events: {
     'click #save-btn': 'addNew',
     'submit': 'addNew',
-    'blur #zip_code': 'fetchAddress',
-    'click .js-addAddress': 'displayCreateForm',
+    'blur #zip_code': 'fetchAddress'
   },
 
   addNew: function(e) {
