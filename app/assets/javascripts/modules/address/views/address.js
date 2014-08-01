@@ -4,6 +4,7 @@ app.views.Address = Backbone.View.extend({
   template: _.template($("#tpl-address").html() || ""),
   events: {
     'click input[type=radio]': 'selectAddress',
+    'click li:not(.links)': 'selectAddress',
     'click .js-changeAddress': 'changeAddress',
     'click .js-removeAddress': 'removeAddress',
   },
