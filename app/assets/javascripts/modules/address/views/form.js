@@ -1,3 +1,4 @@
+//= require state_cities
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
   template: _.template($("#tpl-address-form").html() || ""),
@@ -73,6 +74,7 @@ app.views.Form = Backbone.View.extend({
     this.model = model;
     this.render();
     this.showForm();
+    this.load_state_cities();
     this.showAddButton();
   },
 
@@ -80,6 +82,7 @@ app.views.Form = Backbone.View.extend({
     this.model = new app.models.Address();
     this.render();
     this.showForm();
+    this.load_state_cities();
     this.hideAddButton();
   },
 
@@ -117,5 +120,12 @@ app.views.Form = Backbone.View.extend({
     } else {
       // $(tel).inputmask({mask:"(99)9999-9999"});
     }
-  }
+  },
+
+  load_state_cities: function(){
+  new dgCidadesEstados({
+    cidade: document.getElementById('city'),
+    estado: document.getElementById('state')
+  });
+}
 });
