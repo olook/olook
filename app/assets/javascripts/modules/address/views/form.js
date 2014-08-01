@@ -99,8 +99,9 @@ app.views.Form = Backbone.View.extend({
       dataType: "json",
       headers: { "Authorization": window.token }
     }).success(function(data) {
+      debugger;
+      $('#state').val(data.state)[0].onchange();
       $('#city').val(data.city);
-      $('#state').val(data.state);
       $('#street').val(data.street);
       $('#neighborhood').val(data.neighborhood);
     });
