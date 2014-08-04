@@ -81,7 +81,9 @@
       .control-group.mobile
         %label
           Tel. Celular
-        %input{type:'text', id:'mobile', name:'mobile', value:'{{mobile}}', 'data-inputmask' => "'mask' : '(99)9999[9]-9999', 'greedy' : false"}
+        %input#mobile{type:'text', name:'mobile', value:'{{mobile}}'}
+        / %input#mobile{type:'text', name:'mobile', value:'{{mobile}}', 'data-inputmask' => "'mask' : '(99)9999[9]-9999', 'greedy' : false"}
+        %span.help-inline
 
       .control-group.add
         %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar endereço"}

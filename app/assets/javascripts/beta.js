@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 
 //= require application_core/olook_app
-//= require mask
+//= require jquery.inputmask.bundle
 //= require underscore
 //= require backbone
 //= require_self

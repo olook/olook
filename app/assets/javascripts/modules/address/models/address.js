@@ -53,7 +53,11 @@ app.models.Address = Backbone.Model.extend({
       errors.push({name: 'telephone', message: 'É bom termos o seu telefone. Qualquer coisa, ligamos'});
     }
 
+    if (!StringUtils.isEmpty(attr.mobile) && !attr.mobile.match(/\(\d{2}\)9{0,1}\d{4}-\d{4}/g)) {
+      errors.push({name: 'mobile', message: 'Preencha seu celular corretamente'});
+    }
 
     return errors.length > 0 ? errors : false;
   }
+  
 });

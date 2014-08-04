@@ -6,6 +6,7 @@ app.views.Form = Backbone.View.extend({
     olookApp.subscribe('address:change', this.changeAddress, {}, this);
     olookApp.subscribe('address:add', this.addAddress, {}, this);
     olookApp.subscribe('address:selected', this.hideForm, {}, this);
+    this.$el.find("#mobile").inputmask("Regex");
     if(!this.model) this.model = new app.models.Address();
     this.on("saved", function() {
       this.collection.fetch({reset: true});
