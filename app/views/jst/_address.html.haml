@@ -32,7 +32,7 @@
       .control-group.zip_code 
         %label
           CEP:
-        %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}', 'data-inputmask' => "'mask' : '99999-999'"}
+        %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
         %span.help-inline
 
       .control-group.state
@@ -73,14 +73,13 @@
       .control-group.telephone
         %label
           Tel. Fixo
-        %input#telephone{name: "telephone", type: "text", value: '{{telephone}}', 'data-inputmask' => "'mask' : '(99)9999-9999'"}
+        %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
         %span.help-inline
 
       .control-group.mobile
         %label
           Tel. Celular
         %input#mobile{type:'text', name:'mobile', value:'{{mobile}}'}
-        / %input#mobile{type:'text', name:'mobile', value:'{{mobile}}', 'data-inputmask' => "'mask' : '(99)9999[9]-9999', 'greedy' : false"}
         %span.help-inline
 
       .control-group.add

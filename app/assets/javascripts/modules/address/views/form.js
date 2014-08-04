@@ -1,4 +1,5 @@
 //= require state_cities
+//= require jquery.meio.mask.js
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
   template: _.template($("#tpl-address-form").html() || ""),
@@ -7,7 +8,6 @@ app.views.Form = Backbone.View.extend({
     olookApp.subscribe('address:change', this.changeAddress, {}, this);
     olookApp.subscribe('address:add', this.addAddress, {}, this);
     olookApp.subscribe('address:selected', this.hideForm, {}, this);
-    this.$el.find("#mobile").inputmask("Regex");
     if(!this.model) this.model = new app.models.Address();
     this.on("saved", function() {
       this.collection.fetch({reset: true});
@@ -17,7 +17,8 @@ app.views.Form = Backbone.View.extend({
   events: {
     'click #save-btn': 'addNew',
     'submit': 'addNew',
-    'blur #zip_code': 'fetchAddress'
+    'blur #zip_code': 'fetchAddress',
+    'keyup #mobile' : 'updateMobileMask'
   },
 
   addNew: function(e) {
@@ -58,7 +59,7 @@ app.views.Form = Backbone.View.extend({
   render: function(obj) {
     var html = this.template(this.model.attributes);
     this.$el.html(html);
-    this.initMask();
+    this.initMasks();
   },
 
   showForm: function(e) {
@@ -109,18 +110,20 @@ app.views.Form = Backbone.View.extend({
     });
   },
 
-  initMask: function() {
-    this.$el.find(":input").inputmask();
+  initMasks: function() {
+    this.$el.find("#zip_code").setMask("99999-999");
+    this.$el.find("#telephone").setMask("(99)9999-9999");
+    this.$el.find("#mobile").setMask("(99)9999-9999");
   },
 
-  updateMask: function() {
+  updateMobileMask: function() {
     var tel = "#mobile";
     dig9 = this.$el.find(tel).val().substring(4, 5);
     ddd  = this.$el.find(tel).val().substring(1, 3);
     if(dig9 == "9" && ddd.match(/11|12|13|14|15|16|17|18|19|21|22|24|27|28/)){
-      // $(tel).inputmask({mask:"(99)99999-9999"});
+      $(tel).setMask("(99)99999-9999");
     } else {
-      // $(tel).inputmask({mask:"(99)9999-9999"});
+      $(tel).setMask("(99)9999-9999");
     }
   },
 
