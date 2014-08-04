@@ -12,6 +12,13 @@ app.models.CurrentCart = Backbone.Model.extend({
     address['state'], "."];
     return fullAddress.join('');
   },
+  freightValue: function() {
+    var shipping_service_id = this.get('shipping_service_id');
+    var selectedFreight = _.find(this.get('freights'), function(item) {
+      return item.shipping_service_id == shipping_service_id;
+    });
+    if(selectedFreight) return selectedFreight.price;
+  },
   stepLabel: function() {
     var step = this.get('step');
     switch(step) {

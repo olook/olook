@@ -14,10 +14,14 @@ app.views.List = Backbone.View.extend({
     this.cart.on("change", this.setSelected, this);
   },
   setSelected: function() {
-    var addressId = this.cart.get('address_id');
-    this.collection.forEach(function(address){
-      if(addressId == address.id) address.set('selected', true);
-    });
+    if(this.collection.length == 1) {
+      this.collection.at(0).set('selected', true);
+    } else {
+      var addressId = this.cart.get('address_id');
+      this.collection.forEach(function(address){
+        if(addressId == address.id) address.set('selected', true);
+      });
+    }
   },
   addOne: function(address) {
     var addressView = new app.views.Address({model: address});

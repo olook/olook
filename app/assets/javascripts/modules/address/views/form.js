@@ -24,18 +24,26 @@ app.views.Form = Backbone.View.extend({
   addNew: function(e) {
     e.preventDefault();
     this.updateModel();
+    var it = this;
+    var translateServerErrors = function(model, response, options) {
+      var jerrors = JSON.parse(response.responseText);
+      var errors = _.map(jerrors, function(value, name) {
+        return { name: name, message: value[0] };
+      });
+      it.showErrors(errors);
+    };
     if (this.model.isValid()) {
-      if(this.model.id === undefined ){
-        this.collection.create(this.model.attributes, {wait: true});
-      } else {
-        this.model.save();
+      var finish = function() {
+        it.trigger("saved");
+        it.hideForm();
       }
-      this.trigger("saved");
-      this.hideForm();
+      if(this.model.id === undefined){
+        this.collection.create(this.model.attributes, {wait: true, success: finish, error: translateServerErrors});
+      } else {
+        this.model.save({}, {success: finish, error: translateServerErrors});
+      }
     } else {
-      this.$el.find('.help-inline').text('');
-      this.$el.find('.control-group').removeClass('error');
-      this.showErrors();
+      this.showErrors(this.model.validationError);
     }
   },
 
@@ -45,15 +53,19 @@ app.views.Form = Backbone.View.extend({
        return [item.name, item.value]
     }));
 
-    this.model.set(values);
+    this.model.set(values, {silent: true});
   },
 
-  showErrors: function() {
-    _.each(this.model.validationError, function (error) {
-      var controlGroup = this.$('.' + error.name);
-      controlGroup.addClass('error');
-      controlGroup.find('.help-inline').text(error.message);
-    }, this);
+  showErrors: function(errors) {
+    this.$el.find('.help-inline').text('');
+    this.$el.find('.control-group').removeClass('error');
+    _.each(errors, this.showError, this);
+  },
+
+  showError: function(error) {
+    var controlGroup = this.$el.find('.' + error.name);
+    controlGroup.addClass('error');
+    controlGroup.find('.help-inline').text(error.message);
   },
 
   render: function(obj) {
