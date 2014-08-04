@@ -78,19 +78,27 @@
 		.control-group {
 			position:relative;
 			height:35px;
-			label {
+			label, p {
 				display:block;
 				float:left;
 				width:100px;
-				text-align: right !important;
 				margin:0px;
 				color:#2e2e2e;
 				text-transform: uppercase;
-				font-size: 11px;
 				letter-spacing: 1px;
 				padding-top:6px;
 				margin-right:8px;
 			}
+      label {
+        text-align: right !important;
+        font-size: 11px;
+      }
+      p {
+        margin-left: 2px;
+        font-size: 8px;
+        text-align: left;
+        line-height: 8px;
+      }
 			input {
 				float:left;
 				padding:2px 0;
