@@ -183,6 +183,7 @@ Olook::Application.routes.draw do
   match "/ingriffe" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ingriffe_data.xml") 
   match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   match "/buscape" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/buscape_data.xml") 
+  match "/hao123" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/hao123_data.xml") 
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
