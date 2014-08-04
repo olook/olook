@@ -49,11 +49,11 @@ app.models.Address = Backbone.Model.extend({
       errors.push({name: 'neighborhood', message: 'Qual é o seu bairro, mesmo?'});
     }
 
-    if (StringUtils.isEmpty(attr.telephone) || !attr.telephone.match(/\(\d{2}\)\d{4}-\d{4}/g)) {
-      errors.push({name: 'telephone', message: 'É bom termos o seu telefone. Qualquer coisa, ligamos'});
+    if (StringUtils.isEmpty(attr.telephone) || !attr.telephone.match(/\((10)|([1-9][1-9])\)[2-9][0-9]{3}-[0-9]{4}/g)) {
+      errors.push({name: 'telephone', message: 'Preencha seu telefone corretamente'});
     }
 
-    if (!StringUtils.isEmpty(attr.mobile) && !attr.mobile.match(/\(\d{2}\)9{0,1}\d{4}-\d{4}/g)) {
+    if (!StringUtils.isEmpty(attr.mobile) && !attr.mobile.match(/\((10)|([1-9][1-9])\)9{0,1}[2-9][0-9]{3}-[0-9]{4}/g)) {
       errors.push({name: 'mobile', message: 'Preencha seu celular corretamente'});
     }
 
