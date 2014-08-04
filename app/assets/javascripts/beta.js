@@ -42,6 +42,10 @@ var app = (function() {
       if(centsvalue < 10) {
         centsvalue = "0" + centsvalue;
       }
+      var form = "R$ " + intvalue + "," + centsvalue;
+      if(/NaN/.test(form)) {
+        return "---";
+      }
       return "R$ " + intvalue + "," + centsvalue;
     },
   };
