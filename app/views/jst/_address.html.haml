@@ -1,6 +1,6 @@
 %script{type: "text/template", id: "tpl-address-list"}
   %ul#address-list
-  %p.js-no_addresses{style:'display:none;'}
+  %p.js-no_addresses.no-addresses{style:'display:none;'}
     Você não possui nenhum endereço salvo
   %p.js-add_address{style:'display:none;'}= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
 
@@ -32,7 +32,11 @@
       .control-group.zip_code 
         %label
           CEP:
-        %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
+        %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}', 'data-inputmask' => "'mask' : '99999-999'"}
+        %p
+          Não sabe o seu CEP?
+          %br
+          %a{href: "http://www.buscacep.correios.com.br/servicos/dnec/menuAction.do?Metodo=menuLogradouro", target: "_blank"} Clique aqui
         %span.help-inline
 
       .control-group.state
