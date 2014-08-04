@@ -4,6 +4,9 @@
   = javascript_include_tag "beta"
 
 .confirmation
+  
+  // BOLETO BANCÁRIO
+
   %h3
     REcebemos o seu pedido!
   %p
@@ -18,11 +21,51 @@
       Imprimir boleto
     %a.email
       Enviar Boleto
+
+  // CARTÃO DE CRÉDITO
+
+  %h3
+    REcebemos o seu pedido!
+  
+  %p
+    Número do pedido: 
+    %span
+      4834399
+  %p
+    Estamos aguardando a confirmação de pagamento da operadora do seu cartão para dar prosseguimento ao envio.
+
+  // PAGAMENTO DÉBITO ONLINE
+
+  %h3
+    REcebemos o seu pedido!
+  
+  %p
+    Número do pedido: 
+    %span
+      4834399
+  %p
+    Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco. Caso você não seja automaticamente direcionado 
+    =link_to 'clique aqui', ''
+
+  // PAGAMENTO MERCADOPAGO
+
+  %h3
+    REcebemos o seu pedido!
+  
+  %p
+    Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:
+
+  %span.iframe_mercadopago.deletar
+  
   .addressDelivery
-    .cart_products
+    .cart_products{class: ("long_cart" if @has_long_cart) }
       %span
         Seus produtos
       %ul.products
+        %li.product
+          =link_to image_tag("http://d1m0eb15reawkf.cloudfront.net/pictures/1702113083/1/catalog_image-c79f0fce295cb9fd300223c9982e161e72d432415312ac6e41106b996f237927..jpg", :border => 0)
+          %span
+            R$ 125,00
         %li.product
           =link_to image_tag("http://d1m0eb15reawkf.cloudfront.net/pictures/1702113083/1/catalog_image-c79f0fce295cb9fd300223c9982e161e72d432415312ac6e41106b996f237927..jpg", :border => 0)
           %span
@@ -60,3 +103,4 @@
           R$14,99 GRÁTIS 
         em créditos fidelidade para utilizar já em sua próxima compra. Aproveite!
     =link_to(image_tag('cart/img_ebit.jpg'), 'www.google.com')
+

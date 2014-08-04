@@ -59,7 +59,9 @@ app.views.CartResume = Backbone.View.extend({
   },
 
   goToNextStep: function() {
-    olookApp.publish("app:next_step");
+    if(this.model.stepValid()){
+      olookApp.publish("app:next_step");
+    }
   },
 
 });

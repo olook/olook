@@ -6,12 +6,11 @@ var FreightController = (function(){
   function FreightController(attr){
     this.cart = attr['cart'];
     this.freights = new app.collections.Freights();
-    this.freightsView = new app.views.Freights({collection: this.freights});
+    this.freightsView = new app.views.Freights({collection: this.freights, cart: this.cart });
   };
 
   FreightController.prototype.config = function(){
     olookApp.subscribe('address:selected', this.selectAddress, {}, this);
-    this.freightsView.$el.appendTo(app.content);
   };
 
   FreightController.prototype.hide = function(){
@@ -23,6 +22,7 @@ var FreightController = (function(){
   };
 
   FreightController.prototype.selectAddress = function(model) {
+    this.freightsView.$el.appendTo(app.content);
     this.freights.fetch({reset: true, data: {zip_code: model.get('zip_code'), amount_value: this.cart.get('subtotal')}});
   };
 

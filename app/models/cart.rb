@@ -41,10 +41,25 @@ class Cart < ActiveRecord::Base
       subtotal: subtotal,
       items: items.map { |item| item.api_hash },
       address: address.try(:api_hash),
+      freights: freights,
       shipping_service_id: shipping_service_id,
       payment_method: payment_method,
       payment_data: payment_data,
     }
+  end
+
+  def freights
+    if address
+      zip_code = address.zip_code.gsub(/\D/, '').to_i
+      transport_shippings = FreightService::TransportShippingManager.new(
+        zip_code, subtotal, Shipping.with_zip(zip_code)).api_hash
+      if(shipping_service_id)
+        transport_shippings.select! { |t| t[:shipping_service_id] == shipping_service_id }
+      end
+      transport_shippings
+    else
+      []
+    end
   end
 
   def subtotal
@@ -67,7 +82,7 @@ class Cart < ActiveRecord::Base
     return nil if self.has_gift_items? && !gift
 
     quantity = quantity.to_i == 0 ? Cart::DEFAULT_QUANTITY : quantity.to_i
-   
+
     return nil unless variant.available_for_quantity?(quantity)
 
     current_item = items.select { |item| item.variant == variant }.first
@@ -163,10 +178,10 @@ class Cart < ActiveRecord::Base
   end
 
   def as_json options
-    super(:include => 
+    super(:include =>
       {
-        :coupon => {:only => [:is_percentage, :value]}, 
-        :items => 
+        :coupon => {:only => [:is_percentage, :value]},
+        :items =>
         {
           :methods => [:formatted_product_name, :thumb_picture, :retail_price, :description, :name],
           :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description, :id, :name]
@@ -196,7 +211,7 @@ class Cart < ActiveRecord::Base
         _coupon = Coupon.find_by_code(self.coupon_code)
         _user_coupon = user.nil? ? nil : user.user_coupon
         if UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: _user_coupon)
-          self.coupon = _coupon 
+          self.coupon = _coupon
         end
       end
     end

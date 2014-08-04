@@ -19,6 +19,11 @@ var CheckoutController = (function() {
     this.steps.render();
     this.router.start();
     olookApp.subscribe("app:next_step", this.nextStep, {}, this);
+    olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
+  };
+
+  CheckoutController.prototype.freightSelected = function(model) {
+    this.cart.save({shipping_service_id: model.get('shipping_service_id')});
   };
 
   CheckoutController.prototype.nextStep = function() {

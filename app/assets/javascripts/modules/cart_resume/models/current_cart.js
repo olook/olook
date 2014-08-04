@@ -23,6 +23,23 @@ app.models.CurrentCart = Backbone.Model.extend({
         return "Ir para pagamento";
     }
   },
+  stepValid: function() {
+    var step = this.get('step');
+    switch(step) {
+      case "payment":
+        return this.paymentStepValid();
+      case "confirmation":
+        return true;
+      default:
+        return this.addressStepValid();
+    }
+  },
+  paymentStepValid: function() {
+  },
+  addressStepValid: function() {
+    var ssi = this.get('shipping_service_id'), ai = this.get('address_id');
+    return (parseInt(ssi) > 0 && parseInt(ai) > 0);
+  },
   itemsCount: function() {
     var dt = this.get('items_count');
     if(dt == 1) {

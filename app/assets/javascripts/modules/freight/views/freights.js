@@ -1,10 +1,12 @@
 app.views.Freights = Backbone.View.extend({
   template: _.template($('#tpl-freights').html() || ""),
   className: 'freights',
-  initialize: function() {
-    olookApp.subscribe('address:change', this.empty, {}, this);
-    olookApp.subscribe('address:remove', this.empty, {}, this);
-    olookApp.subscribe('address:add', this.empty, {}, this);
+  initialize: function(opts) {
+    olookApp.subscribe('address:change', this.remove, {}, this);
+    olookApp.subscribe('address:remove', this.remove, {}, this);
+    olookApp.subscribe('address:add', this.remove, {}, this);
+    this.cart = opts['cart'];
+    this.cart.on('change', this.setSelected, this);
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.render, this);
   },
@@ -16,11 +18,20 @@ app.views.Freights = Backbone.View.extend({
     this.empty();
     this.collection.forEach(this.addOne, this);
   },
+  setSelected: function() {
+    var shipping_service_id = this.cart.get('shipping_service_id');
+    this.collection.forEach(function(freight){
+      if(freight.get('shipping_service_id') == shipping_service_id){
+        freight.set('selected', true);
+      }
+    });
+  },
   empty: function(){
     this.$el.find('p').remove();
   },
   render: function(){
     this.$el.html(this.template({}));
     this.addAll();
+    this.setSelected();
   }
 });

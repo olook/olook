@@ -1,3 +1,4 @@
+//= require state_cities
 app.views.Form = Backbone.View.extend({
   className: 'addressForm',
   template: _.template($("#tpl-address-form").html() || ""),
@@ -16,8 +17,7 @@ app.views.Form = Backbone.View.extend({
   events: {
     'click #save-btn': 'addNew',
     'submit': 'addNew',
-    'blur #zip_code': 'fetchAddress',
-    'click .js-addAddress': 'displayCreateForm',
+    'blur #zip_code': 'fetchAddress'
   },
 
   addNew: function(e) {
@@ -39,11 +39,11 @@ app.views.Form = Backbone.View.extend({
   },
 
   updateModel: function() {
-    var formValues = $('.js-addressForm form').serializeArray();
+    var formValues = this.$el.find('.js-addressForm form').serializeArray();
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
     }));
-    
+
     this.model.set(values);
   },
 
@@ -74,6 +74,7 @@ app.views.Form = Backbone.View.extend({
     this.model = model;
     this.render();
     this.showForm();
+    this.load_state_cities();
     this.showAddButton();
   },
 
@@ -81,42 +82,52 @@ app.views.Form = Backbone.View.extend({
     this.model = new app.models.Address();
     this.render();
     this.showForm();
+    this.load_state_cities();
     this.hideAddButton();
   },
 
   hideAddButton: function() {
-    $('.js-add_address').hide();
+    this.$el.find('.js-add_address').hide();
   },
 
   showAddButton: function() {
-    $('.js-add_address').show();
-  },  
+    this.$el.find('.js-add_address').show();
+  },
 
   fetchAddress: function() {
+    var it = this;
     $.ajax({
       url: "/api/v1/zip_code/"+this.$('#zip_code').val()+".json",
       dataType: "json",
       headers: { "Authorization": window.token }
     }).success(function(data) {
-      $('#city').val(data.city);
-      $('#state').val(data.state);
-      $('#street').val(data.street);
-      $('#neighborhood').val(data.neighborhood);
+      it.$el.find('#state').val(data.state)[0].onchange();
+      it.$el.find('#city').val(data.city);
+      it.$el.find('#street').val(data.street);
+      it.$el.find('#neighborhood').val(data.neighborhood);
+      it.$el.find('#number').focus();
     });
   },
 
   initMask: function() {
-    $(":input").inputmask();
+    this.$el.find(":input").inputmask();
   },
 
   updateMask: function() {
     var tel = "#mobile";
-    dig9 = $(tel).val().substring(4, 5);
-    ddd  = $(tel).val().substring(1, 3);
+    dig9 = this.$el.find(tel).val().substring(4, 5);
+    ddd  = this.$el.find(tel).val().substring(1, 3);
     if(dig9 == "9" && ddd.match(/11|12|13|14|15|16|17|18|19|21|22|24|27|28/)){
       // $(tel).inputmask({mask:"(99)99999-9999"});
     } else {
       // $(tel).inputmask({mask:"(99)9999-9999"});
     }
-  }
+  },
+
+  load_state_cities: function(){
+  new dgCidadesEstados({
+    cidade: document.getElementById('city'),
+    estado: document.getElementById('state')
+  });
+}
 });
