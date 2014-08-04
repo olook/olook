@@ -34,7 +34,7 @@ app.models.Address = Backbone.Model.extend({
     }
 
     if (StringUtils.isEmpty(attr.city)) {
-      errors.push({name: 'city', message: 'Qual é o nome da cidade, mesmo?'});
+      errors.push({name: 'city', message: 'Qual a sua cidade, mesmo?'});
     }
 
     if (StringUtils.isEmpty(attr.street)) {
