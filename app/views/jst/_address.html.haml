@@ -42,42 +42,42 @@
       .control-group.state
         %label
           Estado:
-        %select#state{name: "state", type: "text", value:'{{state}}'}
+        %select#state{name: "state", type: "text", value:"{{state}}"}
         %span.help-inline
 
       .control-group.city
         %label
           Cidade
-        %select#city{name: "city", type: "text", value: '{{city}}'}
+        %select#city{name: "city", type: "text", value: "{{_.escape(city)}}"}
         %span.help-inline
 
       .control-group.neighborhood
         %label
           Bairro:
-        %input#neighborhood{name: "neighborhood", type: "text", value: '{{neighborhood}}'}
+        %input#neighborhood{name: "neighborhood", type: "text", value: "{{neighborhood}}"}
         %span.help-inline
 
       .control-group.street
         %label
           Rua:
-        %input{type:'text', id:'street', name:'street', value:'{{street}}'}
+        %input{type:'text', id:'street', name:'street', value:"{{street}}"}
         %span.help-inline
 
       .control-group.number
         %label
           Número:
-        %input#number{name: "number", type: "text", value: '{{number}}'}      
+        %input#number{name: "number", type: "text", value: "{{number}}"}      
         %span.help-inline
 
       .control-group.complement
         %label
           Complemento:
-        %input{type:'text', id:'complement', name:'complement', value:'{{complement}}'}
+        %input{type:'text', id:'complement', name:'complement', value:"{{complement}}"}
 
       .control-group.telephone
         %label
           Tel. Fixo
-        %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
+        %input#telephone{name: "telephone", type: "text", value: "{{telephone}}"}
         %span.help-inline
 
       .control-group.mobile
