@@ -52,7 +52,6 @@ module Api
       end
 
       def response_for address
-        binding.pry
         if address.save
           render json: address.to_json, status: :ok
         else
