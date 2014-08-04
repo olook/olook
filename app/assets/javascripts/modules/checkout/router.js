@@ -41,8 +41,8 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
       this.facebookAuth = new FacebookAuth();
       this.facebookAuth.config();
       this.loginController = new LoginController({cart: this.cart});
-      this.loginController.config();
     }
+    this.loginController.config();
   },
   addressStep: function() {
     this.hideSteps();
@@ -50,8 +50,8 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     this.initializeCartResume();
     if(!this.addressController){
       this.addressController = new AddressController({cart: this.cart});
-      this.addressController.config();
     }
+    this.addressController.config();
   },
   paymentStep: function() {
     this.hideSteps();

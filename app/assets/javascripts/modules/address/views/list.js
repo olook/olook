@@ -11,7 +11,6 @@ app.views.List = Backbone.View.extend({
     this.collection.on('reset', this.addAll, this);
     this.collection.on('change', this.update, this);
     this.collection.on("add remove", this.updateList, this);
-    this.cart.on("change", this.setSelected, this);
   },
   setSelected: function() {
     if(this.collection.length == 1) {
@@ -50,6 +49,5 @@ app.views.List = Backbone.View.extend({
       this.$el.find(".js-no_addresses").show()
       this.$el.find('.js-add_address').hide();
     }
-    olookApp.publish("address:handle_views", this.collection);
   }
 });

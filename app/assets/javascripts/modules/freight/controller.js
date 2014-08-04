@@ -19,6 +19,7 @@ var FreightController = (function(){
 
   FreightController.prototype.remove = function(){
     this.freightsView.remove();
+    olookApp.mediator.remove('address:selected', this.selectAddress);
   };
 
   FreightController.prototype.selectAddress = function(model) {
