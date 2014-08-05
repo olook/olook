@@ -2,7 +2,6 @@
 // All this logic will automatically be available in application.js.
 
 //= require application_core/olook_app
-//= require mask
 //= require underscore
 //= require backbone
 //= require_self
@@ -42,6 +41,10 @@ var app = (function() {
       var centsvalue = Math.round(( value - intvalue ) * 100);
       if(centsvalue < 10) {
         centsvalue = "0" + centsvalue;
+      }
+      var form = "R$ " + intvalue + "," + centsvalue;
+      if(/NaN/.test(form)) {
+        return "---";
       }
       return "R$ " + intvalue + "," + centsvalue;
     },

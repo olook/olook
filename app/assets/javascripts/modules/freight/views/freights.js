@@ -6,7 +6,6 @@ app.views.Freights = Backbone.View.extend({
     olookApp.subscribe('address:remove', this.remove, {}, this);
     olookApp.subscribe('address:add', this.remove, {}, this);
     this.cart = opts['cart'];
-    this.cart.on('change', this.setSelected, this);
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.render, this);
   },
