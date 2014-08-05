@@ -19,7 +19,7 @@ var AddressController = (function(){
     this.formView.$el.appendTo(app.content);
     this.freight.config();
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
-    this.addresses.fetch();
+    this.addresses.fetch({reset: true});
   };
 
   AddressController.prototype.setAddress = function(model){
