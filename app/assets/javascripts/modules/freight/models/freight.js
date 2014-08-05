@@ -2,7 +2,9 @@ app.models.Freight = Backbone.Model.extend({
   urlRoot: app.server_api_prefix + "/freights",
   formatted_delivery_time: function() {
     var dt = this.get('delivery_time');
-    if(dt == 1) {
+    if(dt < 1 && dt > 0) {
+      return Math.round(24 * dt) + " horas";
+    } if(dt == 1) {
       return dt + " dia";
     } else {
       return dt + " dias";

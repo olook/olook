@@ -23,7 +23,7 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.setAddress = function(model){
-    this.cart.save("address_id", model.get('id'));
+    this.cart.save({ address_id: model.get('id'), shipping_service_id: null });
   };
 
   AddressController.prototype.remove = function(model){

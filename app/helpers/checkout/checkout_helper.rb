@@ -70,8 +70,9 @@ module Checkout::CheckoutHelper
   end
 
   private
-    def work_time?
-      current_time = Time.zone.now
-      Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
-    end
+
+  def work_time?
+    current_time = Time.zone.now
+    Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
+  end
 end

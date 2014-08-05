@@ -34,8 +34,7 @@ app.models.CurrentCart = Backbone.Model.extend({
     var selectedFreight = _.find(this.get('freights'), function(item) {
       return item.shipping_service_id == shipping_service_id;
     });
-    if(selectedFreight) this._selectedFreight = new app.models.Freight(selectedFreight);
-    return this._selectedFreight;
+    return selectedFreight ? new app.models.Freight(selectedFreight) : null;
   },
   stepLabel: function() {
     var step = this.get('step');
