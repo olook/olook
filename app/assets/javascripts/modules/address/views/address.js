@@ -34,6 +34,7 @@ app.views.Address = Backbone.View.extend({
   },
 
   removeAddress: function() {
+    olookApp.publish('address:remove', this.model);
     this.model.destroy();
   },
 
