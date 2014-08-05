@@ -1,140 +1,119 @@
-@import "partials/mixins";
+@import 'new_structure/common/global_stuffs';
 
 section#loyalty {
   padding: 20px 0 0;
-  > h1 {
-    font-family: $johnston;
-    font-size: 20px;
-    text-transform: uppercase;
+  h1 {
+  font-family: $verdana;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+  font-weight: bold;
+  text-align: center;
+  } 
+  h2 {
+    font-family: $bt_font;
+    font-size: 16px;
     margin: 0 0 15px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    &+h2 {
-      font-family: $kepler;
-      font-size: 18px;
-      margin: 0 0 15px;
+    text-align: center;
+    font-weight: lighter;
+  }
+  ul.steps{
+    width: 900px;
+    height: 280px;
+    margin-top: 40px;
+    margin-left: 50px;
+    li.img{
+      margin-bottom: 20px;
+    }
+    li.infos, .bag, .credit{
+      float: left;
+      font-family: $verdana;
+      font-size: 14px;
+      color: #000;
+      text-align: center;
+    }
+    li.infos{width: 250px;margin-left: 120px;}
+    li.bag{width: 205px;margin-left: 14px;}
+    li.credit{width: 235px;margin-left: 75px;}
+  }
+  ul.example{
+    width: 990px;
+    height: 510px;
+    margin-top: 40px;
+    li{
+      width: 495px;
+      float: left;
+      background: image-url('loyalty/fidelidade.jpg')no-repeat 10px 0;
+      &.sandal{
+        background-position: -500px 0;
+      }
+      p{
+        font-size: 14px;
+        text-align: center;
+        color: #000;
+        font-family: $verdana;
+        line-height: 21px;
+        padding-top: 430px;
+        span{
+          font-weight: bold;
+        }
+      }
     }
   }
-  div#left {
-    position: relative;
-    width: 465px;
-    overflow: auto;
-    float: left;
-    div.arrow {
-      position: absolute;
-      background: image-url('loyalty/arrow.png') no-repeat;
-      width: 67px;
-      height: 48px;
-      bottom: 145px;
-      left: 213px;
+  #credits{
+    width: 990px;
+    margin-top: 50px;
+    p{
+      font-family: $verdana;
+      font-size: 14px;
+      font-weight: lighter;
+      text-align: center;
+      line-height: 23px;
+      a{
+        font-weight: lighter;
+        text-decoration: underline;
+        color: #000;
+      }
+    }
+    p.bonus{
+      font-size: 16px;
+      width: 860px;
+      height: 60px;
+      margin: 0 auto;
+      color: #fff;
+      padding-top: 8px;
+      background: #73b175;
+      letter-spacing: 1px;
+      line-height: 30px;
+      margin-bottom: 20px;
+      span{
+        font-weight: bold;
+      }
+      span.compras{
+        font-size: 14px;
+        display: block;
+        color: #fff !important;
+        font-weight: lighter !important;
+        a{
+          color: #fff !important;
+        }
+      }
+    }
+    .bt_novidades{
+      font-size: 15px;
+      text-decoration: none;
       display: block;
-    }
-    ul.steps {
-      margin: 0 0 40px 30px;
-      overflow: auto;
-      li {
-        background: image-url('loyalty/icons.jpg') no-repeat;
-        background-position: -149px 0;
-        font-size: 11px;
-        text-align: center;
-        width: 130px;
-        margin: 0 20px 0 0;
-        padding: 170px 0 0 0;
-        display: inline-block;
-        float: left;
-        &:first-child {
-          background-position: 4px 0;
-        }
-        &:last-child, &.last {
-          background-position: -301px 0;
-          margin: 0;
-        }
-      }
-    }
-    > h1 {
-      font-family: $avenir;
-      font-size: 24px;
-      font-weight: normal;
       text-transform: uppercase;
-      margin: 0 0 20px 2px;
-    }
-    ul.products {
-      margin: 0 0 0 30px;
-      li {
-        margin: 0 30px 0 0;
-        float: left;
-        &:last-child, &.last {
-          margin: 0;
-        }
-      }
-    }
-  }
-  div#right {
-    width: 460px;
-    overflow: auto;
-    float: right;
-    div#credits {
-      overflow: auto;
-      margin: 30px 0 60px;
-      padding: 15px 20px;
-      border: 1px #888 solid;
-      > p {
-        font-size: 22px;
-        line-height: 30px;
-        text-align: center;
-        margin: 15px auto 10px;
-      }
-      h1 {
-        font-family: $johnston;
-        font-size: 22px;
-        text-align: center;
-        text-transform: uppercase;
-        &+p {
-          font-size: 18px;
-          line-height: 25px;
-        }
-      }
-      h2 {
-        color: $pink;
-        font-family: $avenir;
-        font-size: 36px;
-        text-align: center;
-        margin: 10px 0 0;
-        &+p {
-          font-size: 13px;
-          line-height: 20px;
-        }
-      }
-      a {
-        color: #ef3742;
-        text-align: center;
-        display: block;
-      }
-    }
-    div#showroom {
-      a {
-        margin: 0 auto;
-        display: block;
-        &.link_showroom {
-          width: 402px;
-          height: 36px;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          font-size: 15px;
-          padding-top: 25px;
-          @include bt_color($primary_bt_color, $primary_bt_color_hover);
-        }
-        &.buy_now {
-          @include bt_color($primary_bt_color, $primary_bt_color_hover);
-          width: 249px;
-          height: 37px;
-          text-decoration: none;
-          letter-spacing: 2px;
-          padding-top: 21px;
-          text-align: center;
-
-        }
-      }
+      margin-top: 10px;
+      color: #fff;
+      font-family: $bt_font;
+      width: 230px;
+      height: 31px;
+      padding-top: 13px;
+      letter-spacing: 1px;
+      margin: 0 auto;
+      margin-top: 20px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);  
     }
   }
 }
