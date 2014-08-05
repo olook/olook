@@ -9,9 +9,17 @@ app.views.Form = Backbone.View.extend({
     olookApp.subscribe('address:add', this.addAddress, {}, this);
     olookApp.subscribe('address:selected', this.hideForm, {}, this);
     if(!this.model) this.model = new app.models.Address();
+    this.collection.on("add remove sync", this.checkShow, this);
     this.on("saved", function() {
       this.collection.fetch({reset: true});
     });
+  },
+
+  remove: function() {
+    Backbone.View.prototype.remove.call(this);
+    olookApp.mediator.remove('address:change', this.changeAddress);
+    olookApp.mediator.remove('address:add', this.addAddress);
+    olookApp.mediator.remove('address:selected', this.hideForm);
   },
 
   events: {
@@ -47,6 +55,12 @@ app.views.Form = Backbone.View.extend({
     }
   },
 
+  checkShow: function() {
+    if(this.collection.length == 0){
+      this.addAddress();
+    }
+  },
+
   updateModel: function() {
     var formValues = this.$el.find('.js-addressForm form').serializeArray();
     var values = _.object(_.map(formValues, function(item) {
@@ -75,6 +89,7 @@ app.views.Form = Backbone.View.extend({
   },
 
   showForm: function(e) {
+    this.render();
     this.$el.find('.js-addressForm').show();
   },
 

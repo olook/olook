@@ -14,12 +14,12 @@ var AddressController = (function(){
   };
 
   AddressController.prototype.config = function() {
-    this.fetchAddress();
     this.listView.render();
     this.listView.$el.appendTo(app.content);
     this.formView.$el.appendTo(app.content);
     this.freight.config();
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
+    this.addresses.fetch();
   };
 
   AddressController.prototype.setAddress = function(model){
@@ -30,10 +30,7 @@ var AddressController = (function(){
     this.listView.remove();
     this.formView.remove();
     this.freight.remove();
-  };
-
-  AddressController.prototype.fetchAddress = function(){
-    this.addresses.fetch();
+    olookApp.mediator.remove('address:selected', this.setAddress);
   };
 
   return AddressController;
