@@ -39,6 +39,7 @@ class Order < ActiveRecord::Base
   belongs_to :tracking, :dependent => :destroy
 
   after_create :initialize_order
+  after_save :save_address_last_used_at, if: lambda { self.freight.address rescue false }
 
   delegate :price, :to => :freight, :prefix => true, :allow_nil => true
   delegate :city, :to => :freight, :prefix => true, :allow_nil => true
@@ -365,6 +366,10 @@ class Order < ActiveRecord::Base
       Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
       Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
       Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
+    end
+
+    def save_address_last_used_at
+      self.freight.address.update_attribute(:last_used_at, Time.zone.now)
     end
 
     def confirm_payment?
