@@ -164,7 +164,8 @@
 		font-weight: bold;
 	}
 	.default,
-	.fast {
+	.fast,
+	.motoboy {
 		padding-bottom:5px;
 		background:image-url('cart/ico_frete.jpg') no-repeat 6px -1px;
 		padding: 6px 0 7px 0;
@@ -173,7 +174,10 @@
 		}
 	}
 	.fast {
-		background-position: 9px -44px;
+		background-position: 9px -80px;
+	}
+	.motoboy {
+		background-position: 9px -43px;
 	}
 }
 
