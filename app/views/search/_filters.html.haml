@@ -33,4 +33,3 @@
         %li= filter_link_to(@url_builder.add_filter(:brand, text), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
       %li= clean_filter_link_to(@url_builder.remove_filter_of(:brand)) if search.filter_value(:brand).present?
 
-= render partial: '/shared/facebook_products', locals: {products: FacebookHighlight.products}
