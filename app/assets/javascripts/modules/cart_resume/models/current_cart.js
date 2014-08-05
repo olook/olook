@@ -16,18 +16,18 @@ app.models.CurrentCart = Backbone.Model.extend({
     if(this.selectedFreight()) {
       return this.selectedFreight().pretty_kind();
     }
-    return "";
+    return "---";
 
   },
   freightDue: function() {
     if(this.selectedFreight())
       return this.selectedFreight().formatted_delivery_time();
-    return "";
+    return "---";
   },
   freightValue: function() {
     if(this.selectedFreight())
       return this.selectedFreight().formatted_price();
-    return "";
+    return "---";
   },
   selectedFreight: function() {
     var shipping_service_id = this.get('shipping_service_id');
