@@ -5,58 +5,71 @@
 
 .confirmation
   
-  // BOLETO BANCÁRIO
+  - if params[:payment_method] == "billet"
+    // BOLETO BANCÁRIO
 
-  %h3
-    REcebemos o seu pedido!
-  %p
-    Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
+    %h3
+      REcebemos o seu pedido!
+    %p
+      Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
 
-  %p
-    Número do pedido: 
-    %span
-      4834399
-  .action
-    %a.print
-      Imprimir boleto
-    %a.email
-      Enviar Boleto
+    %p
+      Número do pedido: 
+      %span
+        4834399
+    .action
+      %a.print
+        Imprimir boleto
+      %a.email
+        Enviar Boleto
 
-  // CARTÃO DE CRÉDITO
+  - elsif params[:payment_method] == "credit"
+    // CARTÃO DE CRÉDITO
 
-  %h3
-    REcebemos o seu pedido!
-  
-  %p
-    Número do pedido: 
-    %span
-      4834399
-  %p
-    Estamos aguardando a confirmação de pagamento da operadora do seu cartão para dar prosseguimento ao envio.
+    %h3
+      REcebemos o seu pedido!
+    
+    %p
+      Número do pedido: 
+      %span
+        4834399
+    %p
+      Estamos aguardando a confirmação de pagamento da operadora do seu cartão para dar prosseguimento ao envio.
 
-  // PAGAMENTO DÉBITO ONLINE
+  - elsif params[:payment_method] == "debit"
 
-  %h3
-    REcebemos o seu pedido!
-  
-  %p
-    Número do pedido: 
-    %span
-      4834399
-  %p
-    Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco. Caso você não seja automaticamente direcionado 
-    =link_to 'clique aqui', ''
+    // PAGAMENTO DÉBITO ONLINE
 
-  // PAGAMENTO MERCADOPAGO
+    %h3
+      REcebemos o seu pedido!
+    
+    %p
+      Número do pedido: 
+      %span
+        4834399
+    %p
+      Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco.
+      %br/ 
+      Caso você não seja automaticamente direcionado
+      =link_to 'clique aqui', ''
 
-  %h3
-    REcebemos o seu pedido!
-  
-  %p
-    Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:
+  - elsif params[:payment_method] == "mp"
+    // PAGAMENTO MERCADOPAGO
+    %h3
+      REcebemos o seu pedido!
+    
+    %p
+      Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:
 
-  %span.iframe_mercadopago.deletar
-  
+    .new_payment_link
+      %p.txt_payment_link 
+        Para finalizar o pagamento, informe os dados solicitados pelo MercadoPago.
+        %br/
+        %span Informe abaixo os dados solicitados pelo MercadoPago para realizar o pagamento do seu pedido.
+      %p.mercado_pago_frame
+        %iframe{src: "https://4019872.fls.doubleclick.net/activityi;src=4019872;type=venda815;cat=venda100;qty=1;cost=R$%2038,90;ord=4431336?", width:"100%", height:"600px"}
+
+
   .addressDelivery
     .cart_products{class: ("long_cart" if @has_long_cart) }
       %span
