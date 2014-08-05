@@ -17,9 +17,9 @@ app.views.CartResume = Backbone.View.extend({
       subtotal: app.formatted_currency(this.model.get('subtotal')),
       full_address: this.model.fullAddress(),
       items_count: this.model.itemsCount(),
-      freight: app.formatted_currency(this.model.freightValue()),
-      freight_kind: "A Jato",
-      freight_due: "3 horas",
+      freight: this.model.freightValue(),
+      freight_kind: this.model.freightKind(),
+      freight_due: this.model.freightDue(),
       payment_method: "Cartão de Crédito",
       step_label: this.model.stepLabel(),
     });

@@ -12,12 +12,30 @@ app.models.CurrentCart = Backbone.Model.extend({
     address['state'], "."];
     return fullAddress.join('');
   },
+  freightKind: function() {
+    if(this.selectedFreight()) {
+      return this.selectedFreight().pretty_kind();
+    }
+    return "";
+
+  },
+  freightDue: function() {
+    if(this.selectedFreight())
+      return this.selectedFreight().formatted_delivery_time();
+    return "";
+  },
   freightValue: function() {
+    if(this.selectedFreight())
+      return this.selectedFreight().formatted_price();
+    return "";
+  },
+  selectedFreight: function() {
     var shipping_service_id = this.get('shipping_service_id');
     var selectedFreight = _.find(this.get('freights'), function(item) {
       return item.shipping_service_id == shipping_service_id;
     });
-    if(selectedFreight) return selectedFreight.price;
+    if(selectedFreight) this._selectedFreight = new app.models.Freight(selectedFreight);
+    return this._selectedFreight;
   },
   stepLabel: function() {
     var step = this.get('step');

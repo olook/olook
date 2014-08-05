@@ -11,12 +11,7 @@ app.models.Freight = Backbone.Model.extend({
 
   formatted_price: function() {
     var price = this.get('price');
-    var intprice = parseInt(price);
-    var centsprice = Math.round(( price - intprice ) * 100);
-    if(centsprice < 10) {
-      centsprice = "0" + centsprice;
-    }
-    return "R$ " + intprice + "," + centsprice;
+    return app.formatted_currency(price);
   },
 
   pretty_kind: function() {
