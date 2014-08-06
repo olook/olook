@@ -17,6 +17,14 @@ class OrderAnalysisService
     clearsale_response = Setting.use_clearsale_server ? Clearsale::Analysis.get_order_status(order.id) : OrderAnalysisService.generate_sample_response
     response.status = clearsale_response.status
     response.score = clearsale_response.score
+
+    if clearsale_response.status.nil?
+      Airbrake.notify(Clearsale,
+        :error_class   => OrderAnalysisService,
+        :error_message => "Clearsale enviou um status invalido para order: #{order.id}"
+      ) 
+    end     
+
     response.save unless response.has_pending_status?
 
     response
