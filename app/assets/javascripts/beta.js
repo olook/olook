@@ -37,16 +37,18 @@ var app = (function() {
     },
 
     formatted_currency: function(value) {
+      var signal = /^-/.test(value) ? "-" : ""
+      value = Math.sqrt(Math.pow(value, 2));
       var intvalue = parseInt(value);
       var centsvalue = Math.round(( value - intvalue ) * 100);
       if(centsvalue < 10) {
         centsvalue = "0" + centsvalue;
       }
-      var form = "R$ " + intvalue + "," + centsvalue;
+      var form = signal + " R$ " + intvalue + "," + centsvalue;
       if(/NaN/.test(form)) {
         return "---";
       }
-      return "R$ " + intvalue + "," + centsvalue;
+      return form;
     },
   };
 

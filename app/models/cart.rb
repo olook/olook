@@ -28,23 +28,34 @@ class Cart < ActiveRecord::Base
     cart
   end
 
+  def self.gift_wrap_price
+    YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
+  end
+
   def api_hash
     {
       id: id,
       user_id: user_id,
-      gift_wrap: gift_wrap,
       address_id: address_id,
+      address: address.try(:api_hash),
       use_credits: use_credits,
       facebook_share_discount: facebook_share_discount,
       coupon_code: coupon.try(:code),
       items_count: items.count,
-      subtotal: subtotal,
+      items_subtotal: cart_calculator.items_subtotal,
+      subtotal: cart_calculator.subtotal,
       items: items.map { |item| item.api_hash },
-      address: address.try(:api_hash),
       freights: freights,
       shipping_service_id: shipping_service_id,
+      gift_wrap: gift_wrap,
+      gift_wrap_value: Cart.gift_wrap_price,
       payment_method: payment_method,
       payment_data: payment_data,
+      payment: Api::V1::PaymentType.find(payment_method),
+      discounts: cart_calculator.items_discount,
+      payment_discounts: - cart_calculator.payment_discounts,
+      credits:  - cart_calculator.used_credits_value,
+      total: cart_calculator.items_total
     }
   end
 
@@ -52,7 +63,7 @@ class Cart < ActiveRecord::Base
     if address
       zip_code = address.zip_code.gsub(/\D/, '').to_i
       transport_shippings = FreightService::TransportShippingManager.new(
-        zip_code, subtotal, Shipping.with_zip(zip_code)).api_hash
+        zip_code, cart_calculator.items_subtotal, Shipping.with_zip(zip_code)).api_hash
       if(shipping_service_id)
         transport_shippings.select! { |t| t[:shipping_service_id] == shipping_service_id }
       end
@@ -62,10 +73,12 @@ class Cart < ActiveRecord::Base
     end
   end
 
-  def subtotal
-    items.inject(0) do |value, item|
-      value += item.retail_price
-    end
+  def selected_freight
+    freights.find { |f| f[:shipping_service_id] == shipping_service_id }
+  end
+
+  def cart_calculator
+    @cart_calculator ||= CartProfit::CartCalculator.new(self)
   end
 
   def allow_credit_payment?
@@ -144,9 +157,7 @@ class Cart < ActiveRecord::Base
   end
 
   def sub_total
-    items.inject(0) do |total, item|
-      total += (item.quantity * item.retail_price)
-    end
+    cart_calculator.items_subtotal
   end
 
   def remove_coupon!

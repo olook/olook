@@ -7,7 +7,6 @@
 //= require modules/payment/views/billet
 //= require modules/payment/views/debit
 //= require modules/payment/views/mercadopago
-//= require modules/payment/mock/checkout
 
 var PaymentController = (function(){
   function PaymentController(opts){

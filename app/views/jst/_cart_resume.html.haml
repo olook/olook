@@ -28,27 +28,30 @@
     %table
       %tr
         %td Produtos
-        %td {{subtotal}}
+        %td {{items_subtotal}}
       %tr
         %td Frete
         %td {{ freight }}
       %tr
         %td Embalagem
-        %td R$ 5,00
+        %td {{ gift_wrap_value }}
     %table
       %tr.subtotal
         %td Subtotal
-        %td {{subtotal}}
+        %td {{ subtotal }}
       %tr
         %td Descontos
-        %td R$ 55,90
+        %td {{ discounts }}
       %tr
         %td Créditos
-        %td R$ 12,00
+        %td {{ credits }}
+      %tr
+        %td Desconto do Pagamento
+        %td {{ payment_discounts }}
     %table
       %tr.total
         %td Total
-        %td R$ 118,00
+        %td {{ total }}
   %button#js-finalize-order.disabled {{step_label}}
 
 %script{type: "text/template", id: "tpl-cart-item"}

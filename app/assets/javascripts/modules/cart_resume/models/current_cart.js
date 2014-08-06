@@ -2,6 +2,41 @@ app.models.CurrentCart = Backbone.Model.extend({
   url: app.server_api_prefix + '/current_cart',
   attributesToServer: ['address_id', 'use_credits', 'facebook_share_discount',
     'shipping_service_id', 'payment_method', 'payment_data'],
+  toTemplate: function() {
+    return $.extend({}, this.attributes, {
+      subtotal: app.formatted_currency(this.get('subtotal')),
+      items_subtotal: app.formatted_currency(this.get('items_subtotal')),
+      payment_discounts: app.formatted_currency(this.get('payment_discounts')),
+      full_address: this.fullAddress(),
+      items_count: this.itemsCount(),
+      freight: this.freightValue(),
+      freight_kind: this.freightKind(),
+      freight_due: this.freightDue(),
+      payment_method: this.paymentName(),
+      step_label: this.stepLabel(),
+      discounts: app.formatted_currency(0),
+      gift_wrap_value: this.giftWrapCheckedValue(),
+      credits: app.formatted_currency(this.get('credits')),
+      discounts: app.formatted_currency(this.get('discounts')),
+      total: app.formatted_currency(this.get('total')),
+    });
+  },
+  giftWrapCheckedValue: function() {
+    if(this.get('gift_wrap')){
+      return app.formatted_currency(this.get('gift_wrap_value'));
+    }
+    return app.formatted_currency(0);
+  },
+  paymentName: function() {
+    var pay = this.payment();
+    if (pay.get('name')) {
+      return pay.get('name');
+    }
+    return '---';
+  },
+  payment: function() {
+    return new app.models.Payment(this.get('payment'));
+  },
   fullAddress: function() {
     var address = this.get('address');
     if(!address) return "";

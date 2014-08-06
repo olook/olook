@@ -4,4 +4,8 @@ class Api::V1::PaymentType
   def self.all
     @@file
   end
+
+  def self.find(type)
+    all.find { |p| p['type'].to_s == type.to_s }
+  end
 end

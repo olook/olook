@@ -12,21 +12,9 @@ app.views.CartResume = Backbone.View.extend({
     this.model.on('change', this.render, this);
   },
 
-  toTemplate: function() {
-    return $.extend({}, this.model.attributes, {
-      subtotal: app.formatted_currency(this.model.get('subtotal')),
-      full_address: this.model.fullAddress(),
-      items_count: this.model.itemsCount(),
-      freight: this.model.freightValue(),
-      freight_kind: this.model.freightKind(),
-      freight_due: this.model.freightDue(),
-      payment_method: "Cartão de Crédito",
-      step_label: this.model.stepLabel(),
-    });
-  },
 
   render: function() {
-    this.$el.html(this.template(this.toTemplate()));
+    this.$el.html(this.template(this.model.toTemplate()));
     this.addAllItems();
     if(this.model.stepValid()){
       this.$el.find("#js-finalize-order").removeClass("disabled");
