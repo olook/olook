@@ -19,6 +19,14 @@ class Debit < Payment
     "Débito Bancário"
   end
 
+  def self.api_hash
+    {
+      type: self.to_s,
+      name: self.new.human_to_s,
+      percentage: Setting.debit_discount_percent
+    }
+  end
+
   def build_payment_expiration_date
     EXPIRATION_IN_MINUTES.minutes.from_now
   end

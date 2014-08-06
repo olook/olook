@@ -43,7 +43,7 @@ var PaymentController = (function(){
         case 'Billet':
           olookApp.publish('payment:billet:show', model);
           break;
-        case 'MercadoPago':
+        case 'MercadoPagoPayment':
           olookApp.publish('payment:mercadopago:show', model);
           break;
       }

@@ -44,6 +44,14 @@ class CreditCard < Payment
     "Cartão de Crédito"
   end
 
+  def self.api_hash
+    {
+      type: self.to_s,
+      name: self.new.human_to_s,
+      percentage: 0
+    }
+  end
+
   def build_payment_expiration_date
     EXPIRATION_IN_MINUTES.minutes.from_now
   end
