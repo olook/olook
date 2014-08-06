@@ -21,6 +21,12 @@ var CheckoutController = (function() {
     olookApp.subscribe("app:next_step", this.nextStep, {}, this);
     olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
     olookApp.subscribe("address:remove", this.removeAddress, {}, this);
+    olookApp.subscribe('checkout:payment_type', this.paymentTypeSelected, {}, this);
+  };
+
+  CheckoutController.prototype.paymentTypeSelected = function(model){
+    console.log(model.attributes);
+    console.log("o desconto para "+model.attributes.name+" é de "+model.attributes.percentage+"%");
   };
 
   CheckoutController.prototype.freightSelected = function(model) {
