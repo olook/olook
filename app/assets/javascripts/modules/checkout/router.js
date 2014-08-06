@@ -1,7 +1,6 @@
 app.routers.CheckoutRouter = Backbone.Router.extend({
   initialize: function(opts) {
     this.session = opts['session'];
-    this.session.on('sync', this.checkStep, this);
     this.cart = opts['cart'];
   },
   stepsTranslation: {
@@ -17,14 +16,24 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     "confirmacao": "confirmationStep",
   },
   start: function() {
-    this.session.fetch();
-    Backbone.history.start();
+    var it = this;
+    this.session.fetch({success: function() {
+      it.startCart();
+    }});
+  },
+  startCart: function() {
+    var it = this;
+    this.cart.fetch({success: function() {
+      it.checkStep();
+    }});
   },
   translateStep: function(step) {
     return this.stepsTranslation[step] || "";
   },
   checkStep: function() {
+    console.time("checkStep");
     var userId = this.session.id;
+    Backbone.history.start({ root: "/beta/index" });
     if (userId) {
       var currentRoute = this.routes[Backbone.history.fragment];
       if(!currentRoute) {
@@ -33,6 +42,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     } else {
       this.navigate("login", {trigger: true});
     }
+    console.timeEnd("checkStep");
   },
   loginStep: function() {
     this.hideSteps();
