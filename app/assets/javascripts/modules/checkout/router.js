@@ -67,6 +67,11 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     this.hideSteps();
     this.cart.set("step", "payment");
     this.initializeCartResume();
+    if(!this.paymentController){
+      this.paymentController = new PaymentController({cart: this.cart});
+    }
+    this.initializeCartResume();
+    this.paymentController.config();
   },
   confirmationStep: function() {
     this.hideSteps();

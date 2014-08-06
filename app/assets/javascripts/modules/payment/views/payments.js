@@ -1,6 +1,7 @@
 app.views.Payments = Backbone.View.extend({
   className: 'payments',
   initialize: function() {
+    this.paymentDetails = $('<div class="payment-details"></div>');
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
   },
@@ -17,5 +18,6 @@ app.views.Payments = Backbone.View.extend({
   },
   render: function(){
     this.addAll();
+    this.$el.after(this.paymentDetails);
   }
 });
