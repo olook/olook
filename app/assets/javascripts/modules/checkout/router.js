@@ -64,6 +64,10 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     this.addressController.config();
   },
   paymentStep: function() {
+    if(!this.cart.addressStepValid()){
+      this.navigate("endereco", {trigger: true});
+      return;
+    }
     this.hideSteps();
     this.cart.set("step", "payment");
     this.initializeCartResume();

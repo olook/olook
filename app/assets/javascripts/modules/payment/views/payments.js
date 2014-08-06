@@ -16,6 +16,10 @@ app.views.Payments = Backbone.View.extend({
   empty: function() {
     this.$el.empty();
   },
+  remove: function() {
+    Backbone.View.prototype.remove.apply(this, arguments); //super()
+    this.paymentDetails.remove();
+  },
   render: function(){
     this.addAll();
     this.$el.after(this.paymentDetails);
