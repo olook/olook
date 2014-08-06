@@ -148,15 +148,19 @@ body {
 			text-transform: uppercase;
 			color:#000;
 			letter-spacing: 1px;
-			font-size: 11px;
+			font-size: 12px;
 			font-weight: bold;
+			line-height:16px;
 			span {
 				display: block;
 				letter-spacing: 0px;
 				text-transform: none;
-				font-size: 11px;
+				font-size: 12px;
 				font-weight: normal;
 			}
+		}
+		p:first-child {
+			margin-top:0px;
 		}
 		.current_freight,
 		.current_cart,
