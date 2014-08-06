@@ -489,7 +489,6 @@
 	letter-spacing: 2px;
 	font-weight: bold;
 	border:0px;
-
 }
 
 #js-finalize-order {
@@ -497,4 +496,9 @@
 	top:20px;
 	z-index:200;
 	cursor: pointer;
+}
+
+#js-finalize-order.disabled {
+  cursor: default;
+  @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
 }

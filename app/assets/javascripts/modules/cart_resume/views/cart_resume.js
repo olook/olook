@@ -28,6 +28,9 @@ app.views.CartResume = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.toTemplate()));
     this.addAllItems();
+    if(this.model.stepValid()){
+      this.$el.find("#js-finalize-order").removeClass("disabled");
+    }
   },
 
   seeCartItems: function() {
