@@ -4,14 +4,13 @@
 //= require modules/cart_resume/views/cart_item
 var CartResumeController = (function(){
   function CartResumeController(attr) {
-    this.current_cart = attr['cart'];
-    this.cart_resume = new app.views.CartResume({model: this.current_cart});
+    this.cart = attr['cart'];
+    this.cart_resume = new app.views.CartResume({model: this.cart});
   };
 
   CartResumeController.prototype.config = function() {
     this.cart_resume.$el.appendTo(app.content);
     this.cart_resume.render();
-    this.current_cart.fetch();
   };
 
   CartResumeController.prototype.remove = function() {

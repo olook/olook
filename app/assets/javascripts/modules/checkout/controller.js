@@ -17,13 +17,21 @@ var CheckoutController = (function() {
   CheckoutController.prototype.config = function () {
     this.steps.$el.prependTo("#content");
     this.steps.render();
+    this.cart.fetch();
     this.router.start();
     olookApp.subscribe("app:next_step", this.nextStep, {}, this);
     olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
+    olookApp.subscribe("address:remove", this.removeAddress, {}, this);
   };
 
   CheckoutController.prototype.freightSelected = function(model) {
-    this.cart.save({shipping_service_id: model.get('shipping_service_id')}, {wait: true});
+    this.cart.save({shipping_service_id: model.get('shipping_service_id')});
+  };
+
+  CheckoutController.prototype.removeAddress = function(model) {
+    if(model.id == this.cart.get('address_id')) {
+      this.cart.save({shipping_service_id: null, address_id: null});
+    }
   };
 
   CheckoutController.prototype.nextStep = function() {

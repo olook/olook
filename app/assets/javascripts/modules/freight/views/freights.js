@@ -8,6 +8,7 @@ app.views.Freights = Backbone.View.extend({
     this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.render, this);
+    this.cart.on('change:shipping_service_id', this.checkShipping, this);
   },
   addOne: function(freight){
     var freightView = new app.views.Freight({model: freight});
@@ -24,6 +25,13 @@ app.views.Freights = Backbone.View.extend({
         freight.set('selected', true);
       }
     });
+  },
+  checkShipping: function() {
+    if(this.cart.get('shipping_service_id') == null) {
+      this.remove();
+    } else {
+      this.render();
+    }
   },
   empty: function(){
     this.$el.find('p').remove();
