@@ -316,11 +316,12 @@ $(function() {
     });
   });
 
-  var debit = $(".box-debito span.debit_bank_Itau");
+  var debit = $(".box-debito span");
   $(debit).click(function(){
+    debugger;
     $(this).addClass("selected").siblings("input").attr('checked','checked');
-    $("ol.cards li input:checked").removeAttr("checked");
-    $("ol.cards li span").removeClass("selected");
+    $(".box-debito input:checked").removeAttr("checked");
+    debit.removeClass("selected");
   });
 
   $("form.edit_cart_item").submit(function() {
