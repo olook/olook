@@ -8,10 +8,8 @@
   = radio_button_tag 'address', value: '{{ id }}'
   %ul
     %li {{ full_name }}
-    %li {{ street }}, {{ number }} {{complement}}
-    %li {{ neighborhood }} - {{ zip_code }}
-    %li Tel.: {{ telephone }}
-    %li Cel.: {{ mobile }}
+    %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
+    %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
     %li.links
       %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
