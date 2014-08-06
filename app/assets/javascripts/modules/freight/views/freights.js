@@ -7,7 +7,6 @@ app.views.Freights = Backbone.View.extend({
     olookApp.subscribe('address:add', this.remove, {}, this);
     olookApp.subscribe('address:selected', this.checkShipping, {}, this);
     this.cart = opts['cart'];
-    this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.render, this);
   },
   addOne: function(freight){
