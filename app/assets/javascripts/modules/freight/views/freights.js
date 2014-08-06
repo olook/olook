@@ -3,7 +3,7 @@ app.views.Freights = Backbone.View.extend({
   className: 'freights',
   initialize: function(opts) {
     olookApp.subscribe('address:change', this.remove, {}, this);
-    olookApp.subscribe('address:remove', this.remove, {}, this);
+    olookApp.subscribe('address:remove', this.removeAddress, {}, this);
     olookApp.subscribe('address:add', this.remove, {}, this);
     this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
@@ -32,5 +32,10 @@ app.views.Freights = Backbone.View.extend({
     this.$el.html(this.template({}));
     this.addAll();
     this.setSelected();
+  },
+  removeAddress: function(address) {
+    if(address.get('selected')) {
+      this.remove();
+    }
   }
 });

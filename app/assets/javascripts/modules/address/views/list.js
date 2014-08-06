@@ -9,7 +9,7 @@ app.views.List = Backbone.View.extend({
     this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
-    this.collection.on('change', this.update, this);
+    this.collection.on('change', this.updateList, this);
     this.collection.on("add remove", this.updateList, this);
   },
   setSelected: function() {
@@ -31,11 +31,11 @@ app.views.List = Backbone.View.extend({
     this.$el.find('ul#address-list').empty();
     this.collection.forEach(this.addOne, this);
     this.setSelected();
+    this.updateList();
   },
   render: function(){
     this.$el.html(this.template({}));
     this.addAll();
-    this.updateList();
   },
   addAddress: function() {
     olookApp.publish('address:add');
