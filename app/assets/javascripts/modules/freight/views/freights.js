@@ -5,10 +5,10 @@ app.views.Freights = Backbone.View.extend({
     olookApp.subscribe('address:change', this.remove, {}, this);
     olookApp.subscribe('address:remove', this.removeAddress, {}, this);
     olookApp.subscribe('address:add', this.remove, {}, this);
+    olookApp.subscribe('address:selected', this.checkShipping, {}, this);
     this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.render, this);
-    this.cart.on('change:shipping_service_id', this.checkShipping, this);
   },
   addOne: function(freight){
     var freightView = new app.views.Freight({model: freight});
@@ -29,8 +29,6 @@ app.views.Freights = Backbone.View.extend({
   checkShipping: function() {
     if(this.cart.get('shipping_service_id') == null) {
       this.remove();
-    } else {
-      this.render();
     }
   },
   empty: function(){
