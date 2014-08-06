@@ -38,6 +38,7 @@ module CartProfit
       _subtotal = subtotal + items_discount
       _subtotal -= used_credits_value
       _subtotal -= payment_discounts
+      _subtotal += freight_price
     end
 
     def payment_discounts
@@ -68,13 +69,15 @@ module CartProfit
     end
 
     def minimum_value
-      return 0.0 if freight_price.to_f > Payment::MINIMUM_VALUE
+      return 0.0 if freight_price > Payment::MINIMUM_VALUE
       Payment::MINIMUM_VALUE
     end
 
     def freight_price
       if @cart.selected_freight
-        @cart.selected_freight['price']
+        BigDecimal(@cart.selected_freight[:price])
+      else
+        0
       end
     end
 

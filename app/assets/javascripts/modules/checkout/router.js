@@ -91,6 +91,10 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
       this.addressController.remove();
       delete this.addressController;
     }
+    if(this.paymentController) {
+      this.paymentController.remove();
+      delete this.paymentController;
+    }
   },
   initializeCartResume: function() {
     if(this.cartResume) return;

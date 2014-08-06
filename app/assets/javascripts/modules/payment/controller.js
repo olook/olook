@@ -19,6 +19,11 @@ var PaymentController = (function(){
     this.mercadoPagoView = new app.views.MercadoPago({collection: this.payments, cart: this.cart});
   };
 
+  PaymentController.prototype.remove = function(){
+    this.paymentsView.remove();
+    olookApp.mediator.remove('payment:selected', this.paymentSelected);
+  };
+
   PaymentController.prototype.config = function(){
     this.paymentsView.$el.appendTo(app.content);
     this.creditCardFormView.$el.appendTo(this.paymentsView.paymentDetails);
@@ -28,31 +33,33 @@ var PaymentController = (function(){
     this.paymentsView.render();
     this.payments.fetch();
 
-    olookApp.subscribe('payment:selected', function(model) {
-      olookApp.publish('payment:creditcard:hide');
-      olookApp.publish('payment:debit:hide');
-      olookApp.publish('payment:billet:hide');
-      olookApp.publish('payment:mercadopago:hide');
-      switch(model.get('type')){
-        case 'CreditCard':
-          olookApp.publish('payment:creditcard:show', model);
-          break;
-        case 'Debit':
-          olookApp.publish('payment:debit:show', model);
-          break;
-        case 'Billet':
-          olookApp.publish('payment:billet:show', model);
-          break;
-        case 'MercadoPagoPayment':
-          olookApp.publish('payment:mercadopago:show', model);
-          break;
-      }
-      olookApp.publish('checkout:payment_type', model);
-    });
+    olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
 
     $("#submit").click(function(){
       olookApp.publish('app:next_step');
     });
+  };
+
+  PaymentController.prototype.paymentSelected = function(model) {
+    olookApp.publish('payment:creditcard:hide');
+    olookApp.publish('payment:debit:hide');
+    olookApp.publish('payment:billet:hide');
+    olookApp.publish('payment:mercadopago:hide');
+    switch(model.get('type')){
+      case 'CreditCard':
+        olookApp.publish('payment:creditcard:show', model);
+      break;
+      case 'Debit':
+        olookApp.publish('payment:debit:show', model);
+      break;
+      case 'Billet':
+        olookApp.publish('payment:billet:show', model);
+      break;
+      case 'MercadoPagoPayment':
+        olookApp.publish('payment:mercadopago:show', model);
+      break;
+    }
+    olookApp.publish('checkout:payment_type', model);
   };
 
   return PaymentController;
