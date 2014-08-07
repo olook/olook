@@ -1,9 +1,11 @@
+//= require credit_card
 app.views.CreditCardForm = Backbone.View.extend({
   className: 'creditCardForm',
   template: _.template($("#tpl-credit-card-form").html() || ""),
   model: null,
 
-  initialize: function() {
+  initialize: function(opts) {
+    this.cart = opts['cart'];
     olookApp.subscribe('payment:creditcard:show', this.render, {}, this);
     olookApp.subscribe('payment:creditcard:hide', this.hide, {}, this);
     this.model = new app.models.CreditCard();
@@ -18,6 +20,7 @@ app.views.CreditCardForm = Backbone.View.extend({
     var html = this.template(_model.attributes);
     this.$el.html(html);
     this.$el.show();
+    CreditCard.populateInstallmentsFor(this.$el.find("#installments"), this.cart.get('total') , CreditCard.installmentsNumberFor(this.cart.get('total'), false));
   },
 
   hide: function(){
@@ -29,11 +32,8 @@ app.views.CreditCardForm = Backbone.View.extend({
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
     }));
-    
     this.model.set(values);
-
     olookApp.publish('checkout:payment:credit_card:update', this.model.attributes)
-
     if (this.model.isValid()) {
     } else {
       this.updateError(e.currentTarget);
