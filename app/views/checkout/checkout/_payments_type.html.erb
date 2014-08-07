@@ -108,8 +108,8 @@
       <%= payment_form.radio_button :bank, bank, checked: (@checkout.payment && (bank == @checkout.payment.bank)), onclick: track_event("CheckoutPayment","clickBankOption") %>
       <%= payment_form.label "bank_#{bank}", bank %>
       <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>" data-bank="<%= bank %>"><%= bank %></span>
-      <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
+    <%= errors_for(@checkout.payment, :bank) %>
 
     <p>Após finalizar a compra você deverá informar os dados solicitados pelo seu banco na página de confirmação.</p>
     
