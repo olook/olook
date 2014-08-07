@@ -1,3 +1,4 @@
+//= require formatter
 var CreditCard = {};
 
 CreditCard = {
@@ -24,6 +25,18 @@ CreditCard = {
       number = Math.min(6, number);
     }
     return number == 0 ? 1 : number;
+  },
+  
+  populateInstallmentsFor: function(select_box, total, installments) {
+    selected = select_box.val();
+    select_box.empty();
+    var options = [];
+    for (i=1; i<= installments; i++) {
+      installmentValue = total / i;
+      text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
+      select_box.append("<option value=" + i + ">" + text + "</option>");
+    }
+    select_box.val(selected);
   }
 };
 
