@@ -99,7 +99,6 @@ app.models.CurrentCart = Backbone.Model.extend({
 
     switch(payment_method) {
       case "CreditCard":
-        debugger;
         return (this.credit_card != undefined && this.credit_card.isValid());
       case "Debit":
         return (this.debit != undefined && this.debit.isValid());
