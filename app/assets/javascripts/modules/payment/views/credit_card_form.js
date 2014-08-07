@@ -17,14 +17,21 @@ app.views.CreditCardForm = Backbone.View.extend({
   },
 
   render: function(_model) {
-    var html = this.template(_model.attributes);
+    this.updateFromCart();
+    var html = this.template({method: _model.attributes, details: this.model.attributes});
     this.$el.html(html);
     this.$el.show();
+    console.log(this.model.attributes);
     CreditCard.populateInstallmentsFor(this.$el.find("#installments"), this.cart.get('total') , CreditCard.installmentsNumberFor(this.cart.get('total'), false));
   },
 
   hide: function(){
     this.$el.hide();
+  },
+
+  updateFromCart: function(){
+    var values = JSON.parse(this.cart.attributes.payment_data);
+    this.model.set(values);
   },
 
   updateModel: function(e) {
