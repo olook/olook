@@ -30,7 +30,7 @@ describe "CurrentCart" do
   describe "updating current cart" do
     context "gift_wrap" do
       before do
-        put '/api/v1/current_cart', { cart: { gift_wrap: 1 } }
+        put '/api/v1/current_cart', { current_cart: { gift_wrap: 1 } }
       end
       it { expect(JSON.parse(response.body)['gift_wrap']).to eq(true) }
     end
@@ -38,7 +38,7 @@ describe "CurrentCart" do
     context "address" do
       before do
         @address = FactoryGirl.create(:address)
-        put '/api/v1/current_cart', { cart: { address_id: @address.id } }
+        put '/api/v1/current_cart', { current_cart: { address_id: @address.id } }
       end
       it { expect(JSON.parse(response.body)['address']).to eq(JSON.parse(@address.api_hash.to_json)) }
     end

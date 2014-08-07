@@ -5,12 +5,16 @@ describe Api::V1::UsersController do
   describe "#create" do
     context "On success" do
       it "returns successful status" do
-        post :create, user: user.attributes
+        post :create, user: user.attributes.merge({password: '123123', password_confirmation: '123123'})
         expect(response.status).to eql 200
       end
       it "returns user json" do
-        post :create, user: user.attributes
-        expect(response.body).to eql user.to_json
+        post :create, user: user.attributes.merge({password: '123123', password_confirmation: '123123'})
+        resp = JSON.parse(response.body)
+
+        expect(resp['email']).to eql user.email
+        expect(resp['first_name']).to eql user.first_name
+        expect(resp['last_name']).to eql user.last_name
       end
     end
     context "On failure" do
