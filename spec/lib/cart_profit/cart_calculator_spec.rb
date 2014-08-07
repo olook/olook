@@ -16,6 +16,7 @@ describe CartProfit::CartCalculator do
       calculator = CartProfit::CartCalculator.new(@cart)
       calculator.should_receive(:used_credits_value).and_return(30.0)
       calculator.should_receive(:gift_price).and_return(0.0)
+      calculator.should_receive(:freight_price).and_return(0.0)
       expect(calculator.items_total).to eq(150.0)
     end
   end
