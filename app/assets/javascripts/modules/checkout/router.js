@@ -31,7 +31,6 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     return this.stepsTranslation[step] || "";
   },
   checkStep: function() {
-    console.time("checkStep");
     var userId = this.session.id;
     Backbone.history.start({ root: "/beta/index" });
     if (userId) {
@@ -42,7 +41,6 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     } else {
       this.navigate("login", {trigger: true});
     }
-    console.timeEnd("checkStep");
   },
   loginStep: function() {
     this.hideSteps();
