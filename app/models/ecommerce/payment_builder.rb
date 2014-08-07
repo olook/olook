@@ -55,7 +55,6 @@ class PaymentBuilder
 
       log("Send to Gateway: #{@gateway_strategy.class}")
       payment = @gateway_strategy.send_to_gateway
-      binding.pry
       log("Returned from Send to Gateway: #{payment.inspect}")
 
       if @gateway_strategy.payment_successful?

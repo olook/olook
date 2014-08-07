@@ -317,11 +317,13 @@ $(function() {
   });
 
   var debit = $(".box-debito span");
-  $(debit).click(function(){
-    debugger;
-    $(this).addClass("selected").siblings("input").attr('checked','checked');
-    $(".box-debito input:checked").removeAttr("checked");
+  $(debit).click(function(){  
     debit.removeClass("selected");
+    var bank = $(this).data('bank').toLowerCase();
+    $(".box-debito input:checked").removeAttr("checked");
+
+    $("#checkout_payment_bank_" + bank).attr('checked','checked');
+    $(this).addClass("selected");
   });
 
   $("form.edit_cart_item").submit(function() {
