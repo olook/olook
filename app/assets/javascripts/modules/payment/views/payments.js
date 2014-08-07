@@ -1,4 +1,5 @@
 app.views.Payments = Backbone.View.extend({
+  template: _.template($('#tpl-payment-list').html()||""),
   className: 'payments',
   initialize: function(opts) {
     this.paymentDetails = $('<div class="payment-details"></div>');
@@ -16,17 +17,14 @@ app.views.Payments = Backbone.View.extend({
     }    
   },
   addAll: function(){
-    this.empty();
     this.collection.forEach(this.addOne, this);
-  },
-  empty: function() {
-    this.$el.empty();
   },
   remove: function() {
     Backbone.View.prototype.remove.apply(this, arguments); //super()
     this.paymentDetails.remove();
   },
   render: function(){
+    this.$el.html(this.template({}));
     this.addAll();
     this.$el.after(this.paymentDetails); 
   },

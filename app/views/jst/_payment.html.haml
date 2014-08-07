@@ -1,4 +1,5 @@
 %script{type: "text/template", id: "tpl-payment-list"}
+  %h4 Selecione a forma de pagamento
 
 %script{type: "text/template", id: "tpl-payment"}
   = radio_button_tag('payment_method', value: "{{type}}")
@@ -49,6 +50,17 @@
 
 %script{type: "text/template", id: "tpl-debit"}
   {{name}} - ({{ percentage }}%)
+  %form.js-debitForm
+    .banks
+      %span.itau
+        %input{type: "radio", id: "bank_itau", name: "bank", value: "Itau"}
+        %label{for: 'bank_itau'} Itaú
+      %span.bradesco
+        %input{type: "radio", id: "bank_bradesco", name: "bank", value: "Bradesco"}
+        %label{for: 'bank_bradesco'} Bradesco
+      %span.bancodobrasil
+        %input{type: "radio", id: "bank_bancodobrasil", name: "bank", value: "BancoDoBrasil"}
+        %label{for: 'bank_bancodobrasil'} Banco do Brasil
 
 %script{type: "text/template", id: "tpl-billet"}
   {{name}} - ({{ percentage }}%)
