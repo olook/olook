@@ -24,7 +24,9 @@ app.views.Debit = Backbone.View.extend({
 
   changeBank: function() {
     var bank = this.$el.find('[name=bank]:checked').val();
-    this.cart.set('payment_data', { bank: bank });
+    var debit = new app.models.Debit({ bank: bank });
+    this.cart.debit = debit;
+    this.cart.set('payment_data', debit.attributes);
   }
 
 });
