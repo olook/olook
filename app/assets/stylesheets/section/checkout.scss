@@ -2219,12 +2219,12 @@ section.checkout{
           display:block;
           width:45px;
           height:32px;
-          @include sprite_checkout(-125px, -423px);
+          @include sprite_checkout(-403px, -423px);
           font-size:0;
           font-family:a;
           cursor:pointer;
 
-          &.selected{@include sprite_checkout(-123px, -459px)}
+          &.selected{@include sprite_checkout(-403px, -459px)}
         }
         .debit_bank_BancoDoBrasil{
           position:absolute;
@@ -2234,12 +2234,12 @@ section.checkout{
           display:block;
           width:45px;
           height:32px;
-          @include sprite_checkout(-125px, -423px);
+          @include sprite_checkout(-449px, -423px);
           font-size:0;
           font-family:a;
           cursor:pointer;
 
-          &.selected{@include sprite_checkout(-123px, -459px)}
+          &.selected{@include sprite_checkout(-449px, -459px)}
         }        
 
 
