@@ -11,11 +11,7 @@ app.views.Payments = Backbone.View.extend({
     this.$el.append(paymentView.render().el);
   },
   addAll: function(){
-    this.empty();
     this.collection.forEach(this.addOne, this);
-  },
-  empty: function() {
-    this.$el.empty();
   },
   remove: function() {
     Backbone.View.prototype.remove.apply(this, arguments); //super()
