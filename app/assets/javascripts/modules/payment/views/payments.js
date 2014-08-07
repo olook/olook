@@ -10,11 +10,11 @@ app.views.Payments = Backbone.View.extend({
   addOne: function(payment){
     var paymentView = new app.views.Payment({model: payment});
     this.$el.append(paymentView.render().el);
-    
+
     var paymentMethod = this.cart.get('payment_method');
     if(paymentMethod == payment.attributes.type){ 
-      this.$el.find("."+paymentMethod+" input").attr("checked", "checked");
-    }    
+      paymentView.selectPayment();
+    }
   },
   addAll: function(){
     this.collection.forEach(this.addOne, this);

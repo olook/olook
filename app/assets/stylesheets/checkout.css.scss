@@ -138,6 +138,158 @@ body {
 			}
 		}
 	}
+	.payments,
+	.creditCardForm {
+		width:24%;
+		float:left;
+		h4 {
+			font-size: 12px;
+			text-transform: uppercase;
+			color:#f03844;
+			display: block;
+			margin:0px;
+			margin-bottom:10px;
+		}
+		p {
+			font-size: 11px;
+			margin:5px 0;
+			letter-spacing: 1px;
+			background:image-url('cart/ico_flags.png') no-repeat left center;
+		}
+		p.CreditCard {
+			background-position:127px -1px;
+		}
+		p.Debit {
+			background-position:115px -54px;
+		}
+		p.Billet {
+			background-position:115px -28px;
+		}
+		p.MercadoPagoPayment {
+			background-position:103px -82px;
+		}
+	}
+	.creditCardForm {
+		width:33%;
+		border-left:1px solid #d1d1d1;
+		padding-left:32px;
+		float:left;
+		position:relative;
+		.flags {
+			position:absolute;
+			background:none;
+			width: 36px;
+			height: 32px;
+			top: 85px;
+			left: 35px;
+			* {
+				display: none;
+				-webkit-transition: all 0.3s ease;                  
+			  -moz-transition: all 0.3s ease;                 
+			  -o-transition: all 0.3s ease;   
+			  -ms-transition: all 0.3s ease;          
+			  transition: all 0.3s ease;
+			}
+			.enabled {
+				display: block;
+				font-weight: bold;
+				background:#FFF;
+				width:100%;
+				height:100%;
+			}
+			.visa,
+			.mastercard,
+			.diners {
+				background:image-url('cart/ico_form.png') #fff no-repeat -9px -53px;
+				text-indent: -5000px;
+			}
+			.mastercard {
+				background-position:-9px -13px;
+			}
+			.diners {
+				background-position:-10px -93px;	
+			}
+		}
+		p {
+			background:none;
+			input {
+				width: 76%;
+				padding: 3% 3% 3% 17%;
+				border: 1px solid #d1d1d1;
+				font-family: 'Trebuchet Ms';
+				font-size: 14px;
+				color: #666;
+				letter-spacing: 1px;
+				background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -6px;
+				border-radius: 2px;
+			}
+
+		}
+		.error input {
+			background-color:#fffde1;
+			moz-user-focus: none;
+		}
+		.number input {background-position:-107px -60px;}
+		.expiration_date {
+			float: left;
+			width: 46%;
+			input {
+				background-position:-107px -112px;
+				height:27px;
+				width:60%;
+				padding-left:36%;
+			}
+		}
+		.security_code {
+			width: 50%;
+			/* height: 41px; */
+			float: right;
+			margin-right: 7px;
+			input {
+				background-position:-107px -166px;
+				height:26px;
+				width: 60%;
+				padding-left: 33%;
+			}
+			.help-inline {
+				margin-left:159px !important;
+			}
+		}
+		.cpf input {background-position:-107px -218px;}
+		form {
+			h4 {
+				margin-bottom:20px;
+			}
+			#installments {
+				position: absolute;
+				top: -4px;
+				right: 9px;
+			}
+		}
+		.help-inline {
+			position: absolute;
+			left: 90px;
+			padding: 2px 6px;
+			.arrow {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				/* background: red; */
+				top: -8px;
+				/* border-radius: 4px; */
+				background: url('cart/ico_form.png') red no-repeat 0px -60px;
+			}
+		}
+		.error .help-inline {
+			border: 1px solid #d1d1d1;
+			background: #FFF;
+			font-size: 11px;
+			margin-top: -17px;
+			margin-left: -3px;
+			color: $base_color;
+		}
+	}
+
 	.cart_resume {
 		width:350px;
 		float:right;
