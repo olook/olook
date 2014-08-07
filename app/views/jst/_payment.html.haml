@@ -1,4 +1,5 @@
 %script{type: "text/template", id: "tpl-payment-list"}
+  %h4 Selecione a forma de pagamento
 
 %script{type: "text/template", id: "tpl-payment"}
   = radio_button_tag('payment_method', value: "{{type}}")
@@ -49,6 +50,15 @@
 
 %script{type: "text/template", id: "tpl-debit"}
   {{name}} - ({{ percentage }}%)
+  %form.js-debitForm
+    .banks
+      %input{type: "radio", name: "bank"}
+      %span.mastercard
+        mastercard
+      %span.visa
+        visa
+      %span.diners
+        diners
 
 %script{type: "text/template", id: "tpl-billet"}
   {{name}} - ({{ percentage }}%)
