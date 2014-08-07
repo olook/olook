@@ -33,8 +33,9 @@ app.views.CreditCardForm = Backbone.View.extend({
        return [item.name, item.value]
     }));
     this.model.set(values);
-    olookApp.publish('checkout:payment:credit_card:update', this.model.attributes)
+    this.cart.credit_card =  this.model;
     if (this.model.isValid()) {
+      this.cart.set("payment_data", JSON.stringify(this.model.attributes));
     } else {
       this.updateError(e.currentTarget);
     }

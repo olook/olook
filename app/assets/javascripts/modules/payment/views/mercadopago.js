@@ -1,5 +1,5 @@
 app.views.MercadoPago = Backbone.View.extend({
-  className: 'billet',
+  className: 'mercadopago',
   template: _.template($("#tpl-mercadopago").html() || ""),
 
   initialize: function() {

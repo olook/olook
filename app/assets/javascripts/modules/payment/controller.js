@@ -32,7 +32,6 @@ var PaymentController = (function(){
     this.mercadoPagoView.$el.appendTo(this.paymentsView.paymentDetails);
     this.paymentsView.render();
     this.payments.fetch();
-
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
 
     $("#submit").click(function(){

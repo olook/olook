@@ -94,6 +94,19 @@ app.models.CurrentCart = Backbone.Model.extend({
     }
   },
   paymentStepValid: function() {
+    var payment_method = this.get('payment_method');
+    console.log(payment_method);
+
+    switch(payment_method) {
+      case "CreditCard":
+        debugger;
+        return (this.credit_card != undefined && this.credit_card.isValid());
+      case "Debit":
+        return (this.debit != undefined && this.debit.isValid());
+      default:
+        return (!StringUtils.isEmpty(payment_method));
+    }
+
   },
   addressStepValid: function() {
     var ssi = this.get('shipping_service_id'), ai = this.get('address_id');
