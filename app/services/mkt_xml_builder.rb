@@ -32,7 +32,8 @@ class MktXmlBuilder
     myestilo: 'myestilo_template.xml.erb',
     h2h: 'h2h_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb',
-    hao123: 'hao123_template.xml.erb'
+    hao123: 'hao123_template.xml.erb',
+    vizury: 'vizury_template.xml.erb'
   }
 
   def self.create_xmls
