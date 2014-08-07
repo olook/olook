@@ -36,15 +36,6 @@ app.models.CreditCard = Backbone.Model.extend({
       errors.push({name: 'cpf', message: 'Também precisamos do CPF'});
     }
 
-    // if (StringUtils.isEmpty(attr.flag)) {
-    //   errors.push({name: 'flag', message: 'Qual é o seu flag, mesmo?'});
-    // }
-
-    // if (StringUtils.isEmpty(attr.telephone)) {
-    //   errors.push({name: 'telephone', message: 'É bom termos o seu telefone. Qualquer coisa, ligamos'});
-    // }
-
-
     return errors.length > 0 ? errors : false;
   },
 

@@ -1,14 +1,20 @@
 app.views.Payments = Backbone.View.extend({
   template: _.template($('#tpl-payment-list').html()||""),
   className: 'payments',
-  initialize: function() {
+  initialize: function(opts) {
     this.paymentDetails = $('<div class="payment-details"></div>');
+    this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
   },
   addOne: function(payment){
     var paymentView = new app.views.Payment({model: payment});
     this.$el.append(paymentView.render().el);
+
+    var paymentMethod = this.cart.get('payment_method');
+    if(paymentMethod == payment.attributes.type){ 
+      paymentView.selectPayment();
+    }
   },
   addAll: function(){
     this.collection.forEach(this.addOne, this);
@@ -20,6 +26,6 @@ app.views.Payments = Backbone.View.extend({
   render: function(){
     this.$el.html(this.template({}));
     this.addAll();
-    this.$el.after(this.paymentDetails);
-  }
+    this.$el.after(this.paymentDetails); 
+  },
 });

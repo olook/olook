@@ -1,5 +1,6 @@
 //= require modules/payment/models/payment
 //= require modules/payment/models/credit_card
+//= require modules/payment/models/debit
 //= require modules/payment/collections/payments
 //= require modules/payment/views/payment
 //= require modules/payment/views/payments
@@ -32,7 +33,6 @@ var PaymentController = (function(){
     this.mercadoPagoView.$el.appendTo(this.paymentsView.paymentDetails);
     this.paymentsView.render();
     this.payments.fetch();
-
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
 
     $("#submit").click(function(){
