@@ -1700,8 +1700,8 @@ section#payment {
           }
         }
         .logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
-        .logo_bradesco{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
-        .logo_bancodobrasil{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
+        .logo_bradesco{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(-90px,0px);margin:0 42px 0 220px;}
+        .logo_bancodobrasil{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(-178px,0px);margin:0 42px 0 220px;}
 
         .btn_pay{display:block;font-size:17px;width:290px;height:45px;float:left;margin-top:14px;text-transform: uppercase;letter-spacing: 2px;padding-top: 26px; @include bt_color($primary_bt_color, $primary_bt_color_hover);}
 
