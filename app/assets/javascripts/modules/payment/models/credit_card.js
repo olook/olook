@@ -32,6 +32,11 @@ app.models.CreditCard = Backbone.Model.extend({
       errors.push({name: 'expiration_date', message: 'Também precisamos do expiration_date'});
     }
 
+    var expDate = attr.expiration_date.split("/");
+    if (expDate[0] > 12) {
+      errors.push({name: 'expiration_date', message: 'A data de expiração parece inválida'});
+    }
+
     if (StringUtils.isEmpty(attr.cpf)) {
       errors.push({name: 'cpf', message: 'Também precisamos do CPF'});
     }
