@@ -27,7 +27,7 @@ var CheckoutController = (function() {
   CheckoutController.prototype.paymentTypeSelected = function(model){
     console.log(model.attributes);
     console.log("o desconto para "+model.attributes.name+" é de "+model.attributes.percentage+"%");
-    this.cart.save({ payment_method: model.get('type') });
+    this.cart.save({ payment_method: model.get('type')}, {wait: true});
   };
 
   CheckoutController.prototype.freightSelected = function(model) {
