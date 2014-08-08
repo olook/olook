@@ -30,7 +30,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   },
 
   updateFromCart: function(){
-    var values = JSON.parse(this.cart.attributes.payment_data);
+    var values = this.cart.attributes.payment_data;
     this.model.set(values);
   },
 

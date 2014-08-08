@@ -6,8 +6,9 @@
   {{name}}
 
 %script{type: "text/template", id: "tpl-credit-card-form"}
+  %h4 PAGAMENTO COM CARTÃO DE CRÉDITO
   %form.js-creditCardForm
-    %h4
+    %p
       Número de parcelas: 
     .flags
       %span.mastercard
@@ -19,23 +20,23 @@
     %select{type:'select', id:'installments', name:'installments', value:'{{details.installments}}'}
     .control-group.name
       %p
-        %input{type:'text', id:'full_name', name:'full_name', value:'{{details.full_name}}'}
+        %input{type:'text', id:'full_name', name:'full_name', value:'{{details.full_name}}', placeholder: 'Nome como no Cartão'}
       %span.help-inline
     .control-group.number
       %p
-        %input{type:'text', id:'number', name:'number', value:'{{details.number}}'}
+        %input{type:'text', id:'number', name:'number', value:'{{details.number}}', placeholder: 'Número do Cartão'}
       %span.help-inline
     .control-group.expiration_date
       %p
-        %input{type:'text', id:'expiration_date', name:'expiration_date', value:'{{details.expiration_date}}'}
+        %input{type:'text', id:'expiration_date', name:'expiration_date', value:'{{details.expiration_date}}', placeholder: 'Expiração'}
       %span.help-inline
     .control-group.security_code
       %p
-        %input{type:'text', id:'security_code', name:'security_code', value:'{{details.security_code}}'}
+        %input{type:'text', id:'security_code', name:'security_code', value:'{{details.security_code}}', placeholder: 'Cód Seg'}
       %span.help-inline
     .control-group.cpf
       %p
-        %input{type:'text', id:'cpf', name:'cpf', value:'{{details.cpf}}'}
+        %input{type:'text', id:'cpf', name:'cpf', value:'{{details.cpf}}', placeholder: 'CPF'}
       %span.help-inline
 
 
