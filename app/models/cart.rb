@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
+  serialize :payment_data, Hash
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
