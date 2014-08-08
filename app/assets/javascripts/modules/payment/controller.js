@@ -34,10 +34,7 @@ var PaymentController = (function(){
     this.paymentsView.render();
     this.payments.fetch();
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
-
-    $("#submit").click(function(){
-      olookApp.publish('app:next_step');
-    });
+    this.cart.on("change:payment_method", this.showPaymentDetail, this);
   };
 
   PaymentController.prototype.paymentSelected = function(model) {
@@ -45,9 +42,14 @@ var PaymentController = (function(){
     olookApp.publish('payment:debit:hide');
     olookApp.publish('payment:billet:hide');
     olookApp.publish('payment:mercadopago:hide');
-    switch(model.get('type')){
+    olookApp.publish('checkout:payment_type', model);
+  };
+
+  PaymentController.prototype.showPaymentDetail = function(){
+    var model = this.payments.findByPaymentMethod(this.cart.get("payment_method"));
+    switch(this.cart.get('payment_method')){
       case 'CreditCard':
-        olookApp.publish('payment:creditcard:show', model);
+        olookApp.publish('payment:creditcard:show', model );
       break;
       case 'Debit':
         olookApp.publish('payment:debit:show', model);
@@ -59,7 +61,6 @@ var PaymentController = (function(){
         olookApp.publish('payment:mercadopago:show', model);
       break;
     }
-    olookApp.publish('checkout:payment_type', model);
   };
 
   return PaymentController;
