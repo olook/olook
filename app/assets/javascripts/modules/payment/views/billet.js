@@ -10,14 +10,21 @@ app.views.Billet = Backbone.View.extend({
   events: {
   },
 
+  attr: function(model) {
+    var exp = new Date(model.get('billet_expiration'));
+    return {
+      billet_expiration: exp.getDate() + "/" + ( exp.getMonth() + 1 ) + "/" + exp.getFullYear(),
+    };
+  },
+
   render: function(model) {
-    var html = this.template(model.attributes);
+    var html = this.template(this.attr(model));
     this.$el.html(html);
     this.$el.show();
   },
 
   hide: function(){
     this.$el.hide();
-  }
+  },
 
 });
