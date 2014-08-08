@@ -2,7 +2,8 @@ app.views.Billet = Backbone.View.extend({
   className: 'billet',
   template: _.template($("#tpl-billet").html() || ""),
 
-  initialize: function() {
+  initialize: function(opts) {
+    this.cart = opts["cart"];
     olookApp.subscribe('payment:billet:show', this.render, {}, this);
     olookApp.subscribe('payment:billet:hide', this.hide, {}, this);
   },
@@ -18,7 +19,8 @@ app.views.Billet = Backbone.View.extend({
   },
 
   render: function(model) {
-    var html = this.template(this.attr(model));
+    debugger;
+    var html = this.template(_.extend(this.attr(model), {payment_discounts: app.formatted_currency(this.cart.get("payment_discounts") * -1)}));
     this.$el.html(html);
     this.$el.show();
   },
