@@ -200,7 +200,12 @@ body {
 			width:100%;
 			display: block;
 			margin-bottom:10px;
-			height:48px;
+			height:80px;
+      p { 
+        font-size: 14px;
+        font-weight: bold;
+        text-transform:uppercase;
+      }
 			.itau,
 			.bradesco,
 			.bancodobrasil {
@@ -291,7 +296,7 @@ body {
 					font-size: 14px;
 					color: #666;
 					letter-spacing: 1px;
-					background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -6px;
+					background:image-url('cart/ico_form.png') #f7f7f7 no-repeat -107px -6px;
 					border-radius: 2px;
 				}
 
@@ -332,9 +337,8 @@ body {
 					margin-bottom:20px;
 				}
 				#installments {
-					position: absolute;
-					top: -4px;
-					right: 9px;
+          font-size: 18px;
+					margin-bottom:8px;
 				}
 			}
 			.help-inline {

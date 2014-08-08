@@ -7,16 +7,20 @@ app.models.CurrentCart = Backbone.Model.extend({
       subtotal: app.formatted_currency(this.get('subtotal')),
       items_subtotal: app.formatted_currency(this.get('items_subtotal')),
       payment_discounts: app.formatted_currency(this.get('payment_discounts')),
+      hasPaymentDiscounts: this.get('payment_discounts') != 0,
       full_address: this.fullAddress(),
       items_count: this.itemsCount(),
       freight: this.freightValue(),
-      freight_kind: this.freightKind(),
+      freight_kind: this.freightKind(),     
       freight_due: this.freightDue(),
       payment_method: this.paymentName(),
       step_label: this.stepLabel(),
       gift_wrap_value: this.giftWrapCheckedValue(),
+      hasGiftWrap: this.get('gift_wrap') != 0,
       credits: app.formatted_currency(this.get('credits')),
+      hasCredits: this.get('credits') != 0,
       discounts: app.formatted_currency(this.get('discounts')),
+      hasDiscounts: this.get('discounts') != 0,
       total: app.formatted_currency(this.get('total')),
     });
   },
@@ -59,7 +63,7 @@ app.models.CurrentCart = Backbone.Model.extend({
     return "---";
   },
   freightValue: function() {
-    if(this.selectedFreight())
+    if(this.selectedFreight()) 
       return this.selectedFreight().formatted_price();
     return "---";
   },
