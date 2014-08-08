@@ -12,7 +12,7 @@ module CartProfit
     end
 
     def subtotal
-      items_subtotal + gift_price
+      items_subtotal + gift_price + items_discount - payment_discounts - used_credits_value
     end
 
     def items_discount
@@ -35,9 +35,7 @@ module CartProfit
 
     def items_total
       return 0 if cart.nil? || (cart && cart.items.nil?)
-      _subtotal = subtotal + items_discount
-      _subtotal -= used_credits_value
-      _subtotal -= payment_discounts
+      _subtotal = subtotal
       _subtotal += freight_price
     end
 

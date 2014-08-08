@@ -3,11 +3,13 @@
     %p
       Endereço de Entrega
       %span {{full_address}}
+  <% if(freight_kind != "---") { %>
   .current_freight
     %p
       Frete:
       %span {{ freight_kind }}
       %span Entrega em até {{ freight_due }} após a confirmação de pagamento.
+  <% } %>
   .current_cart
     .modal-items
       %span.close-modal.js-close-modal X
@@ -29,25 +31,35 @@
       %tr
         %td Produtos
         %td {{items_subtotal}}
-      %tr
-        %td Frete
-        %td {{ freight }}
+      <% if (hasGiftWrap) { %>
       %tr
         %td Embalagem
         %td {{ gift_wrap_value }}
-    %table
-      %tr.subtotal
-        %td Subtotal
-        %td {{ subtotal }}
+      <% } %>
+      <% if (hasDiscounts) { %>
       %tr
         %td Descontos
         %td {{ discounts }}
+      <% } %>
+      <% if (hasCredits) { %>      
       %tr
         %td Créditos
         %td {{ credits }}
+      <% } %>
+      <% if (hasPaymentDiscounts) { %>
       %tr
         %td Desconto do Pagamento
         %td {{ payment_discounts }}
+      <% } %>
+    %table
+      %tr.subtotal
+        %td Subtotal
+        %td {{ subtotal }}      
+      <% if (freight != '---') { %>
+      %tr
+        %td Frete
+        %td {{ freight }}
+      <% } %>      
     %table
       %tr.total
         %td Total
