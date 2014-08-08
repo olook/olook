@@ -2591,8 +2591,8 @@ desktop.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 desktop/index.css: desktop-c03fb64bb2236b815f8263ac0ef4b5c1.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-b313dc44d99f0cc646d192ca44fcadb0.css
-new_structure/lite_application/index.css: new_structure/lite_application-b313dc44d99f0cc646d192ca44fcadb0.css
+new_structure/lite_application.css: new_structure/lite_application-b5dc0562e2ca976dfd0708abe1c99a0a.css
+new_structure/lite_application/index.css: new_structure/lite_application-b5dc0562e2ca976dfd0708abe1c99a0a.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-158f50e75b73503aef22e86e0704b15b.css
