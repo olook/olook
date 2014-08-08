@@ -105,7 +105,7 @@
 			input#number,
 			input#telephone,
 			input#mobile {
-				width:100px;
+				width:120px;
 			}
 
 			input#state {
@@ -147,6 +147,7 @@
 			margin-top:2px;
 			border-radius:2px;
 			margin-bottom:4px;
+			background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -318px;
 			select {
 				background:none;
 				width: 85%;
@@ -171,6 +172,14 @@
 			color: $base_color;
 			z-index: 99;
 		}
+		.zip_code input {background-position:-107px -269px}
+		.city {background-position:-107px -369px;}
+		.neighborhood input {background-position:-107px -419px;}
+		.street input {background-position:-107px -670px;}
+		.number input {background-position:-107px -470px;}
+		.complement input {background-position:-107px -520px;}
+		.telephone input {background-position:-107px -570px;}
+		.mobile input {background-position:-107px -620px;}
 	}
 }
 
