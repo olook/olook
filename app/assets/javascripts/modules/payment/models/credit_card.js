@@ -12,39 +12,51 @@ app.models.CreditCard = Backbone.Model.extend({
     errors = [];
 
     if (StringUtils.isEmpty(attr.full_name)) {
-      errors.push({name: 'full_name', message: 'Qual é o nome?'});
+      errors.push({name: 'full_name', message: 'Digite o nome como impresso no cartão'});
     }
     
     if (StringUtils.isEmpty(attr.number)) {
-      errors.push({name: 'number', message: 'Precisamos do seu número'});
+      errors.push({name: 'number', message: 'Digite o número do cartão'});
     } else {
-      luhn = this.validate_cardnumber(attr.number)
+      luhn = this.validateCardnumber(attr.number)
       if(luhn == false){
-        errors.push({name: 'number', message: 'Seu número está estranho'});
+        errors.push({name: 'number', message: 'Por favor, confira o número'});
       }
     }
 
     if (StringUtils.isEmpty(attr.security_code)) {
-      errors.push({name: 'security_code', message: 'security_code?'});
+      errors.push({name: 'security_code', message: 'Digite o código de segurança'});
+    } else if(!this.validateSecurityCode(attr.security_code)) {
+      errors.push({name: 'security_code', message: 'Por favor, confira o cód. de segurança'});
     }
 
     if (StringUtils.isEmpty(attr.expiration_date)) {
-      errors.push({name: 'expiration_date', message: 'Também precisamos do expiration_date'});
+      errors.push({name: 'expiration_date', message: 'Digite a data de validade'});
     }
 
     var expDate = attr.expiration_date.split("/");
     if (expDate[0] > 12) {
-      errors.push({name: 'expiration_date', message: 'A data de expiração parece inválida'});
+      errors.push({name: 'expiration_date', message: 'Por favor, confira a data de validade'});
     }
 
     if (StringUtils.isEmpty(attr.cpf)) {
-      errors.push({name: 'cpf', message: 'Também precisamos do CPF'});
+      errors.push({name: 'cpf', message: 'Precisamos do CPF do titular'});
+    } else if(!this.validateCpf(attr.cpf)){
+      errors.push({name: 'cpf', message: 'Por favor, confira o CPF'});
     }
 
     return errors.length > 0 ? errors : false;
   },
 
-  validate_cardnumber: function(cardnumber) {
+  validateSecurityCode: function(security_code){
+    return((/^\d{3,4}$/).test(security_code));
+  },
+
+  validateCpf: function(cpf){
+    return((/^\d{11}$/).test(cpf.replace(/[ .-]/g, "")));
+  },
+
+  validateCardnumber: function(cardnumber) {
     if (!/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/g.test(cardnumber.replace(/[ ,-]/g, ""))) return false;
     return this.luhn(cardnumber);
   },

@@ -42,6 +42,8 @@ app.views.CreditCardForm = Backbone.View.extend({
     this.cart.credit_card =  this.model;
     if (!this.model.isValid()) {
       this.updateError(e.currentTarget);
+    } else {
+      this.clearError(e.currentTarget.id);    
     }
     this.cart.set("payment_data", this.model.attributes);
   },
@@ -53,6 +55,8 @@ app.views.CreditCardForm = Backbone.View.extend({
 
   clearError: function(element_id) {
     $(".control-group."+element_id).find('.help-inline').text('');
+    $(".control-group."+element_id).removeClass('error');
+    $(".control-group."+element_id).find('.help-inline').hide();
   },
 
   showError: function(field) {
@@ -60,7 +64,8 @@ app.views.CreditCardForm = Backbone.View.extend({
       if(error.name === field){
         var controlGroup = this.$('.' + error.name);
         controlGroup.addClass('error');
-        controlGroup.find('.help-inline').text(error.message);        
+        controlGroup.find('.help-inline').text(error.message);
+        controlGroup.find('.help-inline').show();
       }
     }, this);
   },
