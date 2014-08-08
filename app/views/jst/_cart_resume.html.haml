@@ -69,20 +69,20 @@
 %script{type: "text/template", id: "tpl-cart-item"}
   %td
     %img{src: "{{thumb_picture}}"}
-  %td
-    %p {{formatted_product_name}}
-    %p {{brand}}
-    %p
+  %td.infos
+    %p {{formatted_product_name.split(" ")[0]}}
+    %p.brand {{brand}}
+    %p.size
       Tamanho:
       %span {{size}}
       Cor:
       %span{ class: "{{color}}"}
-  %td x{{quantity}}
-  %td
+  %td.infos x{{quantity}}
+  %td.infos
     %p {{price_declaration}}
 %script{type: "text/template", id: "tpl-cart-item-price-promotion"}
   De: {{price}}
-  %br 
-  Por: {{retail_price}}
+  %span
+    Por: {{retail_price}}
 
 
