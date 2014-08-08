@@ -9,6 +9,7 @@ module Api
       def update
         @cart = current_cart || Cart.new
         @cart.attributes = params[:current_cart]
+        
         if @cart.save
           render json: @cart.api_hash
         else

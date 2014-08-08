@@ -30,8 +30,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   },
 
   updateFromCart: function(){
-    var values = JSON.parse(this.cart.attributes.payment_data);
-    this.model.set(values);
+    this.model.set(this.cart.attributes.payment_data);
   },
 
   updateModel: function(e) {
@@ -44,7 +43,7 @@ app.views.CreditCardForm = Backbone.View.extend({
     if (!this.model.isValid()) {
       this.updateError(e.currentTarget);
     }
-    this.cart.set("payment_data", JSON.stringify(this.model.attributes));
+    this.cart.set("payment_data", this.model.attributes);
   },
   
   updateError: function(el) {
