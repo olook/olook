@@ -227,6 +227,7 @@ body {
 					background-size: 331%;
 					background-position: -1px -4px;
 					border:1px solid #FFF;
+					border-radius:10px;
 				}
 				input[type="radio"]:checked+label { 
 					border:1px solid #000;
@@ -234,9 +235,11 @@ body {
 			}
 			span:nth-child(2) label {
 				background-position: -53px -4px;
+				
 			}
 			span:nth-child(3) label {
 				background-position: -105px -4px;
+
 			}
 			
 		}

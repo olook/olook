@@ -15,7 +15,6 @@ app.models.CurrentCart = Backbone.Model.extend({
       freight_due: this.freightDue(),
       payment_method: this.paymentName(),
       step_label: this.stepLabel(),
-      discounts: app.formatted_currency(0),
       gift_wrap_value: this.giftWrapCheckedValue(),
       hasGiftWrap: this.get('gift_wrap') != 0,
       credits: app.formatted_currency(this.get('credits')),
