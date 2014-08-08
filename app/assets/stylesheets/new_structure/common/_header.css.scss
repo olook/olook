@@ -728,7 +728,6 @@ header#new_header{border-top: 2px black solid;
       height:22px;
       float:left;
       margin:0 3px 3px 0;
-      width: 90%;
       a {background: none;
         padding-left:0px !important;
         width:22px;
@@ -763,6 +762,10 @@ header#new_header{border-top: 2px black solid;
     li.limparFiltro {
       width:160px;
       a {width:160px;padding-left:11px !important;}
+    }
+    li:last-child{
+      width: 90%;
+      display: block;
     }
 
      li span{
