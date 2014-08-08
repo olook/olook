@@ -3,11 +3,13 @@
     %p
       Endereço de Entrega
       %span {{full_address}}
+  <% if(freight_kind != "---") { %>
   .current_freight
     %p
       Frete:
       %span {{ freight_kind }}
       %span Entrega em até {{ freight_due }} após a confirmação de pagamento.
+  <% } %>
   .current_cart
     .modal-items
       %span.close-modal.js-close-modal X
@@ -29,25 +31,35 @@
       %tr
         %td Produtos
         %td {{items_subtotal}}
-      %tr
-        %td Frete
-        %td {{ freight }}
+      <% if (hasGiftWrap) { %>
       %tr
         %td Embalagem
         %td {{ gift_wrap_value }}
-    %table
-      %tr.subtotal
-        %td Subtotal
-        %td {{ subtotal }}
+      <% } %>
+      <% if (hasDiscounts) { %>
       %tr
         %td Descontos
         %td {{ discounts }}
+      <% } %>
+      <% if (hasCredits) { %>      
       %tr
         %td Créditos
         %td {{ credits }}
+      <% } %>
+      <% if (hasPaymentDiscounts) { %>
       %tr
         %td Desconto do Pagamento
         %td {{ payment_discounts }}
+      <% } %>
+    %table
+      %tr.subtotal
+        %td Subtotal
+        %td {{ subtotal }}      
+      <% if (freight != '---') { %>
+      %tr
+        %td Frete
+        %td {{ freight }}
+      <% } %>      
     %table
       %tr.total
         %td Total
@@ -57,19 +69,20 @@
 %script{type: "text/template", id: "tpl-cart-item"}
   %td
     %img{src: "{{thumb_picture}}"}
-  %td
-    %p {{formatted_product_name}}
-    %p {{brand}}
-    %p
+  %td.infos
+    %p {{formatted_product_name.split(" ")[0]}}
+    %p.brand {{brand}}
+    %p.size
       Tamanho:
       %span {{size}}
       Cor:
       %span{ class: "{{color}}"}
-  %td x{{quantity}}
-  %td
+  %td.infos x{{quantity}}
+  %td.infos
     %p {{price_declaration}}
 %script{type: "text/template", id: "tpl-cart-item-price-promotion"}
   De: {{price}}
-  Por: {{retail_price}}
+  %span
+    Por: {{retail_price}}
 
 

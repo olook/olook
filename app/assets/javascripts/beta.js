@@ -12,6 +12,7 @@
 //= require modules/stats/facebook_stats_logger
 
 _.templateSettings = {
+  evaluate: /\<\%([\s\S]+?)\%\>/g,
   interpolate: /\{\{(.+?)\}\}/g
 };
 

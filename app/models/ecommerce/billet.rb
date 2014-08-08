@@ -24,7 +24,8 @@ class Billet < Payment
     {
       type: self.to_s,
       name: self.new.human_to_s,
-      percentage: Setting.billet_discount_percent
+      percentage: Setting.billet_discount_percent,
+      billet_expiration: BilletExpirationDate.business_day_expiration_date
     }
   end
 

@@ -402,19 +402,43 @@
     	height: auto !important;
     	height:204px;
     	min-height:90px;
-    	max-height:204px;
+    	max-height:200px;
     	overflow-y:auto;
+    	padding-top: 10px;
     }
     table {
     	border-top:0px;
     	tr.cart-item {
+    		padding-bottom: 13px;
     		td, p {
     			font-weight: normal !important;
     			text-transform: none !important;
     			vertical-align: top;
+    			span{
+    				display: inline-block;
+    				color: $base_color;
+    				font-weight: bold;
+    			}
+    			img{
+    				border: 1px solid #e1e1e1;
+					margin-right: 10px;
+					margin-top: 4px
+    			}
+    		}
+    		td.infos{
+    			padding-top: 17px;
     		}
     		p {
     			margin:0px 0 5px 0;
+    		}
+    		p.size{
+    			width: 140px !important;
+    		}
+    		p.brand{
+    			font-size: 12px;
+    			font-weight: bold;
+    			font-family: $verdana;
+    			letter-spacing: 1px;
     		}
     		p:nth-child(2) {
     			font-weight: bold !important;;

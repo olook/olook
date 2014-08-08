@@ -82,7 +82,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def formatted_product_name
-    self.product.formatted_name(24)
+    self.product.formatted_name(18)
   end
 
   private

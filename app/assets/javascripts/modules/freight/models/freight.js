@@ -13,7 +13,12 @@ app.models.Freight = Backbone.Model.extend({
 
   formatted_price: function() {
     var price = this.get('price');
-    return app.formatted_currency(price);
+
+    if (price <= 0) {
+      return 'Grátis'
+    } else {
+      return app.formatted_currency(price);
+    }
   },
 
   pretty_kind: function() {
