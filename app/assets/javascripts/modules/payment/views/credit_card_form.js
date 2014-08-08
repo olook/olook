@@ -38,6 +38,9 @@ app.views.CreditCardForm = Backbone.View.extend({
     var values = _.object(_.map(formValues, function(item) {
        return [item.name, item.value]
     }));
+    if(!StringUtils.isEmpty(values["number"])){
+      _.extend(values, {bank: this.matchFlag(values["number"])});
+    }
     this.model.set(values);
     this.cart.credit_card =  this.model;
     if (!this.model.isValid()) {

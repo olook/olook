@@ -1,5 +1,6 @@
 app.models.CreditCard = Backbone.Model.extend({
   defaults: {
+    bank: '',
     full_name: '',
     number: '',
     expiration_date: '',

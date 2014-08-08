@@ -71,10 +71,10 @@
 .addressForm {
 	form {
 		width:31.5%;
+		position:relative;
 		float:left;
-		height:400px;
+		height:500px;
 		border-left: 1px solid #cdcdcd;
-		margin-bottom: 30px;
 		padding-left: 20px;
 		h4 {
 			padding-bottom:10px;
@@ -85,46 +85,40 @@
 		}
 		.control-group {
 			position:relative;
-			height:35px;
-			label, p {
-				display:block;
-				float:left;
-				width:100px;
-				margin:0px;
-				color:#2e2e2e;
-				text-transform: uppercase;
-				letter-spacing: 1px;
-				padding-top:6px;
-				margin-right:8px;
+			height:42px;
+			p {
+				margin:0px !important;
+				padding:0px;
 			}
-      label {
-        text-align: right !important;
-        font-size: 11px;
-      }
-      p {
-        margin-left: 2px;
-        font-size: 8px;
-        text-align: left;
-        line-height: 8px;
-      }
 			input {
-				float:left;
-				padding:2px 0;
-				margin-bottom:5px;
-				border: 1px solid #cdcdcd;
-				padding: 4px 2px;
-				font-family: $bt_font;
-				width:180px;
-				background:#fff;
+				width: 76%;
+				padding: 3% 3% 3% 17%;
+				border: 1px solid #d1d1d1;
+				font-family: 'Trebuchet Ms';
+				font-size: 14px;
+				color: #666;
+				letter-spacing: 1px;
+				background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -6px;
+				border-radius: 2px;
 			}
 			input#zip_code,
 			input#number,
 			input#telephone,
 			input#mobile {
-				width:80px;
+				width:120px;
 			}
+
 			input#state {
 				width:40px;
+			}
+			.findCEP {
+				float:right;
+				font-size: 11px;
+				margin-top:8px;
+				margin-right:15px;
+				position: absolute;
+				right: 0px;
+				top: 0px;
 			}
 			input#save-btn {
 				width:100%;
@@ -134,6 +128,7 @@
 				text-transform: uppercase;
 				color:#FFF;
 				letter-spacing: 2px;
+				margin-top:20px;
 				@include bt_color($primary_bt_color, $primary_bt_color_hover);
 				padding:7px 0;
 				cursor: pointer;
@@ -142,24 +137,49 @@
 			select {
 				margin-bottom:6px;
 			}
-			.help-inline {
-				color:#ef3742;
-				margin-left: 108px;
-				position: relative;
-				top: -5px;
-				display: block;
-				width: 57%;
-				clear: both;
-				color: #ef3742;
-				font-size: 9px;
-				font-family: Tahoma;
+		}
+		.state,
+		.city {
+			width:96%%;
+			height:38px;
+			background:#f1f1f1;
+			border:1px solid #d1d1d1;
+			margin-top:2px;
+			border-radius:2px;
+			margin-bottom:4px;
+			background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -318px;
+			select {
+				background:none;
+				width: 85%;
+				border: 0px;
+				font-size: 14px;
+				height: 37px;
+				border-radius: 0px;
+				margin-left: 44px;
 			}
 		}
-		.error {
-			input {
-				border:1px solid #ef3742;
-			}
+		.help-inline {
+			position: absolute;
+			padding: 2px 6px;
+			left: 56px;
 		}
+		.error .help-inline {
+			border: 1px solid #d1d1d1;
+			background: #FFF;
+			font-size: 11px;
+			margin-top: -12px;
+			margin-left: -3px;
+			color: $base_color;
+			z-index: 99;
+		}
+		.zip_code input {background-position:-107px -269px}
+		.city {background-position:-107px -369px;}
+		.neighborhood input {background-position:-107px -419px;}
+		.street input {background-position:-107px -670px;}
+		.number input {background-position:-107px -470px;}
+		.complement input {background-position:-107px -520px;}
+		.telephone input {background-position:-107px -570px;}
+		.mobile input {background-position:-107px -620px;}
 	}
 }
 
