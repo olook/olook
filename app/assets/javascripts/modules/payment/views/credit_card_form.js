@@ -43,10 +43,11 @@ app.views.CreditCardForm = Backbone.View.extend({
     }
     this.model.set(values);
     this.cart.credit_card =  this.model;
-    if (!this.model.isValid()) {
-      this.updateError(e.currentTarget);
+
+    if (this.model.isValid()) {
+      this.clearError(e.currentTarget.id);
     } else {
-      this.clearError(e.currentTarget.id);    
+      this.updateError(e.currentTarget);
     }
     this.cart.set("payment_data", this.model.attributes);
   },

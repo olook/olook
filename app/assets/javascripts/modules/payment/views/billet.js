@@ -19,7 +19,6 @@ app.views.Billet = Backbone.View.extend({
   },
 
   render: function(model) {
-    debugger;
     var html = this.template(_.extend(this.attr(model), {payment_discounts: app.formatted_currency(this.cart.get("payment_discounts") * -1)}));
     this.$el.html(html);
     this.$el.show();
