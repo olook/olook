@@ -12,7 +12,8 @@ app.views.CreditCardForm = Backbone.View.extend({
   },
 
   events: {
-    "blur #full_name, #number, #expiration_date, #security_code, #cpf" : "updateModel",
+    "change #full_name, #number, #expiration_date, #security_code, #cpf" : "promptError",
+    "keyup #full_name, #number, #expiration_date, #security_code, #cpf" : "updateData",
     "keyup #number" : "chooseFlag"
   },
 
@@ -23,6 +24,8 @@ app.views.CreditCardForm = Backbone.View.extend({
     this.$el.show();
     CreditCard.populateInstallmentsFor(this.$el.find("#installments"), this.cart.get('total') , CreditCard.installmentsNumberFor(this.cart.get('total'), false));
     this.initMasks();
+    this.updateData();
+    this.cart.trigger('change:payment_data');
   },
 
   hide: function(){
@@ -33,25 +36,53 @@ app.views.CreditCardForm = Backbone.View.extend({
     this.model.set(this.cart.attributes.payment_data);
   },
 
-  updateModel: function(e) {
-    var formValues = $('.js-creditCardForm').serializeArray();
-    var values = _.object(_.map(formValues, function(item) {
-       return [item.name, item.value]
-    }));
+  updateData: function(e) {
+    this.populateModel();
+
+    this.updateCreditCardOnCart();
+
+    if (this.model.isValid() && e) {
+      this.clearError(e.currentTarget.id);
+    } 
+
+    this.cart.set("payment_data", this.model.attributes);
+    this.cart.trigger('change:payment_data');
+  },
+
+  populateModel: function(){
+    var values = this.formatValues();
+    values = this.setBank(values);
+    this.model.set(values);
+  },
+
+  setBank: function(values){
     if(!StringUtils.isEmpty(values["number"])){
       _.extend(values, {bank: this.matchFlag(values["number"])});
     }
-    this.model.set(values);
-    this.cart.credit_card =  this.model;
+    return values;
+  },
 
-    if (this.model.isValid()) {
-      this.clearError(e.currentTarget.id);
-    } else {
-      this.updateError(e.currentTarget);
+  updateCreditCardOnCart: function(e){
+    if(!this.cart.credit_card){
+      this.cart.credit_card = this.model;
+    } else if(e){
+      this.cart.credit_card.set(e.currentTarget.id,this.model.get(e.currentTarget.id));
     }
-    this.cart.set("payment_data", this.model.attributes);
+  },
+
+  formatValues: function(){
+    var formValues = $('.js-creditCardForm').serializeArray();
+    return (_.object(_.map(formValues, function(item) {
+       return [item.name, item.value]
+    })));
   },
   
+  promptError: function(e){
+    if (!this.model.isValid()) {
+      this.updateError(e.currentTarget);
+    }
+  },
+
   updateError: function(el) {
     this.clearError(el.id);
     this.showError(el.id);

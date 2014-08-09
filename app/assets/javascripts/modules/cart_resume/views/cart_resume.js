@@ -10,6 +10,7 @@ app.views.CartResume = Backbone.View.extend({
     this.overlay = $('<div id="overlay-modal-items"></div>');
     this.overlay.on('click', $.proxy(this.hideCartItems, this));
     this.model.on('change', this.render, this);
+    this.model.on("change:payment_data", this.render, this);
   },
 
 
@@ -18,6 +19,8 @@ app.views.CartResume = Backbone.View.extend({
     this.addAllItems();
     if(this.model.stepValid()){
       this.$el.find("#js-finalize-order").removeClass("disabled");
+    } else if(!$("#js-finalize-order").hasClass("disabled")){
+      $("#js-finalize-order").addClass("disabled");
     }
   },
 

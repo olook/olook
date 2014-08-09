@@ -35,8 +35,7 @@ app.models.CreditCard = Backbone.Model.extend({
       errors.push({name: 'expiration_date', message: 'Digite a data de validade'});
     }
 
-    var expDate = attr.expiration_date.split("/");
-    if (expDate[0] > 12) {
+    if (StringUtils.isEmpty(attr.expiration_date) || !this.validateExpirationDate(attr.expiration_date)) {
       errors.push({name: 'expiration_date', message: 'Por favor, confira a data de validade'});
     }
 
@@ -47,6 +46,10 @@ app.models.CreditCard = Backbone.Model.extend({
     }
 
     return errors.length > 0 ? errors : false;
+  },
+
+  validateExpirationDate: function(expiration_date){
+    return((/^((0[0-9])|1[0-2])\/\d{2}$/).test(expiration_date));
   },
 
   validateSecurityCode: function(security_code){
