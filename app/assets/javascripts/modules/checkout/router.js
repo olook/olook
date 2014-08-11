@@ -76,9 +76,11 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     this.paymentController.config();
   },
   confirmationStep: function() {
-    this.hideSteps();
-    this.cart.set("step", "confirmation");
-    this.initializeCartResume();
+
+    // this.hideSteps();
+    // this.cart.set("step", "confirmation");
+    // this.initializeCartResume();
+    olookApp.publish("checkout:finish", this.cart.get('id'));
   },
   hideSteps: function() {
     if(this.cartResume) {

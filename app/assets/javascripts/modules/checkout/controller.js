@@ -22,6 +22,7 @@ var CheckoutController = (function() {
     olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
     olookApp.subscribe("address:remove", this.removeAddress, {}, this);
     olookApp.subscribe('checkout:payment_type', this.paymentTypeSelected, {}, this);
+    olookApp.subscribe('checkout:finish', this.finish, {}, this);
   };
 
   CheckoutController.prototype.paymentTypeSelected = function(model){
@@ -36,6 +37,15 @@ var CheckoutController = (function() {
 
   CheckoutController.prototype.freightSelected = function(model) {
     this.cart.save({shipping_service_id: model.get('shipping_service_id')});
+  };
+
+  CheckoutController.prototype.finish = function(model) {
+    $.post("/api/v1/checkout", {}).done(function(data, status, resp){    
+      window.location = resp.getResponseHeader('location');
+    }).fail(function() {
+      alert('de erro');
+    })
+
   };
 
   CheckoutController.prototype.removeAddress = function(model) {
