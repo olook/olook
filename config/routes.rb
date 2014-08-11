@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "beta/index"
-  get "beta/confirmation"
+  get "beta/confirmation", as: 'checkout_conclusion'
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
@@ -13,6 +13,7 @@ Olook::Application.routes.draw do
       resources :freights, only: [:index]
       resources :payment_types, only: [:index]
       resources :addresses
+      resources :checkout, only: :create
       devise_scope :user do
         resources :users, only: [:create]
         resource :sessions, only: [:show, :create, :destroy]
