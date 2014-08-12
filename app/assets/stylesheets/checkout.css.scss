@@ -151,10 +151,10 @@ body {
 			margin-bottom:10px;
 		}
 		p {
-			font-size: 11px;
+			font-size: 12px;
 			margin:5px 0;
-			letter-spacing: 1px;
-			background:image-url('cart/ico_flags.png') no-repeat left center;
+			cursor: pointer;
+			/*background:image-url('cart/ico_flags.png') no-repeat left center;*/
 		}
 		p.CreditCard {
 			background-position:127px -1px;
@@ -182,6 +182,9 @@ body {
 			display: block;
 			margin:0px;
 			margin-bottom:10px;
+			span {
+				color:#f03844;
+			}
 		}
 		p {
 			line-height: 18px;
@@ -200,7 +203,7 @@ body {
 			width:100%;
 			display: block;
 			margin-bottom:10px;
-			height:80px;
+			height:50px;
       p { 
         font-size: 14px;
         font-weight: bold;
@@ -233,6 +236,7 @@ body {
 					background-position: -1px -4px;
 					border:1px solid #FFF;
 					border-radius:10px;
+					cursor: pointer;
 				}
 				input[type="radio"]:checked+label { 
 					border:1px solid #000;
