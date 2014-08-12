@@ -17,4 +17,9 @@ class SACAlertMailer < ActionMailer::Base
     @reseller = reseller
     mail(:to => to, :subject => "Novo Revendedor")
   end
+
+  def wholesale_notification(wholesale, to)
+    @wholesale = wholesale
+    mail(to: to, subject: "Novo Atacado")
+  end
 end
