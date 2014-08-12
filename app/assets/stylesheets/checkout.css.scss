@@ -187,8 +187,8 @@ body {
 			}
 		}
 		p {
-			line-height: 18px;
-			font-size: 11px;
+			line-height: 20px;
+			font-size: 12px;
 		}
 		ul {
 			li {
@@ -212,8 +212,8 @@ body {
 			.itau,
 			.bradesco,
 			.bancodobrasil {
-				width:48px;
-				height:48px;
+				width:50px;
+				height:50px;
 				display: block;
 				overflow:hidden;
 				float:left;
@@ -225,7 +225,8 @@ body {
 					left:-100px;
 				}
 				label {
-					width:97%;
+					width:48px;
+					height:48px;
 					height: 46px;
 					position:absolute;
 					left:0px;
@@ -243,11 +244,11 @@ body {
 				} 
 			}
 			span:nth-child(2) label {
-				background-position: -53px -4px;
+				background-position: -55px -4px;
 				
 			}
 			span:nth-child(3) label {
-				background-position: -105px -4px;
+				background-position: -109px -4px;
 
 			}
 			
