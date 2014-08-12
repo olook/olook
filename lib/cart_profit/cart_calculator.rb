@@ -30,7 +30,7 @@ module CartProfit
     end
 
     def cart_addings
-      gift_price
+      gift_price || 0
     end
 
     def items_total
@@ -87,13 +87,13 @@ module CartProfit
 
     def calculate_debit_discount_value retail_value
       debit_discount_percent = (Setting.debit_discount_percent.to_i / 100.0).to_d
-      debit_discount_value = (retail_value.to_d + minimum_value.to_d) * debit_discount_percent
+      debit_discount_value = (retail_value.to_d) * debit_discount_percent
       debit_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
     end
 
     def calculate_billet_discount_value retail_value
       billet_discount_percent = (Setting.billet_discount_percent.to_i / 100.0).to_d
-      billet_discount_value = (retail_value.to_d + minimum_value.to_d) * billet_discount_percent
+      billet_discount_value = (retail_value.to_d) * billet_discount_percent
       billet_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
     end
   end
