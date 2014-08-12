@@ -49,6 +49,7 @@ var PaymentController = (function(){
     var model = this.payments.findByPaymentMethod(this.cart.get("payment_method"));
     switch(this.cart.get('payment_method')){
       case 'CreditCard':
+        this.cart.attributes.payment_data["number"] = ""
         olookApp.publish('payment:creditcard:show', model );
       break;
       case 'Debit':
