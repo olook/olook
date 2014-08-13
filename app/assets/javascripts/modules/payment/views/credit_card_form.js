@@ -14,6 +14,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   events: {
     "change #full_name, #number, #expiration_date, #security_code, #cpf" : "promptError",
     "keyup #full_name, #number, #expiration_date, #security_code, #cpf" : "updateData",
+    "blur #full_name, #number, #expiration_date, #security_code, #cpf" : "updateData",
     "keyup #number" : "chooseFlag"
   },
 

@@ -49,10 +49,15 @@ var PaymentController = (function(){
     var model = this.payments.findByPaymentMethod(this.cart.get("payment_method"));
     switch(this.cart.get('payment_method')){
       case 'CreditCard':
-        this.cart.attributes.payment_data["number"] = ""
+        this.cart.attributes.payment_data["number"] = "";
+        this.cart.attributes.payment_data["expiration_date"] = "";
+        this.cart.attributes.payment_data["security_code"] = "";
+        this.cart.attributes.payment_data["cpf"] = "";
+
         olookApp.publish('payment:creditcard:show', model );
       break;
       case 'Debit':
+        this.cart.debit = null;
         olookApp.publish('payment:debit:show', model);
       break;
       case 'Billet':
