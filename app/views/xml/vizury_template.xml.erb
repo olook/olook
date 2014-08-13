@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <% @products.each do |product| %>
+    <product id="<%= product.id %>">
+      <name><![CDATA[<%= product.formatted_name(200) %>]]></name>
+      <smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
+      <bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
+      <producturl><![CDATA[<%= product.product_url(:utm_source => "vizury", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %>]]></producturl>
+      <description><![CDATA[<%= product.description %>]]></description>
+      <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
+      <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
+      <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
+      <brand><![CDATA[<%= product.brand %>]]></brand>
+      <recommendable>1</recommendable>
+      <instock><%= product.instock %></instock>
+      <category><%= product.subcategory.try(:upcase) %></category>
+    </product>
+  <% end %>
+</products>

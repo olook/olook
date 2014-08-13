@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<produtos>
+  <% @products.each do |product| %>
+    <produto>
+      <imagem><%= full_image_path product.xml_picture(:main) %></imagem>
+      <categoria><%= product.category_humanize %> &gt; <%= product.model_name %></categoria>
+      <nome><![CDATA[<%= product.formatted_name(200) %>]]></nome>
+      <descricao><![CDATA[<%= product.description %>]]></descricao>
+      <url><![CDATA[<%= product.product_url(:utm_source => "hao123", :utm_medium => "vitrine", :utm_campaign => "Produtos", utm_content: "sku do produto") %>]]></url>
+      <preco><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></preco>
+      <desconto><%= number_with_precision(product.price - product.retail_price, precision: 2, separator: ",") %></desconto>
+    </produto>
+  <% end %>
+</produtos>

@@ -734,8 +734,10 @@ header#new_header{border-top: 2px black solid;
         height:22px;
         display: block;
         background: image-url("common/filtro-de-cores.jpg") no-repeat 0 36px;
+        &.clean{width:100%!important;padding-left:11px !important;}
       }
-      &.amarelo a {background: #fff673;}
+      
+      &.amarelo a {background: #fff673;width: 22px !important;padding-left: 0 !important;}
       &.azul a {background: #312c90;}
       &.branco a {background: white;border:1px solid #f1f1f1;}
       &.laranja a {background: #f26526;}
@@ -760,6 +762,10 @@ header#new_header{border-top: 2px black solid;
     li.limparFiltro {
       width:160px;
       a {width:160px;padding-left:11px !important;}
+    }
+    li:last-child{
+      width: 90%;
+      display: block;
     }
 
      li span{

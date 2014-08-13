@@ -6,7 +6,7 @@
         <span>Você precisa acessar o seu internet banking através do botão abaixo para realizar o pagamento do seu pedido.</span>
       </p>
       <%#= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
-      <p class="logo_itau">Logo Banco Itaú</p>
+      <p class="logo_<%= payment.bank.downcase %>">Logo Banco</p>
       <%= link_to "Realizar Pagamento", @payment.url, :target => "_blank", :class => "btn_pay", onclick: track_event("PostCheckout","clickChooseBankBillet") %>
     </div>
     <p class="thanks">Obrigada pela sua compra</p>
