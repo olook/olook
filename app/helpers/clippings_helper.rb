@@ -13,4 +13,14 @@ module ClippingsHelper
       clipping.link
     end
   end
+
+  def filters_by 
+    years = (2012..DateTime.now.year).to_a.reverse!
+    
+
+
+
+  end 
+
+
 end
