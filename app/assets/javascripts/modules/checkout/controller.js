@@ -45,6 +45,9 @@ var CheckoutController = (function() {
       window.location = resp.getResponseHeader('location');
     }).fail(function(data, status, resp) {
       that.cart.attributes.payment_data.errorMessage = JSON.parse(data.responseText).message;
+
+      // TODO tambem podemos disparar eventos de dados invalidos a partir daqui
+
       that.router.navigate('pagamento', {trigger: true});
     })
 

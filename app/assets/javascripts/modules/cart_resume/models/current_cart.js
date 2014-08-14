@@ -99,7 +99,6 @@ app.models.CurrentCart = Backbone.Model.extend({
   },
   paymentStepValid: function() {
     var payment_method = this.get('payment_method');
-    console.log(payment_method);
 
     switch(payment_method) {
       case "CreditCard":
