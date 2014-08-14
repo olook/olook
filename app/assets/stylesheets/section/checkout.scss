@@ -1700,6 +1700,9 @@ section#payment {
           }
         }
         .logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
+        .logo_bradesco{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(-90px,0px);margin:0 42px 0 220px;}
+        .logo_bancodobrasil{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(-178px,0px);margin:0 42px 0 220px;}
+
         .btn_pay{display:block;font-size:17px;width:290px;height:45px;float:left;margin-top:14px;text-transform: uppercase;letter-spacing: 2px;padding-top: 26px; @include bt_color($primary_bt_color, $primary_bt_color_hover);}
 
         .mercado_pago_button{
@@ -2194,7 +2197,7 @@ section.checkout{
         .debit_bank_Itau{
           position:absolute;
           z-index:2;
-          left:144px;
+          left:90px;
           top:65px;
           display:block;
           width:45px;
@@ -2206,6 +2209,40 @@ section.checkout{
 
           &.selected{@include sprite_checkout(-123px, -459px)}
         }
+
+
+        .debit_bank_Bradesco{
+          position:absolute;
+          z-index:2;
+          left:145px;
+          top:65px;
+          display:block;
+          width:45px;
+          height:32px;
+          @include sprite_checkout(-403px, -423px);
+          font-size:0;
+          font-family:a;
+          cursor:pointer;
+
+          &.selected{@include sprite_checkout(-403px, -459px)}
+        }
+        .debit_bank_BancoDoBrasil{
+          position:absolute;
+          z-index:2;
+          left:200px;
+          top:65px;
+          display:block;
+          width:45px;
+          height:32px;
+          @include sprite_checkout(-449px, -423px);
+          font-size:0;
+          font-family:a;
+          cursor:pointer;
+
+          &.selected{@include sprite_checkout(-449px, -459px)}
+        }        
+
+
         p{clear:both;font-size:13px;margin-top:10px;line-height: 18px;
           span{color:#000;}
         }

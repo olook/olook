@@ -6,7 +6,8 @@ app.models.CreditCard = Backbone.Model.extend({
     expiration_date: '',
     security_code: '',
     cpf: '',
-    installment_number: ''
+    installment_number: '',
+    errorMessage: '',
   },
 
   validate: function(attr) {
@@ -33,9 +34,7 @@ app.models.CreditCard = Backbone.Model.extend({
 
     if (StringUtils.isEmpty(attr.expiration_date)) {
       errors.push({name: 'expiration_date', message: 'Digite a data de validade'});
-    }
-
-    if (StringUtils.isEmpty(attr.expiration_date) || !this.validateExpirationDate(attr.expiration_date)) {
+    } else if (!this.validateExpirationDate(attr.expiration_date)) {
       errors.push({name: 'expiration_date', message: 'Por favor, confira a data de validade'});
     }
 

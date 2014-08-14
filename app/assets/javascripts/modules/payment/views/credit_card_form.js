@@ -14,6 +14,7 @@ app.views.CreditCardForm = Backbone.View.extend({
   events: {
     "change #full_name, #number, #expiration_date, #security_code, #cpf" : "promptError",
     "keyup #full_name, #number, #expiration_date, #security_code, #cpf" : "updateData",
+    "blur #full_name, #number, #expiration_date, #security_code, #cpf" : "updateData",
     "keyup #number" : "chooseFlag"
   },
 
@@ -129,7 +130,7 @@ app.views.CreditCardForm = Backbone.View.extend({
     this.$el.find("#number").setMask('9999 9999 9999 9999');
     this.$el.find("#expiration_date").setMask('99/99');
     this.$el.find("#security_code").setMask('9999');
-    this.$el.find("#cpf").setMask('999.999.999-99');    
+    this.$el.find("#cpf").setMask('999.999.999-99');
   }
 
 });

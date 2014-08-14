@@ -4,7 +4,7 @@ class KanuiIntegration
   LIST_KEY = 'KANUI:LIST'
   ACTIVE_KEY = 'KANUI:ACTIVE'
   HEADERS = {
-    inventory_line_generator: ["Marca", "Codigo produto", "Estoque"],
+    inventory_line_generator: ["Marca", "Codigo produto", "Estoque", "Preco de", "Preco por"],
     product_line_generator: ["Esporte", "Tipo de Produto", "Marca", "Gênero", "Cor Fornecedor", "Modelo", "Nome", "Código Fornecedor( Produto)", "Tamanho", "EAN (CÓDIGO DE BARRAS)", "Custo CIF (Valor do Produto + IPI)", "Preço de Venda (sugerido pelo fornecedor)", "Fornecedor", "Origem - Nacional / Importado", "Linha de Produto", "Tipo de Armazenamento", "Cor Padrão", "Cores do Produto", "Material (ex.: 50% Algodão e 50% Poliéster)", "Material (ex.: Algodão, Poliéster)", "Composição do material Interno", "Clubes", "Estilo", "Características Gerais", "Breve Descrição do Tamanho", "Acabamento", "Capacidade", "Medidas do Produto",  "Altura do Produto", "Largura do Produto", "Comprimento do Produto", "Peso do Produto", "Aplicação", "Necessita Montagem?", "Garantia de Fornecedor", "Descrição", "Descrição Breve", "O que o Produto Contém", "Instruções/ Cuidados"]
   }
 
@@ -94,6 +94,6 @@ class KanuiIntegration
   end
 
   def inventory_line_generator(product, variant)
-    [product.brand, variant.number, variant.inventory / 3]
+    [product.brand, variant.number, variant.inventory / 3, product.price, product.retail_price]
   end
 end
