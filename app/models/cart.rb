@@ -158,7 +158,7 @@ class Cart < ActiveRecord::Base
   end
 
   def sub_total
-    cart_calculator.items_total
+    cart_calculator.items_subtotal
   end
 
   def remove_coupon!
