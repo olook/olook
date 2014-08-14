@@ -6,7 +6,8 @@ app.models.CreditCard = Backbone.Model.extend({
     expiration_date: '',
     security_code: '',
     cpf: '',
-    installment_number: ''
+    installment_number: '',
+    errorMessage: '',
   },
 
   validate: function(attr) {

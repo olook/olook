@@ -26,8 +26,6 @@ var CheckoutController = (function() {
   };
 
   CheckoutController.prototype.paymentTypeSelected = function(model){
-    console.log(model.attributes);
-    console.log("o desconto para "+model.attributes.name+" é de "+model.attributes.percentage+"%");
     if(this.cart.get('payment_method') != model.get('type')) {
       this.cart.save({ payment_method: model.get('type')}, {wait: true});
     } else {
@@ -40,10 +38,14 @@ var CheckoutController = (function() {
   };
 
   CheckoutController.prototype.finish = function(model) {
-    $.post("/api/v1/checkout", {}).done(function(data, status, resp){    
+    var that = this;
+
+    $.post("/api/v1/checkout", {}).done(function(data, status, resp){
+      //TODO Clear the cart
       window.location = resp.getResponseHeader('location');
-    }).fail(function() {
-      alert('de erro');
+    }).fail(function(data, status, resp) {
+      that.cart.attributes.payment_data.errorMessage = JSON.parse(data.responseText).message;
+      that.router.navigate('pagamento', {trigger: true});
     })
 
   };

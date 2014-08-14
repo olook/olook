@@ -2,6 +2,7 @@ app.models.CurrentCart = Backbone.Model.extend({
   url: app.server_api_prefix + '/current_cart',
   attributesToServer: ['address_id', 'use_credits', 'facebook_share_discount',
     'shipping_service_id', 'payment_method', 'payment_data'],
+
   toTemplate: function() {
     return $.extend({}, this.attributes, {
       subtotal: app.formatted_currency(this.get('subtotal')),

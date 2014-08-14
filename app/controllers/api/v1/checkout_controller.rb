@@ -4,7 +4,6 @@ module Api
       respond_to :json
 
       def create
-
         payment = create_payment
         sender_strategy = create_sender_strategy(payment)
         payment_builder = create_payment_builder(payment, sender_strategy)
@@ -13,12 +12,12 @@ module Api
 
         # TODO => Melhorar este tratamento de erro
         if result[:status] == Payment::FAILURE_STATUS
-          render json: {}, status: 500
+          message = error_message_for(result, payment)  
+          render json: {message: message}, status: :bad_request
         else
-          render json: {order_number: 4338465}, location: checkout_conclusion_path, status: :created
+          session[:cart_id] = nil
+          render json: {}, location: checkout_conclusion_path, status: :created
         end
-
-
       end
 
       private
@@ -39,13 +38,13 @@ module Api
         if payment.is_a? Debit
           payment.bank = params[:payment_data][:bank]
         elsif payment.is_a? CreditCard
-          payment.credit_card_number = params[:payment_data][:number].gsub(/\s+/, "")
-          payment.user_identification = params[:payment_data][:cpf]
-          payment.user_name = params[:payment_data][:full_name]
-          payment.security_code = params[:payment_data][:security_code]
-          payment.payments = params[:payment_data][:installments]
-          payment.expiration_date = params[:payment_data][:expiration_date]
-          payment.bank = params[:payment_data][:bank]
+          payment.credit_card_number = current_cart.payment_data[:number].gsub(/\s+/, "")
+          payment.user_identification = current_cart.payment_data[:cpf]
+          payment.user_name = current_cart.payment_data[:full_name]
+          payment.security_code = current_cart.payment_data[:security_code]
+          payment.payments = current_cart.payment_data[:installments]
+          payment.expiration_date = current_cart.payment_data[:expiration_date]
+          payment.bank = current_cart.payment_data[:bank]
         end
 
         payment.save!
@@ -79,6 +78,17 @@ module Api
 
       def cart_service
         @cart_service ||= CartProfit::CartCalculatorAdapter.new(current_cart)        
+      end
+
+      def error_message_for response, payment
+        return "Identificamos um problema com a forma de pagamento escolhida." unless payment.is_a? CreditCard 
+
+        if response.error_code == "BP07"
+          error_message = "Tempo de retorno da operadora de cartão excedido.<br>Tente novamente ou escolha outra forma de pagamento."
+        else
+          error_message = "Identificamos um problema com o cartão.<br>Confira os dados ou tente outra forma de pagamento."
+        end
+        error_message  
       end
 
     end
