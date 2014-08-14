@@ -79,7 +79,7 @@ class CartService
   def total_increase
     increase = 0
     increase += cart.increment_from_gift_wrap
-    increase += freight_price
+    # increase += freight_price
     increase
   end
 
@@ -234,7 +234,6 @@ class CartService
     credits_invite = 0.0
     credits_redeem = 0.0
     if (use_credits == true && self.cart.user)
-
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
       if credits_loyality >= retail_value

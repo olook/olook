@@ -225,47 +225,6 @@ ActiveRecord::Schema.define(:version => 20140805172854) do
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
-  create_table "carts_backup", :id => false, :force => true do |t|
-    t.integer  "id",                      :default => 0,     :null => false
-    t.integer  "user_id"
-    t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "legacy_id"
-    t.boolean  "gift_wrap",               :default => false
-    t.boolean  "use_credits",             :default => false
-    t.integer  "coupon_id"
-    t.integer  "address_id"
-    t.boolean  "facebook_share_discount"
-  end
-
-  create_table "catalog_bases", :force => true do |t|
-    t.string   "url"
-    t.string   "type"
-    t.string   "seo_text"
-    t.string   "small_banner1"
-    t.string   "alt_small_banner1"
-    t.string   "link_small_banner1"
-    t.string   "small_banner2"
-    t.string   "alt_small_banner2"
-    t.string   "link_small_banner2"
-    t.string   "medium_banner"
-    t.string   "alt_medium_banner"
-    t.string   "link_medium_banner"
-    t.string   "big_banner"
-    t.string   "alt_big_banner"
-    t.string   "link_big_banner"
-    t.string   "title"
-    t.string   "resume_title"
-    t.text     "text_complement"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.boolean  "enabled"
-    t.text     "product_list"
-    t.string   "organic_url"
-    t.integer  "url_type"
-  end
-
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
     t.integer  "product_id"
@@ -1164,9 +1123,6 @@ ActiveRecord::Schema.define(:version => 20140805172854) do
     t.string   "erp_code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "cubic_weight_factor"
-    t.integer  "priority"
-    t.string   "erp_delivery_service"
   end
 
   create_table "shippings", :force => true do |t|

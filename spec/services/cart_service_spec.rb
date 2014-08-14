@@ -173,12 +173,6 @@ describe CartService do
       cart_service = CartService.new({:cart => cart})
       cart_service.total_increase.should eq(gift_wrap_price)
     end
-
-    it "should sum freight price" do
-      cart_service = CartService.new({:cart => cart})
-      cart_service.stub(:freight).and_return({:price => 10.0})
-      cart_service.total_increase.should eq(10.0)
-    end
   end
 
   context ".is_minimum_payment?" do
