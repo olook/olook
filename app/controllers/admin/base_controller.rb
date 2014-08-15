@@ -10,6 +10,16 @@ class Admin::BaseController < ActionController::Base
     redirect_to admin_url
   end
 
+  def render_public_exception
+    case env["action_dispatch.exception"]
+      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
+        ::AbstractController::ActionNotFound
+        render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
+      else
+        render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
+    end
+  end
+
   private
 
   def current_ability

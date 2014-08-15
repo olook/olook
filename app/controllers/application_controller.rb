@@ -54,6 +54,16 @@ class ApplicationController < ActionController::Base
     @current_campaign = Campaign.activated_campaign
   end
 
+  def render_public_exception
+    case env["action_dispatch.exception"]
+      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
+        ::AbstractController::ActionNotFound
+        render :template => "/errors/404.html.erb", :status => 404
+      else
+        render :template => "/errors/500.html.erb", :status => 500
+    end
+  end
+
   def load_chaordic_user
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end

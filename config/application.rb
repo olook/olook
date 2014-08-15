@@ -17,12 +17,6 @@ ENV['REDIS_CACHE_STORE'] ||= "redis://#{redis_host}:#{redis_port}/3/cache"
 ENV['REDIS_LEADERBOARD'] ||= "redis://#{redis_host}:#{redis_port}/4"
 ENV['REDIS_SITEMAP'] ||= "redis://#{redis_host}:#{redis_port}/2"
 
-class ActionDispatch::Request
-  def local?
-    false
-  end
-end
-
 module Olook
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

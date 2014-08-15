@@ -98,6 +98,8 @@ Olook::Application.routes.draw do
 
   # match "/busca", :to => "search#show", :as => "search"
 
+  match '/404', :to => "application#render_public_exception"
+  match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
@@ -542,14 +544,14 @@ Olook::Application.routes.draw do
   mount Split::Dashboard, :at => 'split'
 
   # Produto
-  #get "/:id", to: "product#show", id: /[\w|-]+\d+/, as: "product_seo"
+  get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
 
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#index"
   match  "/:category/nao-encontrado", to: "catalogs#not_found", as: 'catalog_not_found'
   match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i, format: 'html' }
 
-  #get '*custom_url' => 'custom_url#show'
+  get '*custom_url' => 'custom_url#show'
 
 end
 
