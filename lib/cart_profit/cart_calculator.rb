@@ -6,9 +6,9 @@ module CartProfit
       @cart = cart
     end
 
-    def items_subtotal
+    def items_subtotal(with_markdown = false)
       return 0 if cart.nil? || (cart && cart.items.nil?)
-      cart.items.inject(0){|sum,item| sum += item.price * item.quantity}
+      cart.items.inject(0){|sum,item| sum += (with_markdown ? item.retail_price : item.price) * item.quantity}
     end
 
     def subtotal

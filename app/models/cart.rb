@@ -210,6 +210,10 @@ class Cart < ActiveRecord::Base
     self.use_credits && self.allow_credit_payment?
   end
 
+  def sub_total_with_markdown
+    cart_calculator.items_subtotal true
+  end  
+
   private
 
     def update_coupon

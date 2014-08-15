@@ -266,28 +266,28 @@ describe CartService do
     it "should sum retail price of items" do
       cart_service.stub(:total_increase).and_return(0)
       cart_service.stub(:total_discount).and_return(0)
-      cart_service.cart.stub(:sub_total).and_return(100)
+      cart_service.cart.stub(:sub_total_with_markdown).and_return(100)
 
       cart_service.total.should eq(100)
     end
 
     it "should sum increase values" do
       cart_service.stub(:total_discount).and_return(0)
-      cart_service.stub(:cart_sub_total).and_return(0)
+      cart_service.stub(:cart_sub_total_with_markdown).and_return(0)
       cart_service.should_receive(:total_increase).and_return(25)
       cart_service.total.should eq(25)
     end
 
     it "should subtract discounts values" do
       cart_service.stub(:total_increase).and_return(0)
-      cart_service.stub(:cart_sub_total).and_return(100)
+      cart_service.stub(:cart_sub_total_with_markdown).and_return(100)
       cart_service.should_receive(:total_discount).and_return(25)
       cart_service.total.should eq(75)
     end
 
     it "should is minimum value when total is less than minimum value" do
       cart_service.stub(:total_increase).and_return(0)
-      cart_service.stub(:cart_sub_total).and_return(0)
+      cart_service.stub(:cart_sub_total_with_markdown).and_return(0)
       cart_service.stub(:total_discount).and_return(0)
       cart_service.total.should eq(Payment::MINIMUM_VALUE)
     end
