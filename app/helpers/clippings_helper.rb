@@ -17,8 +17,8 @@ module ClippingsHelper
 
   def filters 
    years = (2012..DateTime.now.year).to_a
-   years << ["Ultimos Meses", "ultimos"]
-   years << ["Todos", ""]
+   years << ["6 Ultimos Meses", "ultimos"]
+  
     years.reverse.each do |y| 
       puts y
     end

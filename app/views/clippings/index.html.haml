@@ -91,11 +91,11 @@
           = image_tag "common/clipping_arrow.png", :class => "arrow"
         %li.media
           = image_tag "common/ig.jpg", :class => "ig"
-  %h2
+  %h2#articles
     Quer escrever sobre a Olook?
   %p.contact
     É só entrar em contato através do e-mail imprensa@olook.com.br
-  %form.js-period_form{method: :get}
+  %form.js-period_form{method: :get, action: press_path}
     %label
       Filtrar por:
     %span
