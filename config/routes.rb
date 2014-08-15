@@ -18,7 +18,7 @@ Olook::Application.routes.draw do
         resources :users, only: [:create]
         resource :sessions, only: [:show, :create, :destroy]
       end
-      resource :current_cart, only: [:show, :update]
+      resource :current_cart, only: [:show, :update, :create]
       resources :zip_code,only: [:show]
     end 
   end

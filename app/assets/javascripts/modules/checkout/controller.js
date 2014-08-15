@@ -41,13 +41,12 @@ var CheckoutController = (function() {
     var that = this;
 
     $.post("/api/v1/checkout", {}).done(function(data, status, resp){
-      //TODO Clear the cart
+      
+      that.cart = new app.models.CurrentCart();
       window.location = resp.getResponseHeader('location');
+
     }).fail(function(data, status, resp) {
       that.cart.attributes.payment_data.errorMessage = JSON.parse(data.responseText).message;
-
-      // TODO tambem podemos disparar eventos de dados invalidos a partir daqui
-
       that.router.navigate('pagamento', {trigger: true});
     })
 

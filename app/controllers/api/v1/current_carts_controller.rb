@@ -6,6 +6,10 @@ module Api
         render json: (@cart ? @cart.api_hash : {})
       end
 
+      def create
+        @cart = Cart.new
+      end
+
       def update
         @cart = current_cart || Cart.new
         @cart.attributes = params[:current_cart]

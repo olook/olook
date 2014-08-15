@@ -126,5 +126,9 @@ app.models.CurrentCart = Backbone.Model.extend({
     return _.object(_.map(this.attributesToServer, function(key) {
       return [key, this.get(key)];
     }, this));
+  },
+
+  isEmpty: function() {
+    return this.get('items_count') == undefined || this.get('items_count') == 0;
   }
 });

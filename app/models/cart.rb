@@ -23,7 +23,7 @@ class Cart < ActiveRecord::Base
       id = attrs[:params] || attrs[:session]
       sql = self.where(user_id: user.id)
       cart = sql.find_by_id(id) if id
-      cart ||= sql.last
+      # cart ||= sql.last
     end
     cart = Cart.find_by_id(attrs[:session]) if attrs[:session]
     cart

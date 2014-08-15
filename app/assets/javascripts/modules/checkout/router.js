@@ -15,6 +15,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     "pagamento": "paymentStep",
     "confirmacao": "confirmationStep",
   },
+
   start: function() {
     var it = this;
     this.session.fetch({success: function() {
@@ -23,8 +24,14 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   },
   startCart: function() {
     var it = this;
-    this.cart.fetch({success: function() {
-      it.checkStep();
+    this.cart.fetch({success: function(cart) {
+
+      if (cart.isEmpty()) {
+        window.location = '/sacola';
+      } else {
+        it.checkStep();
+      }
+
     }});
   },
   translateStep: function(step) {
