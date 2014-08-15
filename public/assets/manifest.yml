@@ -1615,6 +1615,8 @@ predicta/v3_4.png: predicta/v3_4-31127f147534f94ff6093b87a76b6682.png
 predicta/v3_4/index.png: predicta/v3_4-31127f147534f94ff6093b87a76b6682.png
 predicta/v4_p_1.png: predicta/v4_p_1-1d3ec2aeabdd10ae3ab6e723c72669c1.png
 predicta/v4_p_1/index.png: predicta/v4_p_1-1d3ec2aeabdd10ae3ab6e723c72669c1.png
+press/ico_select.png: press/ico_select-11c65a1effff24c862ee89c7408c0006.png
+press/ico_select/index.png: press/ico_select-11c65a1effff24c862ee89c7408c0006.png
 press/logo_a_critica.jpg: press/logo_a_critica-c2c4cb798419b2380d41f57bc1bdcb7e.jpg
 press/logo_a_critica/index.jpg: press/logo_a_critica-c2c4cb798419b2380d41f57bc1bdcb7e.jpg
 press/logo_chic.jpg: press/logo_chic-e6b15027597cdd5f2a81b966c911194e.jpg
@@ -2093,8 +2095,8 @@ _search_bar.js: _search_bar-9e73897a888a9d5ce6f6e7a0839f04f1.js
 _search_bar/index.js: _search_bar-9e73897a888a9d5ce6f6e7a0839f04f1.js
 addresses.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
 addresses/index.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
-admin.js: admin-aa432f33de7da78ed81b2411deff8929.js
-admin/index.js: admin-aa432f33de7da78ed81b2411deff8929.js
+admin.js: admin-5c5423974ea0d89188eca7ff00b93728.js
+admin/index.js: admin-5c5423974ea0d89188eca7ff00b93728.js
 admin/bootstrap.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
 admin/bootstrap/index.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
 admin/catalog_landing_page.js: admin/catalog_landing_page-651c9f4f0c876e2057264856da79744f.js
@@ -2121,8 +2123,8 @@ admin/ses.js: admin/ses-53bb9ffdb929468011a5e7a56913579a.js
 admin/ses/index.js: admin/ses-53bb9ffdb929468011a5e7a56913579a.js
 api_fb.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
 api_fb/index.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
-application.js: application-62db5add95acaf3da9093417ff25f57a.js
-application/index.js: application-62db5add95acaf3da9093417ff25f57a.js
+application.js: application-363d8c49fd959585ff8b0f573dbfe95a.js
+application/index.js: application-363d8c49fd959585ff8b0f573dbfe95a.js
 application_core/olook_app.js: application_core/olook_app-0a39256dbf6cc2275f44dab4a87cb597.js
 application_core/olook_app/index.js: application_core/olook_app-0a39256dbf6cc2275f44dab4a87cb597.js
 application_core/scroll_events.js: application_core/scroll_events-747fce54663efc4167e4cd9d2bbd6553.js
@@ -2139,8 +2141,8 @@ checkout.js: checkout-9e02e7cb5aeb25934ff8d5366f06181b.js
 checkout/index.js: checkout-9e02e7cb5aeb25934ff8d5366f06181b.js
 checkout_addresses.js: checkout_addresses-627ff0bd5aa937855986639524732549.js
 checkout_addresses/index.js: checkout_addresses-627ff0bd5aa937855986639524732549.js
-clippings.js: clippings-7df846c26efcc6d344bb0742e9b86fcb.js
-clippings/index.js: clippings-7df846c26efcc6d344bb0742e9b86fcb.js
+clippings.js: clippings-b3736a56ea132c100ea23a4d1a628229.js
+clippings/index.js: clippings-b3736a56ea132c100ea23a4d1a628229.js
 collection_themes.js: collection_themes-1695138946a98361768fd74274109cac.js
 collection_themes/index.js: collection_themes-1695138946a98361768fd74274109cac.js
 common/base.js: common/base-b714835d408c684a53e2ffd10e5d1c64.js
@@ -2281,6 +2283,10 @@ modules/modal/request.js: modules/modal/request-90435eda0c6053bd91cbd8c454b9b7e6
 modules/modal/request/index.js: modules/modal/request-90435eda0c6053bd91cbd8c454b9b7e6.js
 modules/modal/show.js: modules/modal/show-b27281a61ffc40b27732b4b8e3ec8b66.js
 modules/modal/show/index.js: modules/modal/show-b27281a61ffc40b27732b4b8e3ec8b66.js
+modules/press_page/load.js: modules/press_page/load-d8f9683d7fa15c962999a6c1baa6e1ff.js
+modules/press_page/load/index.js: modules/press_page/load-d8f9683d7fa15c962999a6c1baa6e1ff.js
+modules/press_page/period_submitter.js: modules/press_page/period_submitter-06dc4f1126ee12a1f7468b96a02236c3.js
+modules/press_page/period_submitter/index.js: modules/press_page/period_submitter-06dc4f1126ee12a1f7468b96a02236c3.js
 modules/product/add_product_to_cart_manager.js: modules/product/add_product_to_cart_manager-994336ccc19c2f521a4aecc9ac57afd2.js
 modules/product/add_product_to_cart_manager/index.js: modules/product/add_product_to_cart_manager-994336ccc19c2f521a4aecc9ac57afd2.js
 modules/product/cart_redirect_manager.js: modules/product/cart_redirect_manager-f8235e910d8b6c710b61b1a12f34bac0.js
@@ -2379,6 +2385,8 @@ plugins/jquery.meio.mask.js: plugins/jquery.meio.mask-75e70781ed9af316e7076eda1b
 plugins/jquery/index.meio.mask.js: plugins/jquery.meio.mask-75e70781ed9af316e7076eda1b23f9b1.js
 plugins/jquery.slideto.js: plugins/jquery.slideto-cd60af847c9343f9f67401a17c435604.js
 plugins/jquery/index.slideto.js: plugins/jquery.slideto-cd60af847c9343f9f67401a17c435604.js
+plugins/jquery.urlparam.js: plugins/jquery.urlparam-16cbcd46499fe7ce712e70c18861602b.js
+plugins/jquery/index.urlparam.js: plugins/jquery.urlparam-16cbcd46499fe7ce712e70c18861602b.js
 plugins/jquery.zoom-min.js: plugins/jquery.zoom-min-546be6beb8d9e3764a5134564b7f4ad1.js
 plugins/jquery/index.zoom-min.js: plugins/jquery.zoom-min-546be6beb8d9e3764a5134564b7f4ad1.js
 plugins/jscrollpane/jquery.jscrollpane.min.js: plugins/jscrollpane/jquery.jscrollpane.min-6561efa5fae340fbc53d5648bd52492b.js
@@ -2543,8 +2551,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
-application.css: application-f4bb66bac0cba22726b47603d6f24aa9.css
-application/index.css: application-f4bb66bac0cba22726b47603d6f24aa9.css
+application.css: application-adf3a366c8bfe743b6f2cc33bbc02fa4.css
+application/index.css: application-adf3a366c8bfe743b6f2cc33bbc02fa4.css
 campaign_emails.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 campaign_emails/index.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2581,8 +2589,8 @@ common/reset.css: common/reset-073feaaecf4434d6fc34fe3fe1583f61.css
 common/reset/index.css: common/reset-073feaaecf4434d6fc34fe3fe1583f61.css
 common/search.css: common/search-b305456c6c1ec23d6779c5617a9fe546.css
 common/search/index.css: common/search-b305456c6c1ec23d6779c5617a9fe546.css
-common/structure.css: common/structure-913c0ca0458bcaa81de129f925540370.css
-common/structure/index.css: common/structure-913c0ca0458bcaa81de129f925540370.css
+common/structure.css: common/structure-de0b60bc5600d9bdde4576f570b45649.css
+common/structure/index.css: common/structure-de0b60bc5600d9bdde4576f570b45649.css
 common/typography.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 common/typography/index.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 customlanding.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
@@ -2625,8 +2633,8 @@ new_structure/section/address_combo.css: new_structure/section/address_combo-566
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-566ca8721503c370f06f6a550e5cf829.css
 new_structure/section/brands.css: new_structure/section/brands-ac10e97eb72cd99507a001f01be79643.css
 new_structure/section/brands/index.css: new_structure/section/brands-ac10e97eb72cd99507a001f01be79643.css
-new_structure/section/clippings.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
-new_structure/section/clippings/index.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
+new_structure/section/clippings.css: new_structure/section/clippings-c668e4c5da814deb06e85f328e0a1402.css
+new_structure/section/clippings/index.css: new_structure/section/clippings-c668e4c5da814deb06e85f328e0a1402.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-11857b2ee7856c4ba7ffa1a602bffdf5.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-11857b2ee7856c4ba7ffa1a602bffdf5.css
 new_structure/section/custom_url.css: new_structure/section/custom_url-4171215852b36dc411b894b9db16f5b4.css
