@@ -172,10 +172,14 @@
 	      font-size:0;
 	    }
 	    .current{
-	      color:#000 !important;
-	      font-weight: bold !important;
+        padding: 8px 11px;
+        position: relative;
+        top: -2px;
 	      text-indent: -9999px;
 	      font-style: normal;
+        color: #fff !important;
+        background: #ef3741;
+        font-weight: bold;
 	    }
 	  a{
 	    display:inline-block;
@@ -188,11 +192,13 @@
 
 	    &.previous_page, &.next_page{
 	      width:10px;
-	      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+	      background:image-url('catalog/sprite.png') no-repeat 10px -104px;
 	      font-size:0;
+        position:relative;
+        top:-5px;
 	    }
 	    &.next_page{
-	      background-position:0 -137px;
+	      background-position:10px -129px;
 	    }
 	    &:hover{
 	      color:$base_color;
@@ -202,3 +208,32 @@
 }
 
 #container{overflow:visible !important;}
+
+.js-period_form {
+  padding-left:13px;
+  font-family: arial;
+  font-size: 12px;
+  width:90%;
+  select {
+    border:0px;
+    background:none;
+    -webkit-appearance: none;
+    width: 200px;
+    height:30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+    border: 1px solid #d1d1d1;
+    border-radius: 0px;
+    background:image-url('press/ico_select.png') no-repeat center right;
+    padding:2px 0 0 6px;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+body, html {
+  overflow-x: hidden;
+}
