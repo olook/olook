@@ -221,20 +221,6 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
-  create_table "carts_backup", :id => false, :force => true do |t|
-    t.integer  "id",                      :default => 0,     :null => false
-    t.integer  "user_id"
-    t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "legacy_id"
-    t.boolean  "gift_wrap",               :default => false
-    t.boolean  "use_credits",             :default => false
-    t.integer  "coupon_id"
-    t.integer  "address_id"
-    t.boolean  "facebook_share_discount"
-  end
-
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
     t.integer  "product_id"
@@ -759,16 +745,6 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
-  end
-
-  create_table "looks", :force => true do |t|
-    t.integer  "product_id"
-    t.string   "front_picture"
-    t.datetime "launched_at"
-    t.integer  "profile_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "full_look_picture"
   end
 
   create_table "mkt_settings", :force => true do |t|

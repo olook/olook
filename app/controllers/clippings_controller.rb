@@ -10,4 +10,5 @@ class ClippingsController < ApplicationController
       Clipping.by_year(params[:period]).page(params[:page]).per_page(10).latest
     end
   end
+ 	
 end

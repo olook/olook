@@ -95,11 +95,11 @@
     Quer escrever sobre a Olook?
   %p.contact
     É só entrar em contato através do e-mail imprensa@olook.com.br
-    .select_form
-      %ul
-        %fieldset
-          %li.period.field.small_box
-            = select_tag "filtrar por", options_for_select(@clippings), include_blank: true   
+  %form.js-period_form{method: :get}
+    %ul
+      %fieldset
+        %li.period.field.small_box
+          = select_tag "period", options_for_select(filters, params[:period] ), prompt: "Selecione o Período"
   - @clippings.each do |clipping|
     %ul
       %li.media
