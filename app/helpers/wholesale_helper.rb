@@ -1,0 +1,2 @@
+module WholesaleHelper
+end

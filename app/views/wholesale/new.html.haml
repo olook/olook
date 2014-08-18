@@ -1,0 +1,114 @@
+= stylesheet_link_tag "wholesale"
+
+= render "wholesale_default"
+#error_anchor
+#register_content
+  .register_form
+    %h2
+      cadastre-se e seja uma revendedora olook
+    = form_for(@wholesale, as: 'wholesale_form', :url => wholesale_create_path(anchor: 'register_content') ) do |f|
+      %ul.formulario
+        %fieldset
+          %li.cnpj.field.small_box
+            = f.label :cnpj, "CNPJ"
+            = f.text_field :cnpj, class: error_class_if_needed(@wholesale, :cnpj)
+            = errors_for(@wholesale, :cnpj)
+          %li.request_msg
+            %p
+              Precisamos dele para a análise do seu cadastro
+        %fieldset
+          %li.corporate_name.field
+            = f.label :corporate_name, "Razão Social"
+            = f.text_field :corporate_name, class: error_class_if_needed(@wholesale, :corporate_name)
+            = errors_for(@wholesale, :corporate_name)
+          %li.fantasy_name.field.cnpj
+            = f.label :fantasy_name, "Nome Fantasia"
+            = f.text_field :fantasy_name, class: error_class_if_needed(@wholesale, :fantasy_name)
+            = errors_for(@wholesale, :fantasy_name)
+        %fieldset
+          %li.first_name.field.left_boxes.small_box
+            = f.label :first_name, "Nome"
+            = f.text_field :first_name, class: error_class_if_needed(@wholesale, :first_name)
+            = errors_for(@wholesale, :first_name)
+          %li.last_name.field.small_box
+            = f.label :last_name, "Sobrenome"
+            = f.text_field :last_name, class: error_class_if_needed(@wholesale, :last_name)
+            = errors_for(@wholesale, :last_name)
+        %fieldset
+          %li.email.field
+            = f.label :email
+            = f.text_field :email, class: error_class_if_needed(@wholesale, :email)
+            = errors_for(@wholesale, :email)
+        %fieldset
+          %li.telephone.field
+            = f.label :telephone, "Telefone"
+            = f.text_field :telephone, class: error_class_if_needed(@wholesale, :telephone)
+            = errors_for(@wholesale, :telephone) 
+        %fieldset
+          %li.cellphone.field
+            = f.label :cellphone, "Celular"
+            = f.text_field :cellphone, class: error_class_if_needed(@wholesale, :cellphone)
+            = errors_for(@wholesale, :cellphone)            
+        %fieldset
+          %li.address.field
+            = f.label :address, "Endereço"
+            = f.text_field :address, class: error_class_if_needed(@wholesale, :address)
+            = errors_for(@wholesale, :address)
+        %fieldset
+          %li.zip_code.field
+            = f.label :zip_code, "CEP"
+            = f.text_field :zip_code, class: error_class_if_needed(@wholesale, :zip_code)
+            = errors_for(@wholesale, :zip_code)
+        %fieldset
+          %li.neighborhood.field
+            = f.label :neighborhood, "Bairro"
+            = f.text_field :neighborhood, class: error_class_if_needed(@wholesale, :neighborhood)
+            = errors_for(@wholesale, :neighborhood)    
+        %fieldset
+          %li.city.field
+            = f.label :city, "Cidade"
+            = f.text_field :city, class: error_class_if_needed(@wholesale, :city)
+            = errors_for(@wholesale, :city)
+        %fieldset
+          %li.state.field
+            = f.label :state, "Estado"
+            = f.text_field :state, class: error_class_if_needed(@wholesale, :state)
+            = errors_for(@wholesale, :state)        
+          %li.terms
+            %p
+              Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
+              %br
+                e a nossa #{link_to "política de privacidade", privacy_path}
+          %li.buttons
+            = f.submit "Cadastrar", :id => "register"
+  .wholesale_infos
+    %h2
+      motivos para revender olook
+    %ul
+      %li.fast
+        %p
+          %span
+            Somos fast fashion
+          Você sempre encontrará novidades por aqui: as últimas tendências do mundo da moda e coleções todos os meses
+      %li.acessivel
+        %p
+          %span
+            Moda acessível
+          Acreditamos que moda é uma ferramenta de expressão e para garantir que todos tenham acesso a ela, oferecemos a melhor relação design / qualidade / preço
+      %li.curadoria
+        %p
+          %span
+            Curadoria
+          Todos os meses desenvolvemos e selecionamos os produtos que vendemos em nosso site, por isso eles levam a nossa marca. Com isso conseguimos garantir qualidade a um preço justo
+      %li.parcerias
+        %p
+          %span
+            Parcerias exclusivas
+          Coleções exclusivas com os nomes mais badalados do mundo da moda como André Lima, Didi Wagner, Paola de Orleans e Bragança, Juliana Jabour, Carol Ribeiro e Mariana Weickert
+      %li.garantia
+        %p
+          %span
+            Satisfação garantida ou seu $$ de volta
+          Você terá até 7 dias para solicitar a troca ou devolução do seu dinheiro
+
+
