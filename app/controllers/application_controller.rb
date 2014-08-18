@@ -38,6 +38,14 @@ class ApplicationController < ActionController::Base
     redirect_to admin_url
   end
 
+  def not_found
+    render :file => "public/404.html", :status => 404, layout: false
+  end
+
+  def exception
+    render :file => "public/500.html", :status => 500, layout: false
+  end
+
   protected
 
   def after_login_return_to path
@@ -52,16 +60,6 @@ class ApplicationController < ActionController::Base
 
   def load_campaign
     @current_campaign = Campaign.activated_campaign
-  end
-
-  def render_public_exception
-    case env["action_dispatch.exception"]
-      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
-        ::AbstractController::ActionNotFound
-        render :template => "/errors/404.html.erb", :status => 404
-      else
-        render :template => "/errors/500.html.erb", :status => 500
-    end
   end
 
   def load_chaordic_user
