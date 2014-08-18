@@ -12,11 +12,12 @@ module Api
 
         # TODO => Melhorar este tratamento de erro
         if result[:status] == Payment::FAILURE_STATUS
-          message = error_message_for(result, payment)  
+          message = error_message_for(result, payment)
           render json: {message: message}, status: :bad_request
         else
           session[:cart_id] = nil
-          render json: {}, location: checkout_conclusion_path, status: :created
+          @order = result[:payment].order
+          render json: {}, location: checkout_conclusion_path(@order.number), status: :created
         end
       end
 
@@ -71,13 +72,13 @@ module Api
             :cart_service => cart_service, 
             :payment => payment, 
             :gateway_strategy => sender_strategy, 
-            :tracking_params => session[:order_tracking_params] 
+            :tracking_params => session[:order_tracking_params]
           } 
-        )        
+        )
       end
 
       def cart_service
-        @cart_service ||= CartProfit::CartCalculatorAdapter.new(current_cart)        
+        @cart_service ||= CartProfit::CartCalculatorAdapter.new(current_cart)
       end
 
       def error_message_for response, payment

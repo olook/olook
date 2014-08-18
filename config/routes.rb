@@ -3,8 +3,8 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "beta/index"
-  get "beta/confirmation", as: 'checkout_conclusion'
+  get "checkout", to: "beta#index", as: 'checkout_start'
+  get "checkout/conclusao/:number", as: 'checkout_conclusion'
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do

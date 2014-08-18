@@ -39,7 +39,7 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
   },
   checkStep: function() {
     var userId = this.session.id;
-    Backbone.history.start({ root: "/beta/index" });
+    Backbone.history.start({ root: "/checkout" });
     if (userId) {
       var currentRoute = this.routes[Backbone.history.fragment];
       if(!currentRoute) {
