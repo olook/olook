@@ -98,8 +98,8 @@ Olook::Application.routes.draw do
 
   # match "/busca", :to => "search#show", :as => "search"
 
-  match '/404', :to => "application#render_public_exception"
-  match '/500', :to => "application#render_public_exception"
+  match '/404', :to => "application#not_found"
+  match '/500', :to => "application#exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
