@@ -7,7 +7,7 @@
 #clipping,#big_clipping,.clipping_left,.clipping_right{
   width: 1100px;
   height: 2015px;
-  margin: 15px auto 0;
+  margin: auto 0;
   h2{
     font-size: 14px;
     letter-spacing: 1px;
@@ -23,14 +23,17 @@
   }
   .b_left{
     margin-left: 12px;
-    width: 445px;
+    width: 935px;
+    height:126px;
     float: left;
+    background:image-url('press/img_header.jpg') no-repeat 290px -2px;
     h1, h2{
       font-family: $avenir;
       font-size: 18px;
       color: #000;
       letter-spacing: 1px;
       font-weight: bold;
+      display: none;
     }
     p{
       font-family: $avenir;
@@ -38,6 +41,7 @@
       color: #000;
       letter-spacing: 1px;
       font-weight: lighter;
+      display: none;
     }
   }
   ul{
@@ -157,10 +161,8 @@
     margin-right: 45px;
   }
 }
-.socialmedia{width: 445px;float: left;height: 75px;
+.socialmedia{width: 100px;height: 75px;position:absolute;right:-11px;top:52px;
   p{color: #000; font-size: 13px;letter-spacing: 2px;font-weight: bold;padding-top: 30px;padding-left: 95px;}
-  .like, .twitter{position: relative;float: right;left: 117px;top:-24px;}
-  .twitter{margin-left: 15px;}
 }
 .next{
 	.pagination{
