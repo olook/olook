@@ -58,9 +58,7 @@ class CreditCard < Payment
 
   def self.installments_number_for(order_total, options={})
     number = (order_total / MINIMUM_PAYMENT).to_i
-    if options[:user] && options[:user].reseller
-      number = RESELLER_PAYMENT_QUANTITY if number > RESELLER_PAYMENT_QUANTITY
-    else
+    if options[:user]
       number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
     end
     (number == 0) ? 1 : number
@@ -75,7 +73,7 @@ class CreditCard < Payment
 
   def apply_bank_number_of_digits
     unless bank.blank?
-      if bank.match /Diners/
+      if bank.match(/Diners/)
         validate_bank_credit_card_number FourToSixCreditCardNumberFormat
       else
         validate_bank_credit_card_number SixCreditCardNumberFormat
