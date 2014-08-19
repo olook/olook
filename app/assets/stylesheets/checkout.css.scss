@@ -10,6 +10,11 @@ html, body {
 	padding:0px;
 }
 
+iframe {
+	border:0px !important;
+	border:1px solid #d1d1d1 !important;
+}
+
 body {
 	font-family: 'Trebuchet Ms';
 	#container {
@@ -532,6 +537,7 @@ body {
 			margin-bottom:20px;
 			position:relative;
 			padding:20px 10px 10px 10px;
+
 			span:first-child {
 				background: #FFF;
 				position: absolute;
@@ -554,6 +560,7 @@ body {
 					float:none;
 					display: inline-block;
 					height:285px;
+					img {width:100%;}
 					span {
 						text-align: left;
 						padding-top:10px;

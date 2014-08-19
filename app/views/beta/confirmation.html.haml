@@ -77,8 +77,8 @@
         - @order.line_items.each do |item|
           %li.product
             = image_tag(item.variant.product.catalog_picture, :border => 0)
-          %span
-            = number_to_currency(item.retail_price)
+            %span
+              = number_to_currency(item.retail_price)
     %p
       %span
         Endereço para entrega
