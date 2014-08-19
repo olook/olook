@@ -1,20 +1,13 @@
 
 class WholesaleController < ApplicationController
-	def new
+	
+  def new
 	  @wholesale = Wholesale.new	
 	end
-
-	def create
-      @wholesale = Wholesale.new(params[:wholesale])
-      if @reseller.save
-        sign_in(:user, @reseller)
-        SACAlertMailer.wholesale_notification(@wholesale, "lucas.santana@olook.com.br" ).deliver
-      else
-        custom_error_messages @wholesale
-        render "new"
-      end
-    end
-
+  
+  def create
+  end
+	
   private
    def custom_error_messages wholesale
      wholesale.errors.set(:cnpj, ["O CNPJ não está batendo. Pode conferir?"]) if (wholesale.errors.messages[:cnpj] && wholesale.errors.messages[:cnpj][0]) =~ /número inválido/
@@ -22,7 +15,7 @@ class WholesaleController < ApplicationController
      wholesale.errors.set(:address, ["Qual o nome da Rua, Avenida etc?"]) if wholesale.errors.messages[:'addresses.state'].to_s[0]
      wholesale.errors.set(:zip_code, ["Precisamos do seu CEP"]) if (wholesale.errors.messages[:'addresses.zip_code'] && wholesale.errors.messages[:'addresses.zip_code'][0] =~ /estranho/ )
    end
-
+  
    def meta_description
      "Revenda na Olook as principais tendências da moda. Vantagens especiais e descontos progressivos. Seja uma de nossas afiliadas e ganhe com a gente."
     end
