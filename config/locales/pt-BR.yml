@@ -312,10 +312,6 @@
         one: Usuário
         other: Usuários
 
-      reseller:
-        one: Revendedor
-        other: Revendedores
-
       credit:
         one: Crédito
         other: Créditos
@@ -555,7 +551,6 @@
         gender: Sexo
         has_corporate: "Tipo de Revendedor"
         cnpj: "CNPJ"
-        reseller: "Revendedor"
         corporate_name: "Razão Social"
         fantasy_name: "Nome Fantasia"
         active: "Ativo"

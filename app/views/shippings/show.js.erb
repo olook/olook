@@ -65,6 +65,6 @@ $("#total").hide().html("<%= number_to_currency(total_with_freight(@freight_pric
 $("#total_billet").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
 $("#total_debit").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
 
-updateCreditCardSettlementsValue( $("#checkout_payment_payments"), "<%= total_with_freight(@freight_price) =%>", "<%= current_user && current_user.reseller? %>");
+updateCreditCardSettlementsValue( $("#checkout_payment_payments"), "<%= total_with_freight(@freight_price) =%>", "<%= current_user %>");
 
 

@@ -12,17 +12,6 @@
     %b E-mail:
     = @user.email
   %p
-    %b Perfil:
-    = @user.reseller? ? "Revendedor" : 'Cliente'
-  - if @user.reseller? && @user.cpf.blank?
-    %p
-      %b CNPJ:
-      = @user.cnpj
-  - else
-    %p
-      %b CPF:
-      = @user.cpf
-  %p
     %b Convidado?
     = @user.is_invited? ? 'Sim' : 'Não'
   %p

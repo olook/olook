@@ -118,7 +118,7 @@ module ApplicationHelper
   end
 
   def item_qty_max_option(item)
-    if item.cart.user && item.cart.user.reseller && item.cart.user.active
+    if item.cart.user && item.cart.user.active
       item.variant.inventory
     else
       [item.variant.inventory, Setting.default_item_quantity.to_i].min

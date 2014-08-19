@@ -22,10 +22,6 @@ Olook::Application.routes.draw do
 
   get "/wishlist", to: 'wishlist#show', as: 'wishlist'
 
-  get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
-  post "/revenda", to: "reseller#create", as: 'reseller_create'
-  get "/revenda", to: "reseller#new", as: 'reseller_new'
-
   resources :live_feeds, path: "api", only: [:create, :index]
 
   resources :mercado_pago, only: [:create]
@@ -323,10 +319,6 @@ Olook::Application.routes.draw do
         post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
     end
-    resources :resellers, :except => [:create, :new] do
-
-    end
-
     resources :utilities do
       collection do
         post 'restart_resque_workers' => "utilities#restart_resque_workers", :as => "restart_resque_workers"
@@ -554,6 +546,3 @@ Olook::Application.routes.draw do
   get '*custom_url' => 'custom_url#show'
 
 end
-
-
-
