@@ -76,16 +76,17 @@
       %ul.products
         - @order.line_items.each do |item|
           %li.product
-            = image_tag(item.variant.product.catalog_picture, :border => 0)
+            = image_tag(item.variant.product.showroom_picture, :border => 0)
             %span
               = number_to_currency(item.retail_price)
     %p
       %span
         Endereço para entrega
       - f = @order.freight
-      = [f.street, f.number, f.complement].join(', ')
-      = [f.neighborhood, f.zip_code].join(', ')
-      = [f.city, f.state].join(', ')
+      %ul
+        %li= [f.street, f.number, f.complement].join(', ')
+        %li= [f.neighborhood, f.zip_code].join(', ')
+        %li= [f.city, f.state].join(', ')
     %p
       %span
         Frete
