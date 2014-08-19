@@ -1,5 +1,6 @@
 = stylesheet_link_tag "wholesale"
 
+
 = render "wholesale_default"
 #error_anchor
 #register_content
@@ -67,12 +68,14 @@
         %fieldset
           %li.city.field
             = f.label :city, "Cidade"
-            = f.text_field :city, class: error_class_if_needed(@wholesale, :city)
+            %span{ class: "custom_select #{error_class_if_needed(@wholesale, :city)}"}
+            = f.select :city, []
             = errors_for(@wholesale, :city)
         %fieldset
           %li.state.field
             = f.label :state, "Estado"
-            = f.text_field :state, class: error_class_if_needed(@wholesale, :state)
+            %span{ class: "custom_select #{error_class_if_needed(@wholesale, :state)}"}
+            = f.select :state, []
             = errors_for(@wholesale, :state)        
           %li.terms
             %p
@@ -110,5 +113,7 @@
           %span
             Satisfação garantida ou seu $$ de volta
           Você terá até 7 dias para solicitar a troca ou devolução do seu dinheiro
+
+
 
 

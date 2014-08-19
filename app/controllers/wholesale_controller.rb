@@ -1,24 +1,19 @@
+
 class WholesaleController < ApplicationController
-  layout "lite_application"
-  def new
-    @wholesale = Wholesale.new
-    
-  end
+	def new
+	  @wholesale = Wholesale.new	
+	end
 
-  def create
-    @wholesale = Wholesale.new(params[:wholesale])
-    if @wholesale.save
-      sign_in(:user, @wholesale)
-      SACAlertMailer.wholesale_notification(@wholesale, "luciana.cremonezi@olook.com.br,financeiro@olook.com.br,caroline.passos@olook.com.br,rafael.manoel@olook.com.br,tiago.almeida@olook.com.br").deliver
-      redirect_to wholesale_show_path
-    else
-      custom_error_messages @wholesale
-      render "new"
+	def create
+      @wholesale = Wholesale.new(params[:wholesale])
+      if @reseller.save
+        sign_in(:user, @reseller)
+        SACAlertMailer.wholesale_notification(@wholesale, "lucas.santana@olook.com.br" ).deliver
+      else
+        custom_error_messages @wholesale
+        render "new"
+      end
     end
-  end
-
-  def show
-  end
 
   private
    def custom_error_messages wholesale
@@ -30,6 +25,5 @@ class WholesaleController < ApplicationController
 
    def meta_description
      "Revenda na Olook as principais tendências da moda. Vantagens especiais e descontos progressivos. Seja uma de nossas afiliadas e ganhe com a gente."
-   end
-
+    end
 end

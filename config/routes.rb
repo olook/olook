@@ -29,6 +29,7 @@ Olook::Application.routes.draw do
   get "/atacado", to: "wholesale#new", as: 'wholesale_new'
   post "/atacado", to: "wholesale#create", as: 'wholesale_create'
 
+
   resources :live_feeds, path: "api", only: [:create, :index]
 
   resources :mercado_pago, only: [:create]

@@ -12,7 +12,7 @@ class Admin::HtmlGeneratorController < Admin::BaseController
   end
 
   private
-    def generate csv_file
+    def generate csv_file 
       list = []
 
       CSV.foreach(csv_file.path, headers: false, col_sep: ';') do |row|
@@ -21,5 +21,6 @@ class Admin::HtmlGeneratorController < Admin::BaseController
 
       Resque.enqueue(ProductsListGeneratorWorker, list, current_admin.email)
     end
+
 
 end
