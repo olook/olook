@@ -4,55 +4,55 @@
 - finished("checkout")
 .confirmation
   
-  - if params[:payment_method] == "billet"
+  - if @payment_method == "billet"
     // BOLETO BANCÁRIO
 
     %h3
-      REcebemos o seu pedido!
+      Recebemos o seu pedido!
     %p
       Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
 
     %p
       Número do pedido: 
       %span
-        4834399
+        = @order.number
     .action
       %a.print
         Imprimir boleto
       %a.email
         Enviar Boleto
 
-  - elsif params[:payment_method] == "credit"
+  - elsif @payment_method == "credit"
     // CARTÃO DE CRÉDITO
 
     %h3
-      REcebemos o seu pedido!
+      Recebemos o seu pedido!
     
     %p
       Número do pedido: 
       %span
-        4834399
+        = @order.number
     %p
       Estamos aguardando a confirmação de pagamento da operadora do seu cartão para dar prosseguimento ao envio.
 
-  - elsif params[:payment_method] == "debit"
+  - elsif @payment_method == "debit"
 
     // PAGAMENTO DÉBITO ONLINE
 
     %h3
-      REcebemos o seu pedido!
+      Recebemos o seu pedido!
     
     %p
       Número do pedido: 
       %span
-        4834399
+        = @order.number
     %p
       Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco.
       %br/ 
       Caso você não seja automaticamente direcionado
-      =link_to 'clique aqui', ''
+      =link_to 'clique aqui', @order.erp_payment.url
 
-  - elsif params[:payment_method] == "mp"
+  - elsif @payment_method == "mercadopagopayment"
     // PAGAMENTO MERCADOPAGO
     %h3
       REcebemos o seu pedido!
@@ -66,7 +66,7 @@
         %br/
         %span Informe abaixo os dados solicitados pelo MercadoPago para realizar o pagamento do seu pedido.
       %p.mercado_pago_frame
-        %iframe{src: "https://4019872.fls.doubleclick.net/activityi;src=4019872;type=venda815;cat=venda100;qty=1;cost=R$%2038,90;ord=4431336?", width:"100%", height:"600px"}
+        %iframe{src: @order.erp_payment.url, width:"100%", height:"600px"}
 
 
   .addressDelivery
@@ -74,32 +74,30 @@
       %span
         Seus produtos
       %ul.products
-        %li.product
-          =link_to image_tag("http://d1m0eb15reawkf.cloudfront.net/pictures/1702113083/1/catalog_image-c79f0fce295cb9fd300223c9982e161e72d432415312ac6e41106b996f237927..jpg", :border => 0)
+        - @order.line_items.each do |item|
+          %li.product
+            = image_tag(item.variant.product.catalog_picture, :border => 0)
           %span
-            R$ 125,00
-        %li.product
-          =link_to image_tag("http://d1m0eb15reawkf.cloudfront.net/pictures/1702113083/1/catalog_image-c79f0fce295cb9fd300223c9982e161e72d432415312ac6e41106b996f237927..jpg", :border => 0)
-          %span
-            R$ 125,00
-        %li.product
-          =link_to image_tag("http://d1m0eb15reawkf.cloudfront.net/pictures/1702113083/1/catalog_image-c79f0fce295cb9fd300223c9982e161e72d432415312ac6e41106b996f237927..jpg", :border => 0)
-          %span
-            R$ 125,00
+            = number_to_currency(item.retail_price)
     %p
       %span
         Endereço para entrega
-      Nhatumani, 476
-      Vila Ré - 03663-000
-      São Paulo, SP
+      - f = @order.freight
+      = [f.street, f.number, f.complement].join(', ')
+      = [f.neighborhood, f.zip_code].join(', ')
+      = [f.city, f.state].join(', ')
     %p
       %span
         Frete
-      Frete a Jato - Entrega em até 3 horas - R$15,00
+      - if @order.try(:freight).try(:price) > 0
+        = number_to_currency(@order.freight.price)
+      - else
+        Grátis
+      / Frete a Jato - Entrega em até 3 horas - R$15,00
     %p
       %span
         Forma de Pagamento
-      Boleto bancário
+      = @payment_description
   %br
   .banner
     .olookGift
@@ -108,7 +106,8 @@
       %p
         Pague seu pedido e ganhe 
         %span
-          R$14,99 GRÁTIS 
+          = number_to_currency(LoyaltyProgramCreditType.amount_for_order(@order)) 
+          GRÁTIS 
         em créditos fidelidade para utilizar já em sua próxima compra. Aproveite!
     =link_to(image_tag('cart/img_ebit.jpg'), 'www.google.com')
 
