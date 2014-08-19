@@ -17,7 +17,7 @@ module Api
         else
           session[:cart_id] = nil
           @order = result[:payment].order
-          render json: {}, location: checkout_conclusion_path(@order.number), status: :created
+          render json: {}, location: order_show_path(@order.number), status: :created
         end
       end
 
