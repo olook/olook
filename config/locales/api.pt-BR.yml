@@ -1,0 +1,7 @@
+# encoding: UTF-8
+# pt-BR translations for Ruby on Rails
+"pt-BR":
+  api:
+    session_controller:
+      create:
+        fail: "Email ou Senha inválidos" 
