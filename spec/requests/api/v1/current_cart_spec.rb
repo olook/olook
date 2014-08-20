@@ -20,7 +20,7 @@ describe "CurrentCart" do
     context "with cart" do
       before do
         @cart = logged_user.carts.create
-        get '/api/v1/current_cart'
+        get '/api/v1/current_cart', {:cart_id => @cart.id}
       end
       it { expect(response.status).to eql 200 }
       it { expect(response.body).to eq @cart.api_hash.to_json }
