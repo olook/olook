@@ -221,7 +221,7 @@ _gaq.push(['_addTrans',
               <p class="credits"></p>
             <% end %>
 
-            <% if checkout_ab_test == "old" %>
+            <% if checkout_ab_test == "default" %>
               <% if current_user %>
                 <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: ( Rails.env.development? ? 'http' : 'https' )), :class => "continue"  %>
               <% else %>
