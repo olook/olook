@@ -4,70 +4,7 @@
 - finished("checkout")
 .confirmation
   
-  - if @payment_method == "billet"
-    // BOLETO BANCÁRIO
-
-    %h3
-      Recebemos o seu pedido!
-    %p
-      Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
-
-    %p
-      Número do pedido: 
-      %span
-        = @order.number
-    .action
-      %a.print
-        Imprimir boleto
-      %a.email
-        Enviar Boleto
-
-  - elsif @payment_method == "credit"
-    // CARTÃO DE CRÉDITO
-
-    %h3
-      Recebemos o seu pedido!
-    
-    %p
-      Número do pedido: 
-      %span
-        = @order.number
-    %p
-      Estamos aguardando a confirmação de pagamento da operadora do seu cartão para dar prosseguimento ao envio.
-
-  - elsif @payment_method == "debit"
-
-    // PAGAMENTO DÉBITO ONLINE
-
-    %h3
-      Recebemos o seu pedido!
-    
-    %p
-      Número do pedido: 
-      %span
-        = @order.number
-    %p
-      Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco.
-      %br/ 
-      Caso você não seja automaticamente direcionado
-      =link_to 'clique aqui', @order.erp_payment.url
-
-  - elsif @payment_method == "mercadopagopayment"
-    // PAGAMENTO MERCADOPAGO
-    %h3
-      REcebemos o seu pedido!
-    
-    %p
-      Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:
-
-    .new_payment_link
-      %p.txt_payment_link 
-        Para finalizar o pagamento, informe os dados solicitados pelo MercadoPago.
-        %br/
-        %span Informe abaixo os dados solicitados pelo MercadoPago para realizar o pagamento do seu pedido.
-      %p.mercado_pago_frame
-        %iframe{src: @order.erp_payment.url, width:"100%", height:"600px"}
-
+  =render partial: @payment_method, locals: {order: @order}
 
   .addressDelivery
     .cart_products{class: ("long_cart" if @has_long_cart) }
@@ -110,5 +47,5 @@
           = number_to_currency(LoyaltyProgramCreditType.amount_for_order(@order)) 
           GRÁTIS 
         em créditos fidelidade para utilizar já em sua próxima compra. Aproveite!
-    =link_to(image_tag('cart/img_ebit.jpg'), 'www.google.com')
+    = link_to image_tag("common/seal-ebit.gif"), "https://www.ebitempresa.com.br/bitrate/pesquisa1.asp?empresa=1193295", :target => :blank
 
