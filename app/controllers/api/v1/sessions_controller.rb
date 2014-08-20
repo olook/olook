@@ -11,6 +11,9 @@ module Api
         user = User.find_by_email(params[:email])
         if user && user.valid_password?(params[:password])
           sign_in('user', user)
+          cart = Cart.find_saved_for_user(user, {session: session[:cart_id]})
+          cart.user = user
+          cart.save
           render json: user.api_json
         else
           render json: { error: I18n.t("api.session_controller.create.fail")}, status: :unprocessable_entity
