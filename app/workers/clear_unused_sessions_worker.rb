@@ -1,4 +1,4 @@
-class ClearLeaderboardWorker
+class ClearUnusedSessionsWorker
   @queue = 'low'
   def self.perform(period_end = DateTime.now - 60.days, period_start = DateTime.now - 61.days)
     if period_start < period_end
