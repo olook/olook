@@ -28,6 +28,7 @@ _gaq.push(['_addTrans',
   <%= javascript_include_tag "carts" %>
     <% checkout_ab_test = ab_test("checkout_test", {'new' => Setting.defaults[:percent_for_new_checkout]}, 'default') %>
     <script type="text/javascript">
+      var _gaq = _gaq || [];
       _gaq.push(['_setCustomVar',5,'checkout','<%= checkout_ab_test %>',1]);
     </script>>
 <% end %>
