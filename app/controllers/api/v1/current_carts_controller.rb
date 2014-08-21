@@ -13,9 +13,14 @@ module Api
       def update
         @cart = current_cart || Cart.new
         @cart.attributes = params[:current_cart]
-        
+
         if @cart.save
-          render json: @cart.api_hash
+          # 
+          # isto é necessario porque a criacao de ajustes (por conta de cupons, 
+          # por exemplo) ocorre após o save, e sem isso estas alterações não
+          # seriam refletidas aqui.
+          #
+          render json: @cart.reload.api_hash
         else
           render json: { errors: @cart.errors }, status: :unprocessable_entity
         end
