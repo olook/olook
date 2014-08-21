@@ -270,10 +270,6 @@ class User < ActiveRecord::Base
     birthday.strftime("%d/%m/%Y") if birthday
   end
 
-  def reseller_without_cpf?
-    reseller? && cpf.blank?
-  end
-
   def age
     return @age if @age
     if birthday

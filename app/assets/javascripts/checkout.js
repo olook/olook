@@ -258,7 +258,7 @@ $(function() {
       $('#billet_discount_value').text(formatReal(data.billet_discount));
 
 
-      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total, false);
+      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total);
 
     });
   });

@@ -52,7 +52,7 @@ _gaq.push(['_addTrans',
                 </span>
               </td>
               <td class="buttons">
-                <% if current_user && !current_user.reseller %>
+                <% if current_user %>
                   <p class="credits"></p>
                 <% end %>
                 <% if current_user %>
@@ -212,7 +212,7 @@ _gaq.push(['_addTrans',
             </div>
           </td>
           <td class="buttons">
-            <% if current_user && !current_user.reseller %>
+            <% if current_user %>
               <p class="credits"></p>
             <% end %>
             <% if current_user %>
