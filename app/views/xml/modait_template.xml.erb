@@ -12,7 +12,7 @@
     <preco_desconto><%= product.retail_price %></preco_desconto>
     <specific>
       <marca><![CDATA[<%= product.brand %>]]></marca>
-      <cor></cor>
+      <cor><% if product.color %><![CDATA[<%= product.color %>]]><% end %></cor>
       <tamanho></tamanho>
       <autor></autor>
       <artista></artista>
