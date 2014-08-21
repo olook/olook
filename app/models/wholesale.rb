@@ -4,7 +4,13 @@ class Wholesale
   extend ActiveModel::Naming
   attr_accessor :cnpj, :corporate_name, :fantasy_name, :first_name, :last_name, :email, :address, :neighborhood, :city, :state, :zip_code, :telephone, :cellphone, :cellphone_company
   validate :custom_error_messages
-  
+
+  def initialize(attributes = {})
+    attributes.each do |name, value|
+      send("#{name}=", value)
+    end
+  end
+
   def custom_error_messages
     errors.add(:cnpj, I18n.t("activerecord.errors.models.wholesale.attributes.cnpj")) if cnpj.blank?
     errors.add(:corporate_name, I18n.t("activerecord.errors.models.wholesale.attributes.corporate_name")) if corporate_name.blank?

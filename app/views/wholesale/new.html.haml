@@ -1,13 +1,11 @@
 = stylesheet_link_tag "wholesale"
-
-
 = render "wholesale_default"
 #error_anchor
 #register_content
   .register_form
     %h2
       cadastre-se e seja uma revendedora olook
-    = form_for(@wholesale, as: 'wholesale_form', url: wholesale_create_path(anchor: 'register_content')) do |f|
+    = form_for @wholesale do |f|
       %ul.formulario
         %fieldset
           %li.cnpj.field
@@ -80,7 +78,7 @@
             = f.label :city, "Cidade"
             %span{ class: "custom_select #{error_class_if_needed(@wholesale, :city)}"}
             = f.select :city, []
-            = errors_for(@wholesale, :city)       
+            = errors_for(@wholesale, :city)
           %li.terms
             %p
               Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
