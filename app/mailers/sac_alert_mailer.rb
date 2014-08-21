@@ -13,8 +13,8 @@ class SACAlertMailer < ActionMailer::Base
     mail(:to => to, :subject => "Pedido: #{order.number} | Análise de Fraude")
   end
 
-  def wholesale_notification(wholesale, to)
+  def wholesale_notification(wholesale)
     @wholesale = wholesale
-    mail(to: to, subject: "Novo Atacado")
+    mail(to: "lucas.santana@olook.com.br", subject: "Novo Atacado")
   end
 end
