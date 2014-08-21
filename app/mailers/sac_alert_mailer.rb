@@ -15,6 +15,6 @@ class SACAlertMailer < ActionMailer::Base
 
   def wholesale_notification(wholesale)
     @wholesale = wholesale
-    mail(to: "lucas.santana@olook.com.br", subject: "Novo Atacado")
+    mail(to: "atacado@olook.com.br", subject: "Novo Atacadista")
   end
 end
