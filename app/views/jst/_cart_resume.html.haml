@@ -1,31 +1,6 @@
 %script{type: "text/template", id: "tpl-cart-resume"}
-  .current_address
-    %p
-      Endereço de Entrega
-      %span {{full_address}}
-  <% if(freight_kind != "---") { %>
-  .current_freight
-    %p
-      Frete:
-      %span {{ freight_kind }}
-      %span Entrega em até {{ freight_due }} após a confirmação de pagamento.
-  <% } %>
-  .current_cart
-    .modal-items
-      %span.close-modal.js-close-modal X
-      .scroll
-        %p
-          Resumo do Pedido:
-          %span {{ items_count }}
-        %table
-    %p
-      Resumo do Pedido:
-      %span {{ items_count }}
-      %a.js-see-cart-items{href: 'javascript:void'} Veja aqui os itens selecionados
-  .current_payment
-    %p
-      Tipo de Pagamento:
-      %span {{ payment_method }}
+  %h3
+    Resumo do Pedido
   .cart_detail
     %table
       %tr
@@ -64,7 +39,6 @@
       %tr.total
         %td Total
         %td {{ total }}
-  %button#js-finalize-order.disabled {{step_label}}
 
 %script{type: "text/template", id: "tpl-cart-item"}
   %td
