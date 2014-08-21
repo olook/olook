@@ -1,0 +1,49 @@
+%html{:style => "font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;"}
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+%h2 Novo Atacadista
+.inner
+  %p
+    %b CNPJ:
+    = @wholesale.cnpj
+  %p  
+    %b Razão Social:
+    = @wholesale.corporate_name
+  %p
+    %b Nome Fantasia:
+    = @wholesale.fantasy_name
+  %p   
+    %b Nome:
+    = @wholesale.first_name
+  %p  
+    %b Sobrenome:
+    = @wholesale.last_name
+  %p
+    %b Email:
+    = @wholesale.email
+  %p
+    %b Telefone:
+    = @wholesale.telephone
+  %p
+    %b Celular:
+    = @wholesale.cellphone
+  %p
+    %b Operadora:
+    = @wholesale.cellphone_company
+  %p
+    %b Endereço:
+    = @wholesale.address
+  %p
+    %b CEP:
+    = @wholesale.zip_code
+  %p
+    %b Bairro:
+    = @wholesale.neighborhood
+  %p
+    %b Cidade:
+    = @wholesale.city
+  %p
+    %b Estado:
+    = @wholesale.state
+   
+
+  
