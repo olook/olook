@@ -29,6 +29,7 @@
             = f.label :first_name, "Nome"
             = f.text_field :first_name, class: error_class_if_needed(@wholesale, :first_name)
             = errors_for(@wholesale, :first_name)
+        %fieldset    
           %li.last_name.field.small_box
             = f.label :last_name, "Sobrenome"
             = f.text_field :last_name, class: error_class_if_needed(@wholesale, :last_name)
@@ -47,7 +48,12 @@
           %li.cellphone.field
             = f.label :cellphone, "Celular"
             = f.text_field :cellphone, class: error_class_if_needed(@wholesale, :cellphone)
-            = errors_for(@wholesale, :cellphone)            
+            = errors_for(@wholesale, :cellphone)
+        %fieldset
+          %li.cellphone_company.field
+            = f.label :cellphone_company, "Operadora"
+            = f.text_field :cellphone_company, class: error_class_if_needed(@wholesale, :cellphone_company)
+            = errors_for(@wholesale, :cellphone_company)                            
         %fieldset
           %li.address.field
             = f.label :address, "Endereço"
@@ -82,35 +88,7 @@
                 e a nossa #{link_to "política de privacidade", privacy_path}
           %li.buttons
             = f.submit "Cadastrar", :id => "register"
-  .wholesale_infos
-    %h2
-      motivos para revender olook
-    %ul
-      %li.fast
-        %p
-          %span
-            Somos fast fashion
-          Você sempre encontrará novidades por aqui: as últimas tendências do mundo da moda e coleções todos os meses
-      %li.acessivel
-        %p
-          %span
-            Moda acessível
-          Acreditamos que moda é uma ferramenta de expressão e para garantir que todos tenham acesso a ela, oferecemos a melhor relação design / qualidade / preço
-      %li.curadoria
-        %p
-          %span
-            Curadoria
-          Todos os meses desenvolvemos e selecionamos os produtos que vendemos em nosso site, por isso eles levam a nossa marca. Com isso conseguimos garantir qualidade a um preço justo
-      %li.parcerias
-        %p
-          %span
-            Parcerias exclusivas
-          Coleções exclusivas com os nomes mais badalados do mundo da moda como André Lima, Didi Wagner, Paola de Orleans e Bragança, Juliana Jabour, Carol Ribeiro e Mariana Weickert
-      %li.garantia
-        %p
-          %span
-            Satisfação garantida ou seu $$ de volta
-          Você terá até 7 dias para solicitar a troca ou devolução do seu dinheiro
+  
 
 - content_for :footer do
   = javascript_include_tag "wholesale"

@@ -587,6 +587,12 @@
       full_messages:
         format: "%{attribute} %{message}"
       models:
+        wholesale:
+          attributes:
+            cnpj: 
+              blank: "Tiago Pintudo"
+            first_name:
+              blank: "Lucas "  
         campaign_email:
           attributes:
             phone:

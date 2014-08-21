@@ -6,6 +6,13 @@ class WholesaleController < ApplicationController
 	end
   
   def create
+    @wholesale = Wholesale.new
+    if @wholesale.valid?
+      flash[:notice] = "Message sent! Thank you for contacting us."
+      redirect_to wholesale_path
+    else
+      render action: 'new' 
+    end
   end
 	
   private
