@@ -573,6 +573,33 @@
         active: Ativo
 
     errors:
+      models:
+        wholesale:
+          attributes:
+            cnpj: 
+              blank: "Qual seu telefone"
+            first_name:
+              blank: "Qual seu nome?"
+            last_name:
+              blank: "Qual seu sobrenome?"
+            corporate_name:
+              blank: "Qual o nome da empresa?"
+            fantasy_name:
+              blank: "Qual o nome fantasia da empresa?"
+            email:
+              blank: "Qual seu email?"
+            address:
+              blank: "Qual seu endereço?"
+            neighborhood:
+              blank: "Qual seu bairro?"
+            city:
+              blank: "Qual sua cidade?"
+            state:
+              blank: "Qual seu estado?"
+            zip_code:
+              blank: "Qual seu CEP?"
+            telephone:
+              blank: "Qual seu telefone?"
       template:
         header:
           one: "Não foi possível gravar %{model}: 1 erro"
@@ -586,13 +613,6 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-      models:
-        wholesale:
-          attributes:
-            cnpj: 
-              blank: "Tiago Pintudo"
-            first_name:
-              blank: "Lucas "  
         campaign_email:
           attributes:
             phone:
