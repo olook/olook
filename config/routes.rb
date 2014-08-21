@@ -27,7 +27,7 @@ Olook::Application.routes.draw do
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   get "/atacado", to: "wholesale#new", as: 'wholesale_new'
-  post "/atacado", to: "wholesale#create", as: 'wholesale_create'
+  post "/atacado", to: "wholesale#create", as: 'wholesales'
   get "atacado/confirmacao", to: 'wholesale#show', as: 'wholesale_show'
 
 
