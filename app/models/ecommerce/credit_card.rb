@@ -56,11 +56,9 @@ class CreditCard < Payment
     Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
 
-  def self.installments_number_for(order_total, options={})
+  def self.installments_number_for(order_total)
     number = (order_total / MINIMUM_PAYMENT).to_i
-    if options[:user]
-      number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
-    end
+    return PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
     (number == 0) ? 1 : number
   end
 
