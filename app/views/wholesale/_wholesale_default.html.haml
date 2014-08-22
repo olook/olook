@@ -13,9 +13,11 @@
     %p.infos Cadastre-se clicando no botão abaixo e assim que recebermos seus dados entraremos em contato. Para mais informações envie um e-mail para atacado@olook.com.br .
 
 
-    = link_to("Cadastre-se e seja uma revendedora", "#", id: "wholesale") if @wholesale
+    = link_to("Cadastre-se e seja uma revendedora", "#", id: "wholesale", class: "anchor_button") if @wholesale
   
   .box_right
     =image_tag("wholesale/imagem_sapato_atacado.jpg")
+  .seller
+    =image_tag("wholesale/atacado_olook_2.jpg")
   
   
