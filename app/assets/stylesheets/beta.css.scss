@@ -9,11 +9,13 @@
  }
 
  #address {
- 	width:25%;
+ 	width:575px;
  	padding-bottom:20px;
  	float:left;
- 	padding-right:20px;
  	#address-list {
+ 		width: 360px;
+ 		border-right: 1px solid #cdcdcd;
+ 		float: left;
  		li {
       margin-bottom: 10px;
  			display: block;
@@ -30,8 +32,11 @@
  				}
  				li {
  					color:#444;
- 					font-size: 12px;
+ 					font-size: 13px;
  					margin-bottom:2px;
+          padding-left: 5px;
+          font-family: $bt_font;
+          line-height: 18px;
  					a {
  						float: left;
 						font-size: 12px;
@@ -46,10 +51,13 @@
 
  				}
  				li:first-child { 
+          font-family: $verdana !important;
  					font-weight: bold;
  					font-size: 14px;
  					color:#000;
  					text-transform: uppercase;
+          margin-bottom: 10px;
+          padding-left: 5px;
  				}
  			}
  		}
@@ -61,27 +69,25 @@
  	}
 }
 
-.no-addresses {
-  padding-top: 160px;
-  font-size: 17px;
-  text-align: center;
-  color: #aaa;
-  text-transform: uppercase;
-}
 .addressForm {
 	form {
-		width:31.5%;
+		width:555px;
 		position:relative;
 		float:left;
-		height:550px;
-		border-left: 1px solid #cdcdcd;
-		padding-left: 20px;
+    margin-top: -20px;
+
 		h4 {
-			padding-bottom:10px;
+			padding-bottom:20px;
 			text-transform: uppercase;
 			margin:0px;
+      font-family: $verdana;
+      font-weight: bold;
+      font-size: 14px;
 		}
 		div {
+      width: 220px;
+      float: left;
+      display: block;
 		}
 		.control-group {
 			position:relative;
@@ -91,15 +97,14 @@
 				padding:0px;
 			}
 			input {
-				width: 76%;
-				padding: 3% 3% 3% 17%;
+				width: 240px;
+				padding: 10px;
 				border: 1px solid #d1d1d1;
-				font-family: 'Trebuchet Ms';
+				font-family: $bt_font;
 				font-size: 14px;
 				color: #666;
 				letter-spacing: 1px;
-				background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -6px;
-				border-radius: 2px;
+        float: left;
 			}
 			input#zip_code,
 			input#number,
@@ -145,9 +150,7 @@
 			background:#f1f1f1;
 			border:1px solid #d1d1d1;
 			margin-top:2px;
-			border-radius:2px;
 			margin-bottom:4px;
-			background:image-url('cart/ico_form.png') #f1f1f1 no-repeat -107px -318px;
 			select {
 				background:none;
 				width: 85%;
@@ -172,23 +175,15 @@
 			color: $base_color;
 			z-index: 99;
 		}
-		.zip_code input {background-position:-107px -269px}
-		.city {background-position:-107px -369px;}
-		.neighborhood input {background-position:-107px -419px;}
-		.street input {background-position:-107px -670px;}
-		.number input {background-position:-107px -470px;}
-		.complement input {background-position:-107px -520px;}
-		.telephone input {background-position:-107px -570px;}
-		.mobile input {background-position:-107px -620px;}
 	}
 }
 
 .freights {
 	float:left;
 	padding-left:20px;
-	border-left:1px solid #cdcdcd;
 	height:130px;
 	font-size:12px;
+  margin-top: 40px;
 	p {
 		display: block;
 		margin:0px;
@@ -518,7 +513,6 @@
   }
 }
 
-.js-addAddress,
 #js-finalize-order {
 	@include bt_color($primary_bt_color, $primary_bt_color_hover);
 	width:100%;
@@ -533,6 +527,24 @@
 	font-weight: bold;
 	border:0px;
 	font-size:12px !important;
+}
+.add_link{
+	width: 200px;
+  float: left;
+	a{
+		font-family: $verdana;
+		color: $base_color;
+		letter-spacing: 1px;
+		font-size: 10px;
+		text-transform: uppercase;
+		padding-left: 19px;
+    margin-top: 59px;
+    display: block;
+    text-decoration: none;
+    &:hover{
+      text-decoration:underline;
+    }
+	}
 }
 
 #js-finalize-order {
