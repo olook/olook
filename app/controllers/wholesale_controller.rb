@@ -8,7 +8,7 @@ class WholesaleController < ApplicationController
   def create
     @wholesale = Wholesale.new(params[:wholesale])
     if @wholesale.valid?
-      SACAlertMailer.wholesale_notification(@wholesale).deliver
+      Resque.enqueue(NewWholesaleNotification, @wholesale)
       redirect_to wholesale_show_path
     else
       render action: 'new'
