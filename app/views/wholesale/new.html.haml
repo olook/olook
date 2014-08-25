@@ -5,7 +5,7 @@
 #register_content
   .register_form
     %h2
-      cadastre-se e seja uma revendedora olook
+      cadastre-se
     = form_for @wholesale do |f|
       %ul.formulario
         %fieldset
@@ -80,6 +80,7 @@
             %span{ class: "custom_select #{error_class_if_needed(@wholesale, :city)}"}
               = f.select :city, []
             = errors_for(@wholesale, :city)
+        %fieldset
           %li.terms
             %p
               Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
@@ -87,6 +88,11 @@
                 e a nossa #{link_to "política de privacidade", privacy_path}
           %li.buttons
             = f.submit "Cadastrar", :id => "register"
+
+.vantagens
+  %h2
+    Por que vender Olook?
+  =image_tag("wholesale/atacado_olook_2.jpg")
   
 
 - content_for :footer do

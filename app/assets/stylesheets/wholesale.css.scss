@@ -6,26 +6,30 @@
 #error_anchor{}
 #revenda{
 	width: 970px;
-  height: 1185px;
+  height: 355px;
 	margin: 0 auto;
-  .about, .box_right{
+  .about{
     float: left;
   }
 	.about{
-    width: 535px;
+    width: 970px;
     margin-bottom: 20px;
     margin-right: 9px;
+    margin-top: 15px;
 		h1,h2{
-			font-family: $johnston;
+			font-family: $verdana;
 			font-size: 18px;
 			color: #000;
 			text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
 		}
     p.infos{
-      font-family: $avenir;
+      font-family: $bt_font;
       font-size: 14px;
       color: #000;
       margin-top: 15px;
+      line-height: 20px;
     }
     a.anchor_button{
       margin-top: 25px;
@@ -176,15 +180,16 @@
 #register_content{
   width: 970px;
   .register_form{
-    width: 450px;
+    width: 480px;
     margin-left: 10px;
     float: left;
     h2{
-      font-family: $johnston;
+      font-family: $verdana;
       font-size: 18px;
       color: #000;
       text-transform: uppercase;
-      letter-spacing: -1px;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
     }
     form {margin-bottom: 15px; font-family: $avenir;
       label{
@@ -198,7 +203,6 @@
             background: #FFF;
             border: 1px solid #959595;
             height: 34px;
-            width: 426px;
             font-family: $avenir;
             color: #000;
             font-size: 13px;
@@ -225,11 +229,10 @@
       .email_error{width: 436px;}
       ul.formulario{
         fieldset{
-          width: 204px;
+          width: 235px;
           float: left;
         }
         fieldset{
-          width: 445px;
           margin-bottom: 10px;
         }
         li{
@@ -238,12 +241,12 @@
             display: block;
             border: 1px solid #959595;
             height: 34px;
-            width: 199px;
+            width: 208px;
             background: image-url("reseller/black_arrow.png") no-repeat 185px 10px;
             z-index:1;top:21px;left:0;line-height:39px;padding-left:5px;
             select {
               background: transparent;
-              width: 268px;
+              width: 205px;
               padding: 5px;
               font-size: 14px;
               font-family: $avenir;
@@ -285,7 +288,6 @@
               padding-top: 22px;
             }
           }
-          &.neighborhood{width: 301px;}
           &.password{
             span{
               font-size: 12px;
@@ -322,6 +324,8 @@
           letter-spacing: 2px;
           font-size: 17px;
           @include bt_color($primary_bt_color, $primary_bt_color_hover);
+          margin-left: 13px;
+          margin-bottom: 20px;
         }
       }
       li.cpf{
@@ -389,6 +393,20 @@
         }
       }
     }
+  }
+}
+.vantagens{
+  float: left;
+  margin-left: 45px;
+  margin-bottom: 50px;
+  h2{
+    font-family: $verdana;
+    font-size: 18px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    margin-left: 30px;
   }
 }
 

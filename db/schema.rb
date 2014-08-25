@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140613174319) do
+ActiveRecord::Schema.define(:version => 20140821212004) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -25,20 +25,21 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
   add_index "action_parameters", ["matchable_id", "matchable_type"], :name => "index_action_parameters_on_matchable_id_and_matchable_type"
 
   create_table "addresses", :force => true do |t|
-    t.integer "user_id"
-    t.string  "country"
-    t.string  "city"
-    t.string  "state"
-    t.string  "complement"
-    t.string  "street"
-    t.integer "number"
-    t.string  "neighborhood"
-    t.string  "zip_code"
-    t.string  "telephone"
-    t.string  "first_name"
-    t.string  "last_name"
-    t.string  "mobile"
-    t.boolean "active",       :default => true
+    t.integer  "user_id"
+    t.string   "country"
+    t.string   "city"
+    t.string   "state"
+    t.string   "complement"
+    t.string   "street"
+    t.integer  "number"
+    t.string   "neighborhood"
+    t.string   "zip_code"
+    t.string   "telephone"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "mobile"
+    t.boolean  "active",       :default => true
+    t.datetime "last_used_at"
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
@@ -214,12 +215,56 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
     t.integer  "coupon_id"
     t.integer  "address_id"
     t.boolean  "facebook_share_discount"
+    t.integer  "shipping_service_id"
+    t.string   "payment_method"
+    t.text     "payment_data"
   end
 
   add_index "carts", ["address_id"], :name => "index_carts_on_address_id"
   add_index "carts", ["coupon_id"], :name => "index_carts_on_coupon_id"
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
+  create_table "carts_backup", :id => false, :force => true do |t|
+    t.integer  "id",                      :default => 0,     :null => false
+    t.integer  "user_id"
+    t.boolean  "notified",                :default => false, :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "legacy_id"
+    t.boolean  "gift_wrap",               :default => false
+    t.boolean  "use_credits",             :default => false
+    t.integer  "coupon_id"
+    t.integer  "address_id"
+    t.boolean  "facebook_share_discount"
+  end
+
+  create_table "catalog_bases", :force => true do |t|
+    t.string   "url"
+    t.string   "type"
+    t.string   "seo_text"
+    t.string   "small_banner1"
+    t.string   "alt_small_banner1"
+    t.string   "link_small_banner1"
+    t.string   "small_banner2"
+    t.string   "alt_small_banner2"
+    t.string   "link_small_banner2"
+    t.string   "medium_banner"
+    t.string   "alt_medium_banner"
+    t.string   "link_medium_banner"
+    t.string   "big_banner"
+    t.string   "alt_big_banner"
+    t.string   "link_big_banner"
+    t.string   "title"
+    t.string   "resume_title"
+    t.text     "text_complement"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "enabled"
+    t.text     "product_list"
+    t.string   "organic_url"
+    t.integer  "url_type"
+  end
 
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
@@ -1266,8 +1311,6 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
     t.string   "city"
     t.string   "corporate_name"
     t.string   "cnpj"
-    t.boolean  "reseller",                                        :default => false
-    t.boolean  "active"
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
     t.integer  "orders_count",                                    :default => 0
