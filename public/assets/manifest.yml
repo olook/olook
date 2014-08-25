@@ -1617,6 +1617,8 @@ predicta/v4_p_1.png: predicta/v4_p_1-1d3ec2aeabdd10ae3ab6e723c72669c1.png
 predicta/v4_p_1/index.png: predicta/v4_p_1-1d3ec2aeabdd10ae3ab6e723c72669c1.png
 press/ico_select.png: press/ico_select-11c65a1effff24c862ee89c7408c0006.png
 press/ico_select/index.png: press/ico_select-11c65a1effff24c862ee89c7408c0006.png
+press/like_share.png: press/like_share-512a04a4da269ddd11b68492b55e5a92.png
+press/like_share/index.png: press/like_share-512a04a4da269ddd11b68492b55e5a92.png
 press/logo_a_critica.jpg: press/logo_a_critica-c2c4cb798419b2380d41f57bc1bdcb7e.jpg
 press/logo_a_critica/index.jpg: press/logo_a_critica-c2c4cb798419b2380d41f57bc1bdcb7e.jpg
 press/logo_chic.jpg: press/logo_chic-e6b15027597cdd5f2a81b966c911194e.jpg
@@ -1647,6 +1649,8 @@ press/logo_txchnologist.jpg: press/logo_txchnologist-958892c4776c9fa69a3272efef7
 press/logo_txchnologist/index.jpg: press/logo_txchnologist-958892c4776c9fa69a3272efef7a83f1.jpg
 press/manifesto.jpg: press/manifesto-d4e9f072dc1a071ab30508994571290f.jpg
 press/manifesto/index.jpg: press/manifesto-d4e9f072dc1a071ab30508994571290f.jpg
+press/tv.png: press/tv-c82886b66c02c4f9076a80ac9c0fa3e7.png
+press/tv/index.png: press/tv-c82886b66c02c4f9076a80ac9c0fa3e7.png
 press_release/bg-infos.jpg: press_release/bg-infos-86335b25ce4441edf25d204bbe8a2f55.jpg
 press_release/bg-infos/index.jpg: press_release/bg-infos-86335b25ce4441edf25d204bbe8a2f55.jpg
 press_release/foto1.jpg: press_release/foto1-96e7a39f3edc60c7aa5a5e02d122d8c2.jpg
@@ -2551,8 +2555,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
-application.css: application-adf3a366c8bfe743b6f2cc33bbc02fa4.css
-application/index.css: application-adf3a366c8bfe743b6f2cc33bbc02fa4.css
+application.css: application-67141606dac1d3e18e563c06da215305.css
+application/index.css: application-67141606dac1d3e18e563c06da215305.css
 campaign_emails.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 campaign_emails/index.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2589,8 +2593,8 @@ common/reset.css: common/reset-073feaaecf4434d6fc34fe3fe1583f61.css
 common/reset/index.css: common/reset-073feaaecf4434d6fc34fe3fe1583f61.css
 common/search.css: common/search-b305456c6c1ec23d6779c5617a9fe546.css
 common/search/index.css: common/search-b305456c6c1ec23d6779c5617a9fe546.css
-common/structure.css: common/structure-de0b60bc5600d9bdde4576f570b45649.css
-common/structure/index.css: common/structure-de0b60bc5600d9bdde4576f570b45649.css
+common/structure.css: common/structure-c459271996804438db9892020b88bdac.css
+common/structure/index.css: common/structure-c459271996804438db9892020b88bdac.css
 common/typography.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 common/typography/index.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 customlanding.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
@@ -2633,8 +2637,8 @@ new_structure/section/address_combo.css: new_structure/section/address_combo-566
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-566ca8721503c370f06f6a550e5cf829.css
 new_structure/section/brands.css: new_structure/section/brands-ac10e97eb72cd99507a001f01be79643.css
 new_structure/section/brands/index.css: new_structure/section/brands-ac10e97eb72cd99507a001f01be79643.css
-new_structure/section/clippings.css: new_structure/section/clippings-c668e4c5da814deb06e85f328e0a1402.css
-new_structure/section/clippings/index.css: new_structure/section/clippings-c668e4c5da814deb06e85f328e0a1402.css
+new_structure/section/clippings.css: new_structure/section/clippings-6f1b4e98f486330d8796e438a431d094.css
+new_structure/section/clippings/index.css: new_structure/section/clippings-6f1b4e98f486330d8796e438a431d094.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-11857b2ee7856c4ba7ffa1a602bffdf5.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-11857b2ee7856c4ba7ffa1a602bffdf5.css
 new_structure/section/custom_url.css: new_structure/section/custom_url-4171215852b36dc411b894b9db16f5b4.css
