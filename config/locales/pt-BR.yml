@@ -573,6 +573,19 @@
         active: Ativo
 
     errors:
+      template:
+        header:
+          one: "Não foi possível gravar %{model}: 1 erro"
+          other: "Não foi possível gravar %{model}: %{count} erros."
+        body: "Por favor, verifique o(s) seguinte(s) campo(s):"
+
+      messages:
+        taken: "já cadastrado! Então é só entrar (informando e-mail e senha)"
+        record_invalid: "A validação falhou: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute} %{message}"
       models:
         wholesale:
           attributes:
@@ -588,20 +601,6 @@
             state: "Qual seu estado?"
             zip_code: "Qual seu CEP?"
             telephone: "Qual seu telefone?"
-      template:
-        header:
-          one: "Não foi possível gravar %{model}: 1 erro"
-          other: "Não foi possível gravar %{model}: %{count} erros."
-        body: "Por favor, verifique o(s) seguinte(s) campo(s):"
-
-      messages:
-        taken: "já cadastrado! Então é só entrar (informando e-mail e senha)"
-        record_invalid: "A validação falhou: %{errors}"
-        <<: *errors_messages
-
-      full_messages:
-        format: "%{attribute} %{message}"
-      models:
         campaign_email:
           attributes:
             phone:
