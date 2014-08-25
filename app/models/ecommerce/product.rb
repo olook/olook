@@ -584,6 +584,10 @@ class Product < ActiveRecord::Base
     detail.description if detail
   end
 
+  def color
+    details.find{|d| d.translation_token == "Cor filtro" }.try(:description)
+  end
+
   private
 
     def details_relevance
