@@ -9,11 +9,11 @@
 
 new FacebookEvents().config();
 new FacebookAuth().config();
-updateCreditCardSettlementsValue = function(select_box, total) {
+updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
   select_box.empty();
   var options = [];
-  for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
+  for (i=1; i<= CreditCard.installmentsNumberFor(total, reseller); i++) {
     installmentValue = total / i;
     text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
     select_box.append("<option value=" + i + ">" + text + "</option>");
@@ -258,7 +258,7 @@ $(function() {
       $('#billet_discount_value').text(formatReal(data.billet_discount));
 
 
-      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total);
+      updateCreditCardSettlementsValue($('#checkout_payment_payments'), total, false);
 
     });
   });
