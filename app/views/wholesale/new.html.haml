@@ -1,0 +1,101 @@
+= stylesheet_link_tag "wholesale"
+= first_level_breadcrumb("Atacado Olook")
+= render "wholesale_default"
+#error_anchor
+#register_content
+  .register_form
+    %h2
+      cadastre-se
+    = form_for @wholesale do |f|
+      %ul.formulario
+        %fieldset
+          %li.cnpj.field
+            = f.label :cnpj, "CNPJ"
+            = f.text_field :cnpj, class: error_class_if_needed(@wholesale, :cnpj)
+            = errors_for(@wholesale, :cnpj)
+        %fieldset
+          %li.corporate_name.field
+            = f.label :corporate_name, "Razão Social"
+            = f.text_field :corporate_name, class: error_class_if_needed(@wholesale, :corporate_name)
+            = errors_for(@wholesale, :corporate_name)
+        %fieldset  
+          %li.fantasy_name.field
+            = f.label :fantasy_name, "Nome Fantasia"
+            = f.text_field :fantasy_name, class: error_class_if_needed(@wholesale, :fantasy_name)
+            = errors_for(@wholesale, :fantasy_name)
+        %fieldset
+          %li.first_name.field.left_boxes.small_box
+            = f.label :first_name, "Nome"
+            = f.text_field :first_name, class: error_class_if_needed(@wholesale, :first_name)
+            = errors_for(@wholesale, :first_name)
+        %fieldset
+          %li.last_name.field.small_box
+            = f.label :last_name, "Sobrenome"
+            = f.text_field :last_name, class: error_class_if_needed(@wholesale, :last_name)
+            = errors_for(@wholesale, :last_name)
+        %fieldset
+          %li.email.field
+            = f.label :email
+            = f.text_field :email, class: error_class_if_needed(@wholesale, :email)
+            = errors_for(@wholesale, :email)
+        %fieldset
+          %li.telephone.field
+            = f.label :telephone, "Telefone"
+            = f.text_field :telephone, class: error_class_if_needed(@wholesale, :telephone)
+            = errors_for(@wholesale, :telephone) 
+        %fieldset
+          %li.cellphone.field
+            = f.label :cellphone, "Celular"
+            = f.text_field :cellphone, class: error_class_if_needed(@wholesale, :cellphone)
+            = errors_for(@wholesale, :cellphone)
+        %fieldset
+          %li.cellphone_company.field
+            = f.label :cellphone_company, "Operadora"
+            = f.text_field :cellphone_company, class: error_class_if_needed(@wholesale, :cellphone_company)
+            = errors_for(@wholesale, :cellphone_company)                            
+        %fieldset
+          %li.address.field
+            = f.label :address, "Endereço"
+            = f.text_field :address, class: error_class_if_needed(@wholesale, :address)
+            = errors_for(@wholesale, :address)
+        %fieldset
+          %li.zip_code.field
+            = f.label :zip_code, "CEP"
+            = f.text_field :zip_code, class: "zip_code #{error_class_if_needed(@wholesale, :zip_code)}"
+            = errors_for(@wholesale, :zip_code)
+        %fieldset
+          %li.neighborhood.field
+            = f.label :neighborhood, "Bairro"
+            = f.text_field :neighborhood, class: error_class_if_needed(@wholesale, :neighborhood)
+            = errors_for(@wholesale, :neighborhood)    
+        %fieldset
+          %li.state.field
+            = f.label :state, "Estado"
+            %span{ class: "custom_select #{error_class_if_needed(@wholesale, :state)}"}
+              = f.select :state, []
+            = errors_for(@wholesale, :state) 
+        %fieldset
+          %li.city.field
+            = f.label :city, "Cidade"
+            %span{ class: "custom_select #{error_class_if_needed(@wholesale, :city)}"}
+              = f.select :city, []
+            = errors_for(@wholesale, :city)
+        %fieldset
+          %li.terms
+            %p
+              Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
+              %br
+                e a nossa #{link_to "política de privacidade", privacy_path}
+          %li.buttons
+            = f.submit "Cadastrar", :id => "register"
+
+.vantagens
+  %h2
+    Por que vender Olook?
+  =image_tag("wholesale/atacado_olook_2.jpg")
+
+- content_for :footer do
+  = javascript_include_tag "wholesale"
+  :javascript
+    var wholesaleState = "#{@wholesale.state}";
+    var wholesaleCity = "#{@wholesale.city}";
