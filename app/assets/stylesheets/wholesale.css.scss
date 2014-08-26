@@ -224,16 +224,14 @@
       }
       .input_error{
         border-color:#EA1E40 !important;
-        margin-bottom:4px
+        margin-bottom:-3px
       }
       .email_error{width: 436px;}
       ul.formulario{
         fieldset{
           width: 235px;
           float: left;
-        }
-        fieldset{
-          margin-bottom: 20px;
+          height:75px;
         }
         
         li{
@@ -413,9 +411,10 @@
 .wholesale_errors{
   width: 240px;
   color:#EA1E40;
-  font-size:12px;
+  font-size:11px;
   float:left;
   font-family: $avenir;
   line-height: 15px;
-  margin-top: 5px;
+  margin-top: 3px;
+  margin-left:-3px;
 }
