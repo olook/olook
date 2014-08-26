@@ -44,6 +44,7 @@ app.views.Form = Backbone.View.extend({
       var finish = function() {
         it.trigger("saved");
         it.hideForm();
+        olookApp.mediator.publish("address:added");
       }
       if(this.model.id === undefined){
         this.collection.create(this.model.attributes, {wait: true, success: finish, error: translateServerErrors});
