@@ -1,7 +1,8 @@
 app.views.List = Backbone.View.extend({
   id: 'address',
   events: {
-    'click .js-addAddress': 'addAddress'
+    'click .js-addAddress': 'addAddress',
+    'click .js-showAll': 'showAll'
   },
   template: _.template($('#tpl-address-list').html() || ""),
 
@@ -40,6 +41,10 @@ app.views.List = Backbone.View.extend({
     this.collection.last(amount).forEach(this.addOne, this);
     this.setSelected();
     this.updateList();
+  },
+
+  showAll: function() {
+    this.addAll();
   },
 
   render: function(){
