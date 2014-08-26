@@ -21,6 +21,7 @@ var AddressController = (function(){
     
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
     olookApp.subscribe("address:added", this.showAddressList, {}, this);
+    olookApp.subscribe("address:canceled", this.showAddressList, {}, this);
 
 
     this.addresses.fetch({reset: true});
