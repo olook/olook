@@ -27,6 +27,7 @@
           %li.first_name.field.left_boxes.small_box
             = f.label :first_name, "Nome"
             = f.text_field :first_name, class: error_class_if_needed(@wholesale, :first_name)
+            = errors_for(@wholesale, :first_name, "wholesale_errors")
         %fieldset
           %li.last_name.field.small_box
             = f.label :last_name, "Sobrenome"
