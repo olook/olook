@@ -39,7 +39,7 @@ app.views.List = Backbone.View.extend({
   },
   addAddress: function() {
     olookApp.publish('address:add');
-    this.$el.html("");
+    this.hideList();
     this.$el.find("#save-btn").val("Cadastrar Endereço");
   },
   updateList: function() {
@@ -50,5 +50,16 @@ app.views.List = Backbone.View.extend({
       this.$el.find(".js-no_addresses").show()
       this.$el.find('.js-add_address').hide();
     }
-  }
+  },
+
+  showList: function() {
+    this.$el.find('ul#address-list').show();
+    this.$el.find('.js-add_address').show();
+  },
+
+  hideList: function() {
+    this.$el.find('ul#address-list').hide();
+    this.$el.find('.js-add_address').hide();
+  },
+
 });

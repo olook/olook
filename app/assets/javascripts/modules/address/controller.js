@@ -18,7 +18,11 @@ var AddressController = (function(){
     this.listView.$el.appendTo(app.content);
     this.formView.$el.appendTo(app.content);
     this.freight.config();
+    
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
+    olookApp.subscribe("address:added", this.showAddressList, {}, this);
+
+
     this.addresses.fetch({reset: true});
   };
 
@@ -31,6 +35,10 @@ var AddressController = (function(){
     this.formView.remove();
     this.freight.remove();
     olookApp.mediator.remove('address:selected', this.setAddress);
+  };
+
+  AddressController.prototype.showAddressList = function(){
+    this.listView.showList();
   };
 
   return AddressController;
