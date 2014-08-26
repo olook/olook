@@ -140,6 +140,7 @@
 				padding:17px 0 !important;
 				cursor: pointer;
 				border: none;
+        margin-right: 300px;
 			}
 			select {
 				margin-bottom:6px;
@@ -176,11 +177,23 @@
       width: 100%;
 		}
 	}
+  .bt-cancel{
+    border: none;
+    color: #000;
+    font-size: 13px;
+    font-family: $bt_font;
+    display: block;
+    margin-top: 25px;
+    background: none;cursor: pointer;
+    &:hover{
+      text-decoration:underline;
+    }
+  }
 }
 
 .freights {
 	float: left;
-  padding-left: 20px;
+  padding-left: 24px;
   height: 130px;
   font-size: 12px;
   margin-top: 15px;
