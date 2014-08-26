@@ -8,7 +8,7 @@ class WholesaleController < ApplicationController
   def create
     @wholesale = Wholesale.new(params[:wholesale])
     if @wholesale.valid?
-      Resque.enqueue(NewWholesaleNotification, @wholesale)
+      Resque.enqueue(NewWholesaleNotification, params[:wholesale])
       redirect_to wholesale_show_path
     else
       render action: 'new'
