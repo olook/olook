@@ -16,6 +16,7 @@ redis_host, redis_port = YAML.load_file(File.expand_path(File.join(File.dirname(
 ENV['REDIS_CACHE_STORE'] ||= "redis://#{redis_host}:#{redis_port}/3/cache"
 ENV['REDIS_LEADERBOARD'] ||= "redis://#{redis_host}:#{redis_port}/4"
 ENV['REDIS_SITEMAP'] ||= "redis://#{redis_host}:#{redis_port}/2"
+ENV['REDIS_SPLIT'] ||= "redis://#{redis_host}:#{redis_port}/4"
 
 module Olook
   class Application < Rails::Application
