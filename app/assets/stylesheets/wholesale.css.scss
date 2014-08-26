@@ -5,25 +5,25 @@
 @import 'new_structure/common/global_stuffs';
 #error_anchor{}
 #revenda{
-	width: 970px;
+  width: 970px;
   height: 355px;
-	margin: 0 auto;
+  margin: 0 auto;
   .about{
     float: left;
   }
-	.about{
+  .about{
     width: 970px;
     margin-bottom: 20px;
     margin-right: 9px;
     margin-top: 15px;
-		h1,h2{
-			font-family: $verdana;
-			font-size: 18px;
-			color: #000;
-			text-transform: uppercase;
+    h1,h2{
+      font-family: $verdana;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 20px;
-		}
+    }
     p.infos{
       font-family: $bt_font;
       font-size: 14px;
@@ -71,7 +71,7 @@
       margin-left: 35px;
       margin-top: 20px;
     }
-	}
+  }
   .seller{
     height: 375px;
     width: 970px;
@@ -233,8 +233,9 @@
           float: left;
         }
         fieldset{
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
+        
         li{
           float: left;
           span.custom_select{
@@ -408,4 +409,13 @@
     margin-bottom: 15px;
     margin-left: 30px;
   }
+}
+.wholesale_errors{
+  width: 240px;
+  color:#EA1E40;
+  font-size:12px;
+  float:left;
+  font-family: $avenir;
+  line-height: 15px;
+  margin-top: 5px;
 }
