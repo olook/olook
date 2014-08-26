@@ -9,7 +9,7 @@ app.views.List = Backbone.View.extend({
   initialize: function(attr) {
     this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
-    this.collection.on('reset', this.addLastTwoAddresses, this);
+    this.collection.on('reset', this.addAll, this);
     this.collection.on('change', this.updateList, this);
     this.collection.on("add remove", this.updateList, this);
   },
@@ -28,12 +28,10 @@ app.views.List = Backbone.View.extend({
     addressView.render();
     this.$el.find('ul#address-list').append(addressView.el);
   },
-  addLastTwoAddresses: function() {
-    this.add(2);
-  },
 
   addAll: function() {
     this.add(this.collection.length);
+    this.showOnlySelected();
   },
 
   add: function(amount) {
@@ -43,13 +41,9 @@ app.views.List = Backbone.View.extend({
     this.updateList();
   },
 
-  showAll: function() {
-    this.addAll();
-  },
-
   render: function(){
     this.$el.html(this.template({}));
-    this.addLastTwoAddresses();
+    this.addAll();
   },
   addAddress: function() {
     olookApp.publish('address:add');
@@ -75,5 +69,18 @@ app.views.List = Backbone.View.extend({
     this.$el.find('ul#address-list').hide();
     this.$el.find('.js-add_address').hide();
   },
+
+  showOnlySelected: function() {
+    var elements = this.$el.find('ul#address-list li').parent();
+    elements.find('input').parent().hide();
+    elements.find('input:checked').parent().show();
+  },
+
+  showAll: function() {
+    var elements = this.$el.find('ul#address-list li').parent();
+    elements.find('input').parent().show();
+    olookApp.publish('address:notSelected');
+  },
+  
 
 });

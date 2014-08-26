@@ -29,6 +29,7 @@ var AddressController = (function(){
 
   AddressController.prototype.setAddress = function(model){
     this.cart.save({ address_id: model.get('id'), shipping_service_id: null });
+    this.listView.showOnlySelected();
   };
 
   AddressController.prototype.remove = function(model){
@@ -36,6 +37,8 @@ var AddressController = (function(){
     this.formView.remove();
     this.freight.remove();
     olookApp.mediator.remove('address:selected', this.setAddress);
+    olookApp.mediator.remove('address:added', this.showAddressList);
+    olookApp.mediator.remove('address:canceled', this.showAddressList);
   };
 
   AddressController.prototype.showAddressList = function(){

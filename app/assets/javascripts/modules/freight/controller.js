@@ -11,6 +11,7 @@ var FreightController = (function(){
 
   FreightController.prototype.config = function(){
     olookApp.subscribe('address:selected', this.selectAddress, {}, this);
+    olookApp.subscribe('address:notSelected', this.hide, {}, this);
   };
 
   FreightController.prototype.hide = function(){
@@ -20,6 +21,7 @@ var FreightController = (function(){
   FreightController.prototype.remove = function(){
     this.freightsView.remove();
     olookApp.mediator.remove('address:selected', this.selectAddress);
+    olookApp.mediator.remove('address:notSelected', this.hide);
   };
 
   FreightController.prototype.selectAddress = function(model) {

@@ -42,5 +42,9 @@ app.views.Freights = Backbone.View.extend({
     if(address.get('selected')) {
       this.remove();
     }
+  },
+
+  hide: function() {
+    this.$el.empty();
   }
 });
