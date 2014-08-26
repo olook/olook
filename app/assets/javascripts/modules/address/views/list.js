@@ -8,7 +8,7 @@ app.views.List = Backbone.View.extend({
   initialize: function(attr) {
     this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
-    this.collection.on('reset', this.addAll, this);
+    this.collection.on('reset', this.addLastTwoAddresses, this);
     this.collection.on('change', this.updateList, this);
     this.collection.on("add remove", this.updateList, this);
   },
@@ -27,15 +27,24 @@ app.views.List = Backbone.View.extend({
     addressView.render();
     this.$el.find('ul#address-list').append(addressView.el);
   },
+  addLastTwoAddresses: function() {
+    this.add(2);
+  },
+
   addAll: function() {
+    this.add(this.collection.length);
+  },
+
+  add: function(amount) {
     this.$el.find('ul#address-list').empty();
-    this.collection.forEach(this.addOne, this);
+    this.collection.last(amount).forEach(this.addOne, this);
     this.setSelected();
     this.updateList();
   },
+
   render: function(){
     this.$el.html(this.template({}));
-    this.addAll();
+    this.addLastTwoAddresses();
   },
   addAddress: function() {
     olookApp.publish('address:add');

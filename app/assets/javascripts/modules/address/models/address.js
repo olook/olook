@@ -25,6 +25,10 @@ app.models.Address = Backbone.Model.extend({
   validate: function(attr) {
     errors = [];
 
+    if (StringUtils.isEmpty(attr.full_name)) {
+      errors.push({name: 'full_name', message: 'Entregaremos no nome de quem ?'});
+    }
+
     if (StringUtils.isEmpty(attr.zip_code) || !attr.zip_code.match(/\d{5}-\d{3}/g)) {
       errors.push({name: 'zip_code', message: 'Precisamos do seu CEP'});
     }
