@@ -590,17 +590,11 @@
         wholesale:
           attributes:
             cnpj: "Qual seu telefone"
-            first_name: "Qual seu nome?"
-            last_name: "Qual seu sobrenome?"
             corporate_name: "Qual o nome da empresa?"
             fantasy_name: "Qual o nome fantasia da empresa?"
             email: "Qual seu email?"
-            address: "Qual seu endereço?"
-            neighborhood: "Qual seu bairro?"
-            city: "Qual sua cidade?"
-            state: "Qual seu estado?"
-            zip_code: "Qual seu CEP?"
             telephone: "Qual seu telefone?"
+            cellphone: "Qual seu celular?"
         campaign_email:
           attributes:
             phone:
