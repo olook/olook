@@ -7,6 +7,13 @@ class ClearUnusedSessionsWorker
       sql += ")"
 
       ActiveRecord::Base.connection.execute(sql)
+
+      send_notification period_start
     end
   end
+
+  private
+    def self.send_notification starting_date
+      UnusedSessionsMailer.send_notification(starting_date).deliver
+    end
 end
