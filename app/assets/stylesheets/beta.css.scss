@@ -91,6 +91,7 @@
 		.control-group {
 			position:relative;
 			height:42px;
+      margin-bottom: 15px;
 			p {
 				margin:0px !important;
 				padding:0px;
@@ -134,7 +135,7 @@
 				text-transform: uppercase;
 				color:#FFF;
 				letter-spacing: 2px;
-				margin-top:20px;
+				margin-top:10px;
 				@include bt_color($primary_bt_color, $primary_bt_color_hover);
 				padding:17px 0 !important;
 				cursor: pointer;
@@ -148,11 +149,11 @@
 		.city {
 			width:215px;
 			height:38px;
-			background:#f1f1f1;
 			border:1px solid #d1d1d1;
 			margin-top:2px;
 			margin-bottom:4px;
       float: left;
+      margin-bottom: 20px;
 			select {
 				background:none;
 				width: 92%;
@@ -167,36 +168,38 @@
       margin-right: 18px;
     }
 		.help-inline {
-			position: absolute;
-			padding: 2px 6px;
-			left: 56px;
 		}
 		.error .help-inline {
-			border: 1px solid #d1d1d1;
-			background: #FFF;
 			font-size: 11px;
-			margin-top: -12px;
-			margin-left: -3px;
 			color: $base_color;
 			z-index: 99;
+      width: 100%;
 		}
 	}
 }
 
 .freights {
-	float:left;
-	padding-left:20px;
-	height:130px;
-	font-size:12px;
-  margin-top: 40px;
+	float: left;
+  padding-left: 20px;
+  height: 130px;
+  font-size: 12px;
+  margin-top: 15px;
+  border-top: 1px solid #cdcdcd;
+  padding-top: 30px;
+  width: 540px;
 	p {
 		display: block;
 		margin:0px;
+    font-size: 12px;
+    font-family: $bt_font;
+    margin-top: 4px;
 	}
 	h4 {
 		text-transform: uppercase;
 		padding-bottom:10px;
 		margin:0px;
+    font-family: $verdana;
+    font-size: 14px;
 	}
 	.price {
 		font-weight: bold;
