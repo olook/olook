@@ -4,10 +4,10 @@ module Checkout::CheckoutHelper
   MOTOBOY_FREIGHT_SERVICE_ID = 5
   SATURDAY = 6
 
-  def errors_for(object, field)
+  def errors_for(object, field, custom_class="span_error")
     if object
       errors = object.errors.messages[field].first if object.errors.messages[field]
-      %(<span class="span_error">&nbsp;#{errors}</span>).html_safe if errors
+      %(<span class="#{custom_class}">&nbsp;#{errors}</span>).html_safe if errors
     end
   end
 
