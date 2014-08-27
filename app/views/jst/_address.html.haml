@@ -1,3 +1,10 @@
+%script{type: "text/template", id: "tpl-selected-address"}
+  %ul
+    %li {{ full_name }}
+    %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
+    %li Tel.: {{ telephone }} / {{ mobile }}
+    %li {{ city }},  {{state}}
+
 %script{type: "text/template", id: "tpl-address-list"}
   %ul#address-list
   .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"

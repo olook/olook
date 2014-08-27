@@ -18,6 +18,8 @@ var PaymentController = (function(){
     this.debitView = new app.views.Debit({collection: this.payments, cart: this.cart});
     this.billetView = new app.views.Billet({collection: this.payments, cart: this.cart});
     this.mercadoPagoView = new app.views.MercadoPago({collection: this.payments, cart: this.cart});
+
+    this.selectedAddressView = new app.views.SelectedAddress();
   };
 
   PaymentController.prototype.remove = function(){
@@ -35,6 +37,11 @@ var PaymentController = (function(){
     this.payments.fetch();
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
     this.cart.on("change:payment_method", this.showPaymentDetail, this);
+
+    this.selectedAddressView.model = new app.models.Address(this.cart.get('address'));
+    this.selectedAddressView.render();
+    this.selectedAddressView.$el.prependTo(app.content);
+
   };
 
   PaymentController.prototype.paymentSelected = function(model) {

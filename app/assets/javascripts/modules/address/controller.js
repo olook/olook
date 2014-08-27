@@ -3,6 +3,7 @@
 //= require modules/address/views/address
 //= require modules/address/views/list
 //= require modules/address/views/form
+//= require modules/address/views/selectedAddress
 
 var AddressController = (function(){
   function AddressController(attr) {
