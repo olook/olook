@@ -24,6 +24,7 @@ var AddressController = (function(){
     olookApp.subscribe("address:added", this.showAddressList, {}, this);
     olookApp.subscribe("address:canceled", this.showAddressList, {}, this);
 
+    olookApp.subscribe("address:change", this.hideAddressList, {}, this);
 
     this.addresses.fetch({reset: true});
   };
@@ -40,11 +41,18 @@ var AddressController = (function(){
     olookApp.mediator.remove('address:selected', this.setAddress);
     olookApp.mediator.remove('address:added', this.showAddressList);
     olookApp.mediator.remove('address:canceled', this.showAddressList);
+    olookApp.mediator.remove("address:change", this.hideAddressList);
   };
 
   AddressController.prototype.showAddressList = function(){
     this.listView.showList();
   };
+
+  AddressController.prototype.hideAddressList = function(){
+    this.listView.hideList();
+  };
+
+
 
   return AddressController;
 })();

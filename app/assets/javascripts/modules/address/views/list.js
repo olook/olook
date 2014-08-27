@@ -11,8 +11,6 @@ app.views.List = Backbone.View.extend({
     this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
-    this.collection.on('change', this.updateList, this);
-    this.collection.on("add remove", this.updateList, this);
   },
 
   setSelected: function() {
@@ -55,11 +53,14 @@ app.views.List = Backbone.View.extend({
   showList: function() {
     this.$el.find('ul#address-list').show();
     this.$el.find('.js-add_address').show();
+    this.$el.find('.js-showAll').show();
   },
 
   hideList: function() {
     this.$el.find('ul#address-list').hide();
     this.$el.find('.js-add_address').hide();
+    this.$el.find('.js-showAll').hide();
+
   },
 
   showOnlySelected: function() {
