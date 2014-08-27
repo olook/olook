@@ -32,6 +32,7 @@ app.views.Form = Backbone.View.extend({
   cancelAddingNewAddress: function(e) {
     this.hideForm();
     olookApp.mediator.publish("address:canceled");
+    this.trigger('saved');
   },
 
   addNew: function(e) {
