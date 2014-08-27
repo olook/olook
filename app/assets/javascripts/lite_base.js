@@ -21,7 +21,6 @@ olook.init = function(){
   olook.slideToTop();
   olook.boxLogin();
   olook.showEmailBar();
-  olook.goto_form_reseller();
   olook.megamenu();
   olook.mercadoPagoBanner();
 }
@@ -156,16 +155,6 @@ olook.showSlideToTop  = function() {
     }
   });
 }
-
-olook.goto_form_reseller = function() {
-  $('a#form_reseller').live('click', function(e) {
-    $("html, body").animate({
-      scrollTop: 1250
-    }, 'fast');
-    e.preventDefault();
-  });
-}
-
 
 olook.slideToTop = function() {
   $('a#go_top').on('click', function(e) {

@@ -24,40 +24,6 @@ pt-BR:
             telephone:
               blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
               invalid: "O telefone parece estranho. Pode conferir?"
-        reseller:
-          attributes:
-            has_corporate:
-              inclusion: "Você é autônomo (CPF) ou logista (CNPJ) ?"
-            corporate_name:
-              blank: "Qual a razão social da empresa, mesmo?"
-            fantasy_name:
-              blank: "Qual a nome fantasia da empresa, mesmo?"
-            first_name:
-              blank: "Qual é o seu nome? :)"
-              invalid: "Parece estranho. Pode conferir? :)"
-            last_name:
-              blank: "Ah, precisamos do nome completo"
-              invalid: "Parece estranho. Pode conferir? :)"
-            password:
-              blank: "Crie sua senha para acessos futuros"
-              too_short: "Ela deve ter no min. %{count} caracteres, tá?"
-              confirmation: "Não está batendo. Pode conferir?"
-            email:
-              blank: "Precisamos dele para envio de mensagens sobre o pedido"
-              invalid: "O e-mail parece estranho. Pode conferir?"
-              taken:  'Identificamos que você já é cadastrada. Entre em contato com o nosso SAC'
-            cpf:
-              blank: "Precisamos do CPF para análise do cadastro"
-              invalid: "O CPF não está batendo. Pode conferir?"
-              taken:  'Identificamos que você já é cadastrada. Entre em contato com o nosso SAC'
-            cnpj:
-              blank: "Precisamos do CNPJ para análise do cadastro"
-              invalid: "O CNPJ não está batendo. Pode conferir?"
-            gender:
-              blank: "Mulher ou Homem?"
-            birthday:
-              blank: "Queremos saber esta data especial :)"
-
         user:
           attributes:
             first_name:

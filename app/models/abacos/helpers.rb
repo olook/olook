@@ -72,7 +72,7 @@ module Abacos
       cpf.gsub(/-|\.|\s/, '')[0..10] unless cpf.nil?
     end
 
-    def parse_cnpj cnpj 
+    def parse_cnpj cnpj
       cnpj.gsub(/(\.|\/|-)/, "") unless cnpj.nil?
     end
 

@@ -16,21 +16,6 @@ describe SignupNotificationWorker do
     end
   end
 
-  context "Reseller" do
-    let (:reseller) {FactoryGirl.create(:member, reseller: true)}
-    it "should send the welcome e-mail given a member id" do
-      mock_mail.should_receive(:deliver)
-      MemberMailer.should_receive(:reseller_welcome_email).with(reseller).and_return(mock_mail)
-
-      expect(reseller.welcome_sent_at).to be_nil
-
-      described_class.perform(reseller.id)
-
-      reseller.reload
-      expect(reseller.welcome_sent_at).to_not be_nil
-    end
-  end
-
   describe "gift" do
     let (:male_half_user) { FactoryGirl.create(:member, :id => 1, :half_user => true, :gender => User::Gender[:male], :registered_via => User::RegisteredVia[:gift]) }
     let (:female_half_user) { FactoryGirl.create(:member, :id => 3, :half_user => true, :gender => User::Gender[:female], :registered_via => User::RegisteredVia[:gift]) }

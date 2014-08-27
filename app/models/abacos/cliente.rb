@@ -9,9 +9,9 @@ module Abacos
 
     def initialize(member, address)
       @codigo             = "F#{member.id}"
-      @tipo_pessoa        = member.reseller_without_cpf? ? 'tpeJuridica' : 'tpeFisica'
+      @tipo_pessoa        = 'tpeFisica'
       @sexo               = 'tseFeminino'
-      @cpf                = member.reseller_without_cpf? ? parse_cnpj(member.cnpj) : parse_cpf(member.cpf)
+      @cpf                = parse_cpf(member.cpf)
       @email              = member.email
       @nome               = "#{member.first_name} #{member.last_name}"
       @data_nascimento    = parse_data(member.birthday)

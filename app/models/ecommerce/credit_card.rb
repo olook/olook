@@ -2,9 +2,7 @@
 class CreditCard < Payment
 
   BANKS_OPTIONS = ["Visa", "Mastercard", "Diners"]
-  # BANKS_OPTIONS = ["Visa", "Mastercard", "Diners", "AmericanExpress", "Hipercard"]
   PAYMENT_QUANTITY = 6
-  RESELLER_PAYMENT_QUANTITY = 3
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
 
@@ -56,13 +54,9 @@ class CreditCard < Payment
     Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
 
-  def self.installments_number_for(order_total, options={})
+  def self.installments_number_for(order_total)
     number = (order_total / MINIMUM_PAYMENT).to_i
-    if options[:user] && options[:user].reseller
-      number = RESELLER_PAYMENT_QUANTITY if number > RESELLER_PAYMENT_QUANTITY
-    else
-      number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
-    end
+    number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
     (number == 0) ? 1 : number
   end
 
@@ -75,7 +69,7 @@ class CreditCard < Payment
 
   def apply_bank_number_of_digits
     unless bank.blank?
-      if bank.match /Diners/
+      if bank.match(/Diners/)
         validate_bank_credit_card_number FourToSixCreditCardNumberFormat
       else
         validate_bank_credit_card_number SixCreditCardNumberFormat

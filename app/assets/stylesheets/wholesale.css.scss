@@ -1,22 +1,15 @@
-// Place all the styles related to the reseller controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import 'new_structure/common/global_stuffs';
-#error_anchor{}
 #revenda{
   width: 970px;
   height: 355px;
   margin: 0 auto;
   .about{
     float: left;
-  }
-  .about{
     width: 970px;
     margin-bottom: 20px;
     margin-right: 9px;
     margin-top: 15px;
-    h1,h2{
+    h1{
       font-family: $verdana;
       font-size: 18px;
       color: #000;
@@ -30,100 +23,6 @@
       color: #000;
       margin-top: 15px;
       line-height: 20px;
-    }
-    a.anchor_button{
-      margin-top: 25px;
-      margin-left: 50px;
-      width: 446px;
-      height: 38px;
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-align: center;
-      font-size: 17px;
-      padding-top: 18px;
-      @include bt_color($primary_bt_color, $primary_bt_color_hover);
-    }
-    ul{
-      margin-top: 25px;
-      li{
-        font-family: $avenir;
-        font-size: 15px;
-        background: image-url("reseller/bt_anchor.jpg") no-repeat;
-        height: 21px;
-        padding-left: 35px;
-        padding-top: 2px;
-        margin-bottom: 5px;
-        &.title{
-          background: none;
-          text-transform: uppercase;
-          font-weight: bold;
-          padding: 0;
-          font-size: 18px;
-          letter-spacing: 1px;
-          margin-bottom: 10px;
-        }
-      }
-    }
-    p.bonus{
-      font-size: 12px;
-      font-style: italic;
-      margin-left: 35px;
-      margin-top: 20px;
-    }
-  }
-  .seller{
-    height: 375px;
-    width: 970px;
-    display: block;
-    float: left;
-    margin-top: 20px;
-    border-bottom: 1px solid #959595;
-    margin-bottom: 55px;
-    h2{
-      font-family: $johnston;
-      font-size: 18px;
-      color: #000;
-      text-transform: uppercase;
-    }
-    ul{
-      margin-top: 10px;
-      li{
-        float: left;
-        height: 315px;
-        background: image-url("reseller/sprite_icons.png") no-repeat 0 -5px;
-        p{
-          width: 294px;
-          font-size: 14px;
-          font-family: $avenir;
-          padding-top: 185px;
-          line-height: 20px;
-          span{
-            font-weight: bold;
-            display: block;
-            font-size: 15px;
-          }
-        }
-        &.register{
-          width: 330px;
-        }
-        &.buy{
-          width: 310px;
-          background-position: -342px -5px;
-          p{
-            width: 243px;
-            margin-left: 35px;
-          }
-        }
-        &.reseller{
-          width: 330px;
-          background-position: -649px -5px;
-          p{
-            margin-left: 35px;
-            width: 277px;
-          }
-        }
-      }
     }
   }
 }
@@ -142,7 +41,7 @@
     margin: 0 auto;
     padding-top: 15px;
     margin-left: 145px;
-    background: image-url("reseller/success.png") #f0fddf no-repeat 15px 12px;
+    background: image-url("wholesale/success.png") #f0fddf no-repeat 15px 12px;
     padding-left: 30px;
   }
   ul{
@@ -171,7 +70,7 @@
           width: 162px;
           height: 33px;
           text-indent: -9999px;
-          background: image-url("reseller/bt_saias.png") no-repeat;
+          background: image-url("wholesale/bt_saias.png") no-repeat;
         }
       }
     }
@@ -207,18 +106,8 @@
             color: #000;
             font-size: 13px;
             padding-left: 4px;
-        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
-          width: 200px;
-          float: left;
-        }
-        &#reseller_addresses_attributes_0_complement{
-          width: 101px;
-        }
-        &#reseller_addresses_attributes_0_neighborhood{
-          width: 297px;
-        }
-        &.zip_code, &#reseller_addresses_attributes_0_zip_code, &.phone{
-          width: 194px;
+        &.zip_code{
+          width: 203px;
           padding-left: 10px;
         }
       }
@@ -233,7 +122,6 @@
           float: left;
           height:75px;
         }
-        
         li{
           float: left;
           span.custom_select{
@@ -241,7 +129,7 @@
             border: 1px solid #959595;
             height: 34px;
             width: 208px;
-            background: image-url("reseller/black_arrow.png") no-repeat 185px 10px;
+            background: image-url("wholesale/black_arrow.png") no-repeat 185px 10px;
             z-index:1;top:21px;left:0;line-height:39px;padding-left:5px;
             select {
               background: transparent;
@@ -298,7 +186,7 @@
             margin-top: 25px;
             height: 28px;
             label{
-                  display: inline;        
+                  display: inline;
                 }
             input{padding-top: 5px;margin-left: 10px;height: 15px;width: 13px;}
           }
@@ -332,65 +220,13 @@
         .span_error{
           width: 440px !important;
         }
-      } 
+      }
       li.cnpj{
         .span_error{
           width: 300px !important;
         }
-      } 
-      li.corporate_name{margin-bottom: 8px;}
-    }
-  }
-  .reseller_infos{
-    width: 445px;
-    float: left;
-    margin-left: 30px;
-    h2{
-      font-family: $johnston;
-      font-size: 18px;
-      color: #000;
-      text-transform: uppercase;
-      letter-spacing: -1px;
-      float: right;
-    }
-    ul{
-      width: 445px;
-      li{
-        margin-left: 10px;
-        margin-top: 53px;
-        height: 125px;
-        background: image-url("reseller/sprite_icons.png") no-repeat;
-        &.fast{
-          background-position: -8px -372px;
-          margin-top: 74px;
-        }
-        &.acessivel{
-          margin-top: 25px;
-          background-position: -8px -540px;
-          p{
-            padding-top: 28px;
-          }
-        }
-        &.curadoria{
-          background-position: -8px -715px;
-        }
-        &.parcerias{
-          background-position: -8px -840px;
-        }
-        &.garantia{
-          background-position: -8px -999px;
-        }
-        p{
-          font-size: 14px;
-          font-family: $avenir;
-          width: 290px;
-          padding-left: 150px;
-          span{
-            display: block;
-            font-weight: bold;
-          }
-        }
       }
+      li.corporate_name{margin-bottom: 8px;}
     }
   }
 }
