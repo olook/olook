@@ -64,7 +64,8 @@ app.views.List = Backbone.View.extend({
 
   showOnlySelected: function() {
     var elements = this.$el.find('ul#address-list li');
-    this.$el.find('ul#address-list').removeClass('addressBox');
+    this.$el.find('ul#address-list li ul').removeClass('addressBox');
+    this.$el.find('ul#address-list').removeClass('allAddressList');
     
     elements.find('input').parent().hide();
     elements.find('input:checked').parent().show();
@@ -77,7 +78,8 @@ app.views.List = Backbone.View.extend({
   showAll: function() {
     var elements = this.$el.find('ul#address-list li');
     elements.find('input').parent().show();
-    this.$el.find('ul#address-list').addClass('addressBox');
+    this.$el.find('ul#address-list li ul').addClass('addressBox');
+    this.$el.find('ul#address-list').addClass('allAddressList');
 
     olookApp.publish('address:notSelected');
 

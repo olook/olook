@@ -3,7 +3,7 @@
   .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"
   .js-showAll.all_address
     Exibir todos os endereços
-  .js-showOnlySelected.all_address
+  .js-showOnlySelected.bt-cancel
     << Voltar
 
 %script{type: "text/template", id: "tpl-address"}
@@ -16,6 +16,10 @@
     %li.links
       %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
       %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+    %li.select_address
+      %p
+        Selecionar
+
   %br
 
 %script{id: "tpl-address-form", type: "text/template"}
