@@ -14,6 +14,7 @@ app.views.List = Backbone.View.extend({
     this.collection.on('change', this.updateList, this);
     this.collection.on("add remove", this.updateList, this);
   },
+
   setSelected: function() {
     if(this.collection.length == 1) {
       this.collection.at(0).set('selected', true);
@@ -32,14 +33,13 @@ app.views.List = Backbone.View.extend({
 
   addAll: function() {
     this.add(this.collection.length);
-    this.showOnlySelected();
   },
 
-  add: function(amount) {
+  addAll: function() {
     this.$el.find('ul#address-list').empty();
-    this.collection.last(amount).forEach(this.addOne, this);
+    this.collection.forEach(this.addOne, this);
     this.setSelected();
-    this.updateList();
+    this.showOnlySelected();
   },
 
   render: function(){
@@ -50,15 +50,6 @@ app.views.List = Backbone.View.extend({
     olookApp.publish('address:add');
     this.hideList();
     this.$el.find("#save-btn").val("Cadastrar Endereço");
-  },
-  updateList: function() {
-    if(this.collection.size() >= 1){
-      this.$el.find(".js-no_addresses").hide();
-      this.$el.find('.js-add_address').show();
-    } else {
-      this.$el.find(".js-no_addresses").show()
-      this.$el.find('.js-add_address').hide();
-    }
   },
 
   showList: function() {
@@ -79,6 +70,7 @@ app.views.List = Backbone.View.extend({
 
     this.$el.find('.js-showOnlySelected').hide();
     this.$el.find('.js-showAll').show();
+    this.$el.find('.js-add_address').show();
   },
 
   showAll: function() {
@@ -90,6 +82,7 @@ app.views.List = Backbone.View.extend({
 
     this.$el.find('.js-showOnlySelected').show();
     this.$el.find('.js-showAll').hide();
+    this.$el.find('.js-add_address').hide();
   },
   
 
