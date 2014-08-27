@@ -6,12 +6,13 @@
     %li {{ city }},  {{state}}
 
 %script{type: "text/template", id: "tpl-address-list"}
-  %ul#address-list
-  .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"
-  .js-showAll.all_address
-    Exibir todos os endereços
-  .js-showOnlySelected.bt-cancel
-    << Voltar
+  .js-addressListView
+    %ul#address-list
+    .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"
+    .js-showAll.all_address
+      Selecionar outro endereço
+    .js-showOnlySelected.bt-cancel
+      << Voltar
 
 %script{type: "text/template", id: "tpl-address"}
   = radio_button_tag 'address', value: '{{ id }}'
@@ -21,7 +22,7 @@
     %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
     %li.links
-      %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
+      %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress'
       %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
     %li.select_address
       %p
@@ -89,5 +90,7 @@
       .control-group.add
         %input#save-btn{name: "save-btn", type: "submit", value: "Cadastrar endereço"}
 
+      <% if (showBackButton) { %>
       .cancel
         =link_to "<<Voltar", "javascript:void", class: "js-cancel bt-cancel"
+      <% } %>

@@ -89,7 +89,8 @@ app.views.Form = Backbone.View.extend({
   },
 
   render: function(obj) {
-    var html = this.template(this.model.attributes);
+    var attr = _.extend(this.model.attributes, {showBackButton: this.collection.size() > 0});
+    var html = this.template(attr);
     this.$el.html(html);
     this.initMasks();
   },

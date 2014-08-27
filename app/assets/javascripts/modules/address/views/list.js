@@ -11,6 +11,8 @@ app.views.List = Backbone.View.extend({
     this.cart = attr['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
+    this.collection.on('remove', this.addAll, this);
+
   },
 
   setSelected: function() {
@@ -30,10 +32,6 @@ app.views.List = Backbone.View.extend({
   },
 
   addAll: function() {
-    this.add(this.collection.length);
-  },
-
-  addAll: function() {
     this.$el.find('ul#address-list').empty();
     this.collection.forEach(this.addOne, this);
     this.setSelected();
@@ -41,7 +39,11 @@ app.views.List = Backbone.View.extend({
   },
 
   render: function(){
-    this.$el.html(this.template({}));
+    this.$el.html(this.template({hasAddresses: this.collection.size() > 0}));
+    
+    this.backButton = this.$el.find('.js-showOnlySelected');
+    this.addButton = this.$el.find('.js-add_address');
+
     this.addAll();
   },
   addAddress: function() {
@@ -51,29 +53,25 @@ app.views.List = Backbone.View.extend({
   },
 
   showList: function() {
-    this.$el.find('ul#address-list').show();
-    this.$el.find('.js-add_address').show();
-    this.$el.find('.js-showAll').show();
+    this.$el.find('.js-addressListView').show();
   },
 
   hideList: function() {
-    this.$el.find('ul#address-list').hide();
-    this.$el.find('.js-add_address').hide();
-    this.$el.find('.js-showAll').hide();
-
+    this.$el.find('.js-addressListView').hide();
   },
 
   showOnlySelected: function() {
     var elements = this.$el.find('ul#address-list li');
     this.$el.find('ul#address-list li ul').removeClass('addressBox');
     this.$el.find('ul#address-list').removeClass('allAddressList');
+
+    this.renderShowAllButton();
+    this.backButton.hide();
+    this.renderAddAddressButton();
     
     elements.find('input').parent().hide();
     elements.find('input:checked').parent().show();
 
-    this.$el.find('.js-showOnlySelected').hide();
-    this.$el.find('.js-showAll').show();
-    this.$el.find('.js-add_address').show();
   },
 
   showAll: function() {
@@ -82,12 +80,32 @@ app.views.List = Backbone.View.extend({
     this.$el.find('ul#address-list li ul').addClass('addressBox');
     this.$el.find('ul#address-list').addClass('allAddressList');
 
+    this.backButton.show();
+    this.addButton.hide();
+
     olookApp.publish('address:notSelected');
 
-    this.$el.find('.js-showOnlySelected').show();
     this.$el.find('.js-showAll').hide();
-    this.$el.find('.js-add_address').hide();
   },
-  
+
+  renderShowAllButton: function() {
+    var showAllButton = this.$el.find('.js-showAll');
+
+    if (this.collection.isEmpty() || this.collection.size() == 1) {
+      showAllButton.hide();
+    } else {
+      showAllButton.show();
+    }
+  },
+
+  renderAddAddressButton: function() {
+    var addAddressButton = this.$el.find('.js-add_address');
+
+    if (this.collection.isEmpty()) {
+      addAddressButton.hide();
+    } else {
+      addAddressButton.show();
+    }
+  },
 
 });
