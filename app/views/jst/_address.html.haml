@@ -3,6 +3,8 @@
   .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"
   .js-showAll.all_address
     Exibir todos os endereços
+  .js-showOnlySelected.all_address
+    << Voltar
 
 %script{type: "text/template", id: "tpl-address"}
   = radio_button_tag 'address', value: '{{ id }}'
