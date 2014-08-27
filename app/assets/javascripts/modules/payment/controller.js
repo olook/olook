@@ -29,19 +29,19 @@ var PaymentController = (function(){
 
   PaymentController.prototype.config = function(){
     this.paymentsView.$el.appendTo(app.content);
+    this.paymentsView.render();
+
     this.creditCardFormView.$el.appendTo(this.paymentsView.paymentDetails);
     this.debitView.$el.appendTo(this.paymentsView.paymentDetails);
     this.billetView.$el.appendTo(this.paymentsView.paymentDetails);
     this.mercadoPagoView.$el.appendTo(this.paymentsView.paymentDetails);
-    this.paymentsView.render();
     this.payments.fetch();
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
     this.cart.on("change:payment_method", this.showPaymentDetail, this);
 
     this.selectedAddressView.model = new app.models.Address(this.cart.get('address'));
     this.selectedAddressView.render();
-    this.selectedAddressView.$el.prependTo(app.content);
-
+    this.selectedAddressView.$el.appendTo(this.paymentsView.selectedAddress);
   };
 
   PaymentController.prototype.paymentSelected = function(model) {

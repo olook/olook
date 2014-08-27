@@ -79,7 +79,6 @@ app.routers.CheckoutRouter = Backbone.Router.extend({
     if(!this.paymentController){
       this.paymentController = new PaymentController({cart: this.cart});
     }
-    this.initializeCartResume();
     this.paymentController.config();
   },
   confirmationStep: function() {

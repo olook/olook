@@ -2,7 +2,6 @@ app.views.Payments = Backbone.View.extend({
   template: _.template($('#tpl-payment-list').html()||""),
   className: 'payments',
   initialize: function(opts) {
-    this.paymentDetails = $('<div class="payment-details"></div>');
     this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
@@ -25,6 +24,9 @@ app.views.Payments = Backbone.View.extend({
   },
   render: function(){
     this.$el.html(this.template({}));
+    this.paymentDetails = this.$el.find('.payment-details');
+    this.selectedAddress = this.$el.find('.js-selectedAddress');
+
     this.addAll();
     this.$el.after(this.paymentDetails); 
   },
