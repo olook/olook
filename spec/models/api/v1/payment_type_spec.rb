@@ -12,9 +12,6 @@ describe Api::V1::PaymentType do
     it "return billet info" do
       expect(described_class.all.map{|a| a[:type]}).to include("Billet")
     end
-    it "return mercado pago info" do
-      expect(described_class.all.map{|a| a[:type]}).to include("MercadoPagoPayment")
-    end
   end
   context "payment keys" do
     it "specific payment value" do
