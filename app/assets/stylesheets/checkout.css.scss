@@ -217,13 +217,25 @@ body {
       width: 90px !important;
       margin-left: 35px;
       background-position: 0px -105px;
+      &.selected{
+        color: $base_color;
+        background-position: 0 -265px;
+      }
     }
     .Billet{
       width: 100px;
       margin-left: 25px;
+      &.selected{
+        color: $base_color;
+        background-position: 0 -160px;
+      }
     }
     .CreditCard{
       background-position: 0px -53px;
+      &.selected{
+        color: $base_color;
+        background-position: 0 -217px;
+      }
     }
 	}
 	.creditCardForm {

@@ -2,8 +2,6 @@
   .js-selectedAddress
   %h4 Selecione a forma de pagamento
   .payment-details
-  %button.checkout_payment
-    Finalizar Compra
 
 %script{type: "text/template", id: "tpl-payment"}
   = radio_button_tag('payment_method', value: "{{type}}")
@@ -47,7 +45,6 @@
         %input{type:'text', id:'cpf', name:'cpf', value:'{{details.cpf}}', placeholder: 'CPF'}
       %span.help-inline
 
-
 %script{type: "text/template", id: "tpl-debit"}
   %h4 
     Pagamento com Débito Online - 
@@ -77,4 +74,3 @@
   %p
     Pagando com boleto você terá 3% de desconto; {{ payment_discounts }} neste pedido.
     Lembre-se: após finalizar a compra você precisará imprimir e pagar o boleto. O prazo de entrega só começa a ser contado a partir da compensação do pagamento. 
-
