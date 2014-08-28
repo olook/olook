@@ -2,6 +2,8 @@
   .js-selectedAddress
   %h4 Selecione a forma de pagamento
   .payment-details
+    %button
+      Finalizar
 
 %script{type: "text/template", id: "tpl-payment"}
   = radio_button_tag('payment_method', value: "{{type}}")

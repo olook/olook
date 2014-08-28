@@ -29,9 +29,9 @@ var PaymentController = (function(){
     this.paymentsView.$el.appendTo(app.content);
     this.paymentsView.render();
 
-    this.creditCardFormView.$el.appendTo(this.paymentsView.paymentDetails);
-    this.debitView.$el.appendTo(this.paymentsView.paymentDetails);
-    this.billetView.$el.appendTo(this.paymentsView.paymentDetails);
+    this.creditCardFormView.$el.prependTo(this.paymentsView.paymentDetails);
+    this.debitView.$el.prependTo(this.paymentsView.paymentDetails);
+    this.billetView.$el.prependTo(this.paymentsView.paymentDetails);
     this.payments.fetch();
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
     this.cart.on("change:payment_method", this.showPaymentDetail, this);
