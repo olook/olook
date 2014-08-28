@@ -11,7 +11,7 @@ describe Debit do
   end
 
   it "should return to_s human version" do
-    subject.human_to_s.should == "Débito Bancário"
+    subject.human_to_s.should == "Débito Online"
   end
 
   context "#schedule_cancellation" do
