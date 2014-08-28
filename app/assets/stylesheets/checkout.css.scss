@@ -237,6 +237,7 @@ body {
         background-position: 0 -217px;
       }
     }
+
 	}
 	.creditCardForm {
 		width:24%;
@@ -396,9 +397,11 @@ body {
 					padding: 10px 10px 10px 50px;
 					border: 1px solid #d1d1d1;
 					font-family: 'Trebuchet Ms';
-					font-size: 14px;
+					font-size: 12px;
 					color: #666;
 					letter-spacing: 1px;
+          font-family: $verdana;
+          font-weight: lighter;
 					background:image-url('cart/ico_form.png') #f7f7f7 no-repeat -107px -6px;
 				}
 
@@ -464,6 +467,18 @@ body {
 				color: $base_color;
 			}
 		}
+    .checkout_payments{
+      border: none;
+      letter-spacing: 2px;
+      font-family: $bt_font;
+      @include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+      width: 270px;
+      height: 45px;
+      margin: 20px 0px 0px 99px;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+    }
 	}
 
 	.cart_resume {
