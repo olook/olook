@@ -7,7 +7,6 @@
 //= require modules/payment/views/credit_card_form
 //= require modules/payment/views/billet
 //= require modules/payment/views/debit
-//= require modules/payment/views/mercadopago
 
 var PaymentController = (function(){
   function PaymentController(opts){
@@ -17,7 +16,6 @@ var PaymentController = (function(){
     this.creditCardFormView = new app.views.CreditCardForm({collection: this.payments, cart: this.cart});
     this.debitView = new app.views.Debit({collection: this.payments, cart: this.cart});
     this.billetView = new app.views.Billet({collection: this.payments, cart: this.cart});
-    this.mercadoPagoView = new app.views.MercadoPago({collection: this.payments, cart: this.cart});
 
     this.selectedAddressView = new app.views.SelectedAddress();
   };
@@ -34,7 +32,6 @@ var PaymentController = (function(){
     this.creditCardFormView.$el.appendTo(this.paymentsView.paymentDetails);
     this.debitView.$el.appendTo(this.paymentsView.paymentDetails);
     this.billetView.$el.appendTo(this.paymentsView.paymentDetails);
-    this.mercadoPagoView.$el.appendTo(this.paymentsView.paymentDetails);
     this.payments.fetch();
     olookApp.subscribe('payment:selected', this.paymentSelected, {}, this);
     this.cart.on("change:payment_method", this.showPaymentDetail, this);
@@ -45,10 +42,10 @@ var PaymentController = (function(){
   };
 
   PaymentController.prototype.paymentSelected = function(model) {
+    // this.paymentsView.unselectAll(model);
     olookApp.publish('payment:creditcard:hide');
     olookApp.publish('payment:debit:hide');
     olookApp.publish('payment:billet:hide');
-    olookApp.publish('payment:mercadopago:hide');
     olookApp.publish('checkout:payment_type', model);
   };
 
@@ -68,9 +65,6 @@ var PaymentController = (function(){
       break;
       case 'Billet':
         olookApp.publish('payment:billet:show', model);
-      break;
-      case 'MercadoPagoPayment':
-        olookApp.publish('payment:mercadopago:show', model);
       break;
     }
   };
