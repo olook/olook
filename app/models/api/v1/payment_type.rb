@@ -1,6 +1,6 @@
 class Api::V1::PaymentType
   def self.all
-    [CreditCard, Debit, Billet, MercadoPagoPayment].map { |p| p.api_hash }
+    [CreditCard, Debit, Billet].map { |p| p.api_hash }
   end
 
   def self.find(type)

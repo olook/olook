@@ -2,6 +2,8 @@
   .js-selectedAddress
   %h4 Selecione a forma de pagamento
   .payment-details
+  %button.checkout_payment
+    Finalizar Compra
 
 %script{type: "text/template", id: "tpl-payment"}
   = radio_button_tag('payment_method', value: "{{type}}")
@@ -76,9 +78,3 @@
     Pagando com boleto você terá 3% de desconto; {{ payment_discounts }} neste pedido.
     Lembre-se: após finalizar a compra você precisará imprimir e pagar o boleto. O prazo de entrega só começa a ser contado a partir da compensação do pagamento. 
 
-%script{type: "text/template", id: "tpl-mercadopago"}
-  %h4
-    Pagamento com MercadoPago
-  %p
-    Após finalizar a compra você precisará preencher os dados solicitados pelo Mercado Pago na tela de conclusão de compra.
-    O prazo de entrega começa a ser contado a partir da confirmação de pagamento.

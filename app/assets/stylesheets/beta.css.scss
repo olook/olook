@@ -134,9 +134,12 @@
   color: $base_color;
   text-transform: uppercase;
   margin-left: 24px;
-  text-decoration: underline;
+  text-decoration: none;
   font-size: 11px;
   cursor: pointer;
+  &:hover{
+    text-decoration:underline;
+  }
 
 }
 .addressForm {
@@ -248,7 +251,6 @@
 		}
 	}
 }
-
 .freights {
 	float: left;
   padding-left: 24px;

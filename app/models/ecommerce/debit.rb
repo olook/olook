@@ -16,7 +16,7 @@ class Debit < Payment
   end
 
   def human_to_s
-    "Débito Bancário"
+    "Débito Online"
   end
 
   def self.api_hash

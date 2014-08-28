@@ -1,9 +1,14 @@
 %script{type: "text/template", id: "tpl-selected-address"}
-  %ul
+  %ul.payment_address
     %li {{ full_name }}
     %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
     %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
+    %li.back
+      = link_to "x" do
+        Alterar 
+        %br
+        Endereço ou Frete
 
 %script{type: "text/template", id: "tpl-address-list"}
   .js-addressListView

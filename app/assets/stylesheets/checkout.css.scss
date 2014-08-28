@@ -143,7 +143,89 @@ body {
 			}
 		}
 	}
-	.payments,
+	.payments{
+		width: 553px;
+		.payment_address{
+			border: 1px solid #cdcdcd;
+			padding: 25px 15px;
+			li {
+ 				color:#444;
+ 				font-size: 13px;
+ 				margin-bottom:2px;
+          		padding-left: 5px;
+          		font-family: $bt_font;
+          		line-height: 18px;
+ 				}
+ 				li:first-child { 
+          			font-family: $verdana !important;
+ 					font-weight: bold;
+ 					font-size: 14px;
+ 					color:#000;
+ 					text-transform: uppercase;
+          			margin-bottom: 10px;
+          			padding-left: 5px;
+ 				}
+        li.back{
+          width: 150px;
+          height: 110px;
+          float: right;
+          margin-top: -97px;
+          border-left: 1px solid #cdcdcd;
+          a{
+            display: block;
+            width: 150px;
+            height: 40px;
+            text-transform: uppercase;
+            color: $base_color;
+            font-family: $verdana;
+            font-size: 11px;
+            text-decoration: none;
+            text-align: center;
+            padding-top: 34px;
+            padding-left: 5px;;
+            &:hover{
+              text-decoration:underline;
+          }
+        }
+      }
+		}
+    h4{
+      font-family: $verdana;
+      font-size: 15px;
+      border-top: 1px solid #cdcdcd;
+      padding-top: 25px;
+      margin-top: 30px;
+    }
+    input[type="radio"]{
+      display: none;
+    }
+    .CreditCard, .Billet, .Debit{
+      float: left;
+      display: block;
+      margin-bottom: 30px;
+      background:image-url('cart/new_checkout/payments.png') no-repeat;
+      height: 30px;
+      padding-left: 50px;
+      font-size: 13px;
+      padding-top: 4px;
+      cursor: pointer;
+      &:hover{
+        color:$base_color;
+      }
+    } 
+    .Debit{
+      width: 90px !important;
+      margin-left: 35px;
+      background-position: 0px -105px;
+    }
+    .Billet{
+      width: 100px;
+      margin-left: 25px;
+    }
+    .CreditCard{
+      background-position: 0px -53px;
+    }
+	}
 	.creditCardForm {
 		width:24%;
 		float:left;
@@ -176,9 +258,7 @@ body {
 	}
 	.payment-details {
 		float:left;
-		width:33%;
-		border-left:1px solid #d1d1d1;
-		padding-left:32px;
+		width:550px;
 		position:relative;
 		h4 {
 			font-size: 12px;
@@ -266,8 +346,8 @@ body {
 				background:none;
 				width: 36px;
 				height: 32px;
-				top: 134px;
-				left: 35px;
+				top: 137px;
+        left: 3px;
 				* {
 					display: none;
 					-webkit-transition: all 0.3s ease;                  
@@ -299,15 +379,15 @@ body {
 			p {
 				background:none;
 				input {
-					width: 76%;
-					padding: 3% 3% 3% 17%;
+					width: 400px;
+          height: 20px;
+					padding: 10px 10px 10px 50px;
 					border: 1px solid #d1d1d1;
 					font-family: 'Trebuchet Ms';
 					font-size: 14px;
 					color: #666;
 					letter-spacing: 1px;
 					background:image-url('cart/ico_form.png') #f7f7f7 no-repeat -107px -6px;
-					border-radius: 2px;
 				}
 
 			}
@@ -318,24 +398,22 @@ body {
 			.number input {background-position:-107px -60px;}
 			.expiration_date {
 				float: left;
-				width: 46%;
+				width: 160px;
 				input {
 					background-position:-107px -112px;
-					height:27px;
-					width:60%;
-					padding-left:36%;
+					height:20px;
+					width: 160px;
 				}
 			}
 			.security_code {
-				width: 50%;
-				/* height: 41px; */
-				float: right;
-				margin-right: 7px;
+				width: 160px;
+				 height: 41px; 
+				float: left;	
+        margin-left: 80px;		
 				input {
 					background-position:-107px -166px;
-					height:26px;
-					width: 60%;
-					padding-left: 33%;
+					height:20px;
+					width: 160px;
 				}
 				.help-inline {
 					margin-left:159px !important;
@@ -439,6 +517,9 @@ body {
 			width:100%;
 			margin-top:10px;
 			border-top:1px solid #d1d1d1;
+      .discount{
+        color: $base_color;
+      }
 			tr {
 				td {
 					padding:2px 0;
