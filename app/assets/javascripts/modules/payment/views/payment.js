@@ -17,6 +17,7 @@ app.views.Payment = Backbone.View.extend({
 
   selectPayment: function() {
     this.$el.find('input[type=radio]').attr('checked', 'checked');
+    this.$el.addClass('selected');
     olookApp.publish('payment:selected', this.model);
   },
 
