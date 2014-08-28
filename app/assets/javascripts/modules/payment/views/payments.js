@@ -5,7 +5,7 @@ app.views.Payments = Backbone.View.extend({
     this.cart = opts['cart'];
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
-    this.listenTo('unselectAll', this.unselectAll, this);
+    this.collection.on('payment:selected', this.paymentSelected, this);
   },
   addOne: function(payment){
     var paymentView = new app.views.Payment({model: payment});
@@ -32,7 +32,8 @@ app.views.Payments = Backbone.View.extend({
     this.$el.after(this.paymentDetails); 
   },
 
-  unselectAll: function() {
+  paymentSelected: function(model) {
     this.$el.find('.selected').removeClass('selected');
+    olookApp.publish('payment:selected', model);
   }
 });
