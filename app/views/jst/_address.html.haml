@@ -5,7 +5,7 @@
     %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
     %li.back
-      = link_to "x" do
+      = link_to "javascript:void(0);", class: 'js-back' do
         Alterar 
         %br
         Endereço ou Frete
@@ -13,7 +13,7 @@
 %script{type: "text/template", id: "tpl-address-list"}
   .js-addressListView
     %ul#address-list
-    .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void', class: "js-addAddress"
+    .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void(0);', class: "js-addAddress"
     .js-showAll.all_address
       Selecionar outro endereço
     .js-showOnlySelected.bt-cancel

@@ -19,6 +19,7 @@ var CheckoutController = (function() {
     this.steps.render();
     this.router.start();
     olookApp.subscribe("app:next_step", this.nextStep, {}, this);
+    olookApp.subscribe("app:addressStep", this.addressStep, {}, this);
     olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
     olookApp.subscribe("address:remove", this.removeAddress, {}, this);
     olookApp.subscribe('checkout:payment_type', this.paymentTypeSelected, {}, this);
@@ -63,6 +64,10 @@ var CheckoutController = (function() {
     var nextStep = this.steps.checkNextStep();
     var url = this.router.translateStep(this.steps.checkNextStep());
     this.router.navigate(url, {trigger: true});
+  };
+
+  CheckoutController.prototype.addressStep = function() {
+    this.router.navigate('endereco', {trigger: true});
   };
 
   return CheckoutController;
