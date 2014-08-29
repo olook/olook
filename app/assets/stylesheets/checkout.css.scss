@@ -482,6 +482,9 @@ body {
       font-size: 12px;
       cursor: pointer;
     }
+    .disabled {
+    	@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+    }
   }
 
 	.cart_resume {

@@ -12,6 +12,8 @@ app.views.Payments = Backbone.View.extend({
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
     this.collection.on('payment:selected', this.paymentSelected, this);
+
+    this.cart.on('change:payment_data', this.renderButton, this);
   },
   addOne: function(payment){
     var paymentView = new app.views.Payment({model: payment});
@@ -36,6 +38,7 @@ app.views.Payments = Backbone.View.extend({
     this.paymentOptions = this.$el.find('.payment-options');
 
     this.addAll();
+    this.renderButton();  
   },
 
   paymentSelected: function(model) {
@@ -51,6 +54,14 @@ app.views.Payments = Backbone.View.extend({
   back: function(e) {
     olookApp.publish('app:addressStep');
   },
+
+  renderButton: function() {
+    if(this.cart.stepValid()){
+      this.$el.find(".js-finishCheckout").removeClass("disabled");
+    } else if(!$(".js-finishCheckout").hasClass("disabled")){
+      $(".js-finishCheckout").addClass("disabled");
+    }  
+  }
 
 
 });
