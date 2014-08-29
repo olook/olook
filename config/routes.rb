@@ -30,9 +30,9 @@ Olook::Application.routes.draw do
 
   get "/wishlist", to: 'wishlist#show', as: 'wishlist'
 
-  get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
-  post "/revenda", to: "reseller#create", as: 'reseller_create'
-  get "/revenda", to: "reseller#new", as: 'reseller_new'
+  get "/atacado", to: "wholesale#new", as: 'wholesale_new'
+  post "/atacado", to: "wholesale#create", as: 'wholesales'
+  get "atacado/confirmacao", to: 'wholesale#show', as: 'wholesale_show'
 
   resources :live_feeds, path: "api", only: [:create, :index]
 
@@ -106,8 +106,8 @@ Olook::Application.routes.draw do
 
   # match "/busca", :to => "search#show", :as => "search"
 
-  match '/404', :to => "application#render_public_exception"
-  match '/500', :to => "application#render_public_exception"
+  match '/404', :to => "application#not_found"
+  match '/500', :to => "application#exception"
   match "/home", :to => "home#index"
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
@@ -189,6 +189,7 @@ Olook::Application.routes.draw do
   match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
+  match "/modait" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/modait_data.xml") 
   match "/ingriffe" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ingriffe_data.xml") 
   match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   match "/buscape" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/buscape_data.xml") 

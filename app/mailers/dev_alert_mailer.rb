@@ -43,7 +43,7 @@ class DevAlertMailer < ActionMailer::Base
 
   def kanui_email(csv)
     attachments['kanui-olook.csv'] = {:mime_type => 'text/csv', :content => csv }
-    mail(to: 'pedro.baumeier@kanui.com.br, rafael.manoel@olook.com.br, marketplace+estoque@kanui.com.br', subject: 'Integração Kanui - Olook', body: 'Em anexo')
+    mail(to: 'renata.perina@olook.com.br, luiz.vergueiro@olook.com.br, carol.sampaio@olook.com.br, pedro.baumeier@kanui.com.br, rafael.manoel@olook.com.br, marketplace+estoque@kanui.com.br', subject: 'Integração Kanui - Olook', body: 'Em anexo')
   end
 
   def notify_products_list_generated(to, url)
