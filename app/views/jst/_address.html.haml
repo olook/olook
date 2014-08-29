@@ -1,7 +1,8 @@
 %script{type: "text/template", id: "tpl-selected-address"}
   %ul.payment_address
     %li {{ full_name }}
-    %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
+    %li {{ street }}, {{ number }} 
+    %li {{complement}} {{ neighborhood }} - {{ zip_code }}
     %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
     %li.back
@@ -23,7 +24,8 @@
   = radio_button_tag 'address', value: '{{ id }}'
   %ul.addressBox
     %li {{ full_name }}
-    %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
+    %li {{ street }}, {{ number }}
+    %li {{complement}} {{ neighborhood }} - {{ zip_code }}
     %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
     %li.links
