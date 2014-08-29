@@ -21,7 +21,7 @@
 
 %script{type: "text/template", id: "tpl-address"}
   = radio_button_tag 'address', value: '{{ id }}'
-  %ul
+  %ul.addressBox
     %li {{ full_name }}
     %li {{ street }}, {{ number }} {{complement}} - {{ neighborhood }} - {{ zip_code }}
     %li Tel.: {{ telephone }} / {{ mobile }}
