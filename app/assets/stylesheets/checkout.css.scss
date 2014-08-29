@@ -441,7 +441,7 @@ body {
 					margin-bottom:20px;
 				}
 				#installments {
-          font-size: 18px;
+          font-size: 12px;
 					margin-bottom:8px;
 				}
 			}
@@ -634,9 +634,9 @@ body {
 	    		}
 	    		p:nth-child(3) {
 	    			span:first-child {
-		    			padding:1px 3px;
-							background: #000;
-							color: #FFF
+		    			padding:0px 3px;
+							border:none;
+							color: #000;
 						}
 						span:last-child {
 							width: 14px;
