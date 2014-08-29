@@ -12,7 +12,6 @@ app.views.Payments = Backbone.View.extend({
     this.collection.on('add', this.addOne, this);
     this.collection.on('reset', this.addAll, this);
     this.collection.on('payment:selected', this.paymentSelected, this);
-
     this.cart.on('change:payment_data', this.renderButton, this);
   },
   addOne: function(payment){
