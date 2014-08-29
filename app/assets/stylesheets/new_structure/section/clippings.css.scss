@@ -7,11 +7,12 @@
 #clipping,#big_clipping,.clipping_left,.clipping_right{
   width: 1100px;
   height: 2015px;
-  margin: 15px auto 0;
+  margin: auto 0;
   h2{
     font-size: 14px;
     letter-spacing: 1px;
     margin-left: 12px;
+    margin-top: 80px;
   }
   p.contact{
     font-size: 12px;
@@ -22,22 +23,29 @@
     width: 990px;
   }
   .b_left{
-    margin-left: 12px;
-    width: 445px;
+    margin-left: 285px;
+    width: 935px;
+    height:126px;
     float: left;
-    h1, h2{
-      font-family: $avenir;
-      font-size: 18px;
+    background:image-url('press/tv.png') no-repeat;
+    margin-top: 25px;
+    h1{
+      font-family: $verdana;
+      font-size: 23px;
       color: #000;
       letter-spacing: 1px;
       font-weight: bold;
+      padding-left: 75px;
+      padding-top: 17px;
     }
     p{
-      font-family: $avenir;
-      font-size: 15px;
+      font-family: $verdana;
+      font-size: 20px;
       color: #000;
       letter-spacing: 1px;
       font-weight: lighter;
+      padding-left: 105px;
+      padding-top: 10px;
     }
   }
   ul{
@@ -157,10 +165,15 @@
     margin-right: 45px;
   }
 }
-.socialmedia{width: 445px;float: left;height: 75px;
+.socialmedia{width: 225px;height: 120px;position:absolute;right:-11px;top:28px;
+  background:image-url('press/like_share.png') no-repeat;
+  .links{
+    width: 100px;
+    float: right;
+    padding-top: 32px;
+  }
+  
   p{color: #000; font-size: 13px;letter-spacing: 2px;font-weight: bold;padding-top: 30px;padding-left: 95px;}
-  .like, .twitter{position: relative;float: right;left: 117px;top:-24px;}
-  .twitter{margin-left: 15px;}
 }
 .next{
 	.pagination{
@@ -172,10 +185,14 @@
 	      font-size:0;
 	    }
 	    .current{
-	      color:#000 !important;
-	      font-weight: bold !important;
+        padding: 8px 11px;
+        position: relative;
+        top: -2px;
 	      text-indent: -9999px;
 	      font-style: normal;
+        color: #fff !important;
+        background: #ef3741;
+        font-weight: bold;
 	    }
 	  a{
 	    display:inline-block;
@@ -188,11 +205,13 @@
 
 	    &.previous_page, &.next_page{
 	      width:10px;
-	      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+	      background:image-url('catalog/sprite.png') no-repeat 10px -104px;
 	      font-size:0;
+        position:relative;
+        top:-5px;
 	    }
 	    &.next_page{
-	      background-position:0 -137px;
+	      background-position:10px -129px;
 	    }
 	    &:hover{
 	      color:$base_color;
@@ -202,3 +221,32 @@
 }
 
 #container{overflow:visible !important;}
+
+.js-period_form {
+  padding-left:13px;
+  font-family: arial;
+  font-size: 12px;
+  width:90%;
+  select {
+    border:0px;
+    background:none;
+    -webkit-appearance: none;
+    width: 155px;
+    height:27px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-family: $bt_font;
+    font-weight: bold;
+    border: 1px solid #d1d1d1;
+    border-radius: 0px;
+    background:image-url('press/ico_select.png') no-repeat center right;
+    padding:2px 0 0 6px;
+  }
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+body, html {
+  overflow-x: hidden;
+}

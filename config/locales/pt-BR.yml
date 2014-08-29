@@ -589,6 +589,15 @@
       models:
         user:
           authentication: "E-mail ou senha incorreta"
+        wholesale:
+          attributes:
+            cnpj: "Qual seu CNPJ?"
+            corporate_name: "Qual o nome da empresa?"
+            fantasy_name: "Qual o nome fantasia da empresa?"
+            first_name: "Qual o seu nome?"
+            email: "Qual seu email?"
+            telephone: "Qual seu telefone?"
+            cellphone: "Qual seu celular?"
         campaign_email:
           attributes:
             phone:

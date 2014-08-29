@@ -33,6 +33,7 @@ class MktXmlBuilder
     h2h: 'h2h_template.xml.erb',
     ingriffe: 'ingriffe_template.xml.erb',
     hao123: 'hao123_template.xml.erb',
+    modait: 'modait_template.xml.erb',
     vizury: 'vizury_template.xml.erb'
   }
 
