@@ -16,13 +16,23 @@ app.views.List = Backbone.View.extend({
   },
 
   setSelected: function() {
-    if(this.collection.length == 1) {
+    if (this.collection.isEmpty()) {
+      console.log('empty');
+    }else if(this.collection.length == 1) {
       this.collection.at(0).set('selected', true);
     } else {
       var addressId = this.cart.get('address_id');
+      var noOneSelected = true;
       this.collection.forEach(function(address){
-        if(addressId == address.id) address.set('selected', true);
+        if(addressId == address.id) {
+          address.set('selected', true);
+          noOneSelected = false;
+        }
       });
+
+      if (noOneSelected) {
+        this.collection.first().set('selected', true);
+      }
     }
   },
   addOne: function(address) {
