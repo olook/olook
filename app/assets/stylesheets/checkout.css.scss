@@ -37,6 +37,11 @@ body {
 			background: image-url("common/nav/sprite_header.png") no-repeat 0 -71px;
 			background-size: 240%;
 			text-indent: -5000px;
+			a{
+				width: 200px;
+				height: 60px;
+				display: block;
+			}
 		}
 		ul {
 			float:right;
