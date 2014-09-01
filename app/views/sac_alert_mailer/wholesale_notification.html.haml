@@ -1,6 +1,11 @@
 %html{:style => "font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;"}
   %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
 %h2 Novo Atacadista
+%h3 CSV:
+%p
+  = "CNPJ;Razão Social;Nome Fantasia;Nome;Sobrenome;Email;Telefone;Celular;Operadora;Endereço;CEP;Bairro;Cidade;Estado;"
+%p
+  = "#{@wholesale.cnpj};#{@wholesale.corporate_name};#{@wholesale.first_name};#{@wholesale.last_name};#{@wholesale.email};#{@wholesale.telephone};#{@wholesale.cellphone};#{@wholesale.cellphone_company};#{@wholesale.address};#{@wholesale.zip_code};#{@wholesale.neighborhood};#{@wholesale.city};#{@wholesale.state};"
 .inner
   %p
     %b CNPJ:
