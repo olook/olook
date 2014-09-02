@@ -3,7 +3,7 @@ app.views.List = Backbone.View.extend({
   events: {
     'click .js-addAddress': 'addAddress',
     'click .js-showAll': 'showAll',
-    'click .js-showOnlySelected': 'showOnlySelected',
+    'click .js-showOnlySelected': 'addAll',
   },
   template: _.template($('#tpl-address-list').html() || ""),
 
@@ -50,7 +50,7 @@ app.views.List = Backbone.View.extend({
 
   render: function(){
     this.$el.html(this.template({hasAddresses: this.collection.size() > 0}));
-    
+
     this.backButton = this.$el.find('.js-showOnlySelected');
     this.addButton = this.$el.find('.js-add_address');
 
@@ -78,7 +78,6 @@ app.views.List = Backbone.View.extend({
     this.renderShowAllButton();
     this.backButton.hide();
     this.renderAddAddressButton();
-    
     elements.find('input').parent().hide();
     elements.find('input:checked').parent().show();
 
