@@ -2,6 +2,8 @@
   .js-selectedAddress
   %h4 Selecione a forma de pagamento
   .payment-options
+    %p.billet-discount
+      Pagando com boleto você terá 3% de desconto
   .payment-details
   .payment-footer
     %button.checkout_payments.js-finishCheckout.disabled
@@ -76,5 +78,6 @@
     %span.billet_expiration
       Vencimento em {{ billet_expiration }}
   %p
-    Pagando com boleto você terá 3% de desconto; {{ payment_discounts }} neste pedido.
-    Lembre-se: após finalizar a compra você precisará imprimir e pagar o boleto. O prazo de entrega só começa a ser contado a partir da compensação do pagamento. 
+    Pagando com boleto você terá:
+    %span {{ payment_discounts }} 
+    de desconto neste pedido. Lembre-se: após finalizar a compra você precisará imprimir e pagar o boleto. O prazo de entrega só começa a ser contado a partir da compensação do pagamento. 
