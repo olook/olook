@@ -6,12 +6,16 @@ app.views.Freights = Backbone.View.extend({
     olookApp.subscribe('address:remove', this.removeAddress, {}, this);
     olookApp.subscribe('address:add', this.remove, {}, this);
     olookApp.subscribe('address:selected', this.checkShipping, {}, this);
+    olookApp.subscribe('freight:toggle_button', this.toggleButton, {}, this);
     this.cart = opts['cart'];
     this.collection.on('reset', this.render, this);
   },
+  events: {
+    '.js-finishFreight click': 'goToPayment'
+  },  
   addOne: function(freight){
     var freightView = new app.views.Freight({model: freight});
-    this.$el.append(freightView.render().el);
+    this.$el.find('h4').after(freightView.render().el);
   },
   addAll: function(){
     this.empty();
@@ -46,5 +50,17 @@ app.views.Freights = Backbone.View.extend({
 
   hide: function() {
     this.$el.empty();
+  },
+
+  toggleButton: function() {
+    if(this.cart.stepValid()){
+      this.$el.find(".js-finishFreight").removeClass("disabled");
+    } else if(!$(".js-finishFreight").hasClass("disabled")){
+      $(".js-finishFreight").addClass("disabled");
+    }  
+  },
+
+  goToPayment: function() {
+    console.log("yay");
   }
 });

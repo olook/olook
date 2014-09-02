@@ -36,7 +36,9 @@ var CheckoutController = (function() {
 
   CheckoutController.prototype.freightSelected = function(model) {
     this.cart.save({shipping_service_id: model.get('shipping_service_id')});
-    this.nextStep();
+    // ativa o botao do proximo passo
+    olookApp.publish("freight:toggle_button");
+    // this.nextStep();
   };
 
   CheckoutController.prototype.finish = function(model) {

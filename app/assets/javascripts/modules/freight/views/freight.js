@@ -28,5 +28,5 @@ app.views.Freight = Backbone.View.extend({
 
   remove: function() {
     this.$el.remove();
-  },
+  }
 });
