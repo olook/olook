@@ -31,6 +31,7 @@ app.views.Freights = Backbone.View.extend({
   },
   checkShipping: function() {
     if(this.cart.get('shipping_service_id') == null) {
+      this.undelegateEvents();
       this.remove();
     }
   },
@@ -41,9 +42,11 @@ app.views.Freights = Backbone.View.extend({
     this.$el.html(this.template({}));
     this.addAll();
     this.setSelected();
+    this.delegateEvents();
   },
   removeAddress: function(address) {
     if(address.get('selected')) {
+      this.undelegateEvents();
       this.remove();
     }
   },
@@ -55,12 +58,14 @@ app.views.Freights = Backbone.View.extend({
   toggleButton: function() {
     if(this.cart.stepValid()){
       this.$el.find(".js-finishFreight").removeClass("disabled");
-    } else if(!$(".js-finishFreight").hasClass("disabled")){
-      $(".js-finishFreight").addClass("disabled");
+    } else if(!this.$el.find(".js-finishFreight").hasClass("disabled")){
+      this.$el.find(".js-finishFreight").addClass("disabled");
     }  
   },
 
   goToPayment: function() {
-    olookApp.publish("app:next_step");
+    if(this.cart.stepValid()){
+      olookApp.publish("app:next_step");
+    }
   }
 });
