@@ -300,7 +300,21 @@ body {
 	.payment-options{
 		position: relative;
 		.billet-discount{
-			
+      display: none;
+			position: absolute;
+      width: 150px;
+      text-align: center;
+      background: #fff;
+      line-height: 19px;
+      border: 1px solid #cdcdcd;
+      padding: 5px;
+      margin-left: 392px;
+      margin-top: 48px;
+      z-index: 10001;
+      span{
+        color: $base_color;
+        font-weight: 600;
+      }
 		}
 	}
 	.payment-details {

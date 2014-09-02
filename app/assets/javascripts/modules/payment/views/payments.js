@@ -4,7 +4,9 @@ app.views.Payments = Backbone.View.extend({
 
   events: {
     'click .js-finishCheckout': 'finishCheckout',
-    'click .js-back': 'back'
+    'click .js-back': 'back',
+    "mouseover .Billet": "showDiscount",
+    "mouseout .Billet": "hideDiscount",
   },
 
   initialize: function(opts) {
@@ -60,7 +62,15 @@ app.views.Payments = Backbone.View.extend({
     } else if(!$(".js-finishCheckout").hasClass("disabled")){
       $(".js-finishCheckout").addClass("disabled");
     }  
-  }
+  },
+
+  showDiscount: function(e){
+    this.$el.find(".billet-discount").fadeIn();
+  },
+
+  hideDiscount: function(e){
+    this.$el.find(".billet-discount").fadeOut();
+  }  
 
 
 });
