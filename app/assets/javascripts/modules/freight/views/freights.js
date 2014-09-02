@@ -11,7 +11,7 @@ app.views.Freights = Backbone.View.extend({
     this.collection.on('reset', this.render, this);
   },
   events: {
-    '.js-finishFreight click': 'goToPayment'
+    'click .js-finishFreight': 'goToPayment'
   },  
   addOne: function(freight){
     var freightView = new app.views.Freight({model: freight});
@@ -61,6 +61,6 @@ app.views.Freights = Backbone.View.extend({
   },
 
   goToPayment: function() {
-    console.log("yay");
+    olookApp.publish("app:next_step");
   }
 });
