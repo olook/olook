@@ -194,12 +194,34 @@ body {
         }
       }
 		}
+		ul.back{
+			margin-top: 20px;
+			a{
+				color: $base_color;
+				font-size: 11px;
+				font-family: $bt_font;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				font-weight: 600;
+				display: block;
+				width: 100px;
+				height: 20px;
+				padding-left: 25px;
+				background:image-url('cart/new_checkout/payments.png') no-repeat 0 -571px;
+				padding-top: 6px;
+				text-decoration: none;
+				margin-left: 2px;
+				&:hover{
+					text-decoration:underline;
+				}
+			}
+		}
     h4{
       font-family: $verdana;
       font-size: 15px;
       border-top: 1px solid #cdcdcd;
       padding-top: 25px;
-      margin-top: 30px;
+      margin-top: 20px;
     }
     input[type="radio"]{
       display: none;

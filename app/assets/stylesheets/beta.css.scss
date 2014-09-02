@@ -102,13 +102,17 @@
 }
 .bt-cancel{
   border: none;
-  color: #000;
-  font-size: 13px;
+  color: $base_color;
+  font-size: 11px;
   font-family: $bt_font;
   display: block;
   margin-top: 25px;
   background: none;
   cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
   &:hover{
     text-decoration:underline;
     cursor: pointer;
@@ -499,6 +503,9 @@
 .add_link{
 	width: 205px;
   float: left;
+  background:image-url('cart/new_checkout/payments.png') no-repeat;
+  background-position: 85px -405px;
+  margin-top: 33px;
 	a{
 		font-family: $verdana;
 		color: $base_color;
@@ -506,7 +513,8 @@
 		font-size: 10px;
 		text-transform: uppercase;
 		padding-left: 19px;
-    margin-top: 67px;
+    margin-top: 27px;
+    padding-bottom: 50px;
     display: block;
     text-decoration: none;
     &:hover{
