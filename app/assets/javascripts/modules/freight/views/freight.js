@@ -2,7 +2,7 @@ app.views.Freight = Backbone.View.extend({
   tagName: 'p',
   template: _.template($('#tpl-freight').html() || ""),
   events: {
-    'click': 'selectFreight'
+    'click': 'selectFreight',
   },
   initialize: function() {
     this.model.on('change:selected', this.selectFreight, this);

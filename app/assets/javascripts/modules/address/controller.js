@@ -10,7 +10,7 @@ var AddressController = (function(){
     this.cart = attr['cart'];
     this.addresses = new app.collections.Addresses();
     this.listView = new app.views.List({collection: this.addresses, cart: this.cart});
-    this.formView = new app.views.Form({collection: this.addresses});
+    this.formView = new app.views.Form({collection: this.addresses, cart: this.cart});
     this.freight = new FreightController({cart: this.cart});
   };
 
@@ -19,11 +19,10 @@ var AddressController = (function(){
     this.listView.$el.appendTo(app.content);
     this.formView.$el.appendTo(app.content);
     this.freight.config();
-    
+
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
     olookApp.subscribe("address:added", this.showAddressList, {}, this);
     olookApp.subscribe("address:canceled", this.showAddressList, {}, this);
-
     olookApp.subscribe("address:change", this.hideAddressList, {}, this);
 
     this.addresses.fetch({reset: true});
@@ -44,15 +43,15 @@ var AddressController = (function(){
     olookApp.mediator.remove("address:change", this.hideAddressList);
   };
 
-  AddressController.prototype.showAddressList = function(){
+  AddressController.prototype.showAddressList = function(model){
+    last_address_id = this.addresses.last().get('id')
+    this.cart.save({ address_id: last_address_id, shipping_service_id: null });
     this.listView.showList();
   };
 
   AddressController.prototype.hideAddressList = function(){
     this.listView.hideList();
   };
-
-
 
   return AddressController;
 })();

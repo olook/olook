@@ -18,6 +18,7 @@ var CheckoutController = (function() {
     this.steps.$el.prependTo("#content");
     this.steps.render();
     this.router.start();
+
     olookApp.subscribe("app:next_step", this.nextStep, {}, this);
     olookApp.subscribe("app:addressStep", this.addressStep, {}, this);
     olookApp.subscribe("freight:selected", this.freightSelected, {}, this);
