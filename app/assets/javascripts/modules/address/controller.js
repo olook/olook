@@ -20,6 +20,8 @@ var AddressController = (function(){
     this.formView.$el.appendTo(app.content);
     this.freight.config();
 
+    this.resetPaymentDiscount();
+
     olookApp.subscribe("address:selected", this.setAddress, {}, this);
     olookApp.subscribe("address:added", this.showAddressList, {}, this);
     olookApp.subscribe("address:canceled", this.showAddressList, {}, this);
@@ -52,6 +54,11 @@ var AddressController = (function(){
   AddressController.prototype.hideAddressList = function(){
     this.listView.hideList();
   };
+
+
+  AddressController.prototype.resetPaymentDiscount = function(){
+    this.cart.save({payment_method: null, payment_discounts: 0});
+  }
 
   return AddressController;
 })();
