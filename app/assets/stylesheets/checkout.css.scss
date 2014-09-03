@@ -177,10 +177,10 @@ body {
           margin-top: -108px;
           border-left: 1px solid #cdcdcd;
           a{
-          	margin-top: 16px;
+          	margin-top: 14px;
             display: block;
             width: 150px;
-            height: 60px;
+            height: 64px;
             text-transform: uppercase;
             color: $base_color;
             font-family: $verdana;
@@ -189,7 +189,7 @@ body {
             text-align: center;
             padding-top: 14px;
             padding-left: 5px;;
-            background:image-url('cart/new_checkout/payments.png') no-repeat 69px -517px;
+            background:image-url('cart/new_checkout/payments.png') no-repeat 69px -513px;
             &:hover{
               text-decoration:underline;
           }
