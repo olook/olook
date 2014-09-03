@@ -39,7 +39,7 @@ app.views.Payments = Backbone.View.extend({
     this.paymentOptions = this.$el.find('.payment-options');
 
     this.addAll();
-    this.renderButton();  
+    this.renderButton();
   },
 
   paymentSelected: function(model) {
@@ -61,7 +61,7 @@ app.views.Payments = Backbone.View.extend({
       this.$el.find(".js-finishCheckout").removeClass("disabled");
     } else if(!$(".js-finishCheckout").hasClass("disabled")){
       $(".js-finishCheckout").addClass("disabled");
-    }  
+    }
   },
 
   showDiscount: function(e){
@@ -70,7 +70,7 @@ app.views.Payments = Backbone.View.extend({
 
   hideDiscount: function(e){
     this.$el.find(".billet-discount").fadeOut();
-  }  
+  }
 
 
 });
