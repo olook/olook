@@ -734,11 +734,42 @@ body {
 		background: #f1f1f1;
 		text-align: center;
 		height:100px;
-		div {
-			background:image-url('common/footer_checkout.jpg') no-repeat center 22px;
-			width: 990px;
+		ul{
+			width: 745px;
 			margin: 0 auto;
-			height: 90px;
+			li{
+				float: left;
+				margin-top: 23px;
+				text-align: left;
+				height: 60px;
+				p{
+					font-size: 11px;
+					font-family: $bt_font;
+					color: #868686;
+					margin-top: 5px;
+				}
+				&.pay_methods{
+					margin-right: 35px;
+					width: 290px;
+					background:image-url('footer/footer_checkout.png') no-repeat 0px 31px;
+				}
+				&.sac{
+					border-left: 1px solid #cdcdcd;
+					padding-left: 35px;
+					width: 150px;
+					margin-right: 25px;
+					span{
+						font-size: 20px;
+						margin-top: 15px;
+						display: block;
+						color: #444;
+					}
+				}
+				&.safe{
+					border-left: 1px solid #cdcdcd;
+					padding-left: 35px;
+				}
+			}
 		}
 	}
 
