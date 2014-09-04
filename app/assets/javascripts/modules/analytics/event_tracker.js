@@ -2,10 +2,7 @@ var EventTracker = (function(){
   function EventTracker(){};
 
   EventTracker.prototype.trackEvent = function(category, action, label){
-
     label = (label || "");
-
-    console.log("logging event ->"+category+"/"+action+"/"+label);
     _gaq.push(['_trackEvent', category, action, label, , true]);
   };
 

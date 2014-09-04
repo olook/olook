@@ -43,7 +43,6 @@ app.views.Address = Backbone.View.extend({
   },
 
   selectAddress: function() {
-
     eventTracker.trackEvent("BackboneCheckout", "SelectAddress");
 
     this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
