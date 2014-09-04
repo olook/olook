@@ -48,8 +48,7 @@ app.views.Payments = Backbone.View.extend({
   }, 
 
   finishCheckout: function(e) {
-    debugger;
-    eventTracker.trackEvent("BackboneCheckout", "Finish");
+    eventTracker.trackEvent("BackboneCheckout", "Finish", this.cart.get("payment_method"));
     e.preventDefault();
     olookApp.publish('app:next_step');
   },
