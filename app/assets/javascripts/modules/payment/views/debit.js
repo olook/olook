@@ -13,6 +13,7 @@ app.views.Debit = Backbone.View.extend({
   },
 
   render: function(model) {
+    this.cart.trigger('change:payment_data');
     var html = this.template(model.attributes);
     this.$el.html(html);
     this.$el.show();
