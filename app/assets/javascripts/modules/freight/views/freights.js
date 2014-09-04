@@ -64,6 +64,7 @@ app.views.Freights = Backbone.View.extend({
   },
 
   goToPayment: function() {
+    eventTracker.trackEvent("BackboneCheckout", "GoToPayment");
     if(this.cart.stepValid()){
       olookApp.publish("app:next_step");
     }

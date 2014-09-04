@@ -22,6 +22,8 @@ app.views.Freight = Backbone.View.extend({
   },
 
   selectFreight: function() {
+    eventTracker.trackEvent("BackboneCheckout", "SelectFreight", this.model.get("kind"));
+
     this.$el.find('input[type=radio]').attr('checked', 'checked');
     olookApp.publish('freight:selected', this.model);
   },

@@ -10,6 +10,7 @@
 //= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
 //= require modules/stats/facebook_stats_logger
+//= require modules/analytics/event_tracker
 
 _.templateSettings = {
   evaluate: /\<\%([\s\S]+?)\%\>/g,

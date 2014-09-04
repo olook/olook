@@ -10,6 +10,8 @@ app.views.RegisterForm = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
 
+    eventTracker.trackEvent("BackboneCheckout", "register");
+
     var values = _.object(_.map($('.js-registrationForm').serializeArray(), function(item) {
       return [item.name, item.value]
     }));

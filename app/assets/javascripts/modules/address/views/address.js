@@ -29,16 +29,23 @@ app.views.Address = Backbone.View.extend({
   },
 
   changeAddress: function() {
+    eventTracker.trackEvent("BackboneCheckout", "ChangeAddress");
     olookApp.publish('address:change', this.model);
     $("#save-btn").val("Alterar Endereço");
   },
 
   removeAddress: function() {
+
+    eventTracker.trackEvent("BackboneCheckout", "RemoveAddress");
+
     olookApp.publish('address:remove', this.model);
     this.model.destroy();
   },
 
   selectAddress: function() {
+
+    eventTracker.trackEvent("BackboneCheckout", "SelectAddress");
+
     this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
     olookApp.publish('address:selected', this.model);
   }

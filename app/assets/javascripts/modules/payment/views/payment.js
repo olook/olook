@@ -16,6 +16,7 @@ app.views.Payment = Backbone.View.extend({
   },
 
   selectPayment: function() {
+    eventTracker.trackEvent("BackboneCheckout", "SelectPayment", this.model.get("type"));
     this.model.trigger('payment:selected', this.model);
     this.$el.find('input[type=radio]').attr('checked', 'checked');
     this.$el.addClass('selected');

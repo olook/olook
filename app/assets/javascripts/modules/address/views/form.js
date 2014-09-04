@@ -37,6 +37,9 @@ app.views.Form = Backbone.View.extend({
 
   addNew: function(e) {
     e.preventDefault();
+
+    eventTracker.trackEvent("BackboneCheckout", "SubmitNewAddress");
+
     this.updateModel();
     var it = this;
     var translateServerErrors = function(model, response, options) {

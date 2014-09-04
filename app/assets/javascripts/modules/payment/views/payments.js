@@ -48,11 +48,14 @@ app.views.Payments = Backbone.View.extend({
   }, 
 
   finishCheckout: function(e) {
+    debugger;
+    eventTracker.trackEvent("BackboneCheckout", "Finish");
     e.preventDefault();
     olookApp.publish('app:next_step');
   },
 
   back: function(e) {
+    eventTracker.trackEvent("BackboneCheckout", "BackToAddress");
     olookApp.publish('app:addressStep');
   },
 

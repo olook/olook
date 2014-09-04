@@ -57,6 +57,9 @@ app.views.List = Backbone.View.extend({
     this.addAll();
   },
   addAddress: function() {
+
+    eventTracker.trackEvent("BackboneCheckout", "ShowAddAddressForm");
+
     olookApp.publish('address:add');
     this.hideList();
     this.$el.find("#save-btn").val("Cadastrar Endereço");
@@ -84,6 +87,9 @@ app.views.List = Backbone.View.extend({
   },
 
   showAll: function() {
+
+    eventTracker.trackEvent("BackboneCheckout", "ShowAllAddresses");
+
     var elements = this.$el.find('ul#address-list li');
     elements.find('input').parent().show();
     this.$el.find('ul#address-list li ul').addClass('addressBox');

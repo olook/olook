@@ -10,6 +10,8 @@ app.views.LoginForm = Backbone.View.extend({
   submit: function(e) {
     e.preventDefault();
 
+    eventTracker.trackEvent("BackboneCheckout", "login");
+
     var values = _.object(_.map(this.$el.find('.js-loginForm').serializeArray(), function(item) {
       return [item.name, item.value]
     }));
