@@ -80,7 +80,7 @@ class CartService
   def total_increase
     increase = 0
     increase += cart.increment_from_gift_wrap
-    # increase += freight_price
+    increase += freight_price
     increase
   end
 
