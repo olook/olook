@@ -1,0 +1,86 @@
+%script{type: "text/template", id: "tpl-payment-list"}
+  .js-selectedAddress
+  %h4 Selecione a forma de pagamento
+  .payment-options
+    %p.billet-discount
+      Pagando com boleto você terá 
+      %span
+        3% 
+      de desconto
+  .payment-details
+  .payment-footer
+    %button.checkout_payments.js-finishCheckout.disabled
+      Finalizar Compra
+
+
+%script{type: "text/template", id: "tpl-payment"}
+  = radio_button_tag('payment_method', value: "{{type}}")
+  {{name}}
+
+%script{type: "text/template", id: "tpl-credit-card-form"}
+  %h4 Pagamento com Cartão de Crédito
+  %form.js-creditCardForm
+    %p
+      Número de parcelas: 
+    .flags
+      %span.mastercard
+        mastercard
+      %span.visa
+        visa
+      %span.diners
+        diners
+    %select{type:'select', id:'installments', name:'installments', value:'{{details.installments}}'}
+
+    .error_message
+      {{details.errorMessage}}
+
+    .control-group.full_name
+      %p
+        %input{type:'text', id:'full_name', name:'full_name', value:'{{details.full_name}}', placeholder: 'Nome como no Cartão'}
+      %span.help-inline
+    .control-group.number
+      %p
+        %input{type:'text', id:'number', name:'number', value:'{{details.number}}', placeholder: 'Número do Cartão'}
+      %span.help-inline
+    .control-group.expiration_date
+      %p
+        %input{type:'text', id:'expiration_date', name:'expiration_date', value:'{{details.expiration_date}}', placeholder: 'Expiração'}
+      %span.help-inline
+    .control-group.security_code
+      %p
+        %input{type:'text', id:'security_code', name:'security_code', value:'{{details.security_code}}', placeholder: 'Cód Seg'}
+      %span.help-inline
+    .control-group.cpf
+      %p
+        %input{type:'text', id:'cpf', name:'cpf', value:'{{details.cpf}}', placeholder: 'CPF'}
+      %span.help-inline
+
+%script{type: "text/template", id: "tpl-debit"}
+  %h4 
+    Pagamento com Débito Online - 
+    %span Selecione seu banco
+  %form.js-debitForm
+    .banks
+      %span.itau
+        %input{type: "radio", id: "bank_itau", name: "bank", value: "Itau"}
+        %label{for: 'bank_itau'} Itaú
+      %span.bradesco
+        %input{type: "radio", id: "bank_bradesco", name: "bank", value: "Bradesco"}
+        %label{for: 'bank_bradesco'} Bradesco
+      %span.bancodobrasil
+        %input{type: "radio", id: "bank_bancodobrasil", name: "bank", value: "BancoDoBrasil"}
+        %label{for: 'bank_bancodobrasil'} Banco do Brasil
+  %p
+    Após finalizar a compra você será redirecionado para o site do seu banco. 
+    Para efetuar o pagamento você precisará ter acesso a sua conta via internet banking e à geração de iToken. 
+    Atenção: O pagamento via débito online é compensado imediatamente. Qualquer eventualidade, contacte o seu banco. 
+
+%script{type: "text/template", id: "tpl-billet"}
+  %h4
+    Pagamento com Boleto com
+    %span.billet_expiration
+      Vencimento em {{ billet_expiration }}
+  %p
+    Pagando com boleto você terá:
+    %span {{ payment_discounts }} 
+    de desconto neste pedido. Lembre-se: após finalizar a compra você precisará imprimir e pagar o boleto. O prazo de entrega só começa a ser contado a partir da compensação do pagamento. 

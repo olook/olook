@@ -1,0 +1,14 @@
+// PAGAMENTO MERCADOPAGO
+%h3
+  Recebemos o seu pedido!
+
+%p
+  Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:
+
+.new_payment_link
+  %p.txt_payment_link 
+    Para finalizar o pagamento, informe os dados solicitados pelo MercadoPago.
+    %br/
+    %span Informe abaixo os dados solicitados pelo MercadoPago para realizar o pagamento do seu pedido.
+  %p.mercado_pago_frame
+    %iframe{src: @order.erp_payment.url, width:"100%", height:"600px"}

@@ -1,10 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
+  serialize :payment_data, Hash
   DEFAULT_QUANTITY = 1
 
   belongs_to :user
   belongs_to :coupon
   belongs_to :address
+  belongs_to :shipping_service
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
 
@@ -14,6 +16,71 @@ class Cart < ActiveRecord::Base
 
   before_validation :update_coupon
   after_update :notify_listener
+
+  def self.find_saved_for_user(user, attrs)
+    cart = nil
+    if user
+      id = attrs[:params] || attrs[:session]
+      sql = self.where(user_id: user.id)
+      cart = sql.find_by_id(id) if id
+      # cart ||= sql.last
+    end
+    cart = Cart.find_by_id(attrs[:session]) if attrs[:session]
+    cart
+  end
+
+  def self.gift_wrap_price
+    YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
+  end
+
+  def api_hash
+    {
+      id: id,
+      user_id: user_id,
+      address_id: address_id,
+      address: address.try(:api_hash),
+      use_credits: use_credits,
+      facebook_share_discount: facebook_share_discount,
+      coupon_code: coupon.try(:code),
+      items_count: items.count,
+      items_subtotal: cart_calculator.items_subtotal,
+      subtotal: cart_calculator.subtotal,
+      items: items.map { |item| item.api_hash },
+      freights: freights,
+      shipping_service_id: shipping_service_id,
+      gift_wrap: gift_wrap,
+      gift_wrap_value: Cart.gift_wrap_price,
+      payment_method: payment_method,
+      payment_data: payment_data,
+      payment: Api::V1::PaymentType.find(payment_method),
+      discounts: cart_calculator.items_discount,
+      payment_discounts: - cart_calculator.payment_discounts,
+      credits:  - cart_calculator.used_credits_value,
+      total: cart_calculator.items_total
+    }
+  end
+
+  def freights
+    if address
+      zip_code = address.zip_code.gsub(/\D/, '').to_i
+      transport_shippings = FreightService::TransportShippingManager.new(
+        zip_code, cart_calculator.items_subtotal, Shipping.with_zip(zip_code)).api_hash
+      if(shipping_service_id)
+        transport_shippings.select! { |t| t[:shipping_service_id] == shipping_service_id }
+      end
+      transport_shippings
+    else
+      []
+    end
+  end
+
+  def selected_freight
+    freights.find { |f| f[:shipping_service_id] == shipping_service_id }
+  end
+
+  def cart_calculator
+    @cart_calculator ||= CartProfit::CartCalculator.new(self)
+  end
 
   def allow_credit_payment?
     has_empty_adjustments? && has_any_full_price_item? && self.sub_total >= 100
@@ -29,7 +96,7 @@ class Cart < ActiveRecord::Base
     return nil if self.has_gift_items? && !gift
 
     quantity = quantity.to_i == 0 ? Cart::DEFAULT_QUANTITY : quantity.to_i
-   
+
     return nil unless variant.available_for_quantity?(quantity)
 
     current_item = items.select { |item| item.variant == variant }.first
@@ -91,9 +158,7 @@ class Cart < ActiveRecord::Base
   end
 
   def sub_total
-    items.inject(0) do |total, item|
-      total += (item.quantity * item.retail_price)
-    end
+    cart_calculator.items_subtotal
   end
 
   def remove_coupon!
@@ -125,12 +190,12 @@ class Cart < ActiveRecord::Base
   end
 
   def as_json options
-    super(:include => 
+    super(:include =>
       {
-        :coupon => {:only => [:is_percentage, :value]}, 
-        :items => 
+        :coupon => {:only => [:is_percentage, :value]},
+        :items =>
         {
-          :methods => [:formatted_product_name, :thumb_picture,:retail_price, :description, :name],
+          :methods => [:formatted_product_name, :thumb_picture, :retail_price, :description, :name],
           :only => [:quantity, :formatted_product_name, :thumb_picture, :retail_price, :description, :id, :name]
         }
       }, :methods => [:items_total],
@@ -145,6 +210,10 @@ class Cart < ActiveRecord::Base
     self.use_credits && self.allow_credit_payment?
   end
 
+  def sub_total_with_markdown
+    cart_calculator.items_subtotal true
+  end  
+
   private
 
     def update_coupon
@@ -158,7 +227,7 @@ class Cart < ActiveRecord::Base
         _coupon = Coupon.find_by_code(self.coupon_code)
         _user_coupon = user.nil? ? nil : user.user_coupon
         if UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: _user_coupon)
-          self.coupon = _coupon 
+          self.coupon = _coupon
         end
       end
     end

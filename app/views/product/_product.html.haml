@@ -87,12 +87,12 @@
           %button.minus{:type => "button"} -
         %p.alert.js-alert
         = submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "js-add-product add_product", onclick: track_add_to_cart_event(@product.id)
-      - if !current_user.try(:reseller) #XXX Se possível tirar daqui pois impede um cache por página de produto
-        %p.bonus
-          Compre e ganhe 
-          %span #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} 
-          em créditos.
-          = link_to "Saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"
+      
+      %p.bonus
+        Compre e ganhe 
+        %span #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} 
+        em créditos.
+        = link_to "Saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"
     .details
       %ul.tabs
         %li

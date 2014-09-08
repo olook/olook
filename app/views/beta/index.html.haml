@@ -1,8 +1,13 @@
+- content_for :head do
+  = stylesheet_link_tag "beta"
 - content_for :footer do
   = javascript_include_tag "beta"
 
 #main
-
+= render "jst/login"
 = render 'jst/address'
 = render 'jst/freight'
-
+= render 'jst/payment'
+= render 'jst/credits'
+= render 'jst/steps'
+= render 'jst/cart_resume'

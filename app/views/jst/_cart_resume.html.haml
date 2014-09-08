@@ -1,0 +1,64 @@
+%script{type: "text/template", id: "tpl-cart-resume"}
+  .cart_detail
+    %h3
+      Resumo do Pedido
+    %table
+      %tr
+        %td Produtos
+        %td {{items_subtotal}}
+      <% if (hasGiftWrap) { %>
+      %tr
+        %td Embalagem
+        %td {{ gift_wrap_value }}
+      <% } %>
+      <% if (hasDiscounts) { %>
+      %tr
+        %td Descontos
+        %td {{ discounts }}
+      <% } %>
+      <% if (hasCredits) { %>      
+      %tr
+        %td Créditos
+        %td {{ credits }}
+      <% } %>
+      <% if (hasPaymentDiscounts) { %>
+      %tr
+        %td Desconto do Pagamento
+        %td.discount {{ payment_discounts }}
+      <% } %>
+    %table
+      %tr.subtotal
+        %td Subtotal
+        %td {{ subtotal }}      
+      <% if (freight != '---') { %>
+      %tr
+        %td Frete
+        %td {{ freight }}
+      <% } %>      
+    %table
+      %tr.total
+        %td Total
+        %td {{ total }}
+  .modal-items
+    %table
+
+%script{type: "text/template", id: "tpl-cart-item"}
+  %td
+    %img{src: "{{thumb_picture}}"}
+  %td.infos
+    %p {{formatted_product_name.split(" ")[0]}}
+    %p.brand {{brand}}
+    %p.size
+      Tamanho:
+      %span {{size}}
+      Cor:
+      %span{ class: "{{color}}"}
+  %td.infos x{{quantity}}
+  %td.infos
+    %p {{price_declaration}}
+%script{type: "text/template", id: "tpl-cart-item-price-promotion"}
+  De: {{price}}
+  %span
+    Por: {{retail_price}}
+
+

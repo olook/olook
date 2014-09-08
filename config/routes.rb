@@ -3,14 +3,22 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "beta/index"
+  get "checkout", to: "beta#index", as: 'checkout_start'
+  get "checkout/conclusao/:number", to: "beta#confirmation", as: 'checkout_conclusion'
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :newsletter, only: [:create]
       resources :product_interest, only: [:create]
       resources :freights, only: [:index]
+      resources :payment_types, only: [:index]
       resources :addresses
+      resources :checkout, only: :create
+      devise_scope :user do
+        resources :users, only: [:create]
+        resource :sessions, only: [:show, :create, :destroy]
+      end
+      resource :current_cart, only: [:show, :update, :create]
       resources :zip_code,only: [:show]
     end 
   end

@@ -16,7 +16,15 @@ class Debit < Payment
   end
 
   def human_to_s
-    "Débito Bancário"
+    "Débito Online"
+  end
+
+  def self.api_hash
+    {
+      type: self.to_s,
+      name: self.new.human_to_s,
+      percentage: Setting.debit_discount_percent
+    }
   end
 
   def build_payment_expiration_date

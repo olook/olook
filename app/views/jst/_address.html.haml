@@ -1,71 +1,107 @@
+%script{type: "text/template", id: "tpl-selected-address"}
+  %ul.payment_address
+    %li {{ full_name }}
+    %li {{ street }}, {{ number }} 
+    %li {{complement}} {{ neighborhood }} - {{ zip_code }}
+    %li Tel.: {{ telephone }} / {{ mobile }}
+    %li {{ city }},  {{state}}
+    %li.back
+      = link_to "javascript:void(0);", class: 'js-back' do
+        Alterar 
+        %br
+        Endereço ou Frete
+  / %ul.back
+  /   %li
+  /     = link_to "javascript:void(0);", class: 'js-back' do
+  /       Voltar
+
 %script{type: "text/template", id: "tpl-address-list"}
-  %ul#address-list
-  %p= link_to 'Adicionar Endereço', 'javascript:void', class: 'js-addAddress'
+  .js-addressListView
+    %ul#address-list
+    .js-add_address.add_link{style:'display:none;'}= link_to 'Adicionar Novo Endereço', 'javascript:void(0);', class: "js-addAddress"
+    .js-showAll.all_address
+      Selecionar outro endereço
+    .js-showOnlySelected.bt-cancel
+      << Voltar
 
 %script{type: "text/template", id: "tpl-address"}
   = radio_button_tag 'address', value: '{{ id }}'
-  %ul
-    %li
+  %ul.addressBox
     %li {{ full_name }}
-    %li {{ street }}, {{ number }} {{complement}}
-    %li {{ neighborhood }} - {{ zip_code }}
-    %li Tel.: {{ telephone }}
-    %li Cel.: {{ mobile }}
+    %li {{ street }}, {{ number }}
+    %li {{complement}} {{ neighborhood }} - {{ zip_code }}
+    %li Tel.: {{ telephone }} / {{ mobile }}
     %li {{ city }},  {{state}}
-  %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress', data: { id: '{{id}}' }
-  %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+    %li.links
+      %p= link_to 'Alterar', 'javascript:void', class: 'js-changeAddress'
+      %p= link_to 'Remover', 'javascript:void', id: '{{id}}', class: 'js-removeAddress'
+    %li.select_address
+      %p
+        Selecionar
+
+  %br
 
 %script{id: "tpl-address-form", type: "text/template"}
   .js-addressForm{style:'display: none'}
     %form
-      %p
-        Nome:
-        %input{type:'text', id:'full_name', name:'full_name', value:'{{full_name}}'}
-      %span.help-inline
-      .control-group.zip_code      
+      %h4
+        Cadastrar novo endereço
+      .control-group.full_name
         %p
-          Cep:
-          %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}'}
+          %input{type:'text', id:'full_name', name:'full_name', value:'{{full_name}}', placeholder: 'Nome'}
         %span.help-inline
+      
+      .control-group.zip_code 
+        %p
+          %input{type:'text', id:'zip_code', name:'zip_code', value:'{{zip_code}}', 'data-inputmask' => "'mask' : '99999-999'", placeholder: 'CEP'}
+          .findCEP
+            Não sabe o seu CEP?
+            %br
+            %a{href: "http://www.buscacep.correios.com.br/servicos/dnec/menuAction.do?Metodo=menuLogradouro", target: "_blank"} Clique aqui
+        %span.help-inline
+
+      
+      .control-group.state
+        %select#state{name: "state", type: "text", value:"{{state}}"}
+        %span.help-inline
+
+      .control-group.city
+        %select#city{name: "city", type: "text", value: "{{_.escape(city)}}"}
+        %span.help-inline
+
+      .control-group.neighborhood
+        %p
+          %input#neighborhood{name: "neighborhood", type: "text", value: "{{neighborhood}}", placeholder: 'Bairro'}
+        %span.help-inline
+
       .control-group.street
         %p
-          Rua:
-          %input{type:'text', id:'street', name:'street', value:'{{street}}'}
-        %span.help-inline
-      .control-group.state
-        %p
-          Estado:
-          %input#state{name: "state", type: "text", value:'{{state}}'}
+          %input{type:'text', id:'street', name:'street', value:"{{street}}", placeholder: 'Rua'}
         %span.help-inline
 
       .control-group.number
         %p
-          Numero:
-          %input#number{name: "number", type: "text", value: '{{number}}'}
-        %span.help-inline
-      %p
-        Complemento:
-        %input{type:'text', id:'complement', name:'complement', value:'{{complement}}'}        
-      .control-group.neighborhood
-        %p
-          Bairro:
-          %input#neighborhood{name: "neighborhood", type: "text", value: '{{neighborhood}}'}
+          %input#number{name: "number", type: "text", value: "{{number}}", placeholder: 'Número'}
         %span.help-inline
 
-      .control-group.city
+      .control-group.complement
         %p
-          Cidade:
-          %input#city{name: "city", type: "text", value: '{{city}}'}
-        %span.help-inline
+        %input{type:'text', id:'complement', name:'complement', value:"{{complement}}", placeholder: 'Complemento'}
 
       .control-group.telephone
         %p
-          Telefone:
-          %input#telephone{name: "telephone", type: "text", value: '{{telephone}}'}
+          %input#telephone{name: "telephone", type: "text", value: "{{telephone}}", placeholder: 'Telefone'}
         %span.help-inline
-      %p
-        Celular:
-        %input{type:'text', id:'mobile', name:'mobile', value:'{{mobile}}'}
 
-      %p
-        %input#save-btn{name: "save-btn", type: "button", value: "Cadastrar"}
+      .control-group.mobile
+        %p
+          %input#mobile{type:'text', name:'mobile', value:'{{mobile}}', placeholder: 'Celular'}
+        %span.help-inline
+
+      .control-group.add
+        %input#save-btn{name: "save-btn", type: "submit", value: "Cadastrar endereço"}
+
+      <% if (showBackButton) { %>
+      .cancel
+        =link_to "<<Voltar", "javascript:void", class: "js-cancel bt-cancel"
+      <% } %>

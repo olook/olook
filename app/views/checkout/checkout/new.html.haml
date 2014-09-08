@@ -42,7 +42,7 @@
       %ul.subtotal
         %li
           %span.txt-black Subtotal:
-          %span.txt-black.txt-subtotal= number_to_currency(@cart_service.cart.sub_total)
+          %span.txt-black.txt-subtotal= number_to_currency(@cart_service.subtotal)
         %li.frete
           %span.txt-black Frete:
           %span#freight_price= initial_freight @shipping_service

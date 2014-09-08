@@ -20,6 +20,15 @@ class Billet < Payment
     "Boleto Bancário"
   end
 
+  def self.api_hash
+    {
+      type: self.to_s,
+      name: self.new.human_to_s,
+      percentage: Setting.billet_discount_percent,
+      billet_expiration: BilletExpirationDate.business_day_expiration_date
+    }
+  end
+
   def expired_and_waiting_payment?
     self.expired? && self.order.waiting_payment?
   end

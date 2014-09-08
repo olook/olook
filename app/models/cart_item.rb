@@ -19,6 +19,23 @@ class CartItem < ActiveRecord::Base
   after_destroy :notify
   attr_reader :discount_service
 
+  def api_hash
+    {
+      quantity: quantity,
+      formatted_product_name: formatted_product_name,
+      brand: brand,
+      size: variant.description,
+      color: color_name,
+      thumb_picture: thumb_picture,
+      price: price,
+      retail_price: retail_price
+    }
+  end
+
+  def adjustment
+    cart_item_adjustment || create_adjustment
+  end
+
   def product_quantity
     deafult_quantity = [1]
     is_suggested_product? ? suggested_product_quantity : deafult_quantity
@@ -65,7 +82,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def formatted_product_name
-    self.product.formatted_name(24)
+    self.product.formatted_name(18)
   end
 
   private

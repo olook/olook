@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140613174319) do
+ActiveRecord::Schema.define(:version => 20140805172854) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -25,20 +25,21 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
   add_index "action_parameters", ["matchable_id", "matchable_type"], :name => "index_action_parameters_on_matchable_id_and_matchable_type"
 
   create_table "addresses", :force => true do |t|
-    t.integer "user_id"
-    t.string  "country"
-    t.string  "city"
-    t.string  "state"
-    t.string  "complement"
-    t.string  "street"
-    t.integer "number"
-    t.string  "neighborhood"
-    t.string  "zip_code"
-    t.string  "telephone"
-    t.string  "first_name"
-    t.string  "last_name"
-    t.string  "mobile"
-    t.boolean "active",       :default => true
+    t.integer  "user_id"
+    t.string   "country"
+    t.string   "city"
+    t.string   "state"
+    t.string   "complement"
+    t.string   "street"
+    t.integer  "number"
+    t.string   "neighborhood"
+    t.string   "zip_code"
+    t.string   "telephone"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "mobile"
+    t.boolean  "active",       :default => true
+    t.datetime "last_used_at"
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
@@ -214,6 +215,9 @@ ActiveRecord::Schema.define(:version => 20140613174319) do
     t.integer  "coupon_id"
     t.integer  "address_id"
     t.boolean  "facebook_share_discount"
+    t.integer  "shipping_service_id"
+    t.string   "payment_method"
+    t.text     "payment_data"
   end
 
   add_index "carts", ["address_id"], :name => "index_carts_on_address_id"

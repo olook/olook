@@ -1,4 +1,5 @@
 class FreightService::TransportShippingManager
+  MOTOBOY_SERVICE = ShippingService.find_by_erp_code('LOGGI')
   def default_shipping
     Struct.new('DefaultShipping', :income, :cost, :delivery_time, :shipping_service_id).new(
       @freight_calculator::DEFAULT_FREIGHT_PRICE,
@@ -30,7 +31,13 @@ class FreightService::TransportShippingManager
     @fast = choose_by_delivery_time
     @fast = nil if @fast && @fast[:delivery_time] >= default[:delivery_time]
     @fast = nil if @fast && @fast[:price] <= default[:price]
-    @fast[:kind] = 'fast' if @fast
+    if @fast
+      @fast[:kind] = "fast"
+      if MOTOBOY_SERVICE.try(:id) == @fast[:shipping_service_id] && Setting.superfast_shipping_enabled && work_time?
+        @fast[:kind] = "motoboy"
+        @fast[:delivery_time] = 0.125
+      end
+    end
     @fast
   end
 
@@ -38,7 +45,20 @@ class FreightService::TransportShippingManager
     [ default, fast ].compact
   end
 
+  def api_hash
+    [ default, fast ].compact.map do |ts|
+      ts.delete(:cost)
+      ts
+    end
+  end
+
   private
+
+  def work_time?
+    current_time = Time.zone.now
+    Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
+  end
+
   def parse_info shipping
     {
       price: shipping.income || @freight_calculator::DEFAULT_FREIGHT_PRICE,

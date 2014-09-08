@@ -13,22 +13,24 @@ module Api
         transport_shippings = FreightService::TransportShippingManager.new(
           zip_code,
           params[:amount_value],
-          Shipping.with_zip(zip_code))
-        render json: transport_shippings.to_json, status: :ok
+          Shipping.with_zip(zip_code)
+        )
+        render json: transport_shippings.api_hash, status: :ok
       end
 
       private
-        def get_zip_code
-          zip_code = ZipCode::SanitizeService.clean(params[:zip_code])
 
-          if zip_code.blank? || params[:amount_value].blank?
-            raise(ArgumentError, "Missing params")
-          elsif !ZipCode::ValidService.apply?(zip_code)
-            raise(ArgumentError, "wrong zipcode")
-          else
-            zip_code
-          end
+      def get_zip_code
+        zip_code = ZipCode::SanitizeService.clean(params[:zip_code])
+
+        if zip_code.blank? || params[:amount_value].blank?
+          raise(ArgumentError, "Missing params")
+        elsif !ZipCode::ValidService.apply?(zip_code)
+          raise(ArgumentError, "wrong zipcode")
+        else
+          zip_code
         end
+      end
     end
   end
 end

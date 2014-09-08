@@ -65,7 +65,7 @@ module Olook
 
     config.assets.precompile += %w(*.js admin.js desktop.css admin.css campaign_emails.css wholesale.css)
     config.assets.precompile += %w(admin/*.css admin/*.js about/*.css common/* gift/*.js plugins/*.js)
-    config.assets.precompile += %w(ui/*.js section/*.css utilities/*.css new_structure/lite_application.css)
+    config.assets.precompile += %w(ui/*.js section/*.css utilities/*.css new_structure/lite_application.css beta.css)
     config.assets.precompile += %w(new_structure/section/*.css new_structure/partials/* jquery.bxslider.css)
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf)
 

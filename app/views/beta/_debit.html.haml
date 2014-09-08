@@ -1,0 +1,12 @@
+%h3
+  Recebemos o seu pedido!
+
+%p
+  Número do pedido: 
+  %span
+    = @order.number
+%p
+  Para concluir a compra você ainda precisa preencher os dados solicitados na página do seu banco.
+  %br/ 
+  Caso você não seja automaticamente direcionado
+  =link_to 'clique aqui', @order.erp_payment.url

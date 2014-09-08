@@ -1,0 +1,14 @@
+// BOLETO BANCÁRIO
+%h3
+  Recebemos o seu pedido!
+%p
+  Para concluir sua compra você ainda precisa efetuar o pagamento do BOLETO BANCÁRIO.
+
+%p
+  Número do pedido: 
+  %span
+    = order.number
+.action
+  =link_to("Ver boleto", order.erp_payment.url, class: 'print', target: :blank)
+  / %a.email
+  /   Enviar Boleto

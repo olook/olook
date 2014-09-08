@@ -7,6 +7,7 @@ class CartService
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
   delegate :total_coupon_discount, :to => :cart, :prefix => :cart
   delegate :sub_total, :to => :cart, :prefix => :cart
+  delegate :sub_total_with_markdown, :to => :cart, :prefix => :cart
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -127,7 +128,7 @@ class CartService
   end
 
   def total(opts={})
-    total = cart_sub_total
+    total = cart_sub_total_with_markdown
     total += total_increase
     total += opts[:freight_value].to_f if opts[:freight_value]
     total -= total_discount(opts[:payment])
@@ -234,7 +235,6 @@ class CartService
     credits_invite = 0.0
     credits_redeem = 0.0
     if (use_credits == true && self.cart.user)
-
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
       if credits_loyality >= retail_value

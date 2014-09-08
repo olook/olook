@@ -1,3 +1,10 @@
+%script{type: "text/template", id: "tpl-freights"}
+  %h4
+    Selecione a forma de envio
+  .freight-footer
+    %button.checkout_addresses.js-finishFreight.disabled
+      Ir para Pagamento
+
 %script{type: "text/template", id: "tpl-freight"}
   = radio_button_tag('freight', value: "{{shipping_service_id}}")
   {{pretty_kind}} ({{ delivery_time }})

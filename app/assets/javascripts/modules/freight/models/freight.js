@@ -2,7 +2,9 @@ app.models.Freight = Backbone.Model.extend({
   urlRoot: app.server_api_prefix + "/freights",
   formatted_delivery_time: function() {
     var dt = this.get('delivery_time');
-    if(dt == 1) {
+    if(dt < 1 && dt > 0) {
+      return Math.round(24 * dt) + " horas";
+    } if(dt == 1) {
       return dt + " dia";
     } else {
       return dt + " dias";
@@ -11,12 +13,12 @@ app.models.Freight = Backbone.Model.extend({
 
   formatted_price: function() {
     var price = this.get('price');
-    var intprice = parseInt(price);
-    var centsprice = Math.round(( price - intprice ) * 100);
-    if(centsprice < 10) {
-      centsprice = "0" + centsprice;
+
+    if (price <= 0) {
+      return 'Grátis'
+    } else {
+      return app.formatted_currency(price);
     }
-    return "R$ " + intprice + "," + centsprice;
   },
 
   pretty_kind: function() {

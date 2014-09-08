@@ -129,6 +129,15 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def api_json
+    {
+      id: id,
+      email: email,
+      first_name: first_name,
+      last_name: last_name
+    }
+  end
+
   def self.find_for_facebook_oauth(access_token)
     t = User.arel_table
     user = User.where(t[:uid].eq(access_token["uid"]).and(t[:uid].not_eq(nil)))

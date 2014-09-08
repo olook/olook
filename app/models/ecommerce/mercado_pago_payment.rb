@@ -10,6 +10,14 @@ class MercadoPagoPayment < Payment
     "Mercado Pago"
   end
 
+  def self.api_hash
+    {
+      type: self.to_s,
+      name: self.new.human_to_s,
+      percentage: 0
+    }
+  end
+
   # 
   # Por enquanto utiliza a mesma regra de expiração de boleto
   # 

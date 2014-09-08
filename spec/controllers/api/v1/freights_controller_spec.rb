@@ -36,7 +36,7 @@ describe Api::V1::FreightsController do
       end
 
       it "return two freights with default and fast kind" do
-        FreightService::TransportShippingManager.any_instance.should_receive(:to_json).and_return([
+        FreightService::TransportShippingManager.any_instance.should_receive(:api_hash).and_return([
           { kind: 'default', price: 20, cost: 15, delivery_time: 6, shipping_service_id: 2},
           { kind: 'fast', price: 30, cost: 20, delivery_time: 2, shipping_service_id: 1}
         ])

@@ -29,6 +29,7 @@ class Cart::CartController < ApplicationController
 
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
 
+    @checkout_ab_test = ab_test("checkout_test", 'default', {'new' => Setting.percent_for_new_checkout.to_i})
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @cart.to_json }

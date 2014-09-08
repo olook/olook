@@ -11,19 +11,19 @@ pt-BR:
               blank: "Precisamos do seu CEP"
               invalid: "O CEP parece estranho. Pode conferir?"
             city:
-              blank: "Qual é o nome da cidade, mesmo?"
+              blank: "Qual a sua cidade, mesmo?"
             state:
-              blank: "Também precisamos da sigla do estado (UF)"
+              blank: "Precisamos da sigla do estado (UF)"
             number:
-              blank: "Também precisamos do número"
-              invalid: "O número parece estranho. Pode conferir?"
+              blank: "Precisamos do seu endereço completo"
+              invalid: "Precisamos do seu endereço completo"
             neighborhood:
               blank: "Qual é o seu bairro, mesmo?"
             street:
-              blank: "Onde devemos entregar? Selecione um endereço"
+              blank: "Precisamos do seu endereço completo"
             telephone:
-              blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
-              invalid: "O telefone parece estranho. Pode conferir?"
+              blank: "Preencha seu telefone corretamente"
+              invalid: "Preencha seu telefone corretamente"
         reseller:
           attributes:
             has_corporate:

@@ -1,10 +1,10 @@
 app.views.Address = Backbone.View.extend({
   tagName: 'li',
   model: app.models.Address,
-  template: _.template($("#tpl-address").html()),
+  template: _.template($("#tpl-address").html() || ""),
   events: {
     'click input[type=radio]': 'selectAddress',
-    'click ul': 'selectAddress',
+    'click li:not(.links)': 'selectAddress',
     'click .js-changeAddress': 'changeAddress',
     'click .js-removeAddress': 'removeAddress',
   },
@@ -17,9 +17,11 @@ app.views.Address = Backbone.View.extend({
   },
 
   render: function() {
-    var dict = this.model.toJSON();
-    var html = this.template(dict);
+    var html = this.template(this.model.attributes);
     this.$el.html(html);
+    if(this.model.get('selected')) {
+      this.selectAddress();
+    }
   },
 
   remove: function() {
@@ -27,15 +29,23 @@ app.views.Address = Backbone.View.extend({
   },
 
   changeAddress: function() {
+    eventTracker.trackEvent("BackboneCheckout", "ChangeAddress");
     olookApp.publish('address:change', this.model);
+    $("#save-btn").val("Alterar Endereço");
   },
 
   removeAddress: function() {
+
+    eventTracker.trackEvent("BackboneCheckout", "RemoveAddress");
+
+    olookApp.publish('address:remove', this.model);
     this.model.destroy();
   },
 
   selectAddress: function() {
+    eventTracker.trackEvent("BackboneCheckout", "SelectAddress");
+
     this.$el.find('input[type=radio]').not(':checked').attr('checked', 'checked');
-    olookApp.publish('address:selected', this.model.attributes);
+    olookApp.publish('address:selected', this.model);
   }
 });

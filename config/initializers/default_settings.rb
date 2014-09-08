@@ -8,7 +8,7 @@ Setting.defaults[:invite_credits_bonus_for_invitee] = "10.00"
 Setting.defaults[:percentage_on_order] = "0.20"
 Setting.defaults[:billet_discount_available] = true
 Setting.defaults[:billet_discount_percent] = 3
-Setting.defaults[:debit_discount_available] = true
+Setting.defaults[:debit_discount_available] = false
 Setting.defaults[:debit_discount_percent] = 3
 
 Setting.defaults[:sac_beginning_working_hour] = "08:00:00"
@@ -106,6 +106,7 @@ Setting.defaults[:mercadolivre_product_ids] = "18541,18519,18539,18537,18525,185
 Setting.defaults[:dev_notification_emails] = 'rafael.manoel@olook.com.br,tiago.almeida@olook.com.br,nelson.haraguchi@olook.com.br,luis.daher@olook.com.br'
 Setting.defaults[:superfast_shipping_enabled] = true
 Setting.defaults[:billet_days_to_expire] = 2
+Setting.defaults[:percent_for_new_checkout] = 0
 
 begin
   MktSetting.save_default(:facebook_products, "1703103190,1584034001,1525034002")

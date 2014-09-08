@@ -587,6 +587,8 @@
       full_messages:
         format: "%{attribute} %{message}"
       models:
+        user:
+          authentication: "E-mail ou senha incorreta"
         wholesale:
           attributes:
             cnpj: "Qual seu CNPJ?"
