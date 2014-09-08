@@ -43,7 +43,17 @@ var CheckoutController = (function() {
   CheckoutController.prototype.finish = function(model) {
     var that = this;
 
-    $.post("/api/v1/checkout", {}).done(function(data, status, resp){
+    $.ajax({
+        url: "/api/v1/checkout",
+        type: 'post',
+        headers: {
+            "Token": 'token=4ac99b5ed36f20e5ef882faa154fb053'  //for object property name, use quoted notation shown in second
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.info(data);
+        }
+    }).done(function(data, status, resp){
       
       that.cart = new app.models.CurrentCart();
       window.location = resp.getResponseHeader('location');
