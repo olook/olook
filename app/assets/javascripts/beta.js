@@ -17,7 +17,7 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g
 };
 
-window.token = "Token token=f1eafc9f32b55abfba38cc8f487ba489";
+window.token = "Token token=4ac99b5ed36f20e5ef882faa154fb053";
 var originalSync = Backbone.sync;
 Backbone.sync = function(method, model, options) {
     options.headers = options.headers || {};
