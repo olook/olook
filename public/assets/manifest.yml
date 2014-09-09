@@ -2175,8 +2175,8 @@ application_core/olook_app.js: application_core/olook_app-0a39256dbf6cc2275f44da
 application_core/olook_app/index.js: application_core/olook_app-0a39256dbf6cc2275f44dab4a87cb597.js
 application_core/scroll_events.js: application_core/scroll_events-747fce54663efc4167e4cd9d2bbd6553.js
 application_core/scroll_events/index.js: application_core/scroll_events-747fce54663efc4167e4cd9d2bbd6553.js
-beta.js: beta-dce1269beb331e02c7f294a64082528e.js
-beta/index.js: beta-dce1269beb331e02c7f294a64082528e.js
+beta.js: beta-c9606e8d7d74b00f2c4f8cffd4ebf158.js
+beta/index.js: beta-c9606e8d7d74b00f2c4f8cffd4ebf158.js
 campaign_emails.js: campaign_emails-931cb73b405283c645b91388db53a743.js
 campaign_emails/index.js: campaign_emails-931cb73b405283c645b91388db53a743.js
 campaign_emails_modal.js: campaign_emails_modal-822a5568a8bdd415130ae05239de1155.js
@@ -2291,8 +2291,8 @@ modules/cart_resume/views/cart_item.js: modules/cart_resume/views/cart_item-d5c4
 modules/cart_resume/views/cart_item/index.js: modules/cart_resume/views/cart_item-d5c496a8e55cb7b0e70702b2bf3fa3d1.js
 modules/cart_resume/views/cart_resume.js: modules/cart_resume/views/cart_resume-88e36cd28fbb6b3637ce37c7e0e6c21a.js
 modules/cart_resume/views/cart_resume/index.js: modules/cart_resume/views/cart_resume-88e36cd28fbb6b3637ce37c7e0e6c21a.js
-modules/checkout/controller.js: modules/checkout/controller-672489dc67985552f2d7b4e25132e4c2.js
-modules/checkout/controller/index.js: modules/checkout/controller-672489dc67985552f2d7b4e25132e4c2.js
+modules/checkout/controller.js: modules/checkout/controller-c35f742e1529f44ae0b1b8f76dd5f22f.js
+modules/checkout/controller/index.js: modules/checkout/controller-c35f742e1529f44ae0b1b8f76dd5f22f.js
 modules/checkout/router.js: modules/checkout/router-c2360fc09ae423912b5192a392263a6f.js
 modules/checkout/router/index.js: modules/checkout/router-c2360fc09ae423912b5192a392263a6f.js
 modules/checkout/views/steps.js: modules/checkout/views/steps-89e948513bc453a9d68db2d4c139c3ca.js
