@@ -17,7 +17,6 @@ app.views.List = Backbone.View.extend({
 
   setSelected: function() {
     if (this.collection.isEmpty()) {
-      console.log('empty');
     }else if(this.collection.length == 1) {
       this.collection.at(0).set('selected', true);
     } else {
@@ -29,7 +28,6 @@ app.views.List = Backbone.View.extend({
           noOneSelected = false;
         }
       });
-
       if (noOneSelected) {
         this.collection.first().set('selected', true);
       }
