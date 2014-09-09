@@ -43,9 +43,9 @@ app.views.Payments = Backbone.View.extend({
   },
 
   paymentSelected: function(model) {
-    this.$el.find('.selected').removeClass('selected');
     olookApp.publish('payment:selected', model);
-  }, 
+    this.$el.find('.selected').removeClass('selected');
+  },
 
   finishCheckout: function(e) {
     eventTracker.trackEvent("BackboneCheckout", "Finish", this.cart.get("payment_method"));
