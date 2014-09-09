@@ -46,9 +46,9 @@ var CheckoutController = (function() {
     $.ajax({
         url: "/api/v1/checkout",
         type: 'post',
-        headers: {
-            "Token": 'token=4ac99b5ed36f20e5ef882faa154fb053'  //for object property name, use quoted notation shown in second
-        },
+        beforeSend : function(req) {
+            req.setRequestHeader('Authorization', "Token token=4ac99b5ed36f20e5ef882faa154fb053");
+        },        
         dataType: 'json',
         success: function (data) {
             console.info(data);
