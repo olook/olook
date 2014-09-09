@@ -29,7 +29,7 @@ var CheckoutController = (function() {
 
   CheckoutController.prototype.paymentTypeSelected = function(model){
     if(this.cart.get('payment_method') != model.get('type')) {
-      this.cart.save({ payment_method: model.get('type')}, {wait: true});
+      this.cart.save({ payment_method: model.get('type')});
     } else {
       this.cart.trigger('change:payment_method');
     }
