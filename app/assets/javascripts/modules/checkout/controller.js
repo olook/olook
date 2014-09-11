@@ -29,10 +29,21 @@ var CheckoutController = (function() {
 
   CheckoutController.prototype.paymentTypeSelected = function(model){
     if(this.cart.get('payment_method') != model.get('type')) {
-      this.cart.save({ payment_method: model.get('type')});
+      this.cart.save({ payment_method: model.get('type')}, {wait: true, success: this.callDisplayChange});
     } else {
       this.cart.trigger('change:payment_method');
     }
+  };
+
+  CheckoutController.prototype.callDisplayChange = function(cart){
+    var paymentMethod = cart.get("payment_method").toLowerCase();
+
+
+    olookApp.publish('payment:creditcard:hide');
+    olookApp.publish('payment:debit:hide');
+    olookApp.publish('payment:billet:hide');
+    cart.trigger('change:payment_method');
+    // olookApp.publish('payment:'+paymentMethod+':show');
   };
 
   CheckoutController.prototype.freightSelected = function(model) {

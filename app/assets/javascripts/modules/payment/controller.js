@@ -42,10 +42,7 @@ var PaymentController = (function(){
   };
 
   PaymentController.prototype.paymentSelected = function(model) {
-    olookApp.publish('payment:creditcard:hide');
-    olookApp.publish('payment:debit:hide');
-    olookApp.publish('payment:billet:hide');
-    this.cart.save({ payment_method: model.get('type')});
+    olookApp.publish('checkout:payment_type', model);
   };
 
   PaymentController.prototype.showPaymentDetail = function(model){
