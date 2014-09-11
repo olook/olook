@@ -30,7 +30,6 @@ module Api
       end
 
       def create_payment
-        binding.pry
         # TODO: criar white list para meios de pgto
         payment = current_cart.payment_method.constantize.new
 
