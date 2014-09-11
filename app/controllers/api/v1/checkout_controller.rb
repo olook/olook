@@ -30,14 +30,14 @@ module Api
       end
 
       def create_payment
+        binding.pry
         # TODO: criar white list para meios de pgto
         payment = current_cart.payment_method.constantize.new
 
         payment.receipt = Payment::RECEIPT
         payment.telephone = current_cart.address.telephone
-
         if payment.is_a? Debit
-          payment.bank = params[:payment_data][:bank]
+          payment.bank = current_cart.payment_data[:bank]
         elsif payment.is_a? CreditCard
           payment.credit_card_number = current_cart.payment_data[:number].gsub(/\s+/, "")
           payment.user_identification = current_cart.payment_data[:cpf]

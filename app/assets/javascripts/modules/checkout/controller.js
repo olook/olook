@@ -54,6 +54,8 @@ var CheckoutController = (function() {
   CheckoutController.prototype.finish = function(model) {
     var that = this;
 
+    this.cart.save({}, {wait: true});
+
     $.ajax({
         url: "/api/v1/checkout",
         type: 'post',
