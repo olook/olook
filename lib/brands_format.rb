@@ -15,7 +15,7 @@ class BrandsFormat
 
   def separate_by_capital_letter
     formated_brands = {}
-    @brands.select{|b| SeoUrl.all_brands.include? b }.each do |b|
+    @brands.each do |b|
       index = (b[0] =~ /[A-Z]/i) ? b[0].upcase : "0-9"
       formated_brands[index] ||= []
       formated_brands[index] << b
