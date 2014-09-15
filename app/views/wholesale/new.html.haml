@@ -24,14 +24,15 @@
             = f.text_field :fantasy_name, class: error_class_if_needed(@wholesale, :fantasy_name)
             = errors_for(@wholesale, :fantasy_name, "wholesale_errors")
         %fieldset
-          %li.first_name.field.left_boxes.small_box
+          %li.first_name.field
             = f.label :first_name, "Nome"
             = f.text_field :first_name, class: error_class_if_needed(@wholesale, :first_name)
             = errors_for(@wholesale, :first_name, "wholesale_errors")
         %fieldset
-          %li.last_name.field.small_box
+          %li.last_name.field
             = f.label :last_name, "Sobrenome"
             = f.text_field :last_name, class: error_class_if_needed(@wholesale, :last_name)
+            = errors_for(@wholesale, :last_name, "wholesale_errors")
         %fieldset
           %li.email.field
             = f.label :email
@@ -51,28 +52,34 @@
           %li.cellphone_company.field
             = f.label :cellphone_company, "Operadora"
             = f.text_field :cellphone_company, class: error_class_if_needed(@wholesale, :cellphone_company)
+            = errors_for(@wholesale, :cellphone_company, "wholesale_errors") 
         %fieldset
           %li.address.field
             = f.label :address, "Endereço"
             = f.text_field :address, class: error_class_if_needed(@wholesale, :address)
+            = errors_for(@wholesale, :address, "wholesale_errors") 
         %fieldset
           %li.zip_code.field
             = f.label :zip_code, "CEP"
             = f.text_field :zip_code, class: "zip_code #{error_class_if_needed(@wholesale, :zip_code)}"
+            = errors_for(@wholesale, :zip_code, "wholesale_errors") 
         %fieldset
           %li.neighborhood.field
             = f.label :neighborhood, "Bairro"
             = f.text_field :neighborhood, class: error_class_if_needed(@wholesale, :neighborhood)
+            = errors_for(@wholesale, :neighborhood, "wholesale_errors") 
         %fieldset
           %li.state.field
             = f.label :state, "Estado"
             %span{ class: "custom_select #{error_class_if_needed(@wholesale, :state)}"}
               = f.select :state, []
+            = errors_for(@wholesale, :state, "wholesale_errors")   
         %fieldset
           %li.city.field
             = f.label :city, "Cidade"
             %span{ class: "custom_select #{error_class_if_needed(@wholesale, :city)}"}
               = f.select :city, []
+            = errors_for(@wholesale, :city, "wholesale_errors")   
         %fieldset
           %li.terms
             %p
