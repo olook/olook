@@ -5,12 +5,13 @@ class SearchRedirectService
     @search = search_params
   end
 
-  def should_redirect?
+  def path
     return false if @search == nil
-  	KEY_WORDS.include?(@search.parameterize)
+  	Rails.application.routes.url_helpers.olookmovel_path if should_redirect?
   end
 
-  def path
-  	Rails.application.routes.url_helpers.olookmovel_path if should_redirect?
+  private
+  def should_redirect?
+    KEY_WORDS.include?(@search.parameterize)
   end
 end
