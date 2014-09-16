@@ -6,6 +6,7 @@ class SearchRedirectService
   end
 
   def should_redirect?
+    return false if @search == nil
   	KEY_WORDS.include?(@search.parameterize)
   end
 
