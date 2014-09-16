@@ -72,7 +72,12 @@ var CheckoutController = (function() {
       window.location = resp.getResponseHeader('location');
 
     }).fail(function(data, status, resp) {
-      that.cart.attributes.payment_data.errorMessage = JSON.parse(data.responseText).message;
+      try{
+        that.cart.attributes.payment_data.errorMessage = JSON.parse(data.responseText).message;
+      }
+      catch(err) {
+        that.cart.attributes.payment_data.errorMessage = "Ocorreu um erro no processamento do pagamento";
+      }
       that.router.navigate('pagamento', {trigger: true});
     })
 
