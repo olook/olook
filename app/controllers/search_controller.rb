@@ -3,8 +3,8 @@ class SearchController < ApplicationController
 
   def show
    
-    @s = SearchRedirectService.new(params[:q])
-    redirect_to @s.path if @s.path
+    @redirect_service = SearchRedirectService.new(params[:q])
+    redirect_to @redirect_service.path if @redirect_service.path
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/busca')
     search_params = @url_builder.parse_params
     @q = params[:q] || ""
