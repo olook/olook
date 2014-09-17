@@ -2,18 +2,32 @@
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
   if(olook.attachFreebieActions) olook.attachFreebieActions();
 <% end %>
+
+var renderSubtotalLabels = function(isChecked){
+  var content;
+  if(isChecked){
+    content = "Subtotal<br />Embalagem<br />Descontos<br />Créditos";
+  }
+  else{
+    content = "Subtotal<br />Descontos<br />Créditos";
+  }
+  $(".js-subtotal").html(content);
+};
+
 cartUpdateData = {};
-cartUpdateData.total = "<%= number_to_currency(@cart_calculator.items_total) %>";
+cartUpdateData.total = "<%= number_to_currency(total_with_freight) %>";
 cartUpdateData.discount = "<%= number_to_currency(@cart_calculator.items_discount) %>";
 cartUpdateData.subtotal = "<%= number_to_currency(@cart_calculator.items_subtotal) %>";
 cartUpdateData.usedCredits = "<%= number_to_currency(@cart_calculator.used_credits_value) %>";
-cartUpdateData.loyaltyUserCredits = "<%= number_to_currency(@cart_calculator.total_loyalty_user_credits_value) %>";
+cartUpdateData.currentUserCredits = "<%= number_to_currency(@cart_calculator.total_user_credits_value) %>";
 
 if ($('#cart_gift_wrap').is(':checked')){
   if($('#embrulho_presente').length == 0) $('#subtotal_parcial').after("<div id='embrulho_presente'></div>");
   var span_gift_target = $('#embrulho_presente');
+  renderSubtotalLabels(true);
   span_gift_target.html("<%= gift_wrap_price(@cart) %>");
 }else{
+  renderSubtotalLabels(false);
   $('#embrulho_presente').remove();
 }
 

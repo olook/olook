@@ -26,8 +26,12 @@ module Checkout::CheckoutHelper
     FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)
   end
 
-  def total_with_freight(value, payment_type=nil)
-    @cart_service.total(payment: payment_type, freight_value: value)
+  def total_with_freight(value = 0, payment_type=nil)
+    ((@cart_calculator.items_subtotal - @cart_calculator.used_credits_value) * (1 - cart_discount_for(payment_type).to_d))  + freight_price(value) + @cart_calculator.cart_addings
+  end
+
+  def freight_price value
+    BigDecimal(value)
   end
 
   def delivery_time_message(delivery_time)
@@ -74,5 +78,23 @@ module Checkout::CheckoutHelper
   def work_time?
     current_time = Time.zone.now
     Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
+  end
+
+  def cart_discount_for payment_type
+    if payment_type.is_a?(Billet) && Setting.billet_discount_available
+      billet_discount
+    elsif payment_type.is_a?(Debit) && Setting.debit_discount_available
+      debit_discount
+    else
+      0
+    end
+  end
+
+  def billet_discount
+    billet_discount_percent = (Setting.billet_discount_percent.to_i / 100.0).to_d
+  end
+
+  def debit_discount
+    debit_discount_percent = (Setting.debit_discount_percent.to_i / 100.0).to_d
   end
 end

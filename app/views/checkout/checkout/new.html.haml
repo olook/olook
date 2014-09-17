@@ -74,9 +74,9 @@
       %p.total
         %span.txt-black TOTAL:
         - if @checkout
-          %span#total_billet.txt-black= number_to_currency(@cart_service.total(payment: Billet.new))
-          %span#total_debit.txt-black= number_to_currency(@cart_service.total(payment: Debit.new))
-        %span#total.txt-black= number_to_currency(@cart_service.total(freight_value: (@shipping_service.try(:price)) || 0.0))
+          %span#total_billet.txt-black= number_to_currency(total_with_freight(0, Billet.new))
+          %span#total_debit.txt-black= number_to_currency(total_with_freight(0, Debit.new))
+        %span#total.txt-black= number_to_currency(total_with_freight)
       = checkout_form.submit 'FINALIZAR COMPRA', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
 - content_for :footer do
   = render partial: "shared/metrics/dbm/order"

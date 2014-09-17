@@ -37,7 +37,7 @@ olookApp.publish('cart:update', {
   subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>',
   discount: '<%= number_to_currency(@cart_calculator.items_discount) %>',
   usedCredits: '<%= number_to_currency(@cart_calculator.used_credits_value) %>',
-  loyaltyUserCredits: '<%= number_to_currency(@cart_calculator.total_loyalty_user_credits_value) %>'
+  currentUserCredits: '<%= number_to_currency(@cart_calculator.total_user_credits_value) %>'
 
 });
 <% if @freebie %>

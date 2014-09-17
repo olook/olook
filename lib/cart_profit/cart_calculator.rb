@@ -22,11 +22,11 @@ module CartProfit
     end
 
     def used_credits_value
-      (cart.use_credits && cart.allow_credit_payment?) ? total_loyalty_user_credits_value : BigDecimal.new(0)
+      (cart.use_credits && cart.allow_credit_payment?) ? total_user_credits_value : BigDecimal.new(0)
     end
 
-    def total_loyalty_user_credits_value
-      cart.user.user_credits_for(:loyalty_program).total if cart.user
+    def total_user_credits_value
+      cart.user.current_credit if cart.user
     end
 
     def cart_addings
@@ -47,7 +47,7 @@ module CartProfit
     # Qualquer valor que não queremos que incida no desconto
     # deve ser adicionado aqui.
     def retail_value
-      items_subtotal + items_discount + gift_price - used_credits_value
+      items_subtotal + items_discount - used_credits_value
     end
 
     def billet_discount

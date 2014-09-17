@@ -8,10 +8,12 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :check_cpf
 
   def new
+    sanitize_cart
     @addresses = @user.addresses.active
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     prepare_freights(shipping_freights) if @checkout.address
   end
 
@@ -54,15 +56,20 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.update_attribute(:use_credits, params[:cart][:use_credits])
     @cart_service.cart.reload
 
+    total = (@cart_service.subtotal - @cart_service.total_credits_discount)
+    total += CartService.gift_wrap_price if @cart.gift_wrap?
+
     signal = @cart_service.total_credits_discount > 0 ? "-" : ""
     render json: {
       'credits_discount' => "#{signal}#{@cart_service.total_credits_discount}",
-      'billet_discount' => signal + "#{@cart_service.billet_discount}",
-      'debit_discount' => signal +  "#{@cart_service.debit_discount}",
-      'total' => (@cart_service.total),
-      'total_billet' => (@cart_service.total(payment: Billet.new)),
-      'total_debit' => (@cart_service.total(payment: Debit.new))
+      'billet_discount' => "-#{@cart_service.billet_discount}",
+      'debit_discount' => "-#{@cart_service.debit_discount}",
+      'total' => total,
+      'total_billet' => total - @cart_service.billet_discount,
+      'total_debit' => total - @cart_service.debit_discount
     }
+
+
   end
 
   private
@@ -149,6 +156,10 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     def using_address_form?
       !params[:checkout][:address].nil?
+    end
+
+    def sanitize_cart
+      @cart.update_attribute(:shipping_service, nil)
     end
 
 end

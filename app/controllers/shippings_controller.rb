@@ -5,6 +5,7 @@ class ShippingsController < ApplicationController
   include FreightTracker
 
   def show
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)    
     @warranty_deliver = true if params[:warranty_deliver]
     @zip_code = params[:id]
     freights = shipping_freights(params[:prevent_policy])
