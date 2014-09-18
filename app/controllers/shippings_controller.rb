@@ -5,13 +5,13 @@ class ShippingsController < ApplicationController
   include FreightTracker
 
   def show
-    @cart_calculator = CartProfit::CartCalculator.new(@cart)    
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @warranty_deliver = true if params[:warranty_deliver]
     @zip_code = params[:id]
     freights = shipping_freights(params[:prevent_policy])
     prepare_freights(freights)
     if freights.empty?
-      render :status => :not_found 
+      render :status => :not_found
     else
       track_zip_code_fetch_event
       @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
