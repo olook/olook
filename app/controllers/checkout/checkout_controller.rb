@@ -160,6 +160,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     def sanitize_cart
       @cart.update_attribute(:shipping_service, nil)
+      @cart.reload
     end
 
 end
