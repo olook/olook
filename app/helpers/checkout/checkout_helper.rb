@@ -27,7 +27,7 @@ module Checkout::CheckoutHelper
   end
 
   def total_with_freight(value = 0, payment_type=nil)
-    ((@cart_calculator.items_subtotal - @cart_calculator.used_credits_value) * (1 - cart_discount_for(payment_type).to_d))  + freight_price(value) + @cart_calculator.cart_addings
+    ((@cart_calculator.items_subtotal - @cart_calculator.used_credits_value) * (1 - cart_discount_for(payment_type).to_d))  + freight_price(value) + @cart_calculator.cart_addings + @cart_calculator.items_discount
   end
 
   def freight_price value
