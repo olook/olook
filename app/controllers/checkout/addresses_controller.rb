@@ -3,6 +3,7 @@ class Checkout::AddressesController < Checkout::BaseController
   respond_to :html, :js, :json
   before_filter :authenticate_user!
   before_filter :check_order
+  before_filter :retreive_cart_calculator, only: [:edit]
   before_filter :retrieve_address, only: [:edit, :update, :destroy]
 
   def index
@@ -48,5 +49,9 @@ class Checkout::AddressesController < Checkout::BaseController
 
   def retrieve_address
     @address = @user.addresses.active.find(params[:id])
+  end
+
+  def retreive_cart_calculator
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
   end
 end
