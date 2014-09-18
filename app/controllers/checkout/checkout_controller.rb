@@ -20,7 +20,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def create
     address = shipping_address(params)
     payment = create_payment(address)
-  
+    @cart_calculator = CartProfit::CartCalculator.new(@cart) 
     payment_method = params[:checkout][:payment_method]
     if current_user.has_fraud?
       display_form(address, payment, payment_method)
