@@ -30,6 +30,7 @@ module Api
       end
 
       def create_payment
+        current_cart.user = current_user unless current_cart.user
         # TODO: criar white list para meios de pgto
         payment = current_cart.payment_method.constantize.new
 
@@ -62,17 +63,17 @@ module Api
           gateway
         when 'MercadoPagoPayment'
           Payments::MercadoPagoSenderStrategy.new(cart_service, payment)
-        end        
+        end
       end
 
       def create_payment_builder(payment, sender_strategy)
         PaymentBuilder.new(
-          { 
-            :cart_service => cart_service, 
-            :payment => payment, 
-            :gateway_strategy => sender_strategy, 
+          {
+            :cart_service => cart_service,
+            :payment => payment,
+            :gateway_strategy => sender_strategy,
             :tracking_params => session[:order_tracking_params]
-          } 
+          }
         )
       end
 
