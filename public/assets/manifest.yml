@@ -557,6 +557,8 @@ common/division.png: common/division-177731be3a030da29c3fbad1acb3eb8a.png
 common/division/index.png: common/division-177731be3a030da29c3fbad1acb3eb8a.png
 common/divisor-share.png: common/divisor-share-01b957ec36edff579a9a8865ee95400f.png
 common/divisor-share/index.png: common/divisor-share-01b957ec36edff579a9a8865ee95400f.png
+common/dump.rdb: common/dump-a55040fc72a4aac76e071553321725fc.rdb
+common/dump/index.rdb: common/dump-a55040fc72a4aac76e071553321725fc.rdb
 common/earn_credits.jpg: common/earn_credits-a69563998b328ad00594b825cc94dc0d.jpg
 common/earn_credits/index.jpg: common/earn_credits-a69563998b328ad00594b825cc94dc0d.jpg
 common/error.png: common/error-f88dc1d07bebbf8c218800c7e633a0c7.png
@@ -1161,6 +1163,8 @@ gift/presentes_129.jpg: gift/presentes_129-33bd6603518eda2f6e83dba8a27b72f1.jpg
 gift/presentes_129/index.jpg: gift/presentes_129-33bd6603518eda2f6e83dba8a27b72f1.jpg
 gift/presentes_200.jpg: gift/presentes_200-24b2e740ee2c397621912fa0f4d768a9.jpg
 gift/presentes_200/index.jpg: gift/presentes_200-24b2e740ee2c397621912fa0f4d768a9.jpg
+gift/presentes_colecoes.jpg: gift/presentes_colecoes-9f2723906ab3f284a5d6da515facdd4b.jpg
+gift/presentes_colecoes/index.jpg: gift/presentes_colecoes-9f2723906ab3f284a5d6da515facdd4b.jpg
 gift/presentes_estilo.jpg: gift/presentes_estilo-34269fa155fe98c699105c5ec95df363.jpg
 gift/presentes_estilo/index.jpg: gift/presentes_estilo-34269fa155fe98c699105c5ec95df363.jpg
 gift/presentes_full_banner__indecisos_dia_dos_namos.jpg: gift/presentes_full_banner__indecisos_dia_dos_namos-07b2391b50ed922346bbfd2f52820321.jpg
