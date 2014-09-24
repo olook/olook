@@ -55,8 +55,8 @@ GIT
 
 GIT
   remote: git@github.com:luisdaher/accesstage.git
-  revision: 634dfd2a887aba278fba6f6b395b527fdf8420b3
-  ref: 634dfd2a887aba278fba6f6b395b527fdf8420b3
+  revision: 26e73be7e2379d874abb6f210c0230086e38ea7f
+  ref: 26e73be7e2379d874abb6f210c0230086e38ea7f
   specs:
     accesstage (0.0.1)
 
