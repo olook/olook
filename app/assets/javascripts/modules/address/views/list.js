@@ -60,7 +60,7 @@ app.views.List = Backbone.View.extend({
 
     olookApp.publish('address:add');
     this.hideList();
-    this.$el.find("#save-btn").val("Cadastrar Endereço");
+    this.$el.find("#save-btn").val("Cadastrar");
   },
 
   showList: function() {

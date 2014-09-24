@@ -31,7 +31,7 @@ app.views.Address = Backbone.View.extend({
   changeAddress: function() {
     eventTracker.trackEvent("BackboneCheckout", "ChangeAddress");
     olookApp.publish('address:change', this.model);
-    $("#save-btn").val("Alterar Endereço");
+    $("#save-btn").val("Salvar");
   },
 
   removeAddress: function() {
