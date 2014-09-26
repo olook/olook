@@ -2,7 +2,7 @@
 module Abacos
   class Cliente
     include ::Abacos::Helpers
-    
+
     attr_reader :codigo, :tipo_pessoa, :sexo, :cpf, :email,
                 :nome, :data_nascimento, :telefone, :celular, :data_cadastro,
                 :endereco, :endereco_cobranca, :endereco_entrega
@@ -22,7 +22,7 @@ module Abacos
       @endereco_entrega   = @endereco
       @endereco_cobranca  = @endereco
     end
-    
+
     def parsed_data
       {
         'ListaDeClientes' => {

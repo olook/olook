@@ -9,7 +9,7 @@ module Abacos
 
     def self.insert_order(order)
       return true unless Setting.abacos_integrate
-      
+
       payload = order.parsed_data
       payload["ChaveIdentificacao"] = Abacos::Helpers::API_KEY
       response = call_webservice(wsdl, :inserir_pedido, payload)
