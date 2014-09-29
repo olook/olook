@@ -2,12 +2,12 @@
 module Abacos
   class PedidoPresente < Pedido
 
-  	def initialize(order)
+    def initialize(order)
       super(order)
       @nota_simbolica   = order.gift_wrap?
       @valor_embalagem  = order.gift_wrap? ? YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0] : false
-      @anotacao_pedido  = order.gift_wrap? ? "" : false
-  	 end
+      @anotacao_pedido  = order.gift_wrap? ? "" : "false"
+    end
 
     def parsed_data
       result = {

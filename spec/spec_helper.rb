@@ -50,13 +50,6 @@ OmniAuth.config.mock_auth[:facebook] = {
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-Savon.configure do |config|
-
-  # By default, Savon logs each SOAP request and response to $stdout.
-  # Here's how you can disable logging:
-  config.log = false
-
-end
 
 HTTPI.log = false
 RSpec.configure do |config|
