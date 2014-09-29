@@ -15,7 +15,7 @@ module Abacos
       @mensagem_retorno   = order.erp_payment.gateway_message
       @codigo_retorno     = order.erp_payment.gateway_return_code
     end
-    
+
     def parsed_data
       {
         'NumeroPedido'            => @numero_pedido,

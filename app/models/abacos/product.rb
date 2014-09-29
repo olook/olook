@@ -56,7 +56,7 @@ module Abacos
           :name         => self.name,
           :category     => self.category,
           :description  => self.description,
-          :is_visible   => false,
+          :is_visible   => "false",
           :is_kit       => self.is_kit,
           :brand        => self.brand
         )
@@ -139,7 +139,7 @@ module Abacos
         :how_to                 => parse_how_to( abacos_product[:caracteristicas_complementares] ),
         :collection_themes      => parse_collection_themes( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles               => parse_profiles( abacos_product[:caracteristicas_complementares] ),
-        :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false,
+        :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : "false",
         :pre_defined_descriptor => abacos_product[:descritor_pre_definido],
         :class_description      => abacos_product[:descricao_classe],
         :brand                  => parse_brand( abacos_product[:descritor_pre_definido] )
@@ -239,7 +239,7 @@ module Abacos
           result += item[:texto].split(',')
         end
       end
-      result.map &:strip
+      result.map(&:strip)
     end
 
     def self.parse_collection(data)

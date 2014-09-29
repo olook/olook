@@ -10,7 +10,7 @@ describe Abacos::Variant do
     subject.attributes.should == {  number:             subject.number,
                                     description:        subject.description,
                                     display_reference:  subject.display_reference,
-                                    is_master:          false }
+                                    is_master:          "false" }
   end
 
   describe '#integrate' do

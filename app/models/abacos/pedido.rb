@@ -21,7 +21,7 @@ module Abacos
       
       #TODO USAR VALOR CORRETO
       @valor_pedido     = parse_price order.subtotal #valor do retailprice
-      @valor_desconto   = parse_price order.amount_discount #valor do discount burto
+      @valor_desconto   = parse_price order.amount_discount #valor do discount bruto
       @valor_frete      = parse_price order.freight_price
       @transportadora   = order.freight.shipping_service.erp_code
       @tempo_entrega    = order.freight.delivery_time

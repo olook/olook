@@ -8,17 +8,17 @@ module Abacos
         self.instance_variable_set "@#{key}", value
       end
     end
-    
+
     def integrate
       variant = ::Variant.find_by_number(self.number)
       raise RuntimeError.new "Price is related with Variant number #{self.number}, but it doesn't exist" if variant.nil?
-      
+
       variant.price = self.price
       variant.retail_price = self.retail_price
 
       confirm_price
     end
-    
+
     def confirm_price
       Resque.enqueue(Abacos::ConfirmPrice, self.integration_protocol)
     end
