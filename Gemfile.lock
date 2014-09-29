@@ -74,8 +74,8 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 2109504df1523ec287eaaa536fececaea09d077d
-  ref: 2109504df1523ec287eaaa536fececaea09d077d
+  revision: 9fa008c50fa354be753680e2642b63f6511e9108
+  ref: 9fa008c50fa354be753680e2642b63f6511e9108
   specs:
     obraspag (1.0.31)
       active_attr (>= 0.6)
@@ -313,7 +313,7 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.23)
+    mime-types (1.25.1)
     mini_magick (3.3)
       subexec (~> 0.1.0)
     mocha (0.10.5)
