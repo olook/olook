@@ -55,10 +55,10 @@ GIT
 
 GIT
   remote: git@github.com:luisdaher/accesstage.git
-  revision: 26e73be7e2379d874abb6f210c0230086e38ea7f
-  ref: 26e73be7e2379d874abb6f210c0230086e38ea7f
+  revision: 1eb4b50175e15b1ff86069d08848a240601cf7df
   specs:
-    accesstage (0.0.1)
+    accesstage (0.0.4)
+      savon (>= 2.3.2)
 
 GIT
   remote: git@github.com:olook/boleto_bancario.git
@@ -594,7 +594,7 @@ PLATFORMS
 
 DEPENDENCIES
   SyslogLogger (~> 1.4.1)
-  accesstage (>= 0.0.1)!
+  accesstage!
   acts_as_list
   airbrake (~> 3.1.6)
   asset_sync (~> 0.5.0)

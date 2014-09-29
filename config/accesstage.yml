@@ -1,0 +1,26 @@
+development:
+  environment: "staging"
+  IntegrationId: "10"
+  CustomerId: "30"
+  AffiliationId: ""
+  AffiliationPassword: ""
+  username: "rayban"
+  password: "5b703a84b4"
+
+test:
+  environment: "staging"
+  IntegrationId: "{YOUR_INTEGRATION_ID_ON_ACCESSTAGE}"
+  CustomerId: "{YOUR_CUSTOMER_ID_ON_ACCESSTAGE}"
+  AffiliationId: "{YOUR_AFFILIATION_ID_ON_ACCESSTAGE}"
+  AffiliationPassword: "{YOUR_AFFILIATION_PASSWORD_ON_ACCESSTAGE}"
+  username: "username"
+  password: "password"
+
+production:
+  environment: "production"
+  IntegrationId: "{YOUR_INTEGRATION_ID_ON_ACCESSTAGE}"
+  CustomerId: "{YOUR_CUSTOMER_ID_ON_ACCESSTAGE}"
+  AffiliationId: "{YOUR_AFFILIATION_ID_ON_ACCESSTAGE}"
+  AffiliationPassword: "{YOUR_AFFILIATION_PASSWORD_ON_ACCESSTAGE}"
+  username: "username"
+  password: "password"
