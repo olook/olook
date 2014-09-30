@@ -29,7 +29,7 @@ describe Abacos::Item do
           'QuantidadeProduto' => line_item.quantity,
           'PrecoUnitario' => "#{"%.2f" % line_item.price}",
           'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}",
-          'EmbalagemPresente' => "false"
+          'EmbalagemPresente' => false
         }
       end
 
@@ -51,7 +51,7 @@ describe Abacos::Item do
           'QuantidadeProduto' => line_item.quantity,
           'PrecoUnitario' => "#{"%.2f" % @retail_price}",
           'PrecoUnitarioBruto' => "#{"%.2f" % line_item.price}",
-          'EmbalagemPresente' => "false"
+          'EmbalagemPresente' => false
         }
       end
 

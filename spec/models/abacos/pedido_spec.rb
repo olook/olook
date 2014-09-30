@@ -174,14 +174,14 @@ describe Abacos::Pedido do
                                       'QuantidadeProduto' => 2,
                                       'PrecoUnitario' => '20.00',
                                       'PrecoUnitarioBruto' => '20.00',
-                                      'EmbalagemPresente' => "false"
+                                      'EmbalagemPresente' => false
                                   },
                                   {
                                       'CodigoProduto' => variant_b.number,
                                       'QuantidadeProduto' => 1,
                                       'PrecoUnitario' => '30.00',
                                       'PrecoUnitarioBruto' => '30.00',
-                                      'EmbalagemPresente' => "false"
+                                      'EmbalagemPresente' => false
                                   }
                                 ] },
                     'FormasDePagamento' =>

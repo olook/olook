@@ -19,7 +19,7 @@ module Abacos
       { number:             self.number,
         description:        self.description,
         display_reference:  self.display_reference,
-        is_master:          "false" }
+        is_master:          false }
     end
 
     def integrate

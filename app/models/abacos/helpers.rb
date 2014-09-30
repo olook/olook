@@ -28,9 +28,9 @@ module Abacos
     end
 
     def call_webservice(wsdl, method, params = { "ChaveIdentificacao" => API_KEY })
-      client = Savon.client(wsdl: wsdl, read_timeout: 3000, log: false)
-      xml = client.call(method.to_sym, :message => params)
-
+      client = Savon::Client.new wsdl
+      client.http.read_timeout = 3000
+      xml = client.request :abac, method, :body => params
       response = xml.to_hash["#{method}_response".to_sym]["#{method}_result".to_sym]
 
       # TODO: refactor method to make this response check optional

@@ -17,7 +17,7 @@ module Abacos
         'QuantidadeProduto'  => @quantidade,
         'PrecoUnitario'      => @preco_unitario,
         'PrecoUnitarioBruto' => @preco_unitario_bruto,
-        'EmbalagemPresente'  => @embalagem_presente.to_s
+        'EmbalagemPresente'  => @embalagem_presente
       }
     end
   end
