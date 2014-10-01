@@ -74,8 +74,8 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 9fa008c50fa354be753680e2642b63f6511e9108
-  ref: 9fa008c50fa354be753680e2642b63f6511e9108
+  revision: 19a6b97510717cf15a2c299af831143253dadf68
+  ref: 19a6b97
   specs:
     obraspag (1.0.31)
       active_attr (>= 0.6)
