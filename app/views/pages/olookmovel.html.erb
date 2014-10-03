@@ -23,24 +23,6 @@
     </div>
     <p>Publique sua foto da olook<em>móvel</em> no instagram!<br />Use a hashtag <span>#olookmovel</span> e veja ela aparecer aqui :)</p>
   </div>
-  <div id="schedule">
-    <h2>Roteiro da olookmóvel para os próximos dias<br/><span>O roteiro poderá sofrer alterações (de acordo com a nossa disponibilidade ou condições climáticas).</span></h2>
-    <h3 style="display:none">Saiba onde encontrar</h3> 
-    <table cellspacing="0" cellpadding="0">
-      <tbody>
-        <tr class="title">
-          <td>Quando?</td>
-          <td>Onde?</td>
-        </tr>
-        <% Itinerary.entries.each do |entry| %>
-          <tr>
-            <td><%= entry.when_date %></td>
-            <td><%= entry.where %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 </section> 
 
 
