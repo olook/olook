@@ -5,7 +5,6 @@ class ListProducts::OlookletController < ListProductsController
   def index
     @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
     @visibility = params[:visibility] || [Product::PRODUCT_VISIBILITY[:olooklet],Product::PRODUCT_VISIBILITY[:all]]
-    params[:por] ||= "maior-desconto"
     default_params
     redirect_to olooklet_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
