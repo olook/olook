@@ -123,7 +123,7 @@ module Payments
     end
 
     def order_data
-      Braspag::Order.new(payment.identification_code)
+      Braspag::Order.new(payment.identification_code, Rails.env)
     end
 
     def address_data
@@ -223,7 +223,7 @@ module Payments
       amount = authorize_response.amount
       request_id = authorize_response.correlation_id
       transaction_request = Braspag::TransactionRequest.new(braspag_transaction_id, amount)
-      Braspag::CreditCardTransactionRequestBuilder.new.with_request_id(request_id).with_transaction_request(transaction_request).build
+      Braspag::CreditCardTransactionRequestBuilder.new(Rails.env).with_request_id(request_id).with_transaction_request(transaction_request).build
     end
 
     def create_success_authorize_response(authorize_transaction_result)

@@ -43,7 +43,7 @@ gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', b
 gem 'oj'
 gem 'moip', '>= 1.0.2.3', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
 gem 'accesstage', :git => 'git@github.com:luisdaher/accesstage.git'
-gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :ref => '9fa008c50fa354be753680e2642b63f6511e9108'
+gem 'obraspag', '>= 0.0.31', :git => 'git@github.com:olook/obraspag.git', :ref => 'e507dd8'
 gem 'curb'
 gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'

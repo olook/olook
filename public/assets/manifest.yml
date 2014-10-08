@@ -557,6 +557,8 @@ common/division.png: common/division-177731be3a030da29c3fbad1acb3eb8a.png
 common/division/index.png: common/division-177731be3a030da29c3fbad1acb3eb8a.png
 common/divisor-share.png: common/divisor-share-01b957ec36edff579a9a8865ee95400f.png
 common/divisor-share/index.png: common/divisor-share-01b957ec36edff579a9a8865ee95400f.png
+common/dump.rdb: common/dump-a55040fc72a4aac76e071553321725fc.rdb
+common/dump/index.rdb: common/dump-a55040fc72a4aac76e071553321725fc.rdb
 common/earn_credits.jpg: common/earn_credits-a69563998b328ad00594b825cc94dc0d.jpg
 common/earn_credits/index.jpg: common/earn_credits-a69563998b328ad00594b825cc94dc0d.jpg
 common/error.png: common/error-f88dc1d07bebbf8c218800c7e633a0c7.png
