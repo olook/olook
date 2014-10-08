@@ -26,9 +26,9 @@ class Checkout::BilletsController < ApplicationController
     else
       render :status => :not_found
     end
-  end
 
-  def update
-    
+    def update
+      
+    end    
   end
 end
