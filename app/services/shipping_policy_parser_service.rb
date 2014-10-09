@@ -28,7 +28,7 @@ class ShippingPolicyParserService
 
   def free_shipping_starting_value row
     return 1.0 if NumericParser.parse_float(row[4]) == 0.0
-    return 99.0 if NumericParser.parse_float(row[5]) == 0.0
+    return 150.0 if NumericParser.parse_float(row[5]) == 0.0
     return 200.0 if NumericParser.parse_float(row[6]) == 0.0
     return 250.0 if NumericParser.parse_float(row[7]) == 0.0
     0.0
