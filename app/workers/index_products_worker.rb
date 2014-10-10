@@ -10,6 +10,9 @@ class IndexProductsWorker
 
     puts "Total time = #{d1-d0}"
 
+    REDIS.select 3
+    REDIS.flushdb
+
     mail = DevAlertMailer.notify_about_products_index(d1-d0, indexer.adapter.log.join("\n"))
     mail.deliver
   end
