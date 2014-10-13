@@ -54,6 +54,15 @@ GIT
     rubypress (1.0.3)
 
 GIT
+  remote: git@github.com:luisdaher/accesstage.git
+  revision: 2030ba43f63446e18c2d57d786d34c5e9eace896
+  branch: master
+  specs:
+    accesstage (0.9.4)
+      active_attr (>= 0.6)
+      savon (>= 2.3.2)
+
+GIT
   remote: git@github.com:olook/boleto_bancario.git
   revision: 3bbe354eb1273a22d188f187c6412c9ced10c978
   branch: homologacao_santander
@@ -587,6 +596,7 @@ PLATFORMS
 
 DEPENDENCIES
   SyslogLogger (~> 1.4.1)
+  accesstage!
   acts_as_list
   airbrake (~> 3.1.6)
   asset_sync (~> 0.5.0)
