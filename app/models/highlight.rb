@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Highlight < ActiveRecord::Base
+  extend EnumerateIt
+
   mount_uploader :image, CentralHighlightBannerUploader
   mount_uploader :left_image, SideHighlightBannerUploader
   mount_uploader :right_image, SideHighlightBannerUploader
+
+  has_enumeration_for :position, with: HighlightPosition, required: true
 
   after_save :clean_cache
   after_destroy :clean_cache

@@ -14,8 +14,6 @@
     =f.label :subtitle, "Subtítulo"
     =f.text_field :subtitle
 
-  =f.hidden_field :position
-
   - if @highlight.try(:position) == 1
     %fieldset
       =f.label :image, "Imagem Central"
@@ -39,5 +37,27 @@
     =f.label :alt_text, "ALT da imagem"
     =f.text_field :alt_text
 
+  %fieldset
+    =f.label :title, "Default"
+    =f.check_box :default
+
+  %fieldset
+    =f.label :title, "Ativo"
+    =f.check_box :active
+
+  %fieldset
+    =f.label :title, "Data de Início"
+    =f.date_select :start_date     
+
+  %fieldset
+    =f.label :title, "Data de Saída"
+    =f.date_select :end_date     
+  
+  %fieldset
+    =f.label :title, "Posição"
+    =f.select :position, HighlightPosition.to_a 
+
+
   .actions
     = f.submit 'Save'
+

@@ -1,17 +1,29 @@
-%h1= I18n.t("activerecord.models.highlight.other")
-%h3
-  Clique na foto que queira modificar
-
-%div.inner
-  -if @left_highlight.blank? 
-    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::LEFT)
-  -else
-    = link_to(image_tag(@left_highlight.try(:left_image_url,:site)), edit_admin_highlight_path(@left_highlight))
-  -if @center_highlight.blank?
-    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::CENTER)
-  -else
-    = link_to(image_tag(@center_highlight.try(:image_url,:site)), edit_admin_highlight_path(@center_highlight))
-  -if @right_highlight.blank?
-    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::RIGHT)
-  -else
-    = link_to(image_tag(@right_highlight.try(:right_image_url,:site)), edit_admin_highlight_path(@right_highlight))
+%h2 Listando Banners
+.inner
+  %table.table
+    %tr
+      %th Titulo
+      %th Link
+      %th Ativo
+      %th Default
+      %th Data de início
+      %th Data de Saída
+      %th Posição
+      %th
+      %th
+      %th
+    - @highlights.each do |hl|
+      %tr
+        %td= hl.title
+        %td= hl.link
+        %td= hl.active
+        %td= hl.default
+        %td= hl.start_date
+        %td= hl.end_date
+        %td= hl.position_humanize  
+        %td= link_to 'Mostrar', admin_highlight_path(hl), :class => 'button'
+        %td= link_to 'Editar', edit_admin_highlight_path(hl), :class => 'button'
+        %td= link_to 'Apagar', admin_highlight_path(hl), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+  %br/
+- content_for :secondary_navigation do
+  %li= link_to 'Novo Banner', new_admin_highlight_path
