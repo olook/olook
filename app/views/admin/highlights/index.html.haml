@@ -2,6 +2,7 @@
 .inner
   %table.table
     %tr
+      %th Imagem
       %th Titulo
       %th Link
       %th Ativo
@@ -14,6 +15,7 @@
       %th
     - @highlights.each do |hl|
       %tr
+        %td= image_tag(hl.image_for_position(:thumb)) unless hl.image_for_position(:thumb).nil?
         %td= hl.title
         %td= hl.link
         %td= hl.active

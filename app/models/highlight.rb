@@ -30,14 +30,14 @@ class Highlight < ActiveRecord::Base
     end
   end
 
-  def image_for_position
+  def image_for_position size= :site
     case position
     when HighlightPosition::CENTER 
-      image.url(:site)
+      image.url(size)
     when HighlightPosition::LEFT
-      left_image.url(:site)
+      left_image.url(size)
     when HighlightPosition::RIGHT
-      right_image.url(:site)
+      right_image.url(size)
     end    
   end
 
