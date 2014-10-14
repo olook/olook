@@ -5,6 +5,11 @@ class PaymentService
       return Payments::MercadoPagoSenderStrategy.new(cart_service, payment)
     end
 
+    if (payment.is_a? Billet)
+      # billet = ab_test("billet", 'moip', {'accesstage' => Setting.accestage_billet_percentage.to_i})
+      return Payments::AccesstageSenderStrategy.new(cart_service, payment)
+    end
+
     if ((payment.is_a? CreditCard) && (payment.bank == "Hipercard" || payment.bank == "AmericanExpress")) || (!payment.is_a? CreditCard)
       return Payments::MoipSenderStrategy.new(cart_service, payment)
     end

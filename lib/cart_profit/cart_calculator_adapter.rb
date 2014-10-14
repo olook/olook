@@ -54,7 +54,7 @@ module CartProfit
       when 'CreditCard'
         Payment::GATEWAYS[:braspag]
       when 'Billet'
-        Payment::GATEWAYS[:olook]
+        Payment::GATEWAYS[:accesstage]
       when 'Debit'
         Payment::GATEWAYS[:moip]
       when 'MercadoPagoPayment'

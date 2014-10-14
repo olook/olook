@@ -5,7 +5,8 @@ module Admin::ApplicationHelper
     1 => "Moip",
     2 => "Braspag",
     3 => "Olook",
-    4 => "Mercado Pago"
+    4 => "Mercado Pago",
+    5 => "Accesstage"
   }
 
   def payment_with_origin(payment)

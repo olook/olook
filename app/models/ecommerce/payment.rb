@@ -22,7 +22,8 @@ class Payment < ActiveRecord::Base
     :moip => 1,
     :braspag => 2,
     :olook => 3,
-    :mercadopago => 4
+    :mercadopago => 4,
+    :accesstage => 5
   }
 
   attr_accessor :receipt, :user_identification
