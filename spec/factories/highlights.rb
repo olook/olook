@@ -4,19 +4,42 @@ FactoryGirl.define do
   factory :highlight do
     image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
     link "http://www.olook.com.br"
-    highlight_type 1
-    
+    title "asdasdasd"
+    start_date Date.today
+    end_date Date.today
+    subtitle 'shiusdhidsuhsd'
+    alt_text "jsdsdihdsiuhd"
+    position 1
 
-    trait :at_position_1 do
-      position 1
+    trait :active do
+      active true
     end
 
-    trait :at_position_2 do
-      position 2
+    trait :active_false_default_true do
+      active false 
+      default true
     end
 
-    trait :at_position_3 do
-      position 3
+    trait :out_of_range_active_false do
+      start_date "2012-1-1"
+      end_date "2012-1-1"
+      active false 
+      default true
     end
+
+    trait :out_of_range_active_true do
+      start_date "2012-1-1"
+      end_date "2012-1-1"
+      active true 
+      default true
+    end
+
+    trait :nothing do
+      start_date "2012-1-1"
+      end_date "2012-1-1"
+      active false
+      default false
+    end
+
   end
 end
