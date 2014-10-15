@@ -26,9 +26,6 @@ class Checkout::BilletsController < ApplicationController
     else
       render :status => :not_found
     end
-
-    def update
-      binding.pry
-    end    
+   
   end
 end
