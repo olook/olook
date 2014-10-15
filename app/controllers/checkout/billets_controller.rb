@@ -28,6 +28,7 @@ class Checkout::BilletsController < ApplicationController
     end
 
     def update
+      binding.pry
     end    
   end
 end
