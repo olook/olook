@@ -28,7 +28,6 @@ class Checkout::BilletsController < ApplicationController
     end
 
     def update
-      
     end    
   end
 end
