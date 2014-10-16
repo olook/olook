@@ -509,6 +509,8 @@ Olook::Application.routes.draw do
     resources :billets, path: "boletos", :controller => "checkout/billets", only: [:show]
   end
 
+  get "/boletos/c/:id", :to => "checkout/billets#reconciliation"
+
   #FINISH
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
 

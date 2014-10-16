@@ -2,6 +2,7 @@
 require 'boleto_bancario'
 class Checkout::BilletsController < ApplicationController
   layout false
+  respond_to :nothing, :only => :reconciliation
 
   def show
     config = SANTANDER
@@ -26,6 +27,22 @@ class Checkout::BilletsController < ApplicationController
     else
       render :status => :not_found
     end
-   
+  end
+
+  def reconciliation
+    if billet = Billet.find_by_identification_code(params[:id])
+      begin
+        billet.authorize unless billet.state == "authorized"
+        render :nothing => true, status: :ok
+      rescue => e
+        Airbrake.notify(
+          :error_class   => "Admin::ProcessBilletFileWorker",
+          :error_message => "process_billets: the following error occurred: #{e.message}"
+        )
+        head :error, content_type: :json
+      end
+    else
+      head :not_found, content_type: :json
+    end
   end
 end
