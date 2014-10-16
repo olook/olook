@@ -6,8 +6,9 @@ class PaymentService
     end
 
     if (payment.is_a? Billet)
-      # billet = ab_test("billet", 'moip', {'accesstage' => Setting.accestage_billet_percentage.to_i})
-      return Payments::AccesstageSenderStrategy.new(cart_service, payment)
+      billet_choice = ab_test("billet", 'moip', {'accesstage' => Setting.accestage_billet_percentage.to_i})
+      return Payments::AccesstageSenderStrategy.new(cart_service, payment) if billet_choice == "accesstage"
+      return Payments::MoipSenderStrategy.new(cart_service, payment) if billet_choice == "moip"
     end
 
     if ((payment.is_a? CreditCard) && (payment.bank == "Hipercard" || payment.bank == "AmericanExpress")) || (!payment.is_a? CreditCard)
