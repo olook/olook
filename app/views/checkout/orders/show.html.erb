@@ -5,10 +5,12 @@
   <meta name="chaordic:buy-order" content="<%= @chaordic_confirmation %>">
 <% end %>
 <% finished("checkout_test") %>
+
 <section id="payment" class="checkout confirmation">
   <section class="main">
     <% # Extrair essa logica para um helper %>
     <%= if @payment.is_a? Billet
+      finished("billet")
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
       render :partial => "credit", :locals => { :payment => @payment }
