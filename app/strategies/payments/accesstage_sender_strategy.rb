@@ -8,8 +8,8 @@ module Payments
     }
 
     CALLBACK_URLS = {
-      staging: "http://development.olook.com.br/cb/%%IDENTIFICATION_CODE%%",
-      production: "http://www.olook.com.br/cb/%%IDENTIFICATION_CODE%%"
+      staging: "http://development.olook.com.br/boletos/c/%%IDENTIFICATION_CODE%%",
+      production: "http://www.olook.com.br/boletos/c/%%IDENTIFICATION_CODE%%"
     }
 
     attr_accessor :cart_service, :payment
@@ -20,6 +20,21 @@ module Payments
     end
 
     def send_to_gateway
+      return send_billet_to_gateway if @payment.is_a? Billet
+      return send_debit_to_gateway if @payment.is_a? Debit
+    end
+
+    def send_billet_to_gateway
+      response = call_webservice
+      @payment.url = response.authentication_url
+      @payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      @payment.state = :waiting_payment
+      @payment.gateway = Payment::GATEWAYS.fetch(:accesstage)
+      @payment.save!
+      @payment
+    end
+
+    def send_debit_to_gateway
       response = call_webservice
       @payment.url = response.authentication_url
       @payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
@@ -71,7 +86,16 @@ module Payments
     def build_billet_request billet
       Accesstage::Model::BilletTransactionRequest.new( 
         order_number: @payment.identification_code, 
-        order_total: @payment.total_paid, 
+        order_total: @payment.total_paid.round(2), 
+        return_url: CALLBACK_URLS[Accesstage.configuration.environment.to_sym].gsub("%%IDENTIFICATION_CODE%%", @payment.identification_code), 
+        billet: billet
+      )
+    end
+
+    def build_debit_request debit
+      Accesstage::Model::DebitTransactionRequest.new( 
+        order_number: @payment.identification_code, 
+        order_total: @payment.total_paid.round(2), 
         return_url: CALLBACK_URLS[Accesstage.configuration.environment.to_sym].gsub("%%IDENTIFICATION_CODE%%", @payment.identification_code), 
         billet: billet
       )

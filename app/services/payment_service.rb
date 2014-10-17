@@ -1,14 +1,19 @@
 class PaymentService
-
+  STRATEGY_CLASSES = {
+    'accesstage' => Payments::AccesstageSenderStrategy,
+    'moip' => Payments::MoipSenderStrategy 
+  }
   def self.create_sender_strategy(cart_service, payment)
     if (payment.is_a? MercadoPagoPayment)
       return Payments::MercadoPagoSenderStrategy.new(cart_service, payment)
     end
 
     if (payment.is_a? Billet)
-      billet_choice = ab_test("billet", 'moip', {'accesstage' => Setting.accestage_billet_percentage.to_i})
-      return Payments::AccesstageSenderStrategy.new(cart_service, payment) if billet_choice == "accesstage"
-      return Payments::MoipSenderStrategy.new(cart_service, payment) if billet_choice == "moip"
+      return strategy_for(cart_service, payment)
+    end
+
+    if (payment.is_a? Debit)
+      return strategy_for(cart_service, payment)
     end
 
     if ((payment.is_a? CreditCard) && (payment.bank == "Hipercard" || payment.bank == "AmericanExpress")) || (!payment.is_a? CreditCard)
@@ -26,5 +31,10 @@ class PaymentService
       sender_strategy.cart_service = cart_service
       sender_strategy.credit_card_number = payment.credit_card_number
       sender_strategy
+    end
+
+    def self.strategy_for(cart_service, payment)
+      name = ["louisdaher@gmail.com"].include?(cart_service.cart.user.email) ? "accesstage" : "moip"
+      STRATEGY_CLASSES[name].new(cart_service, payment)
     end
 end

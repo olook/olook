@@ -107,7 +107,6 @@ Setting.defaults[:dev_notification_emails] = 'rafael.manoel@olook.com.br,tiago.a
 Setting.defaults[:superfast_shipping_enabled] = true
 Setting.defaults[:billet_days_to_expire] = 2
 Setting.defaults[:percent_for_new_checkout] = 0
-Setting.defaults[:accestage_billet_percentage] = 0
 
 begin
   MktSetting.save_default(:facebook_products, "1703103190,1584034001,1525034002")
