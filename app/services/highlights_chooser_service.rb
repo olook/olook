@@ -16,7 +16,7 @@ class HighlightsChooserService
 
   def choose_banner position
     @today = Date.today
-    hl = Highlight.where("start_date >= ? AND ? <= end_date AND active = true AND position = ?", @today, @today, position)
+    hl = Highlight.where("start_date <= ? AND end_date >= ? AND active = true AND position = ?", @today, @today, position)
     if hl.any?
       hl.last
     else
