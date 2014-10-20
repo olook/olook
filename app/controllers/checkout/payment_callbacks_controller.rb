@@ -16,4 +16,38 @@ class Checkout::PaymentCallbacksController < ActionController::Base
     render :nothing => true, :status => 200
   end
 
+  def billet
+    if billet = Billet.find_by_identification_code(params[:identification_code])
+      begin
+        billet.authorize unless billet.state == "authorized"
+        render :nothing => true, status: :ok
+      rescue => e
+        Airbrake.notify(
+          :error_class   => "Checkout::PaymentCallbacksController",
+          :error_message => "billet: the following error occurred: #{e.message}"
+        )
+        head :error, content_type: :json
+      end
+    else
+      head :not_found, content_type: :json
+    end
+  end
+
+  def debit
+    if debit = Debit.find_by_id(params[:payment_id])
+      begin
+        debit.authorize unless debit.state == "authorized"
+        render :nothing => true, status: :ok
+      rescue => e
+        Airbrake.notify(
+          :error_class   => "Checkout::PaymentCallbacksController",
+          :error_message => "debit: the following error occurred: #{e.message}"
+        )
+        head :error, content_type: :json
+      end
+    else
+      head :not_found, content_type: :json
+    end
+  end
+
 end

@@ -1,7 +1,7 @@
 development:
   environment: "staging"
   IntegrationId: "10"
-  CustomerId: "30"
+  CustomerId: "64"
   AffiliationId: "J0154272070001140000017597"
   AffiliationPassword: "o1q2c3m4l5m6c7d8"
   username: "rayban"

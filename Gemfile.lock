@@ -55,10 +55,10 @@ GIT
 
 GIT
   remote: git@github.com:luisdaher/accesstage.git
-  revision: a6d7d7ccab589b93fa4d0fcb4b8ed8f984b414d1
+  revision: a68417abd31e6ead597991eb582eafe46a08568b
   branch: master
   specs:
-    accesstage (0.9.5)
+    accesstage (0.9.8)
       active_attr (>= 0.6)
       savon (>= 2.3.2)
 

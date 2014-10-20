@@ -509,7 +509,9 @@ Olook::Application.routes.draw do
     resources :billets, path: "boletos", :controller => "checkout/billets", only: [:show]
   end
 
-  get "/boletos/c/:id", :to => "checkout/billets#reconciliation"
+  #ACCESSTAGE-CALLBACK
+  get "/cb/b/:identification_code", :to => "checkout/payment_callbacks#billet"
+  get "/cb/d/:payment_id", :to => "checkout/payment_callbacks#debit"
 
   #FINISH
   get '/pedido/:number', :to =>'checkout/orders#show', :as => :order_show
