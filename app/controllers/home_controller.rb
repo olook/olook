@@ -29,10 +29,7 @@ class HomeController < ApplicationController
   end
 
   def prepare_highlights
-    highlights = Highlight.highlights_to_show
-    @left_highlight = highlights[HighlightPosition::LEFT]
-    @center_highlight = highlights[HighlightPosition::CENTER]
-    @right_highlight = highlights[HighlightPosition::RIGHT]
+    @highlights = HighlightsChooserService.new.choose   
   end
 
   def canonical_link

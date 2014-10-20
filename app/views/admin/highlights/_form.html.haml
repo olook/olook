@@ -14,20 +14,9 @@
     =f.label :subtitle, "Subtítulo"
     =f.text_field :subtitle
 
-  - if @highlight.try(:position) == 1
-    %fieldset
-      =f.label :image, "Imagem Central"
-      =f.file_field :image
-
-  - if @highlight.try(:position) == 2
-    %fieldset
-      =f.label :left_image, "Imagem (Esquerda)"
-      =f.file_field :left_image
-
-  - if @highlight.try(:position) == 3
-    %fieldset
-      =f.label :right_image, "Imagem (Direita)"
-      =f.file_field :right_image
+  %fieldset
+    =f.label :image, "Imagem"
+    =f.file_field :image
 
   %fieldset
     =f.label :link, "Link (url completa, com 'http://')"

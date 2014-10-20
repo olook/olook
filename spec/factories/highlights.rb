@@ -2,44 +2,48 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 FactoryGirl.define do
   factory :highlight do
-    image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+    
     link "http://www.olook.com.br"
     title "asdasdasd"
     start_date Date.today
     end_date Date.today
     subtitle 'shiusdhidsuhsd'
     alt_text "jsdsdihdsiuhd"
-    position 1
 
-    trait :active do
+    trait :position_1 do
+      image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+      position 1
       active true
     end
 
-    trait :active_false_default_true do
-      active false 
+    trait :position_2 do
+      left_image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+      position 2
+      active true
+    end
+
+    trait :position_3 do
+      right_image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+      position 3
+      active true
+    end
+
+    trait :default do
+      left_image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+      position 2
+      start_date "2012-1-1"
+      end_date "2012-1-1"
       default true
     end
 
-    trait :out_of_range_active_false do
+    trait :out_of_range do
+      left_image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+      position 2
       start_date "2012-1-1"
       end_date "2012-1-1"
-      active false 
-      default true
-    end
-
-    trait :out_of_range_active_true do
-      start_date "2012-1-1"
-      end_date "2012-1-1"
-      active true 
-      default true
-    end
-
-    trait :nothing do
-      start_date "2012-1-1"
-      end_date "2012-1-1"
-      active false
-      default false
+      
     end
 
   end
 end
+
