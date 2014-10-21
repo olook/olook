@@ -36,7 +36,6 @@ class ProductProductDocumentAdapter
     def populate_simple_fields(product, product_doc)
       product_doc.lang = 'pt'
 
-
       product_doc.product_id = product.id
       product_doc.is_visible = product.is_visible
       product_doc.brand = product.brand
