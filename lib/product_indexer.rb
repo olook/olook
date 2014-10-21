@@ -12,7 +12,7 @@ class ProductIndexer
 
   def entities_to_index(entity_ids)
     _products = Product.where(id: entity_ids).where('price > 0').includes(:pictures, :variants, :details, :collection, :collection_themes).all
-    _products.select! {|p| p.main_picture && p.main_picture[:image] }
+    _products.select! {|p| (p.main_picture && p.main_picture[:image]) || !p.is_visible? }
     _products
   end
 
