@@ -3,9 +3,7 @@ class Admin::HighlightsController <  Admin::BaseController
   respond_to :haml
 
   def index
-    @left_highlight = Highlight.find_by_position 2
-    @center_highlight = Highlight.find_by_position 1
-    @right_highlight = Highlight.find_by_position 3
+   @highlights = Highlight.order(id: :desc)
   end
 
   def show
@@ -22,6 +20,7 @@ class Admin::HighlightsController <  Admin::BaseController
 
   def create
     @highlight = Highlight.new(params[:highlight])
+    # @highlight = redirect_image(@highlight)
     if @highlight.save
       redirect_to [:admin, @highlight], notice: 'Destaque criado com sucesso.'
     else
@@ -45,4 +44,5 @@ class Admin::HighlightsController <  Admin::BaseController
     @highlight.destroy
     redirect_to admin_highlights_url
   end
+
 end

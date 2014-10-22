@@ -1,8 +1,14 @@
 # -*- encoding : utf-8 -*-
 class Highlight < ActiveRecord::Base
+  extend EnumerateIt
+
   mount_uploader :image, CentralHighlightBannerUploader
   mount_uploader :left_image, SideHighlightBannerUploader
   mount_uploader :right_image, SideHighlightBannerUploader
+
+  has_enumeration_for :position, with: HighlightPosition, required: true
+
+  before_validation :redirect_image
 
   after_save :clean_cache
   after_destroy :clean_cache
@@ -26,14 +32,14 @@ class Highlight < ActiveRecord::Base
     end
   end
 
-  def image_for_position
+  def image_for_position size= :site
     case position
     when HighlightPosition::CENTER 
-      image.url(:site)
+      image.url(size)
     when HighlightPosition::LEFT
-      left_image.url(:site)
+      left_image.url(size)
     when HighlightPosition::RIGHT
-      right_image.url(:site)
+      right_image.url(size)
     end    
   end
 
@@ -54,4 +60,17 @@ class Highlight < ActiveRecord::Base
   def is_right_image?
     position == HighlightPosition::RIGHT
   end
+
+  def redirect_image
+    img = nil
+    if self.position != HighlightPosition::CENTER
+      img = self.image
+      self.image = nil
+    end
+
+    self.right_image = img if self.position == HighlightPosition::RIGHT && !self.right_image
+    self.left_image = img if self.position == HighlightPosition::LEFT && !self.left_image
+
+  
+  end  
 end
