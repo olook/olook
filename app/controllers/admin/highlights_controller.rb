@@ -19,7 +19,10 @@ class Admin::HighlightsController <  Admin::BaseController
   end
 
   def create
-    @highlight = Highlight.new(params[:highlight])
+    p = params[:highlight].dup
+    p = redirect_image(p)
+
+    @highlight = Highlight.new(p)
     # @highlight = redirect_image(@highlight)
     if @highlight.save
       redirect_to [:admin, @highlight], notice: 'Destaque criado com sucesso.'
@@ -43,6 +46,14 @@ class Admin::HighlightsController <  Admin::BaseController
     @highlight = Highlight.find(params[:id])
     @highlight.destroy
     redirect_to admin_highlights_url
+  end
+
+  def redirect_image p
+    return p if p[:position] == HighlightPosition::CENTER
+    img = p[:image]
+    p[:right_image] = img if p[:position].to_i == HighlightPosition::RIGHT
+    p[:left_image] = img if p[:position].to_i == HighlightPosition::LEFT
+    p
   end
 
 end

@@ -14,9 +14,10 @@
     =f.label :subtitle, "Subtítulo"
     =f.text_field :subtitle
 
-  %fieldset
-    =f.label :image, "Imagem"
-    =f.file_field :image
+  - unless params[:action] == "edit"
+    %fieldset
+      =f.label :image, "Imagem"
+      =f.file_field :image
 
   %fieldset
     =f.label :link, "Link (url completa, com 'http://')"
@@ -42,10 +43,13 @@
     =f.label :title, "Data de Saída"
     =f.date_select :end_date     
   
-  %fieldset
-    =f.label :title, "Posição"
-    =f.select :position, HighlightPosition.to_a 
-
+  - if params[:action] == "new"
+    %fieldset
+      =f.label :title, "Posição"
+      =f.select :position, HighlightPosition.to_a 
+  - else
+    %fieldset
+      =f.label :title, "Posição: #{@highlight.position_humanize}" 
 
   .actions
     = f.submit 'Save'
