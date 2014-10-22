@@ -54,11 +54,11 @@ GIT
     rubypress (1.0.3)
 
 GIT
-  remote: git@github.com:luisdaher/accesstage.git
-  revision: a68417abd31e6ead597991eb582eafe46a08568b
+  remote: git@github.com:olook/accesstage.git
+  revision: 55fec76cb44d2679d1f9ef54a81efc33f3470c83
   branch: master
   specs:
-    accesstage (0.9.8)
+    accesstage (0.9.9)
       active_attr (>= 0.6)
       savon (>= 2.3.2)
 
