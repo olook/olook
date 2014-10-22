@@ -20,7 +20,6 @@ class Admin::HighlightsController <  Admin::BaseController
 
   def create
     @highlight = Highlight.new(params[:highlight])
-    # @highlight = redirect_image(@highlight)
     if @highlight.save
       redirect_to [:admin, @highlight], notice: 'Destaque criado com sucesso.'
     else

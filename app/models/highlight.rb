@@ -6,9 +6,9 @@ class Highlight < ActiveRecord::Base
   mount_uploader :left_image, SideHighlightBannerUploader
   mount_uploader :right_image, SideHighlightBannerUploader
 
-  has_enumeration_for :position, with: HighlightPosition, required: true
-
   before_validation :redirect_image
+
+  has_enumeration_for :position, with: HighlightPosition, required: true
 
   after_save :clean_cache
   after_destroy :clean_cache
@@ -66,10 +66,11 @@ class Highlight < ActiveRecord::Base
     if self.position != HighlightPosition::CENTER
       img = self.image
       self.image = nil
+      
     end
 
-    self.right_image = img if self.position == HighlightPosition::RIGHT && !self.right_image
-    self.left_image = img if self.position == HighlightPosition::LEFT && !self.left_image
+    self.right_image = img if self.position == HighlightPosition::RIGHT 
+    self.left_image = img if self.position == HighlightPosition::LEFT 
 
   
   end  
