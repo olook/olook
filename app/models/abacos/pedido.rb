@@ -20,7 +20,7 @@ module Abacos
       @data_venda       = parse_data(order.created_at)
       
       #TODO USAR VALOR CORRETO
-      @valor_pedido     = parse_price order.subtotal #valor do retailprice
+      @valor_pedido     = parse_price(calculate_valor_pedido_for(order)) #valor do retailprice
       @valor_desconto   = parse_price order.amount_discount #valor do discount bruto
       @valor_frete      = parse_price order.freight_price
       @transportadora   = order.freight.shipping_service.erp_code
@@ -76,6 +76,16 @@ module Abacos
 
     def parse_pagamento(order)
       Abacos::Pagamento.new order
+    end
+
+    def calculate_valor_pedido_for order
+      response = order.subtotal
+      if Setting.abacos_changes_whitelist.include? order.user.email
+        order.payments.where(type: "CreditPayment").each do |cp|
+          response += cp.total_paid unless UserCredit.joins(:credit_type).where(id:[cp.credit_ids.split(',')], credit_types:{type:'Redeem'}).blank?
+        end
+      end
+      response
     end
   end
 end
