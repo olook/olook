@@ -211,6 +211,19 @@ describe Abacos::Pedido do
       it 'should be a hash with the proper keys and values for export' do
         subject.parsed_data.should == expected_parsed_data
       end
+
+      context 'when the user is whitelisted' do
+        let!(:credit_payment) { FactoryGirl.create :credit_payment, :order => order }
+        let(:parsed_data) { p = expected_parsed_data; p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "82.34"; p }
+
+        before :each do
+          Setting.should_receive(:abacos_changes_whitelist).and_return order.user.email
+        end
+
+        it 'adds the redeem credits to the sum' do
+          subject.parsed_data.should == parsed_data
+        end
+      end
     end
   end
 end

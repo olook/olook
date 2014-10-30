@@ -80,12 +80,16 @@ module Abacos
 
     def calculate_valor_pedido_for order
       response = order.subtotal
+
       if Setting.abacos_changes_whitelist.include? order.user.email
-        order.payments.where(type: "CreditPayment").each do |cp|
-          response += cp.total_paid unless UserCredit.joins(:credit_type).where(id:[cp.credit_ids.split(',')], credit_types:{type:'Redeem'}).blank?
-        end
+        redeem_credit_payments = redeem_credit_payments_for(order)
+        response += redeem_credit_payments.sum(&:total_paid) unless redeem_credit_payments.blank?
       end
       response
+    end
+
+    def redeem_credit_payments_for order
+      order.payments.joins(:credit_type).where(type: "CreditPayment", credit_types:{code: "Redeem"})
     end
   end
 end

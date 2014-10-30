@@ -107,7 +107,7 @@ Setting.defaults[:dev_notification_emails] = 'rafael.manoel@olook.com.br,tiago.a
 Setting.defaults[:superfast_shipping_enabled] = true
 Setting.defaults[:billet_days_to_expire] = 2
 Setting.defaults[:percent_for_new_checkout] = 0
-Setting.defaults[:abacos_changes_whitelist] = "diego.lozano@infracommerce.com.br,tatiane.reis@infracommerce.com.br,thiago.garrido@infracommerce.com.br,carlos.hernandes@infracommerce.com.br,caroline.passos@infracommerce.com.br"
+Setting.defaults[:abacos_changes_whitelist] = "diego.lozano@infracommerce.com.br,tatiane.reis@infracommerce.com.br,thiago.garrido@infracommerce.com.br,carlos.hernandes@infracommerce.com.br,caroline.passos@infracommerce.com.br,diogo.silva@infracommerce.com.br,luis.daher@olook.com.br"
 
 begin
   MktSetting.save_default(:facebook_products, "1703103190,1584034001,1525034002")
