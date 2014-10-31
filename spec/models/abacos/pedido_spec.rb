@@ -211,6 +211,56 @@ describe Abacos::Pedido do
       it 'should be a hash with the proper keys and values for export' do
         subject.parsed_data.should == expected_parsed_data
       end
+      context 'when the user has redeem credits' do 
+        let!(:credit_payment) { FactoryGirl.create :redeem_credit_payment, :order => order }
+        let(:parsed_data) { p = expected_parsed_data; p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "82.34"; p }
+
+        context 'and the user is whitelisted' do
+
+          before :each do
+            Setting.should_receive(:abacos_changes_whitelist).and_return order.user.email
+          end
+
+          it 'adds the redeem credits to the sum' do
+            subject.parsed_data.should == parsed_data
+          end
+        end
+
+        context "and the user isn't whitelisted" do
+          before :each do
+            Setting.should_receive(:abacos_changes_whitelist).and_return "teste@uol.com.br"
+          end
+
+          it "doesn't add the redeem credits to the sum" do            
+            subject.parsed_data.should == expected_parsed_data
+          end        
+        end
+      end
+
+      context 'when the user doesnt have redeem credits' do 
+        let!(:credit_payment) { FactoryGirl.create :invite_credit_payment, :order => order }
+
+        context 'when the user is whitelisted' do
+
+          before :each do
+            Setting.should_receive(:abacos_changes_whitelist).and_return order.user.email
+          end
+
+          it 'doesnt add the redeem credits to the sum' do
+            subject.parsed_data.should == expected_parsed_data
+          end
+        end
+
+        context "when the user isn't whitelisted" do
+          before :each do
+            Setting.should_receive(:abacos_changes_whitelist).and_return "teste@uol.com.br"
+          end
+
+          it "doesn't add the redeem credits to the sum" do            
+            subject.parsed_data.should == expected_parsed_data
+          end        
+        end
+      end      
     end
   end
 end
