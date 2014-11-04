@@ -16,3 +16,5 @@ guard 'rspec', cmd: 'spring rspec', all_after_pass: false, all_on_start: false d
   # Capybara request specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| "spec/requests/#{m[1]}_spec.rb" }
 end
+
+

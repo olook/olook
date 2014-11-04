@@ -3,7 +3,7 @@ class ModalExhibitionPolicy
   NUMBER_OF_VIEWS_TO_SHOW = [0,5]
 
   def self.apply?(opts={})
-    return false if opts[:mobile] == true || opts[:user]
+    return false if opts[:mobile] == true || opts[:user] || (opts[:partner] && opts[:partner].include?("rise"))
      avaliable_path?(opts[:path]) && avaliable_cookie?(opts[:cookie])
   end
 

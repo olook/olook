@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140805172854) do
+ActiveRecord::Schema.define(:version => 20141013165227) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -613,6 +613,10 @@ ActiveRecord::Schema.define(:version => 20140805172854) do
     t.string   "alt_text"
     t.string   "left_image"
     t.string   "right_image"
+    t.boolean  "default"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "active"
   end
 
   create_table "holidays", :force => true do |t|

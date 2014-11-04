@@ -13,7 +13,12 @@ class SideHighlightBannerUploader < CarrierWave::Uploader::Base
   version :site do
     process :resize_to_fit => [239, 360]
     process optimize: [{quality: 90}]
-  end  
+  end 
+
+  version :thumb do
+    process :resize_to_fit => [122, 90]
+    process optimize: [{quality: 90}]
+  end 
 
   def extension_white_list
     %w(jpg jpeg gif png)

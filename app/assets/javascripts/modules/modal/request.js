@@ -8,7 +8,11 @@ var ModalRequest = (function(){
   };
 
   ModalRequest.prototype.facade = function(path){
-    this.selector.get("/modal", {path: path}).done(function(data){
+    var params = {path: path};
+    if(/rise/i.test(window.location.search)){
+      params.partner = "rise";
+    }
+    this.selector.get("/modal", params).done(function(data){
       olookApp.publish("modal:show", data);
     }).fail(function() {
       olookApp.publish("modal:error");
