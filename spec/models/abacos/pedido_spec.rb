@@ -246,7 +246,7 @@ describe Abacos::Pedido do
           p["ListaDePedidos"]["DadosPedidos"]['FormasDePagamento'] = [
                       {
                         'DadosPedidosFormaPgto' => {
-                          'Valor'                 => '81.00',
+                          'Valor'                 => '93.34',
                           'CartaoQtdeParcelas'    => 1,
                           'FormaPagamentoCodigo'  => 'VISA',
                           'BoletoVencimento'  => nil
@@ -267,7 +267,7 @@ describe Abacos::Pedido do
         context 'and the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return redeem_order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).twice.and_return redeem_order.user.email
           end
 
           it 'adds the redeem credits to the sum' do
@@ -277,7 +277,7 @@ describe Abacos::Pedido do
 
         context "and the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).twice.and_return "teste@uol.com.br"
           end
 
           it "doesn't add the redeem credits to the sum" do
@@ -292,7 +292,7 @@ describe Abacos::Pedido do
         context 'when the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return redeem_order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).twice.and_return redeem_order.user.email
           end
 
           it 'doesnt add the redeem credits to the sum' do
@@ -302,7 +302,7 @@ describe Abacos::Pedido do
 
         context "when the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).twice.and_return "teste@uol.com.br"
           end
 
           it "doesn't add the redeem credits to the sum" do            
