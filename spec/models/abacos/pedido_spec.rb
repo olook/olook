@@ -148,11 +148,37 @@ describe Abacos::Pedido do
     end
 
     describe '#parsed_data' do
+
+      let(:redeem_order) {
+        order = (FactoryGirl.create :clean_order, 
+          :user => member, 
+          :freight => freight, 
+          :created_at => Time.zone.local(2011, 12, 01),
+          :amount_discount => 23.34,
+          :subtotal => 70,
+          :amount_paid => 93.34,
+          :user_cpf => '98765432198',
+          :user_email => 'janedoe@test.com', 
+          :user_first_name => 'Jéssica', 
+          :user_last_name => 'Maíra'
+        )
+        order.line_items << (FactoryGirl.build :line_item, :variant => variant_a, :quantity => 2, :price => 20.0, :retail_price => 20.0)
+        order.line_items << (FactoryGirl.build :line_item, :variant => variant_b, :quantity => 1, :price => 30.0, :retail_price => 30.0)
+        variant_a.stub_chain(:product, :retail_price).and_return(20.0)
+        variant_b.stub_chain(:product, :retail_price).and_return(30.0)
+        variant_a.stub_chain(:product, :price).and_return(20.0)
+        variant_b.stub_chain(:product, :price).and_return(30.0)
+        order.credits = 11
+        order.save
+        order
+      }
+      let(:payment) { FactoryGirl.create :credit_card, :order => redeem_order }
+
       let(:expected_parsed_data) {
               {
                 'ListaDePedidos' => {
                   'DadosPedidos' => {
-                    'NumeroDoPedido' => order.number,
+                    'NumeroDoPedido' => redeem_order.number,
                     'CodigoCliente' => "F#{order.user.id}",
                     'RepresentanteVendas' => 'SITE',
                     'CPFouCNPJ' => '98765432198',
@@ -162,7 +188,7 @@ describe Abacos::Pedido do
                     'DestTelefone' => '(35)3712-3457',
 
                     'ValorPedido' => '70.00',
-                    'ValorDesconto' => '11.00',
+                    'ValorDesconto' => '23.34',
                     'ValorFrete' => '22.00',
                     'Transportadora' => 'TEX',
                     'PrazoEntregaPosPagamento' => 5,
@@ -187,7 +213,7 @@ describe Abacos::Pedido do
                     'FormasDePagamento' =>
                                 {
                                   'DadosPedidosFormaPgto' => {
-                                    'Valor'                 => '81.00',
+                                    'Valor'                 => '93.34',
                                     'CartaoQtdeParcelas'    => 1,
                                     'FormaPagamentoCodigo'  => 'VISA',
                                     'BoletoVencimento'  => nil
@@ -212,13 +238,36 @@ describe Abacos::Pedido do
         subject.parsed_data.should == expected_parsed_data
       end
       context 'when the user has redeem credits' do 
-        let!(:credit_payment) { FactoryGirl.create :redeem_credit_payment, :order => order }
-        let(:parsed_data) { p = expected_parsed_data; p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "82.34"; p }
+        let!(:credit_payment) { FactoryGirl.create :redeem_credit_payment, :order => redeem_order }
+        let(:parsed_data) do 
+          p = expected_parsed_data 
+          p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "82.34"
+          p["ListaDePedidos"]["DadosPedidos"]["ValorDesconto"] = "11.00"
+          p["ListaDePedidos"]["DadosPedidos"]['FormasDePagamento'] = [
+                      {
+                        'DadosPedidosFormaPgto' => {
+                          'Valor'                 => '81.00',
+                          'CartaoQtdeParcelas'    => 1,
+                          'FormaPagamentoCodigo'  => 'VISA',
+                          'BoletoVencimento'  => nil
+                        }
+                      },
+                      {
+                        'DadosPedidosFormaPgto' => {
+                          'Valor'                 => '12.34',
+                          'CartaoQtdeParcelas'    => 1,
+                          'FormaPagamentoCodigo'  => 'CREDITO DE ESTORNO'
+                        }
+                      }
+
+          ]
+          p
+        end
 
         context 'and the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).and_return order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return redeem_order.user.email
           end
 
           it 'adds the redeem credits to the sum' do
@@ -228,7 +277,7 @@ describe Abacos::Pedido do
 
         context "and the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return "teste@uol.com.br"
           end
 
           it "doesn't add the redeem credits to the sum" do            
@@ -238,12 +287,12 @@ describe Abacos::Pedido do
       end
 
       context 'when the user doesnt have redeem credits' do 
-        let!(:credit_payment) { FactoryGirl.create :invite_credit_payment, :order => order }
+        let!(:credit_payment) { FactoryGirl.create :invite_credit_payment, :order => redeem_order }
 
         context 'when the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).and_return order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return redeem_order.user.email
           end
 
           it 'doesnt add the redeem credits to the sum' do
@@ -253,7 +302,7 @@ describe Abacos::Pedido do
 
         context "when the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return "teste@uol.com.br"
           end
 
           it "doesn't add the redeem credits to the sum" do            

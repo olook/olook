@@ -21,7 +21,7 @@ module Abacos
       
       #TODO USAR VALOR CORRETO
       @valor_pedido     = parse_price(calculate_valor_pedido_for(order)) #valor do retailprice
-      @valor_desconto   = parse_price order.amount_discount #valor do discount bruto
+      @valor_desconto   = parse_price(calculate_valor_desconto_for(order)) #valor do discount bruto
       @valor_frete      = parse_price order.freight_price
       @transportadora   = order.freight.shipping_service.erp_code
       @tempo_entrega    = order.freight.delivery_time
@@ -53,7 +53,7 @@ module Abacos
             'Itens' => {
               'DadosPedidosItem'       => @itens.map {|item| item.parsed_data}
             },
-            'FormasDePagamento'        => @pagamento.parsed_data
+            'FormasDePagamento'        => @pagamento.is_a?(Array) ? @pagamento.map{|p| p.parsed_data} : @pagamento.parsed_data
           }
         }
       }
@@ -75,21 +75,37 @@ module Abacos
     end
 
     def parse_pagamento(order)
-      Abacos::Pagamento.new order
+      payment_data = nil
+      redeem_credits_amount = redeem_credits_amount_for(order)
+      if Setting.abacos_changes_whitelist.include?(order.user.email) && redeem_credits_amount > 0.0
+        payment_data = [Abacos::Pagamento.new(order), Abacos::Credito.new(redeem_credits_amount)]
+      else
+        payment_data = Abacos::Pagamento.new order
+      end
+      payment_data
     end
 
     def calculate_valor_pedido_for order
       response = order.subtotal
 
       if Setting.abacos_changes_whitelist.include? order.user.email
-        redeem_credit_payments = redeem_credit_payments_for(order)
-        response += redeem_credit_payments.sum(&:total_paid) unless redeem_credit_payments.blank?
+        response += redeem_credits_amount_for(order)
       end
+
       response
     end
 
-    def redeem_credit_payments_for order
-      order.payments.joins(:credit_type).where(type: "CreditPayment", credit_types:{code: "Redeem"})
+    def calculate_valor_desconto_for order
+      response = order.amount_discount
+
+      if Setting.abacos_changes_whitelist.include? order.user.email
+        response -= redeem_credits_amount_for(order)
+      end
+
+      response
     end
+
   end
 end
+
+#TODO: diminuir os descontos e adicionar creditos de redeem nos itens

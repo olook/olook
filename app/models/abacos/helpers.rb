@@ -100,5 +100,10 @@ module Abacos
       Abacos::Endereco.new(address)
     end
 
+    def redeem_credits_amount_for order
+      redeem_credit_payments = order.payments.joins(:credit_type).where(type: "CreditPayment", credit_types:{code: "Redeem"})
+      redeem_credit_payments.blank? ? 0.0 : redeem_credit_payments.sum(&:total_paid)
+    end
+
   end
 end
