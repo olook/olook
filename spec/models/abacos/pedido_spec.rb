@@ -241,7 +241,7 @@ describe Abacos::Pedido do
         let!(:credit_payment) { FactoryGirl.create :redeem_credit_payment, :order => redeem_order }
         let(:parsed_data) do 
           p = expected_parsed_data 
-          p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "82.34"
+          p["ListaDePedidos"]["DadosPedidos"]["ValorPedido"] = "70.00"
           p["ListaDePedidos"]["DadosPedidos"]["ValorDesconto"] = "11.00"
           p["ListaDePedidos"]["DadosPedidos"]['FormasDePagamento'] = [
                       {
@@ -267,7 +267,7 @@ describe Abacos::Pedido do
         context 'and the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return redeem_order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return redeem_order.user.email
           end
 
           it 'adds the redeem credits to the sum' do
@@ -277,10 +277,10 @@ describe Abacos::Pedido do
 
         context "and the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return "teste@uol.com.br"
           end
 
-          it "doesn't add the redeem credits to the sum" do            
+          it "doesn't add the redeem credits to the sum" do
             subject.parsed_data.should == expected_parsed_data
           end        
         end
@@ -292,7 +292,7 @@ describe Abacos::Pedido do
         context 'when the user is whitelisted' do
 
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return redeem_order.user.email
+            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return redeem_order.user.email
           end
 
           it 'doesnt add the redeem credits to the sum' do
@@ -302,7 +302,7 @@ describe Abacos::Pedido do
 
         context "when the user isn't whitelisted" do
           before :each do
-            Setting.should_receive(:abacos_changes_whitelist).exactly(4).times.and_return "teste@uol.com.br"
+            Setting.should_receive(:abacos_changes_whitelist).exactly(3).times.and_return "teste@uol.com.br"
           end
 
           it "doesn't add the redeem credits to the sum" do            
