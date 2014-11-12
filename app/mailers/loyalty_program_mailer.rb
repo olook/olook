@@ -22,7 +22,7 @@ class LoyaltyProgramMailer < ActionMailer::Base
     @credit_amount = LoyaltyProgramCreditType.credit_amount_to_expire(user_credit, date)
 
     if @credit_amount > 0
-      @date = date
+      @date = date - 1.day
       subject = "Corra #{user.first_name}, seus R$ #{('%.2f' % @credit_amount).gsub('.',',')} em créditos expiram em sete dias!"
 
       @user = user
