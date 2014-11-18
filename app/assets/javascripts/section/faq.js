@@ -19,7 +19,7 @@ $(document).ready(function() {
     $('.bt_back').hide();
   });
   $('a.sac').click(function(ev){
-    window.open('http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1',
+    window.open('//olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1',
     'Continue_to_Application','width=650,height=500');
     ev.preventDefault();
     return false;
