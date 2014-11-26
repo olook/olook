@@ -87,7 +87,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item('OLOOKLET', h.olooklet_path(por: "novidade"), "olooklet", ["olooklet#show"], 'mega_menu/olooklet')
+    render_item('OLOOKLET', h.olooklet_path(por: "maior-desconto"), "olooklet", ["olooklet#show"], 'mega_menu/olooklet')
   end
 
   def blog
