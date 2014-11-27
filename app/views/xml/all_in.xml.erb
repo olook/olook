@@ -4,10 +4,8 @@
 <% @products.each do |product| %>
 <% next if product.subcategory.nil? %>
 <% next if product.variants.empty? %>
-<% product.variants.each do |variant| %>
 <item>
-<g:item_group_id><%= product.id %></g:item_group_id>
-<g:id><%= variant.id %></g:id>
+<g:id><%= product.id %></g:id>
 <title><![CDATA[<%= product.subcategory %> <%= product.name %>]]></title>
 <description><![CDATA[<%= product.description %>]]></description>
 <g:google_product_category><![CDATA[<%= product.category_humanize  %>]]></g:google_product_category>
@@ -21,7 +19,7 @@
 <g:brand><![CDATA[<%= product.brand %>]]></g:brand>
 <g:gender>female</g:gender>
 <g:age_group>adult</g:age_group>
-<g:quantity><%=  variant.inventory %></g:quantity>
+<g:quantity><%=  product.inventory %></g:quantity>
 <g:availability><%= product.inventory > 1 ? "in stock" : "out of stock" %></g:availability>
 <% product.variants.each do |variant| %>
 <g:size><%= variant.display_reference %></g:size>
@@ -34,7 +32,6 @@
   <% end %>
 <% end %>
 </item>
-<% end %>
 <% end %>
 </channel>
 </rss>
