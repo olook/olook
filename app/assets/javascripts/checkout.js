@@ -139,15 +139,7 @@ function showAboutSecurityCode(){
 function showTotal(){
   var _out = "span#total, span#total_billet, span#total_debit, #debit_discount_cart, #billet_discount_cart";
   var _in = [];
-  if($("div.billet").is(':visible')){
-    _in.push("span#total_billet");
-    _in.push("#billet_discount_cart");
-  } else if($('div.debit').is(':visible')) {
-    _in.push("span#total_debit");
-    _in.push("#debit_discount_cart");
-  } else {
-    _in.push("span#total");
-  }
+  _in.push("span#total");
   $(_out).not(_in.join(',')).fadeOut('fast');
   $(_in.join(',')).delay(200).fadeIn();
 }
