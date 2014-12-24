@@ -20,7 +20,7 @@
 %section#home
 
   #banner
-    .column
+    .columnBig
       - if @highlights[:left] && @highlights[:left].left_image
         = link_to @highlights[:left].link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "left") do
           .highlight{data: {product: @highlights[:left].left_image.url(:site), alt: @highlights[:left].alt_text}}

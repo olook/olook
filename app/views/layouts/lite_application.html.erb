@@ -89,6 +89,43 @@
        <%= link_to "Ir para o topo", "#", :id => "go_top" %>
        <header id="new_header">
          <div class="new_content">
+           <div class="box_left">
+             <ul>
+               <li class="wishlist">
+               <% if empty_wishlist? %>
+                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlist js-empty-wishlist-box", onclick: track_event("Wishlist","openWishlistFromMenu") %>
+                    <p class="sub js-sub-text">
+                      Você ainda não adicionou nenhum
+                      <br />
+                        produto a sua lista de favoritos.
+                    </p>
+               <% elsif any_wished_product_has_discount? %>
+                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct discount", onclick: track_event("Wishlist","openWishlistFromMenu") %>
+                    <p class="sub full">
+                      Oba! Alguns dos seus produtos
+                      <br />
+                        favoritos estão com desconto!
+                      <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
+                    </p>
+               <% else %>
+                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct js-full-wishlist-box", onclick: track_event("Wishlist","openWishlistFromMenu") %>
+                    <p class="sub js-sub-text">
+                      Você possui <span class="js-product-count"><%= wished_products_count %></span> produto(s)
+                      <br />
+                        na sua lista de favoritos.
+                      <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
+                    </p>
+                  <% end %>
+               </li>
+               <li>
+                 <span>|</span>
+                 <p class="trade" style=""><%= link_to "Fale Conosco ", duvidasfrequentes_path, :class => "invite" %></p>
+               </li>
+               <li>
+                 <p class="sac"> (11) 2626-3489</p>
+               </li>
+             </ul>
+           </div>
            <div class="box_right">
              <% if user_signed_in? %>
                <div class="user">
@@ -109,25 +146,14 @@
                      </ul>
                    </div>
                  </li>
-                 <li>
-                   <p class="trade" style=""><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
-                 </li>
-                 <li>
-                   <p class="sac">(11) 2626-3489</p>
-                 </li>
+  
                </ul>
              </div>
            <% else %>
              <div class="user">
                <ul>
                  <li>
-                   <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> &nbsp;ou&nbsp; <%= link_to "Descubra seu estilo", wysquiz_path %></p>
-                 </li>
-                 <li>
-                   <p class="trade" style=""><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
-                 </li>
-                 <li>
-                   <p class="sac" style="">(11) 2626-3489</p>
+                   <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %>.olook_logo</p>
                  </li>
                </ul>
              </div>
@@ -140,32 +166,7 @@
                  <li class="search">
                  <%= render 'shared/search_bar' %>
                  </li>
-                 <li class="wishlist">
-                 <% if empty_wishlist? %>
-                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlist js-empty-wishlist-box", onclick: track_event("Wishlist","openWishlistFromMenu") %>
-                      <p class="sub js-sub-text">
-                        Você ainda não adicionou nenhum
-                        <br />
-                          produto a sua lista de favoritos.
-                      </p>
-                 <% elsif any_wished_product_has_discount? %>
-                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct discount", onclick: track_event("Wishlist","openWishlistFromMenu") %>
-                      <p class="sub full">
-                        Oba! Alguns dos seus produtos
-                        <br />
-                          favoritos estão com desconto!
-                        <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
-                      </p>
-                 <% else %>
-                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct js-full-wishlist-box", onclick: track_event("Wishlist","openWishlistFromMenu") %>
-                      <p class="sub js-sub-text">
-                        Você possui <span class="js-product-count"><%= wished_products_count %></span> produto(s)
-                        <br />
-                          na sua lista de favoritos.
-                        <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
-                      </p>
-                    <% end %>
-                 </li>
+
                  </ul>
                </div>
                <div class="new_sacola">

@@ -30,7 +30,7 @@ class RecommendationService
   #
   #
   def products(opts= {})
-    current_limit = limit = opts[:limit] || 5
+    current_limit = limit = opts[:limit] || 10
     products = []
 
     @profiles.each do |profile|
@@ -42,12 +42,12 @@ class RecommendationService
   end
 
   def full_looks(opts={})
-    current_limit = limit = opts[:limit] || 5
+    current_limit = limit = opts[:limit] || 10
     if opts[:hot_products]
 
       product_ids = WHITELISTED_SUBCATEGORIES.inject([]) do |arr, s|
         arr + Leaderboard.new(key: "roupa:#{s.parameterize}").rank(limit * 10, with_scores: true)
-      end.sort { |a,b| b.last <=> a.last }.first(limit * 10)
+      end.sort { |a,b| b.last <=> a.last }.first(limit * 15)
       if product_ids.size >= limit
         opts[:product_ids] = product_ids.map { |pid, count| pid }
       else

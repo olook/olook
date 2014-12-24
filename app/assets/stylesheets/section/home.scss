@@ -21,9 +21,9 @@ div#content {
 section#home {
   #banner {
     width:100%;
-    height:430px;
+    height:900px;
     margin-bottom: 20px;
-    .column {
+    .column, .columnBig {
       width:240px;
       float:left;
       height:auto !important;
@@ -59,6 +59,9 @@ section#home {
           letter-spacing: 2px;       
         }
       }
+    }
+    .columnBig{
+      width: 1920px;
     }
     .big {
       width:490px;
@@ -191,7 +194,6 @@ section#home {
     }
   }
   #week_highlights {
-    border-top:1px solid #d8b9b7;
     position:relative;
     padding-top:25px;
     height:auto !important;
@@ -217,17 +219,17 @@ section#home {
       }
     }
     #about {
-      width:482px;
+      width:320px;
       text-align: center;
       float:left;
-      margin:0 0 30px 0;
+      margin:0 15px 30px 0;
       img {
         width:100%;
         margin-bottom:10px;
       }
       h5 {
-        font-family: $arial;
-        font-size: 20px;
+        font-family: $verdana;
+        font-size: 17px;
         letter-spacing: 2px;
         display: block;
         padding:2px;
@@ -238,14 +240,17 @@ section#home {
           a{text-decoration: none !important;}
         }
         span {
+
+        width: 310px;
         margin-top: 11px;
         font-weight: normal;
-        font-family: Georgia;
-        font-size: 14px;
+        font-size: 11px;
         display: block;
         text-decoration: none;
-        letter-spacing: 2px;
         text-align: center;
+        font-weight: lighter;
+        margin: 0 auto !important;
+        margin-top: 11px !important;
         &:hover{color: $base_color;}
         }
       }
@@ -253,27 +258,25 @@ section#home {
       a{text-decoration: none !important;}
     }
     .favTip {
-      width:490px;
-      height: 447px;
+      width:320px;
       float:right;
-      background:image-url('home/favoritos_home.jpg') no-repeat top center;
+      background:image-url('home/favoritos_home.png') no-repeat top center;
       text-align: center;
       position: relative;
       .favTipLink{
         width: 100%;
         height: 75px;
         display: block;
-        padding-top: 389px;
-        margin-left: -23px !important;
+        padding-top: 268px !important;
       }
       h5 a{
-        width: 445px;
+        width: 320px;
         text-align: center;
         display: block;
         position: relative;
         bottom: 0;
-        font-family: $arial;
-        font-size: 20px;
+        font-family: $verdana;
+        font-size: 17px;
         letter-spacing: 2px;
         padding:2px;
         text-decoration: none;
@@ -281,17 +284,19 @@ section#home {
         color: #000 !important;
         text-transform: uppercase;
         margin-top: 1px;
-        margin-left: -225px !important;
+        margin-left: 0px !important;
         span {
+        width: 290px !important;
         margin-top: 11px;
         font-weight: normal;
-        font-family: Georgia;
-        font-size: 14px;
+        font-size: 11px;
         display: block;
         letter-spacing: 2px;
         text-align: center;
         text-decoration: none;
         text-transform: none;
+        margin: 0 auto !important;
+        margin-top: 11px !important;
         }
         &:hover{color: $base_color !important;}
       }
@@ -355,53 +360,36 @@ section#home {
   margin-top: 20px;
   font-family: $verdana;
   color: #321600;
-  border-top: 1px solid #d8b9b7;
-  padding-top: 50px;
+  height: 206px;
+
   ul.mail{
-    position: relative;
     z-index: 1;
-    height: 110px;
+    height: 206px;
     width: 100%;
-    height: 82px;
-    border: 2px solid #000;
+    background: image-url('home/bg_emkt.png') no-repeat;
+    margin: 0 auto;
+    position: relative;
+    margin-left: 16px;
     li{float: left; height: 83px;}
-    li.promo{
-      background-color: #000;
-      h2{
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-        width: 437px;
-        margin-top: 20px;
-        color: #fff;
-      }
-      p{
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        width: 435px;
-        margin-top: 10px;
-        color: $base_color;
-      }
-    }
     li.mail_bar{
       fieldset{
         display: block;
         width: 100px;
         float: left;
         .box_mail{
-          width: 260px;
-          height: 48px;
-          background-color: #cccccc;
-          color: #321600;
-          font-size: 11px;
-          font-family: $bt_font;
-          padding-left: 11px;
+          width: 205px;
+          height: 30px;
+          background-color: #eeeeee;
+          color: #a7a9ac;
+          font-size: 10px;
+          font-family: $verdana;
+          padding-left: 10px;
           letter-spacing: 1px;
-          margin-top: 19px;
+          margin-top: 109px;
           position: absolute;
-          left: 455px;
-          border: none;
+          left: 174px;
+          border: 1px solid #a7a9ac;
+          font-style: italic;
         }
       }
       fieldset.botao{
@@ -413,15 +401,15 @@ section#home {
         top: 20px;
         .bt_enviar{
           width: 103px;
-          height: 48px;
+          height: 32px;
           float: right;
           position: absolute;
           margin-top: -8px;
           border: none;
-          top: 7px;
+          top: 97px;
           color: #fff;
-          right: -28px;
-          font-size: 12px;
+          right: 307px;
+          font-size: 10px;
           background-color: $base_color;
           letter-spacing: 1px;
         }

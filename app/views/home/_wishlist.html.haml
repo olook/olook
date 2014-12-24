@@ -7,13 +7,13 @@
       = link_to image_tag(wishlist_images.last[:img]), product_path(wishlist_images.last[:product])
       %h5
         = link_to wishlist_path do
-          \// Meus Favoritos //
+          Meus Favoritos
           %span
             Seus queridinhos esperam por você
 - else
   .favTip
     %h5
       = link_to wishlist_path, :class => "favTipLink" do
-        \// Meus Favoritos //
+        Meus Favoritos
         %span
-          Separe aqui seus produtos favoritos
+          Separamos todas as peças que você mais gostou!
