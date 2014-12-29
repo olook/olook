@@ -1307,6 +1307,8 @@ home/bg-title-highlights.jpg: home/bg-title-highlights-824acab05bea450e815501696
 home/bg-title-highlights/index.jpg: home/bg-title-highlights-824acab05bea450e81550169671a5b44.jpg
 home/bg-warnings.jpg: home/bg-warnings-79c297d6b5ded4f4e916043d62a942f4.jpg
 home/bg-warnings/index.jpg: home/bg-warnings-79c297d6b5ded4f4e916043d62a942f4.jpg
+home/bg_emkt.png: home/bg_emkt-15be686cf70b1d46dc55b34c582efc42.png
+home/bg_emkt/index.png: home/bg_emkt-15be686cf70b1d46dc55b34c582efc42.png
 home/box_1.jpg: home/box_1-f1edd46bb8df4e6826c08ca393f1cac0.jpg
 home/box_1/index.jpg: home/box_1-f1edd46bb8df4e6826c08ca393f1cac0.jpg
 home/box_2.jpg: home/box_2-a8eced21b02e564936c068341b9ded69.jpg
@@ -1321,8 +1323,12 @@ home/categories_pink.png: home/categories_pink-dfd27695f70e9dac6090de4337c86789.
 home/categories_pink/index.png: home/categories_pink-dfd27695f70e9dac6090de4337c86789.png
 home/categories_title.png: home/categories_title-db63f7fdea97a9091dafe0586fba671c.png
 home/categories_title/index.png: home/categories_title-db63f7fdea97a9091dafe0586fba671c.png
+home/destaque_big.jpg: home/destaque_big-56de90fceefbf30320504675c25243b5.jpg
+home/destaque_big/index.jpg: home/destaque_big-56de90fceefbf30320504675c25243b5.jpg
 home/favoritos_home.jpg: home/favoritos_home-89d763dff942b670e5b9c826cceaa6d9.jpg
 home/favoritos_home/index.jpg: home/favoritos_home-89d763dff942b670e5b9c826cceaa6d9.jpg
+home/favoritos_home.png: home/favoritos_home-790f098f6257eb82cb31af9bc35de771.png
+home/favoritos_home/index.png: home/favoritos_home-790f098f6257eb82cb31af9bc35de771.png
 home/mkt_home.gif: home/mkt_home-a0a928618a2fea37029f29453185f3e2.gif
 home/mkt_home/index.gif: home/mkt_home-a0a928618a2fea37029f29453185f3e2.gif
 home/mkt_home.png: home/mkt_home-1df1a894802cc4a273eeacbec15e2500.png
