@@ -13,21 +13,21 @@
         %li.big
           = link_to image_tag("collections/sweet-pastel.jpg", alt: "Sweet Pastel", title: "Sweet Pastel"), collection_theme_path('candy-color'), onclick: track_event("Colecoes", "isabella_banner")
         %li.small
-          = link_to image_tag("collections/looks_casuais.jpg", alt: "Look Casual", title: "Look Casual"), collection_theme_path('casual'), onclick: track_event("Colecoes", "casual_banner")
+          = link_to image_tag("collections/looks_casuais.jpg", alt: "Look Casual", title: "Look Casual"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "casual_banner")
         %li.small
-          = link_to image_tag("collections/looks_noite.jpg", alt: "Look Noite", title: "Look Noite"), collection_theme_path('festa'), onclick: track_event("Colecoes", "festa_banner")
+          = link_to image_tag("collections/looks_noite.jpg", alt: "Look Noite", title: "Look Noite"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "festa_banner")
         %li.small.last
-          = link_to image_tag("collections/looks_trabalho.jpg", alt: "Trabalho", title: "Trabalho"), collection_theme_path('executivo'), onclick: track_event("Colecoes", "executivo_banner")
+          = link_to image_tag("collections/looks_trabalho.jpg", alt: "Trabalho", title: "Trabalho"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "executivo_banner")
         %li.medium
-          = link_to image_tag("collections/anima_print.jpg", alt: "Animal Fever", title: "Animal Fever"), collection_theme_path('animal-print'), onclick: track_event("Colecoes", "Animal_banner")
+          = link_to image_tag("collections/anima_print.jpg", alt: "Animal Fever", title: "Animal Fever"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "Animal_banner")
         %li.medium.last
-          = link_to image_tag("collections/IF.jpg", alt: "isabella fiorentino", title: "isabella fiorentino"), collection_theme_path('isabella-fiorentino'), onclick: track_event("Colecoes", "transparente_banner")
+          = link_to image_tag("collections/IF.jpg", alt: "isabella fiorentino", title: "isabella fiorentino"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "transparente_banner")
         %li.small
-          = link_to image_tag("collections/total-couro.jpg", alt: "total couro", title: "total couro"), collection_theme_path('total-couro'), onclick: track_event("Colecoes", "bizantino_banner")
+          = link_to image_tag("collections/total-couro.jpg", alt: "total couro", title: "total couro"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "bizantino_banner")
         %li.small
-          = link_to image_tag("collections/matelasse.jpg", alt: "Matelasse", title: "Matelasse"), "/busca?utf8=✓&q=matelasse", onclick: track_event("Colecoes", "matelasse_banner")
+          = link_to image_tag("collections/matelasse.jpg", alt: "Matelasse", title: "Matelasse"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "matelasse_banner")
         %li.small.last
-          = link_to image_tag("collections/grunge.jpg", alt: "grunge", title: "grunge"), collection_theme_path('grunge'), onclick: track_event("Colecoes", "grunge_banner")
+          = link_to image_tag("collections/grunge.jpg", alt: "grunge", title: "grunge"), collection_theme_path('anonovo'), onclick: track_event("Colecoes", "grunge_banner")
 
 - content_for :footer do
   = javascript_include_tag "collection_themes"
