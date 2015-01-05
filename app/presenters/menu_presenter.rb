@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
 
   def render_menu(mobile=false)
     @mobile = mobile
-    [newest, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
+    [newest, collection_themes, categories, brands, liquidation, stylist].join.html_safe
   end
 
   private
@@ -46,7 +46,7 @@ class MenuPresenter < BasePresenter
   end
 
   def collection_themes
-    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index", "collection_themes#show"], 'mega_menu/colecoes')
+    render_item("Coleções", "https://www.olook.com.br/colecoes/anonovo", "collection_themes", ["collection_themes#index", "collection_themes#show"], 'mega_menu/colecoes')
   end
 
   def categories
@@ -62,7 +62,7 @@ class MenuPresenter < BasePresenter
   end
 
   def bags
-    render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"], 'mega_menu/bolsas')
+     render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"], 'mega_menu/bolsas')
   end
 
   def accessories
