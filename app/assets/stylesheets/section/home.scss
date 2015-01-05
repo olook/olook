@@ -218,7 +218,7 @@ section#home {
         font-style: italic;
       }
     }
-    #about {
+    #about, .instagram {
       width:320px;
       text-align: center;
       float:left;
@@ -256,6 +256,13 @@ section#home {
       }
 
       a{text-decoration: none !important;}
+    }
+    .instagram{
+      width: 240px !important;
+      span{
+        width: 230px !important;
+      }
+
     }
     .favTip {
       width:320px;
@@ -306,7 +313,7 @@ section#home {
     .has_love {
       background: none;
       padding-top:0px;
-      width:505px;
+      width:400px;
       .fav_product {
         float:left;
         margin:0 5px;
@@ -316,7 +323,7 @@ section#home {
         float:left;
         position: relative;
         height:360px;
-        img {width:100%;}
+        img {width:86%;}
       }
       h5 {
         clear:both;

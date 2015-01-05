@@ -7,10 +7,19 @@
         ÚLTIMAS DO BLOG
         %span= post["subtitle"]
 
-  #about
-    = link_to post["link"], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post["link"]) do
-      = image_tag post["img_new_home"], title: "destaque semanal" if post["img_new_home"].present?
-      %h5
-        RESPONDA AO QUIZ
-        %span
-          Quer uma recomendação especial pra você? Responda nosso Style Quiz e receba dicas exclusivas para o seu estilo.
+  - if current_user
+    #about.instagram
+      .instagram_pictures
+        %iframe.snapwidget-widget{:allowtransparency => "true", :frameborder => "0", :scrolling => "no", :src => "http://snapwidget.com/in/?u=b2xvb2t8aW58MjQwfDF8MXx8bm98NXxub25lfG9uU3RhcnR8eWVzfG5v&ve=301214", :style => "border:none; overflow:hidden; width:320px; height:245px", :title => "Instagram Widget"}
+        %h5
+          INSTAGRAM
+          %span
+            Quer uma recomendação especial pra você? Responda nosso Style Quiz e receba dicas exclusivas para o seu estilo.
+  - else
+    #about
+      = link_to post["link"], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post["link"]) do
+        = image_tag post["img_new_home"], title: "destaque semanal" if post["img_new_home"].present?
+        %h5
+          RESPONDA AO QUIZ
+          %span
+            Quer uma recomendação especial pra você? Responda nosso Style Quiz e receba dicas exclusivas para o seu estilo.

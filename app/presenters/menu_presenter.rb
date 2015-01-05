@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
 
   def render_menu(mobile=false)
     @mobile = mobile
-    [newest, collection_themes, categories, brands, stylist, liquidation].join.html_safe
+    [newest, collection_themes, categories, brands, liquidation, stylist].join.html_safe
   end
 
   private
@@ -62,7 +62,7 @@ class MenuPresenter < BasePresenter
   end
 
   def accessories
-    render_item("Bolsas & Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"], 'mega_menu/acessorios')
+    render_item("Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"], 'mega_menu/acessorios')
   end
 
   def glasses
