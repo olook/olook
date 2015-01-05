@@ -4,33 +4,46 @@
 @import "new_structure/common/global_stuffs";
 
 .search_box{
-  position: relative;
+  position: absolute;
   clear:both;
   float:right;
-  input[type="submit"]{
+  right:0;
+  z-index:10001;
+  top:72px;
+  
+  .search_product{
+  float: left;
+  font-weight: 400;
+  width: 185px;
+  height: 25px;
+  line-height: 29px;
+  text-align: left;
+  padding-left: 11px;
+  padding-right:30px;
+  border: 1px solid #dfdfdf;
+  font-family: $verdana;
+  font-size: 10px;
+  font-style: italic !important;
+  }
+  
+  input.default[type="submit"]{
     position: absolute;
-    background: image-url('common/nav/sprite_header.png') -165px -147px;
-    width: 32px;
-    height: 28px;
-    left: 486px;
-    text-indent: 9999px;
+    display: block;
+    left: 200px;
     border:none;
     cursor: pointer;
-  }
-  .search_product{
-    float: left;
-    border: solid 1px #000;
-    font-family: $avenir;
-    font-size: 12px;
-    font-weight: 400;
-    width: 475px;
-    height: 35px;
-    line-height: 29px;
-    color: #000;
-    text-align: left;
-    padding-left: 10px;
-    padding-right: 40px;
-    text-transform: capitalize;
-    margin-right: 20px;
+    background: none;
+    text-indent: 0 !important;
+    font-family: $verdana;
+    font-size: 11px;
+    text-align: center;
+    width: 30px;
+    height: 25px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0px;
+    background: image-url('common/nav/magnifierT.png') no-repeat 0px 4px;
+    
   }
 }

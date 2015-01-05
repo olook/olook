@@ -153,26 +153,24 @@
              <div class="user">
                <ul>
                  <li>
-                   <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %>.olook_logo</p>
+                   <p class="new_login"><%= link_to "Faça Login", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %><span>|</span></p>
                  </li>
                </ul>
+
              </div>
+
              <div class="sign-in-dropdown close">
                <%= render "users/sessions/form_user" %>
              </div>
            <% end %>
+           <div class="new_sacola">
+             <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0} js-minicart_header" %>
+             <%= render 'shared/cart', :cart => @cart %>
+           </div>
              <div class="box_bottom">
-               <ul class="addons">
-                 <li class="search">
-                 <%= render 'shared/search_bar' %>
-                 </li>
+               <%= render 'shared/search_bar' %>
+               </div>
 
-                 </ul>
-               </div>
-               <div class="new_sacola">
-                 <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
-                 <%= render 'shared/cart', :cart => @cart %>
-               </div>
              </div>
              <div class="olook_logo">
                <h1><%= link_to 'Olook', root_path %></h1>
@@ -184,14 +182,9 @@
          <nav class="menu_new">
            <div class="content_new">
              <ul class="default_new">
-
-                   <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
-
+               <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
              </ul>
-             <div class="new_sacola">
-               <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0} js-minicart_header" %>
-               <%= render 'shared/cart', :cart => @cart %>
-             </div>
+
            </div>
          </nav>
        </div>

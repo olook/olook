@@ -10,6 +10,8 @@ class MenuPresenter < BasePresenter
       end
       out
     end
+    out += content_tag :span, ""
+    end
   end
 
   def render_item_with_label label, path, css_klass, hightlight_when
@@ -50,7 +52,7 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [clothes, shoes, accessories]
+    [clothes, shoes, bags, accessories]
   end
 
   def clothes
@@ -59,6 +61,10 @@ class MenuPresenter < BasePresenter
 
   def shoes
     render_item("Sapatos", h.catalog_path(category: 'sapato'), "categories", ["catalogs#show#sapato"], 'mega_menu/sapatos')
+  end
+
+  def bags
+     render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"], 'mega_menu/bolsas')
   end
 
   def accessories
