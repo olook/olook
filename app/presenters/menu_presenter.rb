@@ -21,7 +21,7 @@ class MenuPresenter < BasePresenter
 
   def render_menu(mobile=false)
     @mobile = mobile
-    [newest, collection_themes, categories, brands, liquidation, stylist].join.html_safe
+    [newest, collection_themes, categories, brands, liquidation, gift, stylist].join.html_safe
   end
 
   private
