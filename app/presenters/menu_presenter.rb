@@ -74,7 +74,7 @@ class MenuPresenter < BasePresenter
   end
 
   def gift
-    render_item("Presentes", h.gift_root_path, "gift",
+    render_item("Presentes", "http://www.olook.com.br/selecoes?lbl=ate-130&preco=70-130", "gift",
      [
       "gift/home#index",
       "gift/occasions#new",
