@@ -2,28 +2,30 @@
 @import 'new_structure/partials/facebook_footer';
 
 footer, .footer_checkout {
-  height:330px;
+  height:270px;
   clear:both;
   margin-top:60px;
   position: relative;
-  background-color: #000;
+  background-color: #3d3d3d;
   color: #fff !important;
 
   section {
     margin:0px auto;
     width:970px;
-    padding-top:40px;
     ul{
       width: 165px;
       float: left;
       font-family: $verdana;
       margin-right: 26px;
       height: 205px;
+
       &.atendimento{margin-left: 25px;width: 130px;}
 
       li{
-        font-size: 11px;
-        padding-top: 5px;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        padding-top: 2px;
         a{
           color: #fff;
           text-decoration: none;
@@ -32,7 +34,7 @@ footer, .footer_checkout {
         }
         &.title{
           text-transform: uppercase;
-          font-size: 13px;
+          font-size: 11px;
           margin-bottom: 20px;
           font-weight: bold;
         }
@@ -82,13 +84,12 @@ footer, .footer_checkout {
     }
     .about_olook{
       width: 990px;
-      background-color: #fff;
       color: #5c5c5c; 
       float: left;
       font-family: $verdana;
       font-size: 10px;
       text-align: center;
-      margin-top: 40px;
+      margin-top: 20px;
       margin-left: -10px;
       padding-top: 10px;
       margin-bottom: 10px;
@@ -97,139 +98,51 @@ footer, .footer_checkout {
   .newsletter{
     height: 45px;
     position: relative;
-    background-color: #1a1a1a;
-    width: 990px;
+    width: 470px;
     padding-top: 0;
-    .feedback, .denied{
-      width: 335px;
-      height: 37px;
-      background: image-url('common/sprite_modal_footer.png') no-repeat 6px -162px;
-      background-color: #bfd7bd;
-      border: 1px solid #81b47e;
-      position: absolute;
-      top: 42px;
-      right: 12px;
-      color: #000;
-      font-size: 11px;
-      font-family: $bt_font;
-      letter-spacing: 1px;
-      font-weight: normal;
-      padding-left: 40px;
-      p{
-        text-align: left;
-      }
-      span{
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 14px;
-      }
-      a{
-        font-size: 9px;
-        font-weight: bold;
-        text-decoration: underline;
-        color: #000;
-        display: block;
-        float: right;
-        margin-top: -18px;
-        margin-right: 45px;
-        &:hover{
-          color: $pink;
-        }
-      }
-    }
-    .denied{
-      background: image-url('common/sprite_modal_footer.png') no-repeat -122px 2px;
-      background-color: #ea8596;
-      border: 1px solid #e94762;
-      height: 23px;
-      padding-top: 4px;
-    }
-    .js-success, .js-error{
-      display: none;
-    }
-    ul.social {
-      width: 400px;
-      height: 30px;
-      padding: 0;
-      margin: 7px 10px 0 33px;
+    top: -71px;
+    margin: 0 auto;
+    ul.social{
       li{
-        position: relative;
-        a{
-          text-indent: 9999px;
-          display: block;
-          width: 100%;
-          height:27px;
-          position: absolute;
-          top: 0;
-          left: 0;
+        background: image-url('home/social_icons_sprite.png') no-repeat;
+        margin-right: 15px !important;
+      }
+      .logo{
+        width: 200px !important;
+        background-position: 0 0;
+        width: 43px;
+        height: 43px;
+      }
+      .icon-instagram{
+        width: 43px;
+        height: 43px;
+        background-position: -254px 0px !important;
+        &:hover{
+          background-position: -254px -110px !important;
         }
       }
-      li.logo{
-        float: left;
-        width: 240px;
-        margin-right: 6px;
-      }
-      li.icon, li.icon-{
-        float: left;
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-        border: 1px solid #fff;
-      }
-    }
-    ul.mail{
-      width: 465px;
-      height: 30px;
-      margin-right: 0;
-      margin-top: 14px;
-      margin-left: 33px;
-      p{
-        font-size: 13px;
-        font-family: $bt_font;
-        letter-spacing: 1px;
-        color: #cccccc;
-        float: left;
-        margin-right: 5px;
-        span{
-          color: $base_color;
-          font-weight: 600;
-          font-size: 14px;
-          font-weight: bold;
+      .icon-facebook{
+        width: 43px;
+        height: 43px;
+        background-position: -204px 0px !important;
+        &:hover{
+          background-position: -204px -110px !important;
         }
       }
-      fieldset{
-        display: block;
-        width: 100px;
-        float: left;
-        .box_mail{
-          width: 205px;
-          height: 23px;
-          background-color: #1a1a1a;
-          color: #cccccc;
-          font-size: 10px;
-          font-family: $bt_font;
-          border: 1px solid #cccccc;
-          padding-left: 10px;
-          letter-spacing: 1px;
-          margin-top: -4px;
-          position: absolute;
+      .icon-youtube {
+        width: 43px;
+        height: 43px;
+        background-position: -379px 0px !important;
+        &:hover{
+          background-position: -379px -110px !important;
         }
       }
-      fieldset.botao{
-        width: 30px;
-        height:30px;
-        border: none;
-        .bt_enviar{
-          background: image-url('common/nav/sprite_header.png') no-repeat 0 -275px;
-          width: 26px;
-          height: 26px;
-          text-indent: 9999px;
-          float: right;
-          position: absolute;
-          margin-top: -4px;
-          border: none;
-          top: 13px;
-          right: 15px;
+      .icon-twitter{
+        width: 43px;
+        height: 43px;
+        background-position: -318px 0px !important;
+        &:hover{
+          background-position: -318px -110px !important;
         }
       }
     }
@@ -242,6 +155,7 @@ footer.footer_checkout{
   width: 990px !important;
   margin: 0 auto;
   height: 230px;
+
   section{
     ul{float: left;margin-top: 0 !important;height: 160px;
       &.payment{margin-left: 0;}
@@ -250,51 +164,60 @@ footer.footer_checkout{
 }
 .mercado_pago{display: none;}
 
-@font-face {
-  font-family: 'icomoon';
-  src: font-url('icon/icomoon.eot?-twdbeg');
-  src: font-url('icon/icomoon.eot?#iefix-twdbeg') format('embedded-opentype'),
-    font-url('icon/icomoon.woff?-twdbeg') format('woff'),
-    font-url('icon/icomoon.ttf?-twdbeg') format('truetype'),
-    font-url('icon/icomoon.svg?-twdbeg#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-  font-family: 'icomoon';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+ul.social{
+  height: 45px;
+  width: 470px;
+  li{
+    background: image-url('home/social_icons_sprite.png') no-repeat 0 -275px;
     float: left;
-    width: 22px;
-    height: 22px;
-    margin-right: 5px;
-    font-size: 19px;
-    color: #cccccc;
-    margin-top: 2px;
-
+    margin-right: 15px !important;
+    a{
+      display: block;
+      width: 43px;
+      height: 43px;
+      text-indent: -9999px;
+    }
+  }
+  .logo{
+    width: 200px !important;
+    background-position: 0 0;
+    width: 43px;
+    height: 43px;
+  }
+  .icon-instagram{
+    width: 43px;
+    height: 43px;
+    background-position: -254px 0px !important;
+    &:hover{
+      background-position: -254px -110px !important;
+    }
+  }
+  .icon-facebook{
+    width: 43px;
+    height: 43px;
+    background-position: -204px 0px !important;
+    &:hover{
+      background-position: -204px -110px !important;
+    }
+  }
+  .icon-youtube {
+    width: 43px;
+    height: 43px;
+    background-position: -379px 0px !important;
+    &:hover{
+      background-position: -379px -110px !important;
+    }
+  }
+  .icon-twitter{
+    width: 43px;
+    height: 43px;
+    background-position: -318px 0px !important;
+    &:hover{
+      background-position: -318px -110px !important;
+    }
+  }
 }
 
-.icon-instagram:before {
-  content: "\e602";
-}
-.icon-facebook:before {
-  content: "\e607";
-}
-.icon-youtube:before {
-  content: "\e60b";
-}
-.icon-twitter:before {
-  content: "\e609";
-}
 
 
   

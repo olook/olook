@@ -5,12 +5,11 @@ class MenuPresenter < BasePresenter
    #+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : "")
     h.content_tag(:li, :class => css_klass) do
       out = h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+      out += h.content_tag :span, "."
       if mega_menu_template && !@mobile
         out += h.render mega_menu_template
       end
       out
-    end
-    out += content_tag :span, ""
     end
   end
 
@@ -36,7 +35,7 @@ class MenuPresenter < BasePresenter
   end
 
   def stylist
-    render_item("BLOG", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'], 'mega_menu/blog')
+    render_item("| BLOG", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'], 'mega_menu/blog')
   end
 
   def my_friends

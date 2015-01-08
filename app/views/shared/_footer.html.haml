@@ -1,41 +1,15 @@
 %footer
   %section.newsletter
-    .feedback.js-success.js-footerbox
-      %p
-        Enviamos para seu e-mail o vale de 
-        %span
-          R$30,00 GRÁTIS!
-        %br
-          Acesse seu e-mail agora e aproveite!
-        =link_to "Vide Regras", "/termos", :class => "regras"
-    .denied.js-error.js-footerbox
-      %p
-        Oops! Verificamos que seu e-mail já está cadastrado.
     %ul.social
       %li.logo
-        =image_tag("footer/olook_logo.png")
       %li.icon-facebook
         =link_to "Facebook", "http://facebook.com/olook", :alt => "Facebook"
-      %li.icon-twitter
-        =link_to "Twitter", "http://twitter.com/olook", :alt => "Twitter"
       %li.icon-instagram
         =link_to "Instagram", "http://instagram.com/olook", :alt => "Instagram"
+      %li.icon-twitter
+        =link_to "Twitter", "http://twitter.com/olook", :alt => "Twitter"
       %li.icon-youtube
         =link_to "Youtube", "http://www.youtube.com/user/olookfashion", :alt => "Youtube"
-    - unless user_signed_in?
-      %ul.mail
-        %p
-          Nova por aqui? 
-          %span
-            R$30 GRÁTIS 
-          agora
-        %fieldset
-          =text_field_tag :email, "", :class => "box_mail js-newsletter js-footerbox", :default_value => "Digite aqui seu e-mail"
-        %fieldset.botao
-          =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-footerbox"
-      - content_for :footer do
-        :javascript
-          log_event('view', 'newsletter-footer');
   %section
     %ul.atendimento
       %li.title

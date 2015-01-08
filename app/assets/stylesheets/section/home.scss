@@ -61,7 +61,7 @@ section#home {
       }
     }
     .columnBig{
-      width: 1920px;
+      width: 1920px !important;
     }
     .big {
       width:490px;
@@ -267,7 +267,7 @@ section#home {
     .favTip {
       width:320px;
       float:right;
-      background:image-url('home/favoritos_home.png') no-repeat top center;
+      background:image-url('home/highlight1.jpg') no-repeat top center;
       text-align: center;
       position: relative;
       .favTipLink{
@@ -312,8 +312,8 @@ section#home {
     }
     .has_love {
       background: none;
-      padding-top:0px;
-      width:400px;
+      padding-top:47px;
+      width:320px;
       .fav_product {
         float:left;
         margin:0 5px;
@@ -327,6 +327,10 @@ section#home {
       }
       h5 {
         clear:both;
+        margin-left: -175px !important;
+        a{
+          padding: 29px 0 10px 0 !important;
+        }
       }
     }
   }

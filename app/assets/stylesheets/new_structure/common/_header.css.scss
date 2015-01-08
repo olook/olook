@@ -80,7 +80,7 @@ header#new_header{border-top: 6px black solid;
 							&:hover{color: $base_color;font-weight: 700;}
 						}
 						a.wishlistHasProduct {
-							background: image-url('common/nav/sprite_header.png') no-repeat 11px -363px;
+							background: image-url('common/nav/sprite_header.png') no-repeat 11px -338px;
 						}
 						a.selecionado {
 							background-color: #FFF;
@@ -103,7 +103,7 @@ header#new_header{border-top: 6px black solid;
 						}
 						a.discount{
 							color: $base_color;
-							background-position: -153px -313px;
+							background-position: 11px -338px;
 						}
 						p.sub{
 							font-size: 11px;
@@ -138,6 +138,11 @@ header#new_header{border-top: 6px black solid;
 				position:relative;
 				width: 385px;
 				height: 30px;
+				color: #000;
+				font-family: $verdana;
+				font-size: 8px !important;
+				line-height: 18px;
+				font-weight: bold;
 				p{float: right;}
 				.new_login{
 					color: #000;
@@ -164,7 +169,8 @@ header#new_header{border-top: 6px black solid;
 				ul {
 					margin-right: 98px;
 					float: right;
-						li {position: relative;color: #282828;font-size: 10px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+					margin-top: 1px;
+						li {text-transform:uppercase; position: relative;color: #282828;font-size: 8px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
 							&.username{border-right:1px solid #000;height: 15px;padding-right: 8px; background: #FFF;}
 							&.first{height: 15px;}
 							&.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
@@ -172,7 +178,6 @@ header#new_header{border-top: 6px black solid;
 								a{color:$base_color;line-height:17px;}
 						 }
 							&.submenu{padding-right: 5px;
-								border-right: 1px solid #000;
 								height: 15px;
 							}
 						a {
@@ -185,16 +190,15 @@ header#new_header{border-top: 6px black solid;
 								text-align: left;
 								width: auto;
 								min-width: 70px;
-								height: 17px;
-								margin: -6px 0 0;
-								padding: 5px 0px 5px 8px;
+								height: 15px;
+								margin: -6px 0px 0px 5px;
+								padding: 5px 0px 0px 0px;
 								display: inline-block;
-								border: 1px #FFF solid;
 								float: none;
 								line-height:17px;
-
-								&:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
-								&:hover {color: #ef3742;}
+								&:hover {color: #ef3742;
+									border-bottom: 3px solid #000;
+								}
 							}
 						}  
 						div.my_account {
@@ -202,14 +206,12 @@ header#new_header{border-top: 6px black solid;
 							background: #FFF;
 							padding: 5px 0;
 							display: none;
-							top: 17px;
+							top: 21px;
 							left: -10px;
 							z-index: 1000;
-							border-left: 1px #CCC solid;
-							border-right: 1px #CCC solid;
-							border-bottom: 1px #CCC solid;
-							box-shadow:0px 4px 5px #CCC;
+							border: 1px solid #000;
 							width: 100px !important;
+							z-index: 10004;
 							ul {
 								margin: 0 0 0 5px;
 								li {margin-top:8px;text-align: left;width: 100%;display: block;clear: both;width: 90px !important;
@@ -323,7 +325,7 @@ header#new_header{border-top: 6px black solid;
 #cart_summary{
 	position:absolute;
 	display:none;
-	top:-55px;
+	top:-61px;
 	right:1px;
 	z-index:9999;
 	width:280px;
@@ -437,7 +439,7 @@ header#new_header{border-top: 6px black solid;
 	float:right;
 	right:0;
 	z-index:10001;
-	top:72px;
+	top:87px;
 	.search_product{
 	float: left;
 	font-weight: 400;
@@ -913,17 +915,24 @@ nav.menu_new{
 			display: inline;
 			float: left;
 			height: 30px;
+			span{
+				display: block;
+				float: left;
+				margin-right: 12px;
+			}
 			&.liquidation{border-right: none;}
 			a{font-weight: lighter;
 				border-bottom: 0;
 				display: block;
 				font-family: $verdana;
-				height: 28px;
+				height: 24px;
 				text-decoration: none;
 				color: #000;
 				padding:0;
 				letter-spacing: 0.15em;
-				margin-right: 20px;
+				margin-right: 12px;
+				display: block;
+				float: left;
 				&:hover{
 					border-bottom: 3px solid #000;
 				}
@@ -935,12 +944,15 @@ nav.menu_new{
 				z-index: 99;
 				position: relative;
 			}
+			h5 a:hover{ border: none !important;}
 		}
 	}
-	li.olooklet{padding-right: 0 !important;}
-	li.olooklet a{background: none;}
+	li.olooklet{padding-right: 0 !important;margin-right: 1px;}
+	li.olooklet a{background: none; font-weight: bold; color: $pink;}
 	li.showroom a{margin-left: 1px;}
 	li.brands, .gift{position: relative;}
+	li.stylist span ,li.olooklet span {display: none;}
+	nav.menu_new .submenu li a { height: 13px !important; display: block;}
 }
 
 body.mobile .default_new a,
