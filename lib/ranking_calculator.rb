@@ -109,7 +109,7 @@ class RankingCalculator
 
     def create_temporary_table
       sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
-        select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
+        select('products.id, IF(products.launch_date = NULL, 365, DATEDIFF(CURDATE(),products.launch_date)) age,
                products.category, sum(variants.inventory) sum_inventory').to_sql
 
       Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")      
