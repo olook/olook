@@ -18,29 +18,25 @@
   = render "shared/data_layer/home"
 
 %section#home
-
   #banner
-    .columnBig
-      - if @highlights[:left] && @highlights[:left].left_image
-        = link_to @highlights[:left].link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "left") do
-          .highlight{data: {product: @highlights[:left].left_image.url(:site), alt: @highlights[:left].alt_text}}
-          %h2
-            = @highlights[:left].title
-            %span= @highlights[:left].subtitle
-    .column.big
-      - if @highlights[:center] && @highlights[:center].image
-        = link_to @highlights[:center].link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "center") do
-          .highlight{data: {product: @highlights[:center].image.url(:site), alt: @highlights[:center].alt_text}}
-          %h2 
-            = @highlights[:center].title
-            %span= @highlights[:center].subtitle
-    .column
-      - if @highlights[:right] && @highlights[:right].right_image
-        = link_to @highlights[:right].link, onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome", "ClickHighlight", "right") do
-          .highlight{data: {product: @highlights[:right].right_image.url(:site), alt: @highlights[:right].alt_text}}
-          %h2 
-            = @highlights[:right].title
-            %span= @highlights[:right].subtitle      
+    %ul
+      %li.big
+        =link_to "#" do 
+          =image_tag('home/fullbannerhome.jpg')
+      %li.mini.first
+        =link_to "#" do 
+          =image_tag('home/Newh1.jpg')
+          %p
+            SANDÁLIA
+            %Span
+              Sandália em camurça sintética com tiras no cabedal. Fechamento lateral por três fivelas e cinco opções de ajuste em cada uma delas. 
+      %li.mini
+        =link_to "#" do 
+          =image_tag('home/Newh2.jpg')
+          %p
+            ANIMAL PRINT
+            %Span
+              Já é um clássico. A estampa de onça ainda é a preferida das brasileiras, mas zebra e onça chegam com tudo nessa temporada. 
 
   - if show_unlogged_home?
     = cache "home/unlogged_page", expire_in: 30.minutes do
