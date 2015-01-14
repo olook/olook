@@ -36,7 +36,7 @@ section#home {
           &:hover{
             color: $pink;
           }
-          p{
+          h2{
             font-size: 17px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -58,11 +58,11 @@ section#home {
         margin-left: -450px;
       }
       li.mini{
-        width: 490px;
+        width: 49%;
         margin-top: 15px;
       }
       .first{
-        margin-right: 10px;
+        margin-right: 19px;
       }
     }
   }

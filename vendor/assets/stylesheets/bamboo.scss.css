@@ -1,5 +1,10 @@
 /*	Bamboo
 =========================== */
+li{list-style-type: none !important;
+span{
+	display: none;
+}
+}
 .overflow { overflow: auto; -webkit-overflow-scrolling: touch; }
 .loading { background-image: url(../images/loader.gif); background-position: center; background-repeat: no-repeat; background-size: 32px; }
 .loading.subview { min-height: 300px; }
@@ -19,12 +24,12 @@ header.primary .box_right {float:right;}
 /*	Navigation
 =========================== */
 .navigation { background: #232323; color: #cbc4c5; z-index: 1; width: 100%; position: absolute; top: 0; right: 0; bottom: 0; left: 0;height:600px;}
-.navigation ul { list-style: none; padding: 0; margin: 0; width: 265px; position: relative; }
+.navigation ul {margin-top: 12px !important; list-style: none; padding: 0; margin: 0; width: 265px; position: relative; }
 .navigation li { font-size: 18px; position: relative; font-weight: 100; border-bottom: solid 1px rgba(0,0,0,0.1); border-top: solid 1px rgba(255,255,255,0.05); }
 .navigation ul li a ,
 .navigation ul li a:hover ,
 .navigation ul li a:visited ,
-.navigation ul li a:focus { font-family: "Trebuchet Ms";text-decoration: none; color: #cbc4c5; background-color: transparent; display: block; padding: 1px 14px 1px 14px; line-height: 30px;font-size: 12px; font-family: 'Trebuchet Ms';text-transform: uppercase;letter-spacing: 2px;font-weight: lighter; }
+.navigation ul li a:focus {list-style-type: none; font-family: "Trebuchet Ms";text-decoration: none; color: #cbc4c5; background-color: transparent; display: block; padding: 1px 14px 1px 14px; line-height: 30px;font-size: 12px; font-family: 'Trebuchet Ms';text-transform: uppercase;letter-spacing: 2px;font-weight: lighter; }
 .navigation ul li.leave_acc {width:89%;margin-top:20px;}
 .navigation ul li.leave_acc a {width: 100%;background: red;}
 .navigation ul li.leave_acc a:hover {color:#FFF !important;}
@@ -32,3 +37,18 @@ header.primary .box_right {float:right;}
 /*	Presentation styles
 =========================== */
 #content { padding: 5px 20px; }
+.search_box {
+position: absolute;
+clear: both;
+float: right;
+right: 0;
+z-index: 10001;
+top: 0px;
+left: 0px;
+}
+.search_product{
+	width: 224px !important;
+}
+.search_box input.default[type="submit"]{
+	left: 230px;
+}
