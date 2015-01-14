@@ -1,23 +1,15 @@
-#looks.looks_unlogged
-  %h3 Dicas Olook
-  .mylook
-    .look
-      - if @showroom_presenter.look( hot_products: true ).present?
-        = link_to product_seo_path(@showroom_presenter.look.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}") do
-          %span.look_thumbnail{data: { product: @showroom_presenter.look.front_picture.image_url, backside_picture: @showroom_presenter.look.full_look_picture.image_url }}
-  #see_too.js-unlogged-carousel
-    %h4
-      Veja Também
-    %ul#carousel.elastislide-list
-      - @showroom_presenter.products.each do |product|
-        %li{data: {id: product.id}}
-          =link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_path(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
-          %span= number_to_currency(@showroom_presenter.retail_price_with_discount(product))
-          = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
-  = link_to image_tag("home/banner_stylequiz.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
-:javascript
-  log_event('view', 'unlogged_looks');
-  log_event('view', 'unlogged_products');
+#see_too.js-logged-carousel
+  %h4
+    Veja Também
+  %ul#carousel.elastislide-list
+    - @showroom_presenter.products.each do |product|
+      %li{data: {id: product.id}}
+        = link_to image_tag(product.front_picture.try(:image_url, :main)), product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
+        %span= number_to_currency(@showroom_presenter.retail_price_with_discount(product))
+        = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
+/ :javascript
+/   log_event('view', 'unlogged_looks');
+/   log_event('view', 'unlogged_products');
 
 %section{class: "emkt_box"}
   %ul.mail
