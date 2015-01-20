@@ -33,13 +33,12 @@ header.checkout{
           line-height: 18px;
           border-left: 1px #000 solid;
           border-right: 1px #000 solid;
-          height: 15px;
           a{text-decoration: none;color: #000;
             &:hover{color: $pink;}
           }
         }
 
-        p.trade{font-size:8px;color:#000;line-height:18px;margin-left: 10px;
+        p.trade{font-size:8px;color:#000;line-height:18px;margin-left: 10px;padding-top: 1px;
           padding-right: 10px;
           border-right: 1px solid #000;
           a{text-decoration:none;color:#000;
@@ -64,20 +63,16 @@ header.checkout{
           float: right;
           font-size: 8px !important;
             li {font-size: 8px !important;position: relative;color: #282828;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
-              &.user{height: 15px;padding-top: 3px;}
-              &.username{font-size: 8px !important;border-right:1px solid #000;height: 15px;padding-right: 8px; background: #FFF;}
-              &.first{font-size: 8px !important;height: 15px;}
-              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
+              &.user{padding-top: 5px;}
+              &.username{font-size: 8px !important;border-right:1px solid #000;padding-right: 8px; background: #FFF;}
+              &.first{font-size: 8px !important;}
               &.br{border-right:solid 1px #000;padding-right:8px;
                 a{color:$base_color;line-height:17px;}
              }
               &.submenu{font-size: 8px !important;padding-right: 5px;
-                border-right: 1px solid #000;
                 height: 18px;
               }
             a {
-
-              color: #282828;
               text-decoration: none;
               &#info_user {color:#000;padding-right: 10px;}
               &#account {
@@ -87,14 +82,12 @@ header.checkout{
                 min-width: 70px;
                 height: 17px;
                 margin: -6px 0 0;
-                padding: 7px 0px 5px 8px;
+                padding: 7px 0px 0px 5px;
                 display: inline-block;
-                border: 1px #FFF solid;
                 float: none;
                 line-height:17px;
 
-                &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
-                &:hover {color: #ef3742;}
+                &:hover, &.hover {border-bottom: 3px solid #000;}
               }
             }  
             div.my_account {
@@ -105,10 +98,7 @@ header.checkout{
               top: 17px;
               left: -10px;
               z-index: 1000;
-              border-left: 1px #CCC solid;
-              border-right: 1px #CCC solid;
-              border-bottom: 1px #CCC solid;
-              box-shadow:0px 4px 5px #CCC;
+              border: 1px solid #000;
               width: 100px !important;
               ul {
                 margin: 0 0 0 5px;

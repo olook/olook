@@ -709,11 +709,10 @@ body {
               float: none;
               line-height:17px;
 
-              &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
               &:hover {color: #ef3742;}
             }
           }
-          div.my_account {position: absolute;background: #FFF;padding: 5px 0;display: none;top: 17px;left: 0;z-index: 1000;border-left: 1px #CCC solid;border-right: 1px #CCC solid;border-bottom: 1px #CCC solid;box-shadow:0px 4px 5px #CCC;
+          div.my_account {position: absolute;background: #FFF;padding: 5px 0;display: none;top: 25px !important;left: 0;z-index: 1000;border-left: 1px #CCC solid;border-right: 1px #CCC solid;border-bottom: 1px #CCC solid;box-shadow:0px 4px 5px #CCC;
             ul {
               margin: 0 0 0 5px;
               li {margin-top:8px;text-align: left;width: 100%;display: block;clear: both;width: 90px !important;
