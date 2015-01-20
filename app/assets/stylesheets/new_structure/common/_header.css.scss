@@ -438,7 +438,6 @@ header#new_header{border-top: 6px black solid;
 	float:right;
 	right:0;
 	z-index:10001;
-	margin-top: -40px;
 	.search_product{
 	float: left;
 	font-weight: 400;
@@ -903,7 +902,7 @@ nav.menu_new{
 	padding-left: 7px;
 	* {line-height: 30px;}
 	.default_new{
-		width: 990px;
+		width: 760px;
 		margin: 0 auto;
 		position:relative;
 		display: inline-block;
