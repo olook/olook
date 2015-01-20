@@ -154,10 +154,10 @@ footer, .footer_checkout {
 footer.footer_checkout{
   width: 990px !important;
   margin: 0 auto;
-  height: 230px;
+  height: 200px;
 
   section{
-    ul{float: left;margin-top: 0 !important;height: 160px;
+    ul{float: left;margin-top: 32px !important;height: 160px;
       &.payment{margin-left: 0;}
     }
   }

@@ -6,10 +6,10 @@ header.checkout{
    a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;margin: -3px 0 0;}
   }
   p{
-    &.security{margin:8px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
-    &.contact{float:right;color:#6D6E71;font-size:11px;margin-top:47px;
-      span{float:left;font-size:11px;margin:0 -43px 0 0;width:200px;}
-      a{color:#6D6E71;font-size:11px;margin-left:5px;}
+    &.security{margin:8px 0 0 60px;color:#91C78C;font-family:$verdana;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
+    &.contact{float:right;color:#6D6E71;font-size:8px;margin-top:47px;
+      span{float:left;font-size:8px;margin:0 -43px 0 0;width:200px;}
+      a{color:#6D6E71;font-size:8px;margin-left:5px;}
     }
   }
   #session {
@@ -21,13 +21,13 @@ header.checkout{
         margin: -41px 10px 0 0;
         position:relative;
         width: 450px;
-        font-family: $johnston;
+        font-family: $verdana;
         p{float: right;}
         .new_login{
           width: 164px;
           height: 18px;
-          font-family: $johnston;
-          font-size: 11px;
+          font-family: $verdana;
+          font-size: 8px;
           display: block;
           text-align: center;
           line-height: 18px;
@@ -39,7 +39,7 @@ header.checkout{
           }
         }
 
-        p.trade{font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+        p.trade{font-size:8px;color:#000;line-height:18px;margin-left: 10px;
           padding-right: 10px;
           border-right: 1px solid #000;
           a{text-decoration:none;color:#000;
@@ -48,25 +48,30 @@ header.checkout{
         }
         p.sac{
           color: #000;
-          font-family: $johnston;
-          font-size: 11px;
+          font-family: $verdana;
+          font-size: 8px;
           line-height: 18px;
           margin-left:8px;
 
         }
       /*------ USER MENU ----*/
       div.user {margin: 0;float: right;
+        font-family: $verdana !important;
+        font-size: 8px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
         ul {
           float: right;
-            li {position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+          font-size: 8px !important;
+            li {font-size: 8px !important;position: relative;color: #282828;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
               &.user{height: 15px;padding-top: 3px;}
-              &.username{border-right:1px solid #000;height: 15px;padding-right: 8px; background: #FFF;}
-              &.first{height: 15px;}
+              &.username{font-size: 8px !important;border-right:1px solid #000;height: 15px;padding-right: 8px; background: #FFF;}
+              &.first{font-size: 8px !important;height: 15px;}
               &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
               &.br{border-right:solid 1px #000;padding-right:8px;
                 a{color:$base_color;line-height:17px;}
              }
-              &.submenu{padding-right: 5px;
+              &.submenu{font-size: 8px !important;padding-right: 5px;
                 border-right: 1px solid #000;
                 height: 18px;
               }
