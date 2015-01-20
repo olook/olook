@@ -434,12 +434,11 @@ header#new_header{border-top: 6px black solid;
 -----------------------*/
 
 .search_box{
-	position: absolute;
 	clear:both;
 	float:right;
 	right:0;
 	z-index:10001;
-	top:87px;
+	margin-top: -40px;
 	.search_product{
 	float: left;
 	font-weight: 400;
@@ -458,7 +457,7 @@ header#new_header{border-top: 6px black solid;
 	input.default[type="submit"]{
 		position: absolute;
 		display: block;
-		left: 200px;
+		left: 1080px;
 		border:none;
 		cursor: pointer;
 		background: none;
