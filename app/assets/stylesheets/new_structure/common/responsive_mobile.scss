@@ -429,7 +429,9 @@
     }
 		#banner {
 			width:100%;
-			height:250px !important;
+			height:240px !important;
+      margin-bottom: 0 !important;
+
 			.mini {
 				width:50% !important;
 				float:left !important;
@@ -472,21 +474,21 @@
 				img {
 					width:100%;
 				}
-				h2 {
-					position: absolute;top: 245px;background: rgba(255,255,255,0.7);padding: 11px 0 !important;font-size: 15px !important;
-				}
 
 			}
+      ul li a h2{
+        font-size: 14px !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: bold;
+        margin-top: 8px !important;
+      }
 		}
 		#looks {
 			display: block !important;
 			.mylook {
 				height:193px !important;
 				min-height:143px !important;
-			}
-			h3 {
-				background: #000 !important;
-				margin-top:20px !important;
 			}
 			h3 a {display: none !important;}
 			.look {
@@ -498,33 +500,40 @@
           height:100%;
 				}
 			}
-      #see_too {
-        width:100% !important;
-        float:left !important;
-        height:228px !important;
-        margin-top:30px !important;
-        ul#carousel li {
-          min-height: 172px !important;
-          max-height: 172px;
-          width:28% !important;
-          padding: 5px !important;
-          .seeMore {
-            display: none !important;
-          }
+		} 
+    #see_too {
+      width:100% !important;
+      float:left !important;
+      height:260px !important;
+      margin-top:10px !important;
+      ul#carousel li {
+        min-height: 188px !important;
+        max-height: 188px;
+        width:28% !important;
+        padding: 5px !important;
+        p{
+          display: none;
         }
-        ul#carousel {
-          height:188px !important;
-          min-height:188px !important;
-        }
-        ul#carousel li img {
-          width:100% !important;
-          height: auto !important;
-        }
-        .elastislide-wrapper {
-          background: none;
+        .seeMore {
+          display: none !important;
         }
       }
-		} 
+      ul#carousel {
+        height:188px !important;
+        min-height:188px !important;
+      }
+      ul#carousel li img {
+        width:100% !important;
+        height: auto !important;
+      }
+      .elastislide-wrapper {
+        background: none;
+      }
+      ul#carousel li span{
+        font-size: 10px !important;
+      }
+    }
+
 
     /* CATALOG */
 
@@ -842,15 +851,16 @@
     .newsletter {
       width:100% !important;
       ul {
-        width:100% !important;
-        margin: 5px 10px 0 10px !important;
+        width: 61% !important;
+        margin-left: 80px;
+        margin-top: 10px;
       }
     }
   }
 
   footer .newsletter ul.social li.logo, 
   .footer_checkout .newsletter ul.social li.logo {
-    width:200px !important;
+    display: none;
     img {
       width:100% !important;
     }
