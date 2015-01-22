@@ -113,7 +113,7 @@ footer, .footer_checkout {
         width: 43px;
         height: 43px;
       }
-      .icon-instagram{
+      .instagram{
         width: 43px;
         height: 43px;
         background-position: -254px 0px !important;
@@ -121,7 +121,7 @@ footer, .footer_checkout {
           background-position: -254px -110px !important;
         }
       }
-      .icon-facebook{
+      .facebook{
         width: 43px;
         height: 43px;
         background-position: -204px 0px !important;
@@ -129,7 +129,7 @@ footer, .footer_checkout {
           background-position: -204px -110px !important;
         }
       }
-      .icon-youtube {
+      .youtube {
         width: 43px;
         height: 43px;
         background-position: -379px 0px !important;
@@ -137,7 +137,7 @@ footer, .footer_checkout {
           background-position: -379px -110px !important;
         }
       }
-      .icon-twitter{
+      .twitter{
         width: 43px;
         height: 43px;
         background-position: -318px 0px !important;
@@ -218,6 +218,51 @@ ul.social{
   }
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src: font-url('icon/icomoon.eot?-twdbeg');
+  src: font-url('icon/icomoon.eot?#iefix-twdbeg') format('embedded-opentype'),
+    font-url('icon/icomoon.woff?-twdbeg') format('woff'),
+    font-url('icon/icomoon.ttf?-twdbeg') format('truetype'),
+    font-url('icon/icomoon.svg?-twdbeg#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    float: left;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    font-size: 19px;
+    color: #cccccc;
+    margin-top: 2px;
+
+}
+
+.icon-instagram:before {
+  content: "\e602";
+}
+.icon-facebook:before {
+  content: "\e607";
+}
+.icon-youtube:before {
+  content: "\e60b";
+}
+.icon-twitter:before {
+  content: "\e609";
+}
 
 
   

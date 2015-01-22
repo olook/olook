@@ -206,6 +206,8 @@
     #collection_theme_content {
       width:100%;
       #home_collections {
+        height: 1250px;
+        margin-bottom: 20px;
         ul {
           width:100%;
         }
@@ -409,6 +411,7 @@
       .product-info {
         margin:0 0 0 10px;
         width:96%; 
+        min-height: 625px;
         input[type="submit"].add_product {
           width:100%;
         }
@@ -623,6 +626,7 @@
         width: 100%;
       }
       #result {
+        margin-bottom: 80px;
         section.filters {
           width: auto;
           margin-left:13px;
