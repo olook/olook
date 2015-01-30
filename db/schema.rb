@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141013165227) do
+ActiveRecord::Schema.define(:version => 20150130021215) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -606,8 +606,8 @@ ActiveRecord::Schema.define(:version => 20141013165227) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "title"
     t.string   "subtitle"
     t.string   "alt_text"
@@ -617,6 +617,7 @@ ActiveRecord::Schema.define(:version => 20141013165227) do
     t.date     "start_date"
     t.date     "end_date"
     t.boolean  "active"
+    t.string   "banner_image"
   end
 
   create_table "holidays", :force => true do |t|

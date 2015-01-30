@@ -5,8 +5,7 @@ class Highlight < ActiveRecord::Base
   mount_uploader :image, CentralHighlightBannerUploader
   mount_uploader :left_image, SideHighlightBannerUploader
   mount_uploader :right_image, SideHighlightBannerUploader
-
-  before_validation :redirect_image
+  mount_uploader :banner_image, HighlightBannerUploader
 
   has_enumeration_for :position, with: HighlightPosition, required: true
 
@@ -18,9 +17,7 @@ class Highlight < ActiveRecord::Base
   validates :title, presence: true
   validates :subtitle, presence: true
   validates :alt_text, presence: true
-  validates :image, presence: true, if: :is_center_image?
-  validates :left_image, presence: true, if: :is_left_image?
-  validates :right_image, presence: true, if: :is_right_image?
+  validates :image, presence: true
 
   def self.highlights_to_show
     Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
@@ -32,6 +29,23 @@ class Highlight < ActiveRecord::Base
     end
   end
 
+  def banner_image_for_position size= :site
+    case position
+    when HighlightPosition::CENTER 
+      img = banner_image.central
+      img = img.thumb if size == :thumb
+      img.url
+    when HighlightPosition::LEFT
+      img = banner_image.side
+      img = img.thumb if size == :thumb
+      img.url
+    when HighlightPosition::RIGHT
+      img = banner_image.side
+      img = img.thumb if size == :thumb
+      img.url
+    end
+  end
+
   def image_for_position size= :site
     case position
     when HighlightPosition::CENTER 
@@ -40,13 +54,7 @@ class Highlight < ActiveRecord::Base
       left_image.url(size)
     when HighlightPosition::RIGHT
       right_image.url(size)
-    end    
-  end
-
-  private
-
-  def clean_cache
-    Rails.cache.delete("highlights")
+    end
   end
 
   def is_center_image?
@@ -61,17 +69,9 @@ class Highlight < ActiveRecord::Base
     position == HighlightPosition::RIGHT
   end
 
-  def redirect_image
-    img = nil
-    if self.position != HighlightPosition::CENTER
-      img = self.image
-      self.image = nil
-      
-    end
+  private
 
-    self.right_image = img if self.position == HighlightPosition::RIGHT 
-    self.left_image = img if self.position == HighlightPosition::LEFT 
-
-  
-  end  
+  def clean_cache
+    Rails.cache.delete("highlights")
+  end
 end
