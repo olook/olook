@@ -109,6 +109,21 @@ class Variant < ActiveRecord::Base
     inventory < 1
   end
 
+  def fetch_inventory_from_abacos
+    path = ABACOS_CONFIG["wsdl_product_api"].dup.gsub('?wsdl', '')
+    path += "/EstoqueOnLine?ChaveIdentificacao=#{ABACOS_CONFIG['key']}&ListaDeCodigosProdutos=#{self.number}"
+    Rails.logger.debug("GET #{path}")
+    uri = URI.parse(path)
+    response = Net::HTTP.get_response(uri)
+    if response
+      Rails.logger.debug(response.body)
+      if /<SaldoDisponivel>(?<inv>\d+)<\/SaldoDisponivel>/ =~ response.body
+        self.inventory = inv.to_i
+        self.save
+      end
+    end
+  end
+
   private
 
   # FIXME this doesn't really work properly, since it doesn't bring the master_variant's retail_price
