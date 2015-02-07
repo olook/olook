@@ -6,7 +6,7 @@ module Abacos
     def self.perform(qty = 500)
       notifications = []
       errors = []
-      all_numbers = ::Variant.order(inventory: :desc).select(:number).map {|v| v.number}
+      all_numbers = ::Variant.order('inventory DESC').select(:number).map {|v| v.number}
 
       while all_numbers.size > 0
         numbers = all_numbers.shift(qty)
@@ -14,13 +14,14 @@ module Abacos
           results = Abacos::ProductAPI.download_online_inventory numbers
         rescue => e
           errors.concat numbers
+          next
         end
         i_results = results.inject({}) { |h,i| h[i.last] ||= []; h[i.last].push(i.first); h }
         i_results.each do |inventory, v_numbers|
           platform_variants_with_inventory_different = ::Variant.where(number: v_numbers).where('inventory <> ?', inventory).pluck(:number)
           if platform_variants_with_inventory_different.size > 0
-            notifications.concat(update_numbers)
-            ::Variant.where(number: update_numbers).update_all(inventory: inventory)
+            notifications.concat(platform_variants_with_inventory_different)
+            ::Variant.where(number: platform_variants_with_inventory_different).update_all(inventory: inventory)
           end
         end
       end
