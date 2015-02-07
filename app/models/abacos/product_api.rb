@@ -62,7 +62,6 @@ module Abacos
       response = Net::HTTP.get_response(uri)
       Rails.logger.debug(response.body)
       xml_doc  = Nokogiri::XML(response.body)
-      raise ProductAPIError.new("Error on GET #{path}\nresponse body:\n#{response.body}") if xml_doc.css('ResultadoOperacao Tipo').text != 'tdreSucesso'
       inventory_result = xml_doc.css('DadosEstoqueResultado')
       raise ProductAPIError.new("NotFound Results, maybe products don't exist on Abacos? GET #{path}\nresponse body:\n#{response.body}") if inventory_result.size == 0
       results = inventory_result.inject({}) do |h, node|

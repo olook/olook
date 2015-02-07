@@ -5,11 +5,16 @@ module Abacos
 
     def self.perform(qty = 500)
       notifications = []
-      all_numbers = ::Variant.order(inventory: :desc).pluck(:number)
+      errors = []
+      all_numbers = ::Variant.order(inventory: :desc).select(:number).map {|v| v.number}
 
       while all_numbers.size > 0
         numbers = all_numbers.shift(qty)
-        results = Abacos::ProductAPI.download_online_inventory numbers
+        begin
+          results = Abacos::ProductAPI.download_online_inventory numbers
+        rescue => e
+          errors.concat numbers
+        end
         i_results = results.inject({}) { |h,i| h[i.last] ||= []; h[i.last].push(i.first); h }
         i_results.each do |inventory, v_numbers|
           platform_variants_with_inventory_different = ::Variant.where(number: v_numbers).where('inventory <> ?', inventory).pluck(:number)
@@ -26,7 +31,8 @@ module Abacos
         from: 'dev@olook.com.br',
         to: ['tech@olook.com.br', 'nelsonmhjr@gmail.com'],
         subject: "Abacos::SyncOnlineInventory updated #{notifications.size} variants #{Time.zone.now.strftime('%Y-%m-%d %H:%M')}",
-        body: "<pre>Abacos::SyncOnlineInventory just (#{Time.zone.now.strftime('%Y-%m-%d %H:%M')}) updated #{notifications.size} variants\n#{notifications.join("\n")}</pre>"
+        body: "<pre>Abacos::SyncOnlineInventory just (#{Time.zone.now.strftime('%Y-%m-%d %H:%M')}) updated #{notifications.size} variants\n#{notifications.join("\n")}</pre>" +
+        "<pre>\nErros:#{errors.join("\n")}</pre>"
       ).deliver
     end
   end
