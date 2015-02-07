@@ -4,7 +4,7 @@ module Abacos
     @queue = 'low'
 
     def self.perform
-      numbers = ::Variant.pluck(:numbers)
+      numbers = ::Variant.pluck(:number)
       results = Abacos::ProductAPI.download_online_inventory numbers
       notifications = []
       i_results = results.inject({}) { |h,i| h[i.last] ||= []; h[i.last].push(i.first); h }
