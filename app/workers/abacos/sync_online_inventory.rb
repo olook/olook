@@ -3,26 +3,23 @@ module Abacos
   class SyncOnlineInventory
     @queue = 'low'
 
-    def self.perform
-      numbers = ::Variant.pluck(:number)
-      results = Abacos::ProductAPI.download_online_inventory numbers
+    def self.perform(qty = 500)
       notifications = []
-      i_results = results.inject({}) { |h,i| h[i.last] ||= []; h[i.last].push(i.first); h }
-      i_results.each do |inventory, v_numbers|
-        platform_numbers = ::Variant.where(inventory: inventory).pluck(:number)
-        update_numbers = (v_numbers - platform_numbers)
-        if update_numbers.size > 0
-          notifications.concat(update_numbers)
-          ::Variant.where(number: update_numbers).update_all(inventory: inventory)
-        end
+      all_numbers = ::Variant.order(inventory: :desc).pluck(:number)
 
-        numbers_to_update = (platform_numbers - v_numbers)
-        notifications.concat(numbers_to_update)
-        numbers_to_update.each do |number_to_update|
-          new_inventory = results[number_to_update.to_s] || 0
-          ::Variant.find_by_number(number: number_to_update).update_attributes(inventory: new_inventory)
+      while all_numbers.size > 0
+        numbers = all_numbers.shift(qty)
+        results = Abacos::ProductAPI.download_online_inventory numbers
+        i_results = results.inject({}) { |h,i| h[i.last] ||= []; h[i.last].push(i.first); h }
+        i_results.each do |inventory, v_numbers|
+          platform_variants_with_inventory_different = ::Variant.where(number: v_numbers).where('inventory <> ?', inventory).pluck(:number)
+          if platform_variants_with_inventory_different.size > 0
+            notifications.concat(update_numbers)
+            ::Variant.where(number: update_numbers).update_all(inventory: inventory)
+          end
         end
       end
+
 
       Rails.logger.info("Abacos::SyncOnlineInventory just (#{Time.zone.now.strftime('%Y-%m-%d %H:%M')}) updated #{notifications.size} variants\n#{notifications.join("\n")}")
       ActionMailer::Base.mail(
