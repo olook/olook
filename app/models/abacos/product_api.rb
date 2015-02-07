@@ -32,12 +32,12 @@ module Abacos
       product_list.each do |product_path|
         get_path += "&#{product_path}"
         if get_path.size > 1800
-          results.merge(get_online_inventory(get_path))
+          results.merge!(get_online_inventory(get_path))
           get_path = path.dup
         end
       end
       if get_path.size > path.size
-        results.merge(get_online_inventory(get_path))
+        results.merge!(get_online_inventory(get_path))
       end
       results
     end
