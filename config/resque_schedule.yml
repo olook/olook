@@ -1,3 +1,11 @@
+sync_online_inventory:
+  cron: "0 */1 * * *"
+  class: Abacos::SyncOnlineInventory
+  args:
+    - 1000
+  queue: low
+  description: "Syncroniza o estoque de todos os produtos ativamente consultando no abacos e atualizando no site. E envia um relatório para tech@olook.com.br"
+
 searchboard_report:
   cron: "0 2 * * 1"
   class: SearchboardWorker

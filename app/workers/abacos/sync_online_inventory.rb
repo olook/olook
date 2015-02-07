@@ -32,8 +32,8 @@ module Abacos
         from: 'dev@olook.com.br',
         to: ['tech@olook.com.br', 'nelsonmhjr@gmail.com'],
         subject: "Abacos::SyncOnlineInventory updated #{notifications.size} variants #{Time.zone.now.strftime('%Y-%m-%d %H:%M')}",
-        body: "<pre>Abacos::SyncOnlineInventory just (#{Time.zone.now.strftime('%Y-%m-%d %H:%M')}) updated #{notifications.size} variants\n#{notifications.join("\n")}</pre>" +
-        "<pre>\nErros:#{errors.join("\n")}</pre>"
+        body: "Abacos::SyncOnlineInventory just (#{Time.zone.now.strftime('%Y-%m-%d %H:%M')}) updated #{notifications.size} variants\n#{notifications.join("\n")}" +
+        "\nErros:#{errors.join("\n")}"
       ).deliver
     end
   end
