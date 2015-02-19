@@ -24,6 +24,7 @@ module Abacos
       raise "Order number #{order_number} already exist on Abacos" if Abacos::OrderAPI.order_exists?(order_number)
       fix_zero_value(order_number) if order.subtotal == order.amount_discount
       Rails.logger.info("[BUG] Found order:#{order.inspect}")
+      order.reload
       order
     end
 
