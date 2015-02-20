@@ -9,7 +9,7 @@
           [item.variant_id.to_s,item.name,item.retail_price.to_s,(item.price - item.retail_price).to_s,item.quantity.to_s,"",item.product.category_humanize,item.product.subcategory,"","",item.brand]}%>,
         'AllInPage': "cart/cart/show",
         //General
-        'ProductsList': [<%= @cart.items.map{|item| item.product.id.to_s }.join(",") %>],
+        'ProductsList': [<%= @cart.items.map{|item| item.variant_id.to_s }.join(",") %>],
         'PriceList': [<%= raw @cart.items.map{|item| item.retail_price.to_s}.join(",") %>],
         'QuantityList':  [<%= raw @cart.items.map{|item| item.quantity.to_s}.join(",") %>],
         'Basket': [<%= raw @cart.items.map { |item|
