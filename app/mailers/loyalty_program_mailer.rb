@@ -4,6 +4,7 @@ class LoyaltyProgramMailer < ActionMailer::Base
   default :from => "olook <avisos@olook.com.br>"
 
   def send_enabled_credits_notification user
+    raise "Deprecated Feature"
     @user = user
     report  = CreditReportService.new(@user)
     @loyalty_credits = report.amount_of_loyalty_credits
@@ -15,6 +16,7 @@ class LoyaltyProgramMailer < ActionMailer::Base
   end
 
   def send_expiration_warning (user, expires_tomorrow = false, date=Date.tomorrow)
+    raise "Deprecated Feature"
     @user = user
 
     # Calculates available credits

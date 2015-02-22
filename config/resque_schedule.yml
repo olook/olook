@@ -108,12 +108,6 @@ send_billet_reminder:
   queue: low
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
-send_seven_days_to_expiration_warning:
-  cron: "40 4 * * *"
-  class: SendExpirationWarningWorker
-  queue: low
-  description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
-
 force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
