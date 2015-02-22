@@ -6,11 +6,6 @@ class PagesController < ApplicationController
     @contact_form = ContactForm.new
   end
 
-  def loyalty
-    user_credits = @user.nil? ? nil : @user.user_credits_for(:loyalty_program)
-    @presenter = LoyaltyPresenter.new(@user, user_credits)
-  end
-
   def olookmovel
   end
 
