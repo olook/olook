@@ -95,8 +95,6 @@ initProduct = {
       $("input#send").addClass("opacidade").delay(300).attr('disabled', true);
     })
 
-    $("a.open_loyalty_lightbox").show();
-
     $(".js-add-product").off('click').on('click', function(){
       olookApp.publish('product:add');
     });

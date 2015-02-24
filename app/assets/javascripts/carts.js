@@ -7,7 +7,6 @@
 $(function() {
   new FloatTotalScrollManager().config();
   new CartUpdater().config();
-  showInfoCredits();
   olook.spy('.cart_item[data-url]');
   if ($('#cart_gift_wrap').is(':checked')){
     $('#subtotal_parcial').after("<div id='embrulho_presente'></div>");

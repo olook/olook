@@ -13,6 +13,7 @@ class UserNotifier
   end
 
   def self.send_enabled_credits_notification
+    raise 'Feature Deprecated'
     arr = []
     users_selected_by(:activates_at).find_each do |user|
       if !Setting.whitelisted_emails_only || user.email.match(/(olook\.com\.br$)/)
@@ -24,6 +25,7 @@ class UserNotifier
   end
 
   def self.send_expiration_warning(expires_tomorrow = false)
+    raise 'Feature Deprecated'
     date = DateTime.now.at_midnight + 7.days
 
     arr = []

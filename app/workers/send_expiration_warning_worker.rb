@@ -3,6 +3,7 @@ class SendExpirationWarningWorker
   @queue = 'low'
 
   def self.perform
+    raise "Deprecated Feature"
     UserNotifier.send_expiration_warning.each do | reminder |
       begin
       	reminder.deliver

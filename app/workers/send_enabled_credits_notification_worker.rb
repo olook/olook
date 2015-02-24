@@ -3,6 +3,8 @@ class SendEnabledCreditsNotificationWorker
   @queue = 'low'
 
   def self.perform
+    raise 'Deprecated Feature'
+
     UserNotifier.send_enabled_credits_notification.each do | reminder |
       begin
       	reminder.deliver
