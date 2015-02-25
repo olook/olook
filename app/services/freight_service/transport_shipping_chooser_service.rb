@@ -17,7 +17,7 @@ class FreightService::TransportShippingChooserService
                      cost: shipping.cost || FreightCalculator::DEFAULT_FREIGHT_COST,
                      delivery_time: shipping.delivery_time.to_i + FreightCalculator::DEFAULT_INVENTORY_TIME,
                      shipping_service_id: shipping.shipping_service_id || FreightCalculator::DEFAULT_FREIGHT_SERVICE,
-                     free_shipping_value: @shipping_policies.first.free_shipping
+                     free_shipping_value: (@shipping_policies.first.free_shipping rescue 9999999)
     }}
   end
 
