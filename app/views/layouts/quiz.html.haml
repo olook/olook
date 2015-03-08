@@ -59,7 +59,11 @@
           =link_to "Política de Privacidade.", "/privacidade"
           %br
           Escritório: Avenida Doutor Cardoso de Melo, n° 1.855, 15º andar, conj. 151, Vila Olímpia, São Paulo – SP / Centro de distribuição: Rua Pataxós, nº 1.000, Setor D 01 a 17, Mezanino nível 4, Pataxós, Embú das Artes - SP. / Olook Comércio Online de Moda Ltda  / CNPJ 11.216.478/0001-70
-
-= javascript_include_tag "jquery"
-= yield :scripts
-= render 'shared/metrics/google/analytics'
+    :javascript
+      setTimeout(function(){var a=document.createElement("script");
+      var b=document.getElementsByTagName("script")[0];
+      a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0023/0883.js?"+Math.floor(new Date().getTime()/3600000);
+      a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+    = javascript_include_tag "jquery"
+    = yield :scripts
+    = render 'shared/metrics/google/analytics'
