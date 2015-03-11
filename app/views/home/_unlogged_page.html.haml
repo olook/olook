@@ -19,31 +19,6 @@
   log_event('view', 'unlogged_looks');
   log_event('view', 'unlogged_products');
 
-%section{class: "emkt_box"}
-  %ul.mail
-    %li.promo
-      %h2
-        CADASTRE-SE E GANHE AGORA! 
-      %p
-        R$30 + 15% do valor do produto em créditos
-    %li.mail_bar
-      %fieldset
-        =text_field_tag :email, "", :class => "box_mail js-newsletter js-middlebox", :default_value => "Digite aqui seu e-mail"
-      %fieldset.botao
-        =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-middlebox"
-    =image_tag("home/mkt_home.gif")
-  .fback.js-success.js-middlebox
-    %p
-      Enviamos para seu e-mail o vale de
-      %span
-        R$30,00 GRÁTIS!
-      Acesse seu e-mail agora e aproveite!
-    =link_to "Vide regras", "/termos", :class => "regras"
-  .fdenied.js-error.js-middlebox
-    %p
-      Oops! Verificamos que seu e-mail
-      %br
-        já está cadastrado em nosso sistema.
 - content_for :footer do
   :javascript
     log_event('view', 'newsletter-middle');
