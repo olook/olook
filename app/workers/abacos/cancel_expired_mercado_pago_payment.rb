@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class CancelExpiredMercadoPagoPayment
-    @queue = 'low'
+    @queue = 'calhau'
 
     def self.perform
       MercadoPagoPayment.to_expire.each do |mp_payment|

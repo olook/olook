@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class ConfirmInventory
-    @queue = 'medium'
+    @queue = 'high'
 
     def self.perform(protocol)
       Abacos::ProductAPI.confirm_inventory protocol

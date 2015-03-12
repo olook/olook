@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class CancelOrder
-    @queue = 'medium'
+    @queue = 'urgent'
 
     def self.perform(order_number)
       order = Order.find_by_number order_number    

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Integrate
-    @queue = 'low'
+    @queue = 'medium'
 
     def self.perform(klass, parsed_data)
       begin

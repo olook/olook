@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class InsertOrder
-    @queue = 'medium'
+    @queue = 'urgent'
 
     def self.perform(order_number)
       Rails.logger.info("[BUG] integrating order:#{order_number}")

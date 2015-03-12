@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class CancelExpiredBillet
-    @queue = 'low'
+    @queue = 'calhau'
 
     def self.perform
       errors = []
