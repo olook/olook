@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class IntegrateProducts
-    @queue = 'low'
+    @queue = 'calhau'
 
     def self.perform(user="tech@olook.com.br")
       return true unless Setting.abacos_integrate

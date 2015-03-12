@@ -34,6 +34,9 @@ module Abacos
           opts = HashWithIndifferentAccess.new(@opts)
           user = opts["user"]
           products_amount = opts["products_amount"]
+          if Setting.reschedule_integrate_products_if_qty_gt_1000 && products_amount.to_i > 1000
+            Resque.enqueue(Abacos::IntegrateProducts, user)
+          end
           IntegrationProductsAlert.notify(user, products_amount, products_errors)
           clean_products_errors
         end
