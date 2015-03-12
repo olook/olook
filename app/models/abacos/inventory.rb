@@ -11,24 +11,19 @@ module Abacos
     
     def integrate
       variant = ::Variant.find_by_number(self.number)
-      if variant.nil?
-        Airbrake.notify(
-          :error_class   => "Invetory",
-          :error_message => "Inventory is related with Variant number #{self.number}, but it doesn't exist"
-        )
-        # raise RuntimeError.new "Inventory is related with Variant number #{self.number}, but it doesn't exist" 
-        return nil
+      if variant.present?
+        variant.inventory = self.inventory
+        variant.update_initial_inventory_if_needed
+        variant.save!
       end
-      
-      
-      variant.inventory = self.inventory
-      variant.update_initial_inventory_if_needed
-      variant.save!
 
       confirm_inventory
     end
     
     def confirm_inventory
+      # Abacos::ProductAPI.confirm_inventory self.integration_protocol
+      
+      # Temporary executing in sync
       Resque.enqueue(Abacos::ConfirmInventory, self.integration_protocol)
     end
 

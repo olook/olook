@@ -27,7 +27,7 @@ module Abacos
         end
 
         def integration_finished?
-          REDIS.get("products_to_integrate").to_i.zero?
+          REDIS.get("products_to_integrate").to_i <= 0
         end
 
         def notify
