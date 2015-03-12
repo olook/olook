@@ -14,6 +14,9 @@ module Abacos
         end
       end
       Rails.logger.info("[BUG] order:#{order} integrated successfully")
+    rescue => e
+      order.update_attributes erp_integrate_error: e.message
+      raise e
     end
 
     private
