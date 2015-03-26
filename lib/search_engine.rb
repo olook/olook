@@ -44,12 +44,12 @@ class SearchEngine
     @is_smart = !!opts[:is_smart]
     @multi_selection = !!opts[:multi_selection]
 
-    Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
+    Rails.logger.info("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
     set_attributes(attributes)
 
     validate_sort_field
-    Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
+    Rails.logger.info("SearchEngine processed these params: #{@expressions.inspect}")
 
     @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end

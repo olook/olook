@@ -72,11 +72,10 @@ class RankingCalculator
       initialize_newest(first_quartile(count))
       @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
         category, count = aux
-    
-        hash[category] = Product.connection.
+        result = Product.connection.
           select("SELECT sum_inventory FROM products_with_more_than_one_inventory
-                   WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile(count)}").
-          first['sum_inventory']
+                   WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile(count)}").first
+        hash[category] = result ? result['sum_inventory'] : 0
         hash
       end        
     end
