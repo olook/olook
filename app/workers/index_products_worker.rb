@@ -2,9 +2,10 @@
 class IndexProductsWorker
   @queue = 'low'
   
-  def self.perform
+  def self.perform(ids=nil)
     d0 = Time.now.to_i
-    indexer = ProductIndexer.new(Product.pluck(:id).sort { |a,b| b<=>a }, ProductProductDocumentAdapter.new)
+    ids ||= Product.pluck(:id).sort { |a,b| b<=>a }
+    indexer = ProductIndexer.new(ids, ProductProductDocumentAdapter.new)
     indexer.index
     d1 = Time.now.to_i
 
