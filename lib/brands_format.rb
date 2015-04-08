@@ -36,6 +36,8 @@ class BrandsFormat
     else 
       []
     end
+  rescue
+    []
   end
 
   def redis

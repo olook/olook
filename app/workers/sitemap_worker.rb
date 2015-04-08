@@ -26,7 +26,7 @@ class SitemapWorker
     Product.only_visible.joins(:variants).
       where("variants.inventory >= 1").
       pluck(:brand).uniq.compact.
-      reject! { |c| c.empty? }
+      reject { |c| c.empty? }
   end
 
   def self.subcategories_for(category_id)
