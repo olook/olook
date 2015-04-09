@@ -2,7 +2,71 @@ ActiveRecord::Base.logger = Logger.new STDOUT
 include ProductsHelper
 
 header1 = ['RB Master Product Tree', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Atributos', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'SKU', '', '', '', '', '', '', '', '', '']
-header = ['', 'ID SKU', 'Product ID', 'Categoria', 'N Mexer', 'N Mexer', 'N Mexer', 'Nome Produto', 'Nome Curto', 'Descrição', 'Tipo de Produto', 'Mostra Indisponivel*', 'Título', 'Meta Description', 'Meta Keywords', 'Cor', 'Tamanho', 'Marca', 'Modelo', 'Material', 'Material da Sola', 'Material Interno', 'Medidas', 'Dicas', 'Salto', 'Conforto & Proteção', 'Presentes', 'Especiais', 'Tendências', 'Ocasiões', 'Editoriais', 'google_product_category', 'Referência', 'Nome do Sku', 'Tipo', 'Altura (metro)*', 'Largura (metro)*', 'Comprimento (metro)*', 'Peso (kilo)*', 'Tipo de transportadora*', 'Modelo do produto no fabricante', 'Código SKU fornecedor principal', 'EAN']
+header = ['',
+          'ID SKU',
+          'Product ID',
+          'Categoria',
+          'N Mexer',
+          'N Mexer',
+          'N Mexer',
+          'Nome Produto',
+          'Nome Curto',
+          'Descrição',
+          'Tipo de Produto',
+          'Mostra Indisponivel*',
+          'Título',
+          'Meta Description',
+          'Meta Keywords',
+          'Cor',
+          'Tamanho',
+          'Marca',
+          'Marcar A-Z',
+          'Modelo',
+          'Material',
+          'Material da Sola',
+          'Material Interno',
+          'Comprimento',
+          'Sutiã (larg)',
+          'Sutiã (alt)',
+          'Largura',
+          'Largura bojo',
+          'Altura bojo',
+          'Altura Cano',
+          'Altura',
+          'Altura com alça',
+          'Profundidade',
+          'Circunferência',
+          'Busto',
+          'Quadril',
+          'Ombro',
+          'Cós',
+          'Gancho',
+          'Manga',
+          'Coxa',
+          'Panturrilha',
+          'Braço',
+          'Medidas',
+          'Dicas',
+          'Salto',
+          'Conforto & Proteção',
+          'Ocasiões',
+          'Tendências',
+          'Perfil',
+          'Presentes',
+          'Especiais',
+          'Editoriais',
+          'google_product_category',
+          'Referência',
+          'Nome do Sku',
+          'Tipo',
+          'Altura (metro)*',
+          'Largura (metro)*',
+          'Comprimento (metro)*',
+          'Peso (kilo)*',
+          'Tipo de transportadora*',
+          'Modelo do produto no fabricante',
+          'Código SKU fornecedor principal',
+          'EAN']
 CSV.open('template_infrashop.csv', 'wb') do |csv|
   csv << header1
   csv << header
@@ -37,23 +101,34 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
 
     product_detail_info = product.details.only_specification.without_specific_translations.with_valid_values.where(translation_token: 'Detalhes').first
     medidas = {}
-    if /^(?<modelo_veste>.*)#(?<sizes>.*)/ =~ product_detail_info
-      sizes_split = sizes.split(';').find { |s| /^#{variant.size.description}=>/ =~ s.to_s }
-      medidas = sizes_split.split(',').inject({}) do |h, detail|
+    if /^(?<modelo_veste>.*)#(?<sizes>.*)/mi =~ product_detail_info.to_s
+      sizes_split = sizes.split(';').find { |s| /^#{variant.description}=>/ =~ s.to_s }
+      if sizes_split.nil?
+        sizes_split = sizes.to_s
+      end
+      size, details = sizes_split.split(/=>/)
+      medidas = details.split(',').inject({}) do |h, detail|
         k,v = detail.split(':')
         h[k.strip.parameterize] = v.strip
         h
       end
-    elsif /^Modelo Veste: (?<modelo_veste>[^;]+);(?<sizes>.*)/ =~ product_detail_info
-      sizes_split = sizes.split(';').find { |s| /^#{variant.size.description}:/ =~ s.to_s }
-      medidas = sizes_split.split(/ ?\/ ?/).inject({}) do |h, detail|
+    elsif /^Modelo Veste: (?<modelo_veste>[^;]+);(?<sizes>.*)/mi =~ product_detail_info.to_s
+      sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
+      if sizes_split.nil?
+        sizes_split = sizes.to_s
+      end
+      size, details = sizes_split.split(/: */)
+      medidas = details.split(/ ?\/ ?/).inject({}) do |h, detail|
         k,v = detail.split(/ ?Ø? /)
         h[k.strip.parameterize] = v.strip
         h
       end
-    elsif /;/ =~ product_detail_info
-      sizes = product_detail_info
-      sizes_split = sizes.split(';').find { |s| /^#{variant.size.description}:/ =~ s.to_s }
+    elsif /;/mi =~ product_detail_info.to_s
+      sizes = product_detail_info.to_s
+      sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
+      if sizes_split.nil?
+        sizes_split = sizes.to_s
+      end
       medidas = sizes_split.split(/ ?\/ ?/).inject({}) do |h, detail|
         k,v = detail.split(/:/)
         h[k.strip.parameterize] = v.strip
@@ -62,7 +137,7 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
     end
 
 
-    row.push(medidas['comprimento'] || "") # Comprimento
+    row.push(medidas['comprimento'] || medidas['comp'] || "") # Comprimento
     row.push(medidas['largura'] || "") # Sutiã (larg)
     row.push(medidas['altura'] || "") # Sutiã (alt)
     row.push(medidas['largura'] || "") # Largura
