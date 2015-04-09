@@ -101,7 +101,7 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
 
     product_detail_info = product.details.only_specification.without_specific_translations.with_valid_values.where(translation_token: 'Detalhes').first
     medidas = {}
-    if /^(?<modelo_veste>.*)#(?<sizes>.*)/mi =~ product_detail_info.to_s
+    if /^(?<modelo_veste>[0-9a-z]*)#(?<sizes>.*)/mi =~ product_detail_info.to_s && /=>/mi =~ product_detail_info.to_s
       sizes_split = sizes.split(';').find { |s| /^#{variant.description}=>/ =~ s.to_s }
       if sizes_split.nil?
         sizes_split = sizes.to_s
@@ -168,7 +168,7 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
 
     collection_themes = product.collection_themes.all
     groups = collection_themes.map { |c| c.collection_theme_group.name.downcase rescue '' }
-    cols = ->(downgroup) { collection_themes.select { |c| c.collection_theme_group.name.downcase == downgroup }.map { |c| c.name }.compact.flatten.join('|') }
+    cols = ->(downgroup) { collection_themes.select { |c| c.collection_theme_group.try(:name).to_s.downcase == downgroup }.map { |c| c.name }.compact.flatten.join('|') }
     row.push(groups.include?('ocasiões') ? cols.call('ocasiões') : "") # 'Ocasiões'
     row.push(groups.include?('tendências') ? cols.call('tendências') : "") # 'Tendências'
     row.push(product.profiles.map { |pp| pp.name }.join('|')) # Perfil
@@ -190,6 +190,7 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
     csv << row
     rescue => e
       STDOUT.puts "#{e.class} #{e.message}: #{e.backtrace.first}"
+      raise e
     end
   end
 end
