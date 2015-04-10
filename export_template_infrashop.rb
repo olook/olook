@@ -1,3 +1,4 @@
+require 'pry'
 ActiveRecord::Base.logger = Logger.new STDOUT
 include ProductsHelper
 
@@ -101,42 +102,42 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
 
     product_detail_info = product.details.only_specification.without_specific_translations.with_valid_values.where(translation_token: 'Detalhes').first
     medidas = {}
-    if /^(?<modelo_veste>[0-9a-z]*)#(?<sizes>.*)/mi =~ product_detail_info.to_s && /=>/mi =~ product_detail_info.to_s
-      sizes_split = sizes.split(';').find { |s| /^#{variant.description}=>/ =~ s.to_s }
-      if sizes_split.nil?
-        sizes_split = sizes.to_s
-      end
-      size, details = sizes_split.split(/=>/)
-      medidas = details.split(',').inject({}) do |h, detail|
-        k,v = detail.split(':')
-        h[k.strip.parameterize] = v.strip
-        h
-      end
-    elsif /^Modelo Veste: (?<modelo_veste>[^;]+);(?<sizes>.*)/mi =~ product_detail_info.to_s
-      sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
-      if sizes_split.nil?
-        sizes_split = sizes.to_s
-      end
-      size, details = sizes_split.split(/: */)
-      medidas = details.split(/ ?\/ ?/).inject({}) do |h, detail|
-        k,v = detail.split(/ ?Ø? /)
-        h[k.strip.parameterize] = v.strip
-        h
-      end
-    elsif /;/mi =~ product_detail_info.to_s
-      sizes = product_detail_info.to_s
-      sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
-      if sizes_split.nil?
-        sizes_split = sizes.to_s
-      end
-      medidas = sizes_split.split(/ ?\/ ?/).inject({}) do |h, detail|
-        k,v = detail.split(/:/)
-        h[k.strip.parameterize] = v.strip
-        h
+    if product_detail_info = product_detail_info.try(:description)
+      if /^(?<modelo_veste>[0-9a-z]*)#(?<sizes>.*)/mi =~ product_detail_info.to_s && /=>/mi =~ product_detail_info.to_s
+        sizes_split = sizes.split(';').find { |s| /^#{variant.description}=>/ =~ s.to_s }
+        if sizes_split.nil?
+          sizes_split = sizes.to_s
+        end
+        size, details = sizes_split.split(/=>/)
+        medidas = details.split(',').inject({}) do |h, detail|
+          k,v = detail.split(':')
+          h[k.strip.parameterize] = v.strip
+          h
+        end
+      elsif /^Modelo Veste: (?<modelo_veste>[^;]+);(?<sizes>.*)/mi =~ product_detail_info.to_s
+        sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
+        if sizes_split.nil?
+          sizes_split = sizes.to_s
+        end
+        size, details = sizes_split.split(/: */)
+        medidas = details.split(/ ?\/ ?/).inject({}) do |h, detail|
+          k,v = detail.split(/ ?Ø? /)
+          h[k.strip.parameterize] = v.strip
+          h
+        end
+      elsif /;/mi =~ product_detail_info.to_s
+        sizes = product_detail_info.to_s
+        sizes_split = sizes.split(';').find { |s| /^#{variant.description}:/ =~ s.to_s }
+        if sizes_split.nil?
+          sizes_split = sizes.to_s
+        end
+        medidas = sizes_split.split(/ ?\/ ?/).inject({}) do |h, detail|
+          k,v = detail.split(/:/)
+          h[k.strip.parameterize] = v.strip
+          h
+        end
       end
     end
-
-
     row.push(medidas['comprimento'] || medidas['comp'] || "") # Comprimento
     row.push(medidas['largura'] || "") # Sutiã (larg)
     row.push(medidas['altura'] || "") # Sutiã (alt)
@@ -190,7 +191,6 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
     csv << row
     rescue => e
       STDOUT.puts "#{e.class} #{e.message}: #{e.backtrace.first}"
-      raise e
     end
   end
 end
