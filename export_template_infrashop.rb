@@ -46,7 +46,6 @@ header = ['',
           'Coxa',
           'Panturrilha',
           'Braço',
-          'Medidas',
           'Dicas',
           'Salto',
           'Conforto & Proteção',
@@ -68,10 +67,11 @@ header = ['',
           'Modelo do produto no fabricante',
           'Código SKU fornecedor principal',
           'EAN']
-CSV.open('template_infrashop.csv', 'wb') do |csv|
+CSV.open('template_infrashop.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   csv << header1
   csv << header
-  Variant.includes(:product).order(:product_id).find_each(batch_size: 1000) do |variant|
+  product_ids = Variant.where('inventory > 0').pluck(:product_id)
+  Variant.includes(:product).where(product_id: product_ids).order(:product_id).find_each(batch_size: 1000) do |variant|
     begin
     product = variant.product
     row = ['']
@@ -160,8 +160,6 @@ CSV.open('template_infrashop.csv', 'wb') do |csv|
     row.push(medidas['braco'] ||"") # Braço
     row.push(medidas['cano'] ||"") # Cano
 
-    product_detail_info = product.details.only_specification.without_specific_translations.with_valid_values.where(translation_token: 'Detalhes').first
-    row.push(product_detail_info.try(:description)) # 'Medidas'
     row.push(product.tips) # 'Dicas'
     row.push(product.heel) # 'Salto'
     care = Product::CARE_PRODUCTS.include?(product.subcategory)
