@@ -35,6 +35,8 @@ class PostRetrieverService
 
     def posts number = 1
       @wp.getPosts(:filter =>{:order => "desc", :orderby => "post_date", :post_type => 'post', :post_status => 'publish', :number => number})      
+    rescue
+      []
     end
 
     def format_post post
