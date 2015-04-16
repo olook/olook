@@ -1,4 +1,3 @@
-require 'pry'
 ActiveRecord::Base.logger = Logger.new STDOUT
 include ProductsHelper
 
