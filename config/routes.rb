@@ -221,7 +221,6 @@ Olook::Application.routes.draw do
   get "/vitrines", to:"members#half_showroom", as: 'half_showroom'
   get "/criar/vitrine", to: 'join#showroom', as: 'join_showroom'
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
-  get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
 
 

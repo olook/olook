@@ -22,20 +22,6 @@
         =link_to "Instagram", "http://instagram.com/olook", :alt => "Instagram"
       %li.icon-youtube
         =link_to "Youtube", "http://www.youtube.com/user/olookfashion", :alt => "Youtube"
-    - unless user_signed_in?
-      %ul.mail
-        %p
-          Nova por aqui? 
-          %span
-            R$30 GRÁTIS 
-          agora
-        %fieldset
-          =text_field_tag :email, "", :class => "box_mail js-newsletter js-footerbox", :default_value => "Digite aqui seu e-mail"
-        %fieldset.botao
-          =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-footerbox"
-      - content_for :footer do
-        :javascript
-          log_event('view', 'newsletter-footer');
   %section
     %ul.atendimento
       %li.title

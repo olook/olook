@@ -4,6 +4,7 @@ header = ["Status", "Customer ID", "Customer Type", "Name", "Last Name", "Title"
 
 CSV.open('customer_import.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   User.includes(:addresses).find_each(batch_size: 1000) do |user|
+    begin
     row = []
     row.push(user.active != false ? 1 : 0) # Status
     row.push(user.id) # Customer ID
@@ -122,5 +123,8 @@ CSV.open('customer_import.csv', 'wb', encoding: 'iso-8859-1') do |csv|
     end
 
     csv << row
+    rescue => e
+      Rails.logger.error("#{e.class}:#{e.message}\n#{e.backtrace.first}")
+    end
   end
 end
