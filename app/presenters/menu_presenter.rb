@@ -41,10 +41,6 @@ class MenuPresenter < BasePresenter
     render_item("Minhas amigas", h.facebook_connect_path, "my_friends", ['friends#facebook_connect','friends#home','friends#showroom'])
   end
 
-  def invite
-    render_item("Ganhe Créditos", h.member_earn_credits_path, "invite", ["members#earn_credits"])
-  end
-
   def collection_themes
     render_item("Coleções", "https://www.olook.com.br/colecoes/anonovo", "collection_themes", ["collection_themes#index", "collection_themes#show"], 'mega_menu/colecoes')
   end
