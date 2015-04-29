@@ -5,7 +5,7 @@ header = ["Status", "Customer ID", "Customer Type", "Name", "Last Name", "Title"
 CSV.open('customer_import.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   User.includes(:addresses).find_each(batch_size: 1000) do |user|
     row = []
-    row.push(user.active ? 1 : 0) # Status
+    row.push(user.active != false ? 1 : 0) # Status
     row.push(user.id) # Customer ID
     row.push(user.has_corporate ? 1 : 0) # Customer Type
     row.push(user.first_name) # Name
