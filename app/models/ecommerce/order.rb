@@ -238,7 +238,11 @@ class Order < ActiveRecord::Base
   end
 
   def erp_payment
-     payments.for_erp.last
+    if payments.loaded?
+      payments.select { |p| ['CreditCard','Billet', 'Debit', 'MercadoPagoPayment', 'B2BPayment'].include?(p.type) }.last
+    else
+      payments.for_erp.last
+    end
   end
 
   def loyalty_payment
