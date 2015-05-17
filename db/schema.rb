@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141013165227) do
+ActiveRecord::Schema.define(:version => 20150517213946) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -224,6 +224,20 @@ ActiveRecord::Schema.define(:version => 20141013165227) do
   add_index "carts", ["coupon_id"], :name => "index_carts_on_coupon_id"
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
+  create_table "carts_backup", :id => false, :force => true do |t|
+    t.integer  "id",                      :default => 0,     :null => false
+    t.integer  "user_id"
+    t.boolean  "notified",                :default => false, :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "legacy_id"
+    t.boolean  "gift_wrap",               :default => false
+    t.boolean  "use_credits",             :default => false
+    t.integer  "coupon_id"
+    t.integer  "address_id"
+    t.boolean  "facebook_share_discount"
+  end
 
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
@@ -973,20 +987,23 @@ ActiveRecord::Schema.define(:version => 20141013165227) do
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",                                          :default => false
+    t.boolean  "is_kit",                                               :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
-    t.integer  "visibility",                                      :default => 1
-    t.decimal  "price",            :precision => 10, :scale => 2
-    t.decimal  "width",            :precision => 8,  :scale => 2
-    t.decimal  "height",           :precision => 8,  :scale => 2
-    t.decimal  "length",           :precision => 8,  :scale => 2
-    t.decimal  "weight",           :precision => 8,  :scale => 2
-    t.decimal  "retail_price",     :precision => 10, :scale => 2
+    t.integer  "visibility",                                           :default => 1
+    t.decimal  "price",                 :precision => 10, :scale => 2
+    t.decimal  "width",                 :precision => 8,  :scale => 2
+    t.decimal  "height",                :precision => 8,  :scale => 2
+    t.decimal  "length",                :precision => 8,  :scale => 2
+    t.decimal  "weight",                :precision => 8,  :scale => 2
+    t.decimal  "retail_price",          :precision => 10, :scale => 2
     t.integer  "discount_percent"
     t.string   "youtube_token"
+    t.string   "fiscal_classification"
+    t.string   "barcode"
+    t.string   "product_origin"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
