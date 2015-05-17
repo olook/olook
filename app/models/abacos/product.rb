@@ -30,7 +30,10 @@ module Abacos
         :weight         => self.weight,
         :is_kit         => self.is_kit,
         :producer_code  => self.producer_code,
-        :brand          => self.brand
+        :brand          => self.brand,
+        :barcode        => self.barcode,
+        :fiscal_classification => self.fiscal_classification,
+        :product_origin => self.product_origin
       }
     end
 
@@ -127,6 +130,9 @@ module Abacos
         :name                   => parse_name(abacos_product[:descricao], abacos_product[:nome_produto]),
         :description            => parse_description(abacos_product[:caracteristicas_complementares], abacos_product[:nome_produto]),
         :model_number           => abacos_product[:codigo_produto].to_s,
+        :fiscal_classification  => abacos_product[:classificacao_fiscal].to_s,
+        :barcode                => abacos_product[:codigo_barras].to_s,
+        :product_origin         => abacos_product[:origem_mercadoria].to_s,
         :category               => parse_category(abacos_product[:descricao_classe]),
         :width                  => abacos_product[:largura].to_f,
         :height                 => abacos_product[:espessura].to_f,

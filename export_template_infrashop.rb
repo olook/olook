@@ -4,6 +4,11 @@ include ProductsHelper
 header1 = ['RB Master Product Tree', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Atributos', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'SKU', '', '', '', '', '', '', '', '', '']
 header = ['',
           'ID SKU',
+          'Código Pai',
+          'Classificação Fiscal',
+          'Código de Barras',
+          'Preço',
+          'Origem da mercadoria',
           'Product ID',
           'Categoria',
           'N Mexer',
@@ -70,11 +75,16 @@ CSV.open('template_infrashop.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   csv << header1
   csv << header
   product_ids = Variant.where('inventory > 0').pluck(:product_id)
-  Variant.includes(:product).where(product_id: product_ids).order(:product_id).find_each(batch_size: 1000) do |variant|
+  Variant.includes(:product).order(:product_id).find_each(batch_size: 1000) do |variant|
     begin
     product = variant.product
     row = ['']
     row.push(variant.number) # 'ID SKU'
+    row.push(product.model_number) # 'Código Pai'
+          # 'Classificação Fiscal'
+          # 'Código de Barras'
+          # 'Preço'
+          # 'Origem da mercadoria'
     row.push(product.model_number) # 'Product ID'
     row.push("Home>#{product.category_humanize}>#{product.subcategory}>#{product.formatted_name(30)}") # 'Categoria'
     row.push('') # 'N Mexer'
