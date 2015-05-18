@@ -265,7 +265,8 @@ module Abacos
 
       Date.civil(year.to_i, month, 1)
     rescue
-      raise RuntimeError.new "Invalid collection '#{data}'"
+      puts "Invalid collection '#{data}'"
+      Date.civil(2014, 1, 1)
     end
 
     def keys_to_symbol(params)
