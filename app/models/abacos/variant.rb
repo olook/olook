@@ -22,6 +22,26 @@ module Abacos
         is_master:          "false" }
     end
 
+    def father_attributes
+      {
+        :name           => self.name,
+        :description    => self.description,
+        :category       => self.category,
+        :model_number   => self.model_number,
+        :color_name     => self.color_name,
+        :width          => self.width,
+        :height         => self.height,
+        :length         => self.length,
+        :weight         => self.weight,
+        :is_kit         => self.is_kit,
+        :producer_code  => self.producer_code,
+        :brand          => self.brand,
+        :barcode        => self.barcode,
+        :fiscal_classification => self.fiscal_classification,
+        :product_origin => self.product_origin
+      }
+    end
+
     def integrate
       product = ::Product.find_by_model_number(self.model_number)
       raise RuntimeError.new "O produto pai [#{self.model_number}] não foi encontrado, e com isso a variante #{self.number} nao pode ser integrada" if product.nil?
@@ -29,7 +49,10 @@ module Abacos
       variant = product.variants.find_by_number(self.number) || product.variants.build
       variant.copy_from_master_variant! if variant.new_record?
       variant.update_attributes(self.attributes)
-
+      father_attributes.each do |k, v|
+        product[k] = v if product[k].blank?
+      end
+      product.save!
       variant.save!
 
       confirm_variant

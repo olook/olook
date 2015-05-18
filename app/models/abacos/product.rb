@@ -54,15 +54,14 @@ module Abacos
     def find_or_initialize_product
       product = ::Product.find_by_model_number(self.model_number)
       if product.nil?
-        product = ::Product.new(
-          :model_number => self.model_number,
-          :name         => self.name,
-          :category     => self.category,
-          :description  => self.description,
-          :is_visible   => "false",
-          :is_kit       => self.is_kit,
-          :brand        => self.brand
-        )
+        product = ::Product.new
+        product.model_number = self.model_number
+        product.name         = self.name
+        product.category     = self.category
+        product.description  = self.description
+        product.is_visible   = "false"
+        product.is_kit       = self.is_kit
+        product.brand        = self.brand
         product.id = self.model_number.to_i
         product.save!
       end
