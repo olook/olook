@@ -14,6 +14,7 @@ module Abacos
           :error_class   => "Abacos Confirm Product product",
           :error_message => e.message
         )
+        raise e
       end
     end
   end
