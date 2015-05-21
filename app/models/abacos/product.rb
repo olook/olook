@@ -54,6 +54,7 @@ module Abacos
 
     def find_or_initialize_product
       product = ::Product.find_by_model_number(self.model_number)
+      product ||= ::Product.find_by_id(self.model_number)
       if product.nil?
         product = ::Product.new
         product.model_number = self.model_number
