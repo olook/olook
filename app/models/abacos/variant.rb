@@ -9,6 +9,14 @@ module Abacos
     attr_reader :integration_protocol,
                 :model_number, :number, :description, :display_reference
 
+    attr_reader :integration_protocol,
+                :name, :description, :model_number, :category,
+                :width, :height, :length, :weight, :color_category,
+                :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
+                :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code,
+                :barcode, :fiscal_classification, :product_origin
+
+
     def initialize(parsed_data)
       parsed_data.each do |key, value|
         self.instance_variable_set "@#{key}", value
