@@ -9,7 +9,8 @@ module Abacos
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
                 :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
-                :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code
+                :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code,
+                :barcode, :fiscal_classification, :product_origin
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -99,8 +100,8 @@ module Abacos
       product.profiles.destroy_all
       self.profiles.each do |profile_name|
         profile = Profile.where("lower(name) = :profile_name", :profile_name => profile_name.downcase).first
-        raise RuntimeError.new "Attemping to integrate invalid profile '#{profile_name}'" if profile.nil?
-        product.profiles << profile
+        # raise RuntimeError.new "Attemping to integrate invalid profile '#{profile_name}'" if profile.nil?
+        product.profiles << profile if profile.present?
       end
     end
 
