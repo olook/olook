@@ -1,0 +1,199 @@
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>olook</title>
+  </head>
+  <body bgcolor="#ffffff">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" width="620">
+      <tr>
+        <td align="center" height="5"></td>
+      </tr>
+      <tr>
+        <td>
+          <%= image_tag("email_mkt/new_topo_01.jpg", alt: "", border: "0", style: "display:block;") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table align="center" cellpadding="0" cellspacing="0" width="620">
+            <tr>
+              <td>
+                <%= image_tag("email_mkt/new_topo_02.jpg", alt: "", border: "0", style: "display:block;") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_03.jpg", alt: "", style: "display:block;", border: "0"), "http://www.facebook.com/olook") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_04.jpg", alt: "", style: "display:block;", border: "0"), "https://twitter.com/olook") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_06.jpg", alt: "", style: "display:block;", border: "0"), "http://statigr.am/olook") %>
+              </td>
+              <td>
+                <%= image_tag("email_mkt/gamb.jpg", alt: "", style: "display:block;", border: "0") %>
+              </td>
+              <td>
+                <%= image_tag("email_mkt/new_topo_07.jpg", alt: "", style: "display:block;", border: "0") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_08.jpg", alt: "", style: "display:block;", border: "0"), "http://www.olook.com.br") %>
+              </td>
+              <td>
+                <%= image_tag("email_mkt/new_topo_09.jpg", alt: "", style: "display:block;", border: "0") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table align="center" cellpadding="0" cellspacing="0" width="620">
+            <tr>
+              <td>
+                <%= image_tag("email_mkt/new_topo_10.jpg", alt: "", style: "display:block;", border: "0") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_11.jpg", alt: "Olook", style: "display:block;", border: "0"), root_url) %>
+              </td>
+              <td>
+                <%= image_tag("email_mkt/new_topo_12.jpg", alt: "", style: "display:block;", border: "0") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= image_tag("email_mkt/new_topo_13.jpg", alt: "", style: "display:block;", border: "0") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table align="center" cellpadding="0" cellspacing="0" width="620">
+            <tr>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_14.jpg", alt: "Olook", style: "display:block;", border: "0"), "http://www.olook.com.br/membro/vitrine") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_15.jpg", alt: "Olook", style: "display:block;", border: "0"), "http://www.olook.com.br/stylist-news") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_16.jpg", alt: "Olook", style: "display:block;", border: "0"), "http://www.olook.com.br/colecoes/olook") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/new_topo_17.jpg", alt: "Olook", style: "display:block;", border: "0"), "http://www.olook.com.br/membro/ganhe-creditos") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <td align="center">
+        <%= link_to(@link) do %>
+          <br/>
+          <%= image_tag("email_mkt/pesqimgmail_02.jpg", alt: "Pesquisa", style: "display:block;", border: "0") %>
+        <% end %>
+      </td>
+      <tr>
+        <td>
+          <table align="center" cellpadding="0" cellspacing="0" width="620">
+            <tr>
+              <td align="center" height="311" width="69">
+                <%= link_to(image_tag("email_mkt/pesqimgmail_03.jpg", alt: "Olook", style: "display:block;", border: "0"), @link) %>
+              </td>
+              <td align="center" height="311" width="483">
+                <p style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:13px; color:#292929; text-align:center; width:400px;">
+                  <br/>
+                  <br/>
+                  <br/>
+                  <b>
+                    <%= @order.user_first_name.titleize %>
+                    , obrigada por comprar com a gente.
+                  </b>
+                  <br/>
+                  <br/>
+                  Como voc&ecirc; recebeu um pedido da Olook recentemente, gostar&iacute;amos de saber um pouco mais sobre como foi a sua experi&ecirc;ncia de compra. Dessa forma, podemos melhorar nossos servi&ccedil;os e atend&ecirc;-la melhor, sempre.
+                  <br/>
+                  <br/>
+                  Por favor, responda a uma r&aacute;pida pesquisa sobre o nosso site, produtos e servi&ccedil;os.
+                  <br/>
+                  <br/>
+                </p>
+                <center>
+                  <%= link_to("RESPONDER A PESQUISA" , @link, :style => "font-family:Verdana,Helvetica,Arial;color:#ffffff; font-size:12px;text-decoration:none; background:#e61f2d; padding:13px;") %>
+                </center>
+                <br/>
+                <br/>
+              </td>
+              <td align="center" height="311" width="68">
+                <%= link_to(image_tag("email_mkt/pesqimgmail_05.jpg", alt: "Olook", style: "display:block;", border: "0"), @link) %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <td align="center">
+        <%= link_to(image_tag("email_mkt/pesqimgmail_06.jpg", alt: "Olook", style: "display:block;", border: "0"), @link) %>
+      </td>
+      <tr>
+        <td align="center">
+          <br/>
+          <%= image_tag("email_mkt/novofooter_01.jpg", alt: "Selecione o que voc&ecirc; quer", style: "display:block;", border: "0") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table align="center" border="0" cellpadding="0" cellspacing="0" width="620">
+            <tr>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_02.jpg", alt: "blusa", style: "display:block;", border: "0"), "http://www.olook.com.br/roupa/blusa-camisa") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_03.jpg", alt: "blusa", style: "display:block;", border: "0"), "http://www.olook.com.br/roupa/camisa") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_04.jpg", alt: "cal&ccedil;a", style: "display:block;", border: "0"), "http://www.olook.com.br/roupa/calca") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_05.jpg", alt: "vestido", style: "display:block;", border: "0"), "http://www.olook.com.br/roupa/vestido") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_06.jpg", alt: "anabela", style: "display:block;", border: "0"), "http://www.olook.com.br/sapato/anabela") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_07.jpg", alt: "bota", style: "display:block;", border: "0"), "http://www.olook.com.br/sapato/bota") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_08.jpg", alt: "sapatilha", style: "display:block;", border: "0"), "http://www.olook.com.br/sapato/sapatilha") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_09.jpg", alt: "scarpin", style: "display:block;", border: "0"), "http://www.olook.com.br/sapato/scarpin") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_10.jpg", alt: "sneakers", style: "display:block;", border: "0"), "http://www.olook.com.br/sapato/sneakers") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_11.jpg", alt: "acessório", style: "display:block;", border: "0"), "http://www.olook.com.br/acessorio") %>
+              </td>
+              <td>
+                <%= link_to(image_tag("email_mkt/novofooter_12.jpg", alt: "bolsa", style: "display:block;", border: "0"), "http://www.olook.com.br/bolsa") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <%= image_tag("email_mkt/linhagrossa.jpg", alt: "Divisão", style: "display:block;", border: "0") %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <br/>
+          <center>
+            <%= image_tag("email_mkt/bandeiras.jpg", alt: "bandeiras", style: "display:block;", border: "0") %>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
