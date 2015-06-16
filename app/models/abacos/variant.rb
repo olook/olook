@@ -18,8 +18,7 @@ module Abacos
                 :barcode, :fiscal_classification, :product_origin
 
     def self.perform(data)
-      self.new(data)
-      self.integrate
+      self.new(data).integrate
     end
 
     def initialize(parsed_data)
