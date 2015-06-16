@@ -252,7 +252,9 @@ class Product < ActiveRecord::Base
 
   def master_variant
     return @master_variant if @master_variant_found
-    set_master_variant Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+    mv = Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+    mv ||= create_master_variant
+    set_master_variant mv if mv.present?
   end
 
   def set_master_variant(variant)
@@ -545,8 +547,8 @@ class Product < ActiveRecord::Base
 
   [:price, :retail_price, :width, :height, :length, :weight].each do |attr|
     define_method( "#{attr}=" ) do |value|
-      master_variant[attr] = value
       self[attr] = value
+      master_variant[attr] = value if @master_variant_found
     end
   end
 
