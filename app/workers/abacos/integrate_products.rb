@@ -22,7 +22,7 @@ module Abacos
           if parsed_class == Abacos::Variant
             product = ::Product.find_by_model_number(parsed_data[:model_number])
             if product.nil?
-              Resque.enqueue(Abacos::Integrate, Abacos::Product, Abacos::Product.parse_abacos_data(abacos_product))
+              Resque.enqueue(Abacos::Integrate, 'Abacos::Product', Abacos::Product.parse_abacos_data(abacos_product))
             end
           end
           Resque.enqueue(Abacos::Integrate, parsed_class.to_s, parsed_data)
