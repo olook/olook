@@ -68,7 +68,6 @@ module Abacos
         product.is_visible   = "false"
         product.is_kit       = self.is_kit
         product.brand        = self.brand
-        product.id = self.model_number.to_i
         product.save!
       end
       product
