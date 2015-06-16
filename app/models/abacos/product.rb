@@ -44,8 +44,8 @@ module Abacos
     end
 
     def integrate
+      product = find_or_initialize_product
       ::Product.transaction do
-        product = find_or_initialize_product
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)
