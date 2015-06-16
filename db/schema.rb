@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150517213946) do
+ActiveRecord::Schema.define(:version => 201506160082732) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
 
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
-    t.integer  "product_id"
+    t.integer  "product_id",             :limit => 8
     t.integer  "category_id"
     t.string   "subcategory_name"
     t.string   "subcategory_name_label"
@@ -249,13 +249,13 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
     t.string   "shoe_size_label"
     t.string   "heel"
     t.string   "heel_label"
-    t.decimal  "original_price",         :precision => 10, :scale => 2
-    t.decimal  "retail_price",           :precision => 10, :scale => 2
+    t.decimal  "original_price",                      :precision => 10, :scale => 2
+    t.decimal  "retail_price",                        :precision => 10, :scale => 2
     t.float    "discount_percent"
-    t.integer  "variant_id"
+    t.integer  "variant_id",             :limit => 8
     t.integer  "inventory"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
     t.string   "cloth_size"
     t.string   "brand"
   end
@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
 
   create_table "collection_themes_products", :id => false, :force => true do |t|
     t.integer "collection_theme_id"
-    t.integer "product_id"
+    t.integer "product_id",          :limit => 8
   end
 
   create_table "collections", :force => true do |t|
@@ -364,12 +364,12 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
     t.string   "category"
     t.date     "day"
     t.integer  "amount"
-    t.decimal  "total",        :precision => 8, :scale => 2
+    t.decimal  "total",                     :precision => 8, :scale => 2
     t.string   "subcategory"
-    t.decimal  "total_retail", :precision => 8, :scale => 2
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "product_id"
+    t.decimal  "total_retail",              :precision => 8, :scale => 2
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.integer  "product_id",   :limit => 8
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -440,7 +440,7 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
   add_index "credits", ["user_id"], :name => "index_credits_on_user_id"
 
   create_table "details", :force => true do |t|
-    t.integer  "product_id"
+    t.integer  "product_id",        :limit => 8
     t.string   "translation_token"
     t.text     "description"
     t.integer  "display_on"
@@ -463,10 +463,10 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "freebie_variants", :force => true do |t|
-    t.integer  "variant_id"
+    t.integer  "variant_id", :limit => 8
     t.integer  "freebie_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "freight_ab_test_report", :id => false, :force => true do |t|
@@ -534,9 +534,9 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
 
   create_table "gift_boxes_products", :force => true do |t|
     t.integer  "gift_box_id"
-    t.integer  "product_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "product_id",  :limit => 8
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   create_table "gift_occasion_types", :force => true do |t|
@@ -672,14 +672,14 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
   end
 
   create_table "line_items", :force => true do |t|
-    t.integer "variant_id"
+    t.integer "variant_id",   :limit => 8
     t.integer "order_id"
     t.integer "quantity"
-    t.decimal "price",        :precision => 8,  :scale => 3
+    t.decimal "price",                     :precision => 8,  :scale => 3
     t.boolean "gift"
-    t.decimal "retail_price", :precision => 8,  :scale => 3
-    t.boolean "is_freebie",                                  :default => false
-    t.decimal "sale_price",   :precision => 10, :scale => 2, :default => 0.0
+    t.decimal "retail_price",              :precision => 8,  :scale => 3
+    t.boolean "is_freebie",                                               :default => false
+    t.decimal "sale_price",                :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
@@ -691,25 +691,25 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "product_id"
+    t.integer  "product_id",     :limit => 8
   end
 
   create_table "liquidation_previews", :force => true do |t|
-    t.integer  "product_id"
+    t.integer  "product_id", :limit => 8
     t.integer  "visibility"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
 
   create_table "liquidation_products", :force => true do |t|
     t.integer  "liquidation_id"
-    t.integer  "product_id"
+    t.integer  "product_id",             :limit => 8
     t.integer  "category_id"
     t.string   "subcategory_name"
-    t.decimal  "original_price",         :precision => 10, :scale => 2
-    t.decimal  "retail_price",           :precision => 10, :scale => 2
+    t.decimal  "original_price",                      :precision => 10, :scale => 2
+    t.decimal  "retail_price",                        :precision => 10, :scale => 2
     t.float    "discount_percent"
     t.integer  "shoe_size"
     t.string   "heel"
@@ -719,7 +719,7 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
     t.string   "shoe_size_label"
     t.string   "heel_label"
     t.string   "subcategory_name_label"
-    t.integer  "variant_id"
+    t.integer  "variant_id",             :limit => 8
   end
 
   add_index "liquidation_products", ["liquidation_id"], :name => "index_liquidation_products_on_liquidation_id"
@@ -937,10 +937,10 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
   create_table "pictures", :force => true do |t|
     t.string   "image"
     t.integer  "display_on"
-    t.integer  "product_id"
+    t.integer  "product_id", :limit => 8
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position",   :default => 100
+    t.integer  "position",                :default => 100
   end
 
   add_index "pictures", ["position"], :name => "index_pictures_on_position"
@@ -960,19 +960,19 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
 
   create_table "product_interests", :force => true do |t|
     t.integer  "campaign_email_id"
-    t.integer  "product_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "product_id",        :limit => 8
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "subcategory"
     t.string   "color"
   end
 
   create_table "product_price_logs", :force => true do |t|
-    t.integer  "product_id"
-    t.decimal  "price",        :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "retail_price", :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.integer  "product_id",   :limit => 8
+    t.decimal  "price",                     :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "retail_price",              :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
   end
 
   create_table "products", :force => true do |t|
@@ -1361,11 +1361,11 @@ ActiveRecord::Schema.define(:version => 20150517213946) do
   add_index "weights", ["profile_id"], :name => "index_weights_on_profile_id"
 
   create_table "wished_products", :force => true do |t|
-    t.integer  "variant_id"
+    t.integer  "variant_id",   :limit => 8
     t.integer  "wishlist_id"
-    t.decimal  "retail_price", :precision => 10, :scale => 0
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "retail_price",              :precision => 10, :scale => 0
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
   end
 
   create_table "wishlists", :force => true do |t|
