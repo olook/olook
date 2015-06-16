@@ -68,6 +68,8 @@ module Abacos
         product.is_visible   = "false"
         product.is_kit       = self.is_kit
         product.brand        = self.brand
+        next_id = ::Product.order(:id).last.id + 1
+        product.id = next_id
         product.save!
       end
       product
