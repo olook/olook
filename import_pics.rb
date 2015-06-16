@@ -18,8 +18,8 @@ ps.each do |cod_pai, pics|
       i = ind + 1
       i = 7 if i > 7
       data = { remote_image_url: pic_url, display_on: i, product_id: product.id }
-      Resque.enqueue(PictureImportWorker, data)
-      #PictureImportWorker.perform data
+      Resque.enqueue(PictureImporterWorker, data)
+      #PictureImporterWorker.perform data
       puts "Enqueued #{data.inspect}"
     end
   rescue => e
