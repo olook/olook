@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Variant
+    @queue = 'medium'
 
     M_OFFICER_TABLE_SIZE = {"1" => "P", "2" => "M", "3" => "G"}
 
@@ -16,6 +17,10 @@ module Abacos
                 :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code,
                 :barcode, :fiscal_classification, :product_origin
 
+    def self.perform(data)
+      self.new(data)
+      self.integrate
+    end
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|

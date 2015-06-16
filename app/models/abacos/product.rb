@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Product
+    @queue = 'high'
     extend ::Abacos::Helpers
 
     PRODUCT_COLOR_FIELDS = ["Cor fornecedor", "Cor produto", "Cor filtro"]
@@ -11,6 +12,11 @@ module Abacos
                 :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
                 :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code,
                 :barcode, :fiscal_classification, :product_origin
+
+    def self.perform(data)
+      self.new(data)
+      self.integrate
+    end
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|

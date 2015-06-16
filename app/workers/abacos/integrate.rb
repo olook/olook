@@ -5,8 +5,7 @@ module Abacos
 
     def self.perform(klass, parsed_data)
       begin
-        entity = klass.constantize.new parsed_data
-        entity.integrate
+        Resque.enqueue klass, parsed_data
       rescue Exception => e
         product_number = parsed_data[:number] || parsed_data[:model_number]
         Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!(product_number, e.message)
