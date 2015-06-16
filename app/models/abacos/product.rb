@@ -68,7 +68,7 @@ module Abacos
         product.brand        = self.brand
         product.save!
       end
-      product.create_master_variant unless product.master_variant.present?
+      product.send :create_master_variant unless product.master_variant.present?
       product
     end
 
