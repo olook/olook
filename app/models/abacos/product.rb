@@ -45,15 +45,13 @@ module Abacos
 
     def integrate
       product = find_or_initialize_product
-      ::Product.transaction do
-        integrate_attributes(product)
-        integrate_details(product)
-        integrate_profiles(product)
-        if product.is_kit
-          create_kit_variant
-        else
-          confirm_product
-        end
+      integrate_attributes(product)
+      integrate_details(product)
+      integrate_profiles(product)
+      if product.is_kit
+        create_kit_variant
+      else
+        confirm_product
       end
     end
 
