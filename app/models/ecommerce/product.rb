@@ -608,6 +608,11 @@ class Product < ActiveRecord::Base
     end
 
     def create_master_variant
+      master = Variant.unscoped.where(number: "master#{self.model_number}", is_master: true).first
+      if master && master.product_id != self.id
+        master.update_attributes product_id: self.id
+        return
+      end
       @master_variant = Variant.new(:is_master => true,
                                     :product => self,
                                     :number => "master#{self.model_number}",

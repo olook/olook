@@ -11,6 +11,7 @@ class ChangeProductIdToBigint < ActiveRecord::Migration
     change_column :pictures, :product_id, 'bigint'
     change_column :product_interests, :product_id, 'bigint'
     change_column :product_price_logs, :product_id, 'bigint'
+    change_column :variants, :product_id, 'bigint'
 
     change_column :variants, :id, 'bigint not null auto_increment'
     change_column :catalog_products, :variant_id, 'bigint'
