@@ -17,8 +17,7 @@ ps.each do |cod_pai, pics|
     pics.each_with_index do |pic_url, ind|
       i = ind + 1
       i = 7 if i > 7
-      r = product.pictures.create(remote_image_url: pic_url, display_on: i)
-      puts r.inspect
+      Resque.enqueue(PictureImportWorker, remote_image_url: pic_url, display_on: i, product_id: product.id)
     end
   rescue => e
     puts "#{e.class}: #{e.message}\n#{e.backtrace.first}"
