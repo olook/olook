@@ -253,7 +253,6 @@ class Product < ActiveRecord::Base
   def master_variant
     return @master_variant if @master_variant_found
     mv = Variant.unscoped.where(:product_id => self.id, :is_master => true).first
-    mv ||= create_master_variant
     set_master_variant mv if mv.present?
   end
 

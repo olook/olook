@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Picture < ActiveRecord::Base
   belongs_to :product
-  validates :product, :image, :presence => true
   has_enumeration_for :display_on, :with => DisplayPictureOn
   mount_uploader :image, PictureUploader
   after_update :invalidate_cdn_image
