@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class ConfirmProduct
-    @queue = 'high'
+    @queue = 'urgent'
 
     def self.perform(protocol, product_number)
       begin
