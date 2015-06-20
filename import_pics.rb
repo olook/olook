@@ -13,12 +13,12 @@ ps.each do |cod_pai, pics|
   begin
     product = Product.find_by_model_number cod_pai
     puts("Not Found #{cod_pai}") || next if product.blank?
+    pic_ids = product.pictures.pluck(:id)
     pics.each do |hash|
       pic_url = hash[:url]
       i = hash[:display_on]
       data = { remote_image_url: pic_url, display_on: i, product_id: product.id }
-      Resque.enqueue(PictureImporterWorker, data)
-      #PictureImporterWorker.perform data
+      Resque.enqueue(PictureImporterWorker, data, delete_ids: pic_ids)
       puts "Enqueued #{data.inspect}"
     end
   rescue => e
