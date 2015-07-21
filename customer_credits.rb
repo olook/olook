@@ -2,9 +2,9 @@ ActiveRecord::Base.logger = Logger.new STDOUT
 
 header = ["UserID", "Email", "CreditsAvailable", "FutureCredits", "QtyOrders", "LastOrder"]
 
-CSV.open('customer_credist.csv', 'wb', encoding: 'iso-8859-1') do |csv|
+CSV.open('customer_credits.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   csv << header
-  User.find_each(batch_size: 1000) do |user|
+  User.limit(10) do |user|
     row = []
     row.push(user.id)
     row.push(user.email)
@@ -26,3 +26,16 @@ CSV.open('customer_credist.csv', 'wb', encoding: 'iso-8859-1') do |csv|
     csv << row
   end
 end
+
+`gzip -f9 customer_credits.csv`
+class ReportMailer < ActionMailer::Base
+  def report
+    attachments['customer_credits.csv.gz'] = File.read('customer_credits.csv.gz')
+    mail(from: 'tech@olook.com.br', to: 'nelsonmhjr@gmail.com', subject: "Report Customer Credits") do |format|
+      format.text { render text: 'User Credits' }
+      format.html { render text: '<p>User <b>Credits</b></p>'.html_safe }
+    end
+  end
+end
+
+ReportMailer.report.deliver
