@@ -4,7 +4,7 @@ header = ["UserID", "Email", "CreditsAvailable", "FutureCredits", "QtyOrders", "
 
 CSV.open('customer_credits.csv', 'wb', encoding: 'iso-8859-1') do |csv|
   csv << header
-  User.limit(10) do |user|
+  User.find_each(batch_size: 1000) do |user|
     row = []
     row.push(user.id)
     row.push(user.email)
