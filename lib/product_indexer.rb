@@ -18,7 +18,7 @@ class ProductIndexer
 
   def entities_to_remove(entity_ids)
     _products = Product.where(price: 0).where(id: entity_ids).includes(:pictures).all
-    _products.select! {|p| p.main_picture.nil? || p.main_picture[:image].nil? }
+    _products.concat(Product.where('price > 0').where(id: entity_ids).includes(:pictures).all.select {|p| p.main_picture.nil? || p.main_picture[:image].nil? })
     _products
   end
 

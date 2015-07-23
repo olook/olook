@@ -11,7 +11,7 @@ module Search
 
     def create_sdf_entry_for(entity, type)
       document = @adapter.adapt(entity,type)
-      document.to_document
+      document.to_document(type)
     end
 
     def sdf_entries(entities, type)
