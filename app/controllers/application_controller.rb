@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
-  http_basic_authenticate_with name: "orlok", password: "orlok" if Rails.env.staging?
+  http_basic_authenticate_with name: "olook", password: "koolook"
   protect_from_forgery
   layout "lite_application"
 
